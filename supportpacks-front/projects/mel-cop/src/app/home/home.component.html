@@ -1,0 +1,137 @@
+<div class="form-group row">
+    <div class="col-sm-2 text-center">
+        <img class="" src="../../assets/images/cgiar_logo.png" alt="" height="140px">
+    </div>
+    <div class="col-sm-10 text-center">
+        <img src="../../assets/images/MEL_COP_Logo.png" alt="" height="140px">
+    </div>
+    <br />
+
+</div>
+<section class="site-description">
+    <p>The CGIAR Monitoring, Evaluation and Learning Support Pack is a guide and compilation of documents,
+        templates, examples and experience sharing. It can be searched by user groups (program manager, project
+        manager, Monitoring and Evaluation expert), stages along the research for development lifecycle (design,
+        implementation, closure) or by thematic areas. The resource materials or links to useful external sources
+        are graded for each group and stage as very important, useful, optional. </p>
+
+    <p>The toolkit has (see at the bottom) a download functionality to access the templates and examples and an
+        upload functionality by which we invite colleagues and partners to add any useful resource to the toolkit.
+        The upload button triggers a brief checking process to ensure the proposed materials are relevant and of the
+        desired quality (including given credits and taking care of branding).</p>
+
+    <p>Please share any feedback and improvement suggestions with us, we will try and address these as much as
+        possible.</p>
+</section>
+
+<div class="selectionBlock form-group row">
+    <div ngbDropdown class="d-inline-block col-sm-4 text-center" #roleDrop="ngbDropdown"
+        (mouseenter)="$event.stopPropagation(); roleDrop.open();"
+        (mouseleave)="$event.stopPropagation(); roleDrop.close();">
+        <button class="btn btn-danger align-self-center col justify-content-between d-flex"
+            [class.select-active]="filterData.role !== 'Choose a Role...'" id="filter-role" ngbDropdownToggle>
+            <img src="../../assets/images/icon-1.png" alt=""><span class="optionText">{{filterData.role}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="filter-role">
+            <button *ngFor="let role of roles" ngbDropdownItem [class.active]="role.name == filterData.role"
+                (click)="selectFilter('role',role)">{{role.name}}</button>
+        </div>
+    </div>
+
+    <div ngbDropdown class="d-inline-block col-sm-4 text-center" #stageDrop="ngbDropdown"
+        (mouseenter)="$event.stopPropagation(); stageDrop.open();"
+        (mouseleave)="$event.stopPropagation(); stageDrop.close();">
+        <button class="btn btn-danger align-self-center col justify-content-between d-flex"
+            [class.select-active]="filterData.stage !== 'Choose when...'" id="filter-stage" ngbDropdownToggle>
+            <img src="../../assets/images/icon-2.png" alt=""><span class="optionText">{{filterData.stage}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="filter-stage">
+            <button *ngFor="let stage of stages" ngbDropdownItem [class.active]="stage.name == filterData.stage"
+                (click)="selectFilter('stage',stage)">{{stage.name}}</button>
+        </div>
+    </div>
+
+    <div ngbDropdown class="d-inline-block col-sm-4 text-center" #categoryDrop="ngbDropdown"
+        (mouseenter)="$event.stopPropagation(); categoryDrop.open();"
+        (mouseleave)="$event.stopPropagation(); categoryDrop.close();">
+        <button class="btn btn-danger align-self-center col justify-content-between d-flex"
+            [class.select-active]="filterData.category !== 'Choose what...'" id="filter-category" ngbDropdownToggle>
+            <img src="../../assets/images/icon-3.png" alt=""><span class="optionText">{{filterData.category}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="filter-category">
+            <button *ngFor="let category of categories" ngbDropdownItem
+                [class.active]="category.name == filterData.category"
+                (click)="selectFilter('category',category)">{{category.name}} </button>
+        </div>
+    </div>
+</div>
+
+<!-- Profile selection for search -->
+<div class="resultsBlock form-group">
+    <div class="col removeFilters">
+        <button *ngIf="filterDataId.role" class="btn btn-outline-danger col-sm-2"
+            (click)="selectFilter('role',{name:'Choose a Role...', id: null})">{{filterData.role}} <span
+                aria-hidden="true">&times;</span></button>
+        <button *ngIf="filterDataId.stage" class="btn btn-outline-danger col-sm-2"
+            (click)="selectFilter('stage',{name:'Choose when...', id: null})">{{filterData.stage}} <span
+                aria-hidden="true">&times;</span></button>
+        <button *ngIf="filterDataId.category" class="btn btn-outline-danger col-sm-2"
+            (click)="selectFilter('category',{name:'Choose what...', id: null})">{{filterData.category}} <span
+                aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="results-selection" [@inOutAnimation] *ngIf="!validateFilterData()">
+        <p class="text-center">Please select the <span class="nOptions">3</span> option(s) above</p>
+        <div class="text-center">
+            <img class="checkIcon check-role" (click)="selectFilter('role',{name:'Choose a Role...', id: null})"
+                [style.opacity]="(filterData.role !== 'Choose a Role...') ? 1:0.4" src="../../assets/images/icon-1.png"
+                alt="">
+            <img class="checkIcon check-stage" (click)="selectFilter('stage',{name:'Choose when...', id: null})"
+                [style.opacity]="(filterData.stage !== 'Choose when...') ? 1:0.4" src="../../assets/images/icon-2.png"
+                alt="">
+            <img class="checkIcon check-category" (click)="selectFilter('category',{name:'Choose what...', id: null})"
+                [style.opacity]="(filterData.category !== 'Choose what...') ? 1:0.4"
+                src="../../assets/images/icon-3.png" alt="">
+        </div>
+    </div>
+
+    <!-- data list -->
+    <data-list [data]="filterDataId" [names]="filterData"></data-list>
+
+</div>
+<ngx-spinner></ngx-spinner>
+
+<footer>
+    <hr>
+    <div class="buttons-block row">
+        <a class="btn btn-outline-secondary btn-sm" style="margin-right: 10px;" routerLink="../resources"
+            routerLinkActive="active" role="button">
+            <fa-icon [icon]="faList" class="fa-icon"></fa-icon>
+            View all resources
+        </a>
+        <a class="btn btn-outline-secondary btn-sm" routerLink="products" routerLinkActive="active" role="button">
+            <fa-icon [icon]="faPaperPlane" class="fa-icon"></fa-icon>
+            Request to upload a resource
+        </a>
+
+        <a class="btn ml-auto" style="margin-right: 10px;" *ngIf="!currentUser" (click)="open(content)">
+            <fa-icon [icon]="faUserCircle"  class="fa-icon"></fa-icon>
+        </a>
+        <a class="btn ml-auto" style="margin-right: 10px;" *ngIf="currentUser" (click)="logOut()">
+            <fa-icon [icon]="faSignOutAlt" class="far fa-icon"></fa-icon>
+        </a>
+    </div>
+</footer>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Login</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-login (userLogged)="onUserLogged($event)"></app-login>
+    </div>
+</ng-template>

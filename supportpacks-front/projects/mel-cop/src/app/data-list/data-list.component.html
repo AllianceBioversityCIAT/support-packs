@@ -1,0 +1,46 @@
+<div class="" [@inOutAnimation] *ngIf="validateFilterData()">
+    <div id="step1" class="">
+        <h3 class="blockTitle">Documents recomended</h3>
+        <i class="messageResult">
+            <b class="nDocuments">{{recomendedDocs.length}} </b> Documents found for a <b>{{names.role}}</b> at
+            <b>{{names.stage}}</b>
+            stage
+        </i>
+        <div class="docResults">
+            <h5>{{names.category}}</h5>
+            <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+
+                <div *ngFor="let doc of recomendedDocs; let i=index">
+                    <div class="input-group row docRow">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="doc-{{doc.id}}" [value]="doc.id"
+                                    (change)="onCheckboxChange($event)" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                        <div class="input-group-prepend-txt d-flex col justify-content-between">
+                            <label for="doc-{{doc.id}}">
+                                {{doc.name}}
+                            </label>
+
+                            <span class="importanceLevel {{doc.importance_level.toLowerCase().split(' ').join('-')}}">
+                                {{doc.importance_level}}
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <p class="error" *ngIf="this.form.controls['docsArray'].errors?.required">
+                    Checkbox is required, select atleast one value.
+                </p>
+                <input id="filtered-type" [disabled]="this.form.controls['docsArray'].errors?.required"
+                    class="download 1 btn btn-primary" type="submit" value="Download chosen documents">
+            </form>
+            <ngx-spinner></ngx-spinner>
+        </div>
+    </div>
+</div>
+
+
+<tc-module [docsArray]="selectedArray" [selectedGuidiline]="selectedData" [@inOutAnimation] *ngIf="isVisible" (goBack)="onBack($event)"></tc-module>

@@ -1,0 +1,179 @@
+<div>
+
+    <!--Terms and conditions -->
+    <div id="step3" class="col-xs-12" [@inOutAnimation] *ngIf="step3">
+        <h3 class="headTitle">Terms and conditions</h3>
+        <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
+            <p>To continue downloading your files, please first fill in your email and then some basic information.
+                This
+                information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting
+                purposes.
+                Filling it in will greatly help us to track the use of the portal and keep improving it. This portal
+                provides
+                data to a very large community of users and improving its usability and efficiency is a key aspect
+                we work
+                on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download
+                links
+                directly.
+            </p>
+            <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
+
+                <div class="row col form-group">
+                    <label for="mail"><b>Email:</b></label>
+                    <input type="email" class="form-control" formControlName="email" required />
+
+                </div>
+                <br>
+                <div class="d-flex col justify-content-between">
+                    <div class="col-3 row justify-content-between">
+                        <a (click)="goBackBtn()" class="download 4 btn btn-primary">
+                            Go Back
+                        </a>
+                        <button type="submit" class="download 2 btn btn-primary" [disabled]="!emailForm.valid">
+                            Next
+                        </button>
+                    </div>
+                    <button class="col-2 skip 2 btn btn-info pull-right">Skip</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!--end terms and conditions -->
+
+    <!--Terms and conditions next-->
+    <div id="step4" class="col-xs-12" [@inOutAnimation] *ngIf="step4">
+        <h3 class="headTitle">Terms and conditions</h3>
+        <div id="step4-form" class="grayBox" style="background: #f1f1f1; padding: 2em; color: #444;">
+
+            <form [formGroup]="tc_Form" (ngSubmit)="onSetTC()">
+                <div class="form-group">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for='first_name'>First name:
+                                <input type="text" id="first_name" class="form-control" formControlName="first_name"
+                                    required />
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for='last_name'>Last name:
+                                <input type="text" id="last_name" class="form-control" formControlName="last_name"
+                                    required />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for='institute_name'>Institute name:
+                            <input type="text" id="institute_name" class="form-control" formControlName="institute_name"
+                                required />
+                        </label>
+                    </div>
+
+                    <div class="form-goup row">
+                        <div class="col-sm-6">
+                            <h5 class="headTitle">Region(s) of your research interest: </h5>
+                            <div *ngFor="let region of regions; let index = i">
+                                <div class="inputsFlat">
+                                    <input type="checkbox" (change)="onCheckboxChange($event, 'research_regions')"
+                                        id="region-research-{{region.id}}" [value]="region.id" name="reserch-regions">
+                                    <label class="checkbox-label">
+                                        {{region.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5 class="headTitle">Region(s) where your institute is located: </h5>
+                            <div *ngFor="let region of regions; let index = i">
+                                <div class="inputsFlat">
+                                    <input type="checkbox" (change)="onCheckboxChange($event, 'institute_regions')"
+                                        id="locations-{{region.id}}" [value]="region.id" name="locations-regions">
+                                    <label class="checkbox-label">
+                                        {{region.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="use">Intended use of data: </label>
+                        <textarea id="use" class="form-control" name="use" formControlName="use" cols="70" rows="3"
+                            required></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex col justify-content-between">
+                    <div class="col-3 row justify-content-between">
+                        <button type="submit" class="download 2 btn btn-primary" [disabled]="!tc_Form.valid"
+                            (click)="step5 = true">
+                            Next
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--end terms and conditions next-->
+
+
+
+    <!--Download step-->
+    <div id="step5" class="col-xs-12" [@inOutAnimation] *ngIf="step5">
+        <h3 class="headTitle">Download</h3>
+        <div id="result">
+            <div id="guidelines">
+                <ul *ngFor="let guide of selectedGuidiline">
+                    <li class="guideline type-0 ">
+                        <p (click)="openFile(guide, content)" style="margin-bottom: 0;">
+                        <!-- <p (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer;"> -->
+                            <b>
+                                {{guide.name}}
+                            </b>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <!-- <div class="col-6 row justify-content-between">
+                <button type="submit" class="download 2 btn btn-primary" (click)="downloadFiles()">
+                    Download [<span class="nfiles">{{selectedGuidiline.length}}</span>] Files
+                </button>
+
+            </div> -->
+            <button class="download col-2 btn btn-info" (click)="goBackBtn()">
+                Go back
+            </button>
+        </div>
+        <ngx-spinner></ngx-spinner>
+    </div>
+
+
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="dateOfBirth">Date of birth</label>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
+

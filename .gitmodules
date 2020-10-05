@@ -1,0 +1,9 @@
+[submodule "SupportPacks-back"]
+  path = SupportPacks-back
+  url = https://github.com/CCAFS/support-packs.git/
+  update = merge #
+
+[submodule "supportpacks-front"]
+  path = supportpacks-front
+  url = https://github.com/CCAFS/support-packs.git/
+  update = merge #
