@@ -70,7 +70,7 @@ export class DataListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBack() {
+  onBack(ev) {
     this.isVisible = false;
     this.form = this.fb.group({
       docsArray: this.fb.array([], [Validators.required])
