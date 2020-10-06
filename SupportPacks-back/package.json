@@ -25,12 +25,12 @@
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.63",
     "typescript": "^4.0.2"
   },
   "dependencies": {
     "@types/validator": "^13.1.0",
     "bcryptjs": "^2.4.3",
+    "ts-node-dev": "^1.0.0-pre.63",
     "class-validator": "^0.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
