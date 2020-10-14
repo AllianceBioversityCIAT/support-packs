@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
-        console.log('here')
         this.init();
       }
     });
@@ -77,8 +76,6 @@ export class HomeComponent implements OnInit {
     this.spinner.show()
     this.getFilters();
     this.currentUser = this.authenticationService.currentUserValue;
-    console.log('here init', this.currentUser)
-
   }
 
 

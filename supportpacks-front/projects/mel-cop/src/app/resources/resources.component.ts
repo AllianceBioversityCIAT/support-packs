@@ -30,7 +30,6 @@ export class ResourcesComponent implements OnInit {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
-        console.log('here')
         this.init();
       }
     });
@@ -60,8 +59,8 @@ export class ResourcesComponent implements OnInit {
   }
 
   getAllGuidelines() {
-    this.spinner.show()
-    let id = this.currentUser ? this.currentUser['user'].id : undefined
+    this.spinner.show();
+    let id = this.currentUser ? this.currentUser.user.id : undefined
     this.sppServices.getAllGuidelines(id)
       .subscribe(
         res => {
