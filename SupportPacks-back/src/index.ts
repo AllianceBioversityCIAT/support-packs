@@ -16,7 +16,7 @@ const parentDir = require('path').resolve(process.cwd(), '../');
 const PORT: number = parseInt(process.env.PORT as string, 10);
 const HOST = process.env.LOCALHOST;
 
-console.log(parentDir)
+// console.log(parentDir)
 // Create a new express application instance
 const app = express();
 // Call midlewares
@@ -29,7 +29,7 @@ app.use(express.static(parentDir + '/supportpacks-front/dist/mel-cop/'));
 
 //routes
 app.use("/api", routes);
-console.log(HOST, PORT)
+// console.log(HOST, PORT)
 app.get('/', (req, res) => {
     res.sendFile(parentDir + "/supportpacks-front/dist/mel-cop/index.html")
 });
