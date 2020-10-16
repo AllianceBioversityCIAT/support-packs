@@ -25,6 +25,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { environment } from '../environments/environment';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     DataListDirective,
     DataListComponent,
     ResourcesComponent,
-    LoginComponent
+    LoginComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,
@@ -50,9 +52,10 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    SortPipe
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

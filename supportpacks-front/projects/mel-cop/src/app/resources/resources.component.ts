@@ -2,7 +2,7 @@ import { Component, OnInit, PipeTransform } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { SppServices } from '../services/spp-services.service';
 
 // import { faChevronLeft, faToggleOff, faToggleOn } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,7 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss']
 })
+
 export class ResourcesComponent implements OnInit {
 
   filter = new FormControl('');
@@ -22,9 +23,14 @@ export class ResourcesComponent implements OnInit {
   allGuides = [];
   roles = [];
   stages = [];
+  importanceLevels = [
+    { name: 'Very important', value: 4 },
+    { name: 'Important', value: 3 },
+    { name: 'Useful', value: 2 },
+    { name: 'Optional', value: 1 },
+  ];
 
   currentUser: User;
-
 
   constructor(private fb: FormBuilder, private sppServices: SppServices, private router: Router, private spinner: NgxSpinnerService, private authenticationService: AuthService) {
     this.router.events.subscribe((e: any) => {
@@ -39,15 +45,14 @@ export class ResourcesComponent implements OnInit {
   }
   init() {
     this.currentUser = this.authenticationService.currentUserValue;
-    console.log(this.currentUser)
     this.getAllGuidelines();
     this.getStages();
     this.getRoles();
   }
 
   activeGuide(guide) {
-    console.log(guide)
     guide.active = !guide.active;
+    // console.log(guide)
   }
 
   parseRolByStage(guide: any, role: any, stage: any) {
@@ -58,13 +63,23 @@ export class ResourcesComponent implements OnInit {
     }
   }
 
+  getGuideRolByStage(guide: any, role: string, stage: string) {
+    if (Object.keys(guide.stages).length !== 0 && guide.stages.constructor === Object) {
+      let gStage = guide.stages[stage];
+      let impLvl = gStage.find(stg => stg.role == role).importance_level;
+      return impLvl;
+    }
+    return 1
+  }
+
+
   getAllGuidelines() {
     this.spinner.show();
     let id = this.currentUser ? this.currentUser.user.id : undefined
     this.sppServices.getAllGuidelines(id)
       .subscribe(
         res => {
-          // console.log(res);
+          console.log(res);
           this.allGuides = res;
           this.guidelines$ = this.filter.valueChanges.pipe(
             startWith(''),

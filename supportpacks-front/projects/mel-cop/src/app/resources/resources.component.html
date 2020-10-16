@@ -1,5 +1,6 @@
 <div class="row">
-    <fa-icon [icon]="['fas', 'chevron-left']" class="fa-icon" size="2x" routerLink="/home" routerLinkActive="active"></fa-icon>
+    <fa-icon [icon]="['fas', 'chevron-left']" class="fa-icon" size="2x" routerLink="/home" routerLinkActive="active">
+    </fa-icon>
     <h2 class="col-8">M&E Guidelines</h2>
 </div>
 <div class="grayBox form-group">
@@ -15,7 +16,8 @@
             <th colspan="3">
                 <form>
                     <div class="form-group form-inline align-middle" style="margin: 0;">
-                        Search: <input class="form-control ml-2" style="width: 80%;" type="text" [formControl]="filter" />
+                        Search: <input class="form-control ml-2" style="width: 80%;" type="text"
+                            [formControl]="filter" />
                     </div>
                 </form>
             </th>
@@ -39,22 +41,40 @@
     <tbody>
         <tr *ngFor="let guide of guidelines$ | async; index as i">
             <th scope="row" class="align-middle">{{guide.code}}</th>
-            <td class="col-6 align-middle"  >
+            <td class="col-6 align-middle">
                 <ngb-highlight class="align-middle" [result]="guide.name" [term]="filter.value"></ngb-highlight>
             </td>
-            <td class="text-center align-middle" *ngIf="currentUser" style="border: 2px solid #dee2e6">
+            <td class="text-center align-middle col-1" *ngIf="currentUser" style="border: 2px solid #dee2e6">
                 <!-- {{guide.active}} -->
                 <a class="btn" (click)="activeGuide(guide)">
-                    <fa-icon icon="" *ngIf="guide.active" [icon]="['fas', 'toggle-on']" size="2x" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
-                    <fa-icon icon="" *ngIf="!guide.active" [icon]="['fas', 'toggle-off']" size="2x" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+                    <fa-icon icon="" *ngIf="guide.active" [icon]="['fas', 'toggle-on']" size="2x"
+                        [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
+                    <fa-icon icon="" *ngIf="!guide.active" [icon]="['fas', 'toggle-off']" size="2x"
+                        [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
                 </a>
             </td>
             <ng-container *ngFor="let stage of stages">
-                <td title="{{ role.name }}-{{ stage.name }}" style="border: 2px solid #dee2e6"
-                    class="text-center col align-middle level-{{parseRolByStage(guide, role, stage)}} "
-                    *ngFor="let role of roles">
-                    {{parseRolByStage(guide, role, stage)}}
-                </td>
+                <ng-container *ngIf="!currentUser">
+                    <td title="{{ role.name }}-{{ stage.name }}" style="border: 2px solid #dee2e6"
+                        class="text-center col align-middle level-{{parseRolByStage(guide, role, stage)}} "
+                        *ngFor="let role of roles">
+                        {{parseRolByStage(guide, role, stage)}}
+                    </td>
+                </ng-container>
+
+
+                <ng-container *ngIf="currentUser">
+                    <td ngbDropdown *ngFor="let role of roles" title="{{ role.name }}-{{ stage.name }}"
+                        style="border: 2px solid #dee2e6"
+                        class="text-center col align-middle level-{{parseRolByStage(guide, role, stage)}}"
+                        style="cursor: pointer;">
+                        <p class="col align-middle " id="dropdownBasic1" ngbDropdownToggle>
+                            {{parseRolByStage(guide, role, stage)}}</p>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button [class.active]="getGuideRolByStage(guide, role.name, stage.name) === implvl.value " ngbDropdownItem *ngFor="let implvl of importanceLevels | sort:'asc':'value'">{{implvl.value}}</button>
+                        </div>
+                    </td>
+                </ng-container>
             </ng-container>
         </tr>
     </tbody>
