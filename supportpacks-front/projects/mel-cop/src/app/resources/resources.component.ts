@@ -44,6 +44,7 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
   }
   init() {
+    this.spinner.show();
     this.currentUser = this.authenticationService.currentUserValue;
     this.getAllGuidelines();
     this.getStages();
@@ -79,7 +80,7 @@ export class ResourcesComponent implements OnInit {
     this.sppServices.getAllGuidelines(id)
       .subscribe(
         res => {
-          console.log(res);
+          // console.log(res);
           this.allGuides = res;
           this.guidelines$ = this.filter.valueChanges.pipe(
             startWith(''),
