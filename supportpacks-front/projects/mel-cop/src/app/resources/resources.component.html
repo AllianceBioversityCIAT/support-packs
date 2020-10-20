@@ -56,9 +56,9 @@
             <ng-container *ngFor="let stage of stages">
                 <ng-container *ngIf="!currentUser">
                     <td title="{{ role.name }}-{{ stage.name }}" style="border: 2px solid #dee2e6"
-                        class="text-center col align-middle level-{{parseRolByStage(guide, role, stage)}} "
+                        class="text-center col align-middle level-{{getGuideRolByStage(guide, role.name, stage.name)}} "
                         *ngFor="let role of roles">
-                        {{parseRolByStage(guide, role, stage)}}
+                        {{getGuideRolByStage(guide, role.name, stage.name)}}
                     </td>
                 </ng-container>
 
@@ -66,10 +66,10 @@
                 <ng-container *ngIf="currentUser">
                     <td ngbDropdown *ngFor="let role of roles" title="{{ role.name }}-{{ stage.name }}"
                         style="border: 2px solid #dee2e6"
-                        class="text-center col align-middle level-{{parseRolByStage(guide, role, stage)}}"
+                        class="text-center col align-middle level-{{getGuideRolByStage(guide, role.name, stage.name)}}"
                         style="cursor: pointer;">
                         <p class="col align-middle " id="dropdownBasic1" ngbDropdownToggle>
-                            {{parseRolByStage(guide, role, stage)}}</p>
+                            {{getGuideRolByStage(guide, role.name, stage.name)}}</p>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                             <button [class.active]="getGuideRolByStage(guide, role.name, stage.name) === implvl.value " ngbDropdownItem *ngFor="let implvl of importanceLevels | sort:'asc':'value'">{{implvl.value}}</button>
                         </div>
