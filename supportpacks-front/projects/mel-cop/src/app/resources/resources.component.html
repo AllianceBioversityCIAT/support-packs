@@ -71,7 +71,7 @@
                         <p class="col align-middle " id="dropdownBasic1" ngbDropdownToggle>
                             {{getGuideRolByStage(guide, role.name, stage.name)}}</p>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button [class.active]="getGuideRolByStage(guide, role.name, stage.name) === implvl.value " ngbDropdownItem *ngFor="let implvl of importanceLevels | sort:'asc':'value'">{{implvl.value}}</button>
+                            <button (click)="updateImportance(guide, role, stage, implvl)" [class.active]="getGuideRolByStage(guide, role.name, stage.name) === implvl.value " ngbDropdownItem *ngFor="let implvl of importanceLevels | sort:'asc':'value'">{{implvl.value}}</button>
                         </div>
                     </td>
                 </ng-container>

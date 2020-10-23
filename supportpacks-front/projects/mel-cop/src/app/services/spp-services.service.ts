@@ -35,6 +35,7 @@ export class SppServices {
   }
   /**
    *  Get stages by app_id
+   * @param id string
    */
   getAllGuidelines(id?) {
     // let app_id = environment.app_id;
@@ -50,5 +51,12 @@ export class SppServices {
    */
   getRSC(params) {
     return this.http.post<any>(`${API}/sp/guidelines/byRSC`, params).pipe();
+  }
+  /**
+   * 
+   * @params importance_level
+   */
+  updateImportanceLevel(params) {
+    return this.http.patch<any>(`${API}/sp/importance-level`, params).pipe();
   }
 }

@@ -1,6 +1,7 @@
 {
   "name": "supportpacks-front",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --port=4100 --disable-host-check",

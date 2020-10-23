@@ -30,19 +30,19 @@ class SupportPackController {
         }
     }
 
-    static updateGuideline = async (req: Request, res: Response) => {
-        const { app_id, id,  } = req.params;
+    static updateImportanceLevel = async (req: Request, res: Response) => {
+        const { id, importanceL  } = req.params;
         try {
-            const guide = await database.query(
-                'SELECT * FROM  sp_guidelines WHERE app_id = :app_id AND id =:id ORDER BY code',
+            let impLevel = await database.query(
+                'SELECT * FROM  sp_importance_levels WHERE id =:id ORDER BY code',
                 {
-                    mapToModel: true,
-                    model: Guidelines,
-                    replacements: { app_id, id },
+                    replacements: { id },
                     type: QueryTypes.SELECT
                 }
             );
-            res.status(200).json(guide)
+            console.log(impLevel, importanceL)
+            // impLevel = importanceL;
+            res.status(200).json(impLevel)
         } catch (error) {
             res.status(500).json(error);
         }
@@ -215,14 +215,14 @@ class SupportPackController {
                     `
 
         try {
-            const getImportanceLevel = await database.query(
+            const importanceLevel = await database.query(
                 sqlQuery,
                 {
                     replacements: { gId, sId, rId },
                     type: QueryTypes.SELECT
                 }
             );
-            res.status(200).json(getImportanceLevel)
+            res.status(200).json(importanceLevel)
         } catch (error) {
             console.log(error)
             res.status(500).json(error);

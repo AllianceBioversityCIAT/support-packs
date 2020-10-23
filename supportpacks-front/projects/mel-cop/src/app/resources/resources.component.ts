@@ -130,4 +130,23 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
+
+  updateImportance(guide: any, role: any, stage: any, implvl: any) {
+    if (guide.stages[stage.name]) {
+      let iL = guide.stages[stage.name].find(r => r.role == role.name);
+      iL.importance_level = implvl.value;
+      console.log(iL)
+      this.sppServices.updateImportanceLevel({ id: iL.id, importanceL: iL })
+        .subscribe(
+          res => {
+            console.log(res);
+            this.stages = res;
+          },
+          error => {
+            console.error(error)
+          }
+        )
+    }
+  }
+
 }

@@ -41,7 +41,13 @@ router.post("/person/create", [checkJwt], SPController.createPerson);
 router.post("/guidelines/byRSC", SPController.getGuidelinesByRoleStageCategory);
 router.get("/guidelines-all/:userId?", SPController.getAllGuidelines);
 
-// importance level
+// get importance level
 router.post("/importance-level", SPController.getImportanceLevel);
+
+// update importance level
+router.put("/importance-level", SPController.updateImportanceLevel);
+
+
+
 
 export default router;
