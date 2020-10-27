@@ -99,6 +99,7 @@ class SupportPackController {
 
     static getAllGuidelines = async (req: Request, res: Response) => {
         const { userId } = req.params;
+        // let Usr = Sequelize.define('User', User)
 
         
         try {
