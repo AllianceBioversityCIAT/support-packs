@@ -33,9 +33,9 @@ app.use("/api", routes);
 // app.get('/dmsp', (req, res) => {
 //     res.sendFile(parentDir + "/supportpacks-front/dist/dmsp/index.html")
 // });
-// app.get('/', (req, res) => {
-//     res.sendFile(parentDir + "/supportpacks-front/dist/mel-cop/index.html")
-// });
+app.get('/', (req, res) => {
+    res.sendFile(parentDir + "/supportpacks-front/dist/mel-cop/index.html")
+});
 // 404 catch 
 app.all('*', (req: any, res: any) => {
     console.log(`[TRACE] Server 404 request: ${req.originalUrl}`);
