@@ -5,13 +5,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'protractor';
-import { TermsconditionsService } from './termsconditions.service';
+import { SPTermsconditionsService } from './sp-termsconditions.service';
 
 @Component({
   selector: 'tc-module',
-  templateUrl: './termsconditions.component.html',
+  templateUrl: './sp-termsconditions.component.html',
   styles: [],
-  styleUrls: ['./termsconditions.component.scss'],
+  styleUrls: ['./sp-termsconditions.component.scss'],
   animations: [
     trigger(
       'inOutAnimation',
@@ -35,7 +35,7 @@ import { TermsconditionsService } from './termsconditions.service';
     )
   ]
 })
-export class TermsconditionsComponent implements OnInit {
+export class SPTermsconditionsComponent implements OnInit {
 
   @Input() docsArray: any;
   @Input() selectedGuidiline: any;
@@ -58,7 +58,7 @@ export class TermsconditionsComponent implements OnInit {
   selectedFile = {};
   filePath = null;
 
-  constructor(private tcService: TermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
+  constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.filePath = this.tcService.getFilesPath();

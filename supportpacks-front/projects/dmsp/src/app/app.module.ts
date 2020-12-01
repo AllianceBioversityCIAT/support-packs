@@ -10,7 +10,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TermsconditionsModule } from 'projects/termsconditions/src/public-api';
+// import { sp-termsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
 import { environment } from '../environments/environment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DataListModule } from 'projects/data-list/src/public-api';
@@ -30,7 +30,7 @@ import { DataListModule } from 'projects/data-list/src/public-api';
     FormsModule,
     BrowserAnimationsModule,
     DataListModule.forRoot(environment),
-    // TermsconditionsModule.forRoot(environment),
+    // sp-termsconditionsModule.forRoot(environment),
     FontAwesomeModule,
     AppRoutingModule
   ],

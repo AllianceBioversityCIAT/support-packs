@@ -42,9 +42,9 @@ export class HomeComponent implements OnInit {
   categories: any;
   stages: any;
   filterData = {
-    category: 'Choose what...',
-    stage: 'Choose when...',
-    role: 'Choose a Role...',
+    category: null,
+    stage: null,
+    role: null,
   }
   filterDataId = {
     category: null,
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
   }
 
   validateFilterData() {
-    return this.filterData.role !== 'Choose a Role...' && this.filterData.stage !== 'Choose when...' && this.filterData.category !== 'Choose what...';
+    return this.filterData.role !== null && this.filterData.stage !== null && this.filterData.category !== null;
   }
 
   clearFilter(prop?, val?) {

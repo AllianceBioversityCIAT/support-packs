@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SSL_OP_SINGLE_DH_USE } from 'constants';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { env } from 'process';
-import { TermsconditionsModule } from 'projects/termsconditions/src/public-api';
+import { SPTermsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
 import { DataListComponent } from './data-list.component';
 
 
@@ -20,7 +20,7 @@ import { DataListComponent } from './data-list.component';
     ReactiveFormsModule,
     FormsModule,
     // NgxDocViewerModule,
-    TermsconditionsModule.forRoot(env),
+    SPTermsconditionsModule.forRoot(env),
     BrowserAnimationsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

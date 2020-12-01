@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TermsconditionsService {
+export class SPTermsconditionsService {
 
   public docsToDonw$ = new Subject<any>();
 

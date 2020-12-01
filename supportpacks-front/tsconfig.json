@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "termsconditions": [
-        "dist/termsconditions"
+      "sp-termsconditions": [
+        "dist/sp-termsconditions"
       ],
-      "termsconditions/*": [
-        "dist/termsconditions/*"
+      "sp-termsconditions/*": [
+        "dist/sp-termsconditions/*"
       ],
       "data-list": [
         "dist/data-list"

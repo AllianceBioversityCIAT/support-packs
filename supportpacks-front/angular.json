@@ -127,33 +127,33 @@
         }
       }
     },
-    "termsconditions": {
+    "sp-termsconditions": {
       "projectType": "library",
-      "root": "projects/termsconditions",
-      "sourceRoot": "projects/termsconditions/src",
+      "root": "projects/sp-termsconditions",
+      "sourceRoot": "projects/sp-termsconditions/src",
       "prefix": "tc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/termsconditions/tsconfig.lib.json",
-            "project": "projects/termsconditions/ng-package.json"
+            "tsConfig": "projects/sp-termsconditions/tsconfig.lib.json",
+            "project": "projects/sp-termsconditions/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/termsconditions/src/test.ts",
-            "tsConfig": "projects/termsconditions/tsconfig.spec.json",
-            "karmaConfig": "projects/termsconditions/karma.conf.js"
+            "main": "projects/sp-termsconditions/src/test.ts",
+            "tsConfig": "projects/sp-termsconditions/tsconfig.spec.json",
+            "karmaConfig": "projects/sp-termsconditions/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/termsconditions/tsconfig.lib.json",
-              "projects/termsconditions/tsconfig.spec.json"
+              "projects/sp-termsconditions/tsconfig.lib.json",
+              "projects/sp-termsconditions/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

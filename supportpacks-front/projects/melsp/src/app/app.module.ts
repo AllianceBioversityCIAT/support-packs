@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataListDirective } from './directives/data-list.directive';
 import { DataListComponent } from './data-list/data-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TermsconditionsModule } from 'projects/termsconditions/src/public-api';
+// import { sp-termsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
 import { ResourcesComponent } from './resources/resources.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
@@ -48,7 +48,7 @@ import { DataListModule } from 'projects/data-list/src/public-api';
     FormsModule,
     BrowserAnimationsModule,
     DataListModule.forRoot(environment),
-    // TermsconditionsModule.forRoot(environment),
+    // sp-termsconditionsModule.forRoot(environment),
     FontAwesomeModule
   ],
   providers: [
