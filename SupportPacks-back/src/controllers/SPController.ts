@@ -31,7 +31,7 @@ class SupportPackController {
     }
 
     static updateImportanceLevel = async (req: Request, res: Response) => {
-        const { id, importanceL  } = req.params;
+        const { id, importanceL } = req.params;
         try {
             let impLevel = await database.query(
                 'SELECT * FROM  sp_importance_levels WHERE id =:id ORDER BY code',
@@ -98,13 +98,13 @@ class SupportPackController {
     }
 
     static getAllGuidelines = async (req: Request, res: Response) => {
-        const { userId } = req.params;
+        const { userId, appId } = req.params;
         // let Usr = Sequelize.define('User', User)
 
-        
+
         try {
             let user = null;
-            if(userId){
+            if (userId) {
                 user = await User.findOne({ where: { id: userId } });
             }
 
@@ -118,7 +118,8 @@ class SupportPackController {
                                 TRIM(g.source) AS "source"
                             FROM
                                 sp_guidelines g
-                            ${user ? '' : 'WHERE g.active = 1'}
+                            WHERE g.app_id = ${appId}
+                            ${user ? '' : 'AND g.active = 1'}
                             ORDER BY composedCode
                             `;
             let sqlQuery2 = `SELECT
@@ -350,16 +351,22 @@ class SupportPackController {
     static _createPerson = async (email: string, first_name: string, last_name: string, password?: string) => {
         try {
 
-            let newPerson = new User({ email, first_name, last_name, password });
+
+            let p = password ? password : null;
+            console.log(email, first_name, last_name, p);
+            let newPerson = new User({ email, first_name, last_name, p });
             const errors = await validate(newPerson);
             if (errors.length > 0) {
+                console.log(errors)
                 throw new Error(errors.toString());
             }
-            newPerson.hashPassword();
+            if (p)
+                newPerson.hashPassword();
             let response = await newPerson.save();
 
             return response;
         } catch (error) {
+            console.log(error)
             throw new Error(error);
         }
     }
@@ -460,30 +467,31 @@ class SupportPackController {
             if (user_id == '' || !user_id) {
                 let user = await SupportPackController._createPerson(email, first_name, last_name);
                 user_id = user.id;
-            } else {
-                download_id = await SupportPackController.setDownload({ user_id, institute: institute_name, intended_use: use });
-                if (download_id) {
-                    let promises: any = [];
-                    // Set Guidelines downloaded
-                    guide_selected.forEach((guide: any) => {
-                        console.log(guide)
-                        promises.push(SupportPackController.setDownloadedGuideline({ download_id: download_id['id'], guideline_id: guide }))
-                    });
-                    // Set region(s) where your institute is located download
-                    institute_regions.forEach((region: any) => {
-                        promises.push(SupportPackController.setDownloadedRegion({ download_id: download_id['id'], region_id: region, region_scope: "instituteRegion" }))
-                    });
-                    // Set region(s) of your research interest download
-                    research_regions.forEach((research: any) => {
-                        promises.push(SupportPackController.setDownloadedRegion({ download_id: download_id['id'], region_id: research, region_scope: "researchRegion" }))
-                    });
-                    // guides?.concat( researchs, institutes)
-                    let savedManager = await Promise.all(promises);
-                    console.log(savedManager);
-                }
-
-                res.status(200).json({ download_id });
             }
+            // else {
+            // }
+            download_id = await SupportPackController.setDownload({ user_id, institute: institute_name, intended_use: use });
+            if (download_id) {
+                let promises: any = [];
+                // Set Guidelines downloaded
+                guide_selected.forEach((guide: any) => {
+                    console.log(guide)
+                    promises.push(SupportPackController.setDownloadedGuideline({ download_id: download_id['id'], guideline_id: guide }))
+                });
+                // Set region(s) where your institute is located download
+                institute_regions.forEach((region: any) => {
+                    promises.push(SupportPackController.setDownloadedRegion({ download_id: download_id['id'], region_id: region, region_scope: "instituteRegion" }))
+                });
+                // Set region(s) of your research interest download
+                research_regions.forEach((research: any) => {
+                    promises.push(SupportPackController.setDownloadedRegion({ download_id: download_id['id'], region_id: research, region_scope: "researchRegion" }))
+                });
+                // guides?.concat( researchs, institutes)
+                let savedManager = await Promise.all(promises);
+                console.log(savedManager);
+            }
+
+            res.status(200).json({ download_id });
         } catch (error) {
             console.log(error)
             res.status(500).json(error);

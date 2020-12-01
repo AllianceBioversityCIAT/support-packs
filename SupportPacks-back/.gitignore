@@ -1,4 +1,6 @@
 .env
+nodemon.json
+
 
 # dependencies
 /node_modules

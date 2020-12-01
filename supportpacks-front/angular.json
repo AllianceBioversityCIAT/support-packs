@@ -3,33 +3,33 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mel-cop": {
+    "melsp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/mel-cop",
-      "sourceRoot": "projects/mel-cop/src",
+      "root": "projects/melsp",
+      "sourceRoot": "projects/melsp/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mel-cop",
-            "index": "projects/mel-cop/src/index.html",
-            "main": "projects/mel-cop/src/main.ts",
-            "polyfills": "projects/mel-cop/src/polyfills.ts",
-            "tsConfig": "projects/mel-cop/tsconfig.app.json",
+            "outputPath": "dist/melsp",
+            "index": "projects/melsp/src/index.html",
+            "main": "projects/melsp/src/main.ts",
+            "polyfills": "projects/melsp/src/polyfills.ts",
+            "tsConfig": "projects/melsp/tsconfig.app.json",
             "aot": false,
             "assets": [
-              "projects/mel-cop/src/favicon.ico",
-              "projects/mel-cop/src/assets"
+              "projects/melsp/src/favicon.ico",
+              "projects/melsp/src/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "projects/mel-cop/src/styles.scss"
+              "projects/melsp/src/styles.scss"
             ],
             "scripts": []
           },
@@ -37,8 +37,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/mel-cop/src/environments/environment.ts",
-                  "with": "projects/mel-cop/src/environments/environment.prod.ts"
+                  "replace": "projects/melsp/src/environments/environment.ts",
+                  "with": "projects/melsp/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -68,34 +68,34 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mel-cop:build",
+            "browserTarget": "melsp:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mel-cop:build:production"
+              "browserTarget": "melsp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mel-cop:build"
+            "browserTarget": "melsp:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/mel-cop/src/test.ts",
-            "polyfills": "projects/mel-cop/src/polyfills.ts",
-            "tsConfig": "projects/mel-cop/tsconfig.spec.json",
-            "karmaConfig": "projects/mel-cop/karma.conf.js",
+            "main": "projects/melsp/src/test.ts",
+            "polyfills": "projects/melsp/src/polyfills.ts",
+            "tsConfig": "projects/melsp/tsconfig.spec.json",
+            "karmaConfig": "projects/melsp/karma.conf.js",
             "assets": [
-              "projects/mel-cop/src/favicon.ico",
-              "projects/mel-cop/src/assets"
+              "projects/melsp/src/favicon.ico",
+              "projects/melsp/src/assets"
             ],
             "styles": [
-              "projects/mel-cop/src/styles.scss"
+              "projects/melsp/src/styles.scss"
             ],
             "scripts": []
           }
@@ -104,9 +104,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/mel-cop/tsconfig.app.json",
-              "projects/mel-cop/tsconfig.spec.json",
-              "projects/mel-cop/e2e/tsconfig.json"
+              "projects/melsp/tsconfig.app.json",
+              "projects/melsp/tsconfig.spec.json",
+              "projects/melsp/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -116,12 +116,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/mel-cop/e2e/protractor.conf.js",
-            "devServerTarget": "mel-cop:serve"
+            "protractorConfig": "projects/melsp/e2e/protractor.conf.js",
+            "devServerTarget": "melsp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "mel-cop:serve:production"
+              "devServerTarget": "melsp:serve:production"
             }
           }
         }
@@ -161,7 +161,166 @@
           }
         }
       }
+    },
+    "dmsp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dmsp",
+      "sourceRoot": "projects/dmsp/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dmsp",
+            "index": "projects/dmsp/src/index.html",
+            "main": "projects/dmsp/src/main.ts",
+            "polyfills": "projects/dmsp/src/polyfills.ts",
+            "tsConfig": "projects/dmsp/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/dmsp/src/favicon.ico",
+              "projects/dmsp/src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "projects/dmsp/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dmsp/src/environments/environment.ts",
+                  "with": "projects/dmsp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dmsp:build",
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dmsp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dmsp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dmsp/src/test.ts",
+            "polyfills": "projects/dmsp/src/polyfills.ts",
+            "tsConfig": "projects/dmsp/tsconfig.spec.json",
+            "karmaConfig": "projects/dmsp/karma.conf.js",
+            "assets": [
+              "projects/dmsp/src/favicon.ico",
+              "projects/dmsp/src/assets"
+            ],
+            "styles": [
+              "projects/dmsp/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dmsp/tsconfig.app.json",
+              "projects/dmsp/tsconfig.spec.json",
+              "projects/dmsp/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dmsp/e2e/protractor.conf.js",
+            "devServerTarget": "dmsp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dmsp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "data-list": {
+      "projectType": "library",
+      "root": "projects/data-list",
+      "sourceRoot": "projects/data-list/src",
+      "prefix": "dl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/data-list/tsconfig.lib.json",
+            "project": "projects/data-list/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/data-list/src/test.ts",
+            "tsConfig": "projects/data-list/tsconfig.spec.json",
+            "karmaConfig": "projects/data-list/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/data-list/tsconfig.lib.json",
+              "projects/data-list/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "mel-cop"
+  "defaultProject": "melsp"
 }

@@ -39,7 +39,7 @@ router.post("/person/create", [checkJwt], SPController.createPerson);
 
 // guidelines by : role, stage and category
 router.post("/guidelines/byRSC", SPController.getGuidelinesByRoleStageCategory);
-router.get("/guidelines-all/:userId?", SPController.getAllGuidelines);
+router.get("/guidelines-all/:userId?/:appId", SPController.getAllGuidelines);
 
 // get importance level
 router.post("/importance-level", SPController.getImportanceLevel);

@@ -24,6 +24,12 @@
       ],
       "termsconditions/*": [
         "dist/termsconditions/*"
+      ],
+      "data-list": [
+        "dist/data-list"
+      ],
+      "data-list/*": [
+        "dist/data-list/*"
       ]
     }
   },

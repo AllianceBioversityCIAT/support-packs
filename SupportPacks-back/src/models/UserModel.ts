@@ -3,6 +3,7 @@ import { database } from "../_helpers/db";
 import {
     Length,
     IsEmail,
+    IsOptional,
 } from 'class-validator';
 import * as bcrypt from "bcryptjs";
 
@@ -14,7 +15,7 @@ export class User extends Model {
     public last_name!: string;
     @IsEmail()
     public email!: string;
-    @Length(8, 20)
+    @IsOptional()
     public password!: any;
     public readonly registeredAt!: Date;
 
@@ -48,7 +49,7 @@ User.init(
         },
         password: {
             type: new DataTypes.STRING(128),
-            allowNull: false,
+            allowNull: true,
         },
         registeredAt: {
             type: new DataTypes.DATE(),

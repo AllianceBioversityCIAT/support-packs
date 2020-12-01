@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'protractor';
@@ -44,8 +45,9 @@ export class TermsconditionsComponent implements OnInit {
   step3 = true;
   step4 = false;
   step5 = false;
+  error = false;
 
-  regions = []
+  regions = [];
 
   emailForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required])
@@ -53,11 +55,13 @@ export class TermsconditionsComponent implements OnInit {
 
   tc_Form;
   selectedUser = {};
+  selectedFile = {};
+  filePath = null;
 
-  constructor(private tcService: TermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal) { }
+  constructor(private tcService: TermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    // console.log(this.selectedGuidiline)
+    this.filePath = this.tcService.getFilesPath();
     this.getRegions();
   }
 
@@ -88,15 +92,28 @@ export class TermsconditionsComponent implements OnInit {
           res => {
             // console.log(res);
             this.selectedUser = res[0];
-            this.tc_Form = new FormGroup({
-              first_name: new FormControl(this.selectedUser['first_name'], [Validators.required]),
-              last_name: new FormControl(this.selectedUser['last_name'], [Validators.required]),
-              institute_name: new FormControl(this.selectedUser['institute'], [Validators.required]),
-              research_regions: new FormArray([], [Validators.required]),
-              institute_regions: new FormArray([], [Validators.required]),
-              use: new FormControl('', [Validators.required]),
-            });
-            // this.tc_Form.setValue({first_name: this.selectedUser['first_name'], last_name: this.selectedUser['last_name'], institute: this.selectedUser['institute']})
+            if (res.length > 0) {
+              this.tc_Form = new FormGroup({
+                first_name: new FormControl(this.selectedUser['first_name'], [Validators.required]),
+                last_name: new FormControl(this.selectedUser['last_name'], [Validators.required]),
+                institute_name: new FormControl(this.selectedUser['institute'], [Validators.required]),
+                research_regions: new FormArray([], [Validators.required]),
+                institute_regions: new FormArray([], [Validators.required]),
+                use: new FormControl('', [Validators.required]),
+              });
+              // this.tc_Form.setValue({first_name: this.selectedUser['first_name'], last_name: this.selectedUser['last_name'], institute: this.selectedUser['institute']})
+
+            } else {
+              this.tc_Form = new FormGroup({
+                first_name: new FormControl('', [Validators.required]),
+                last_name: new FormControl('', [Validators.required]),
+                institute_name: new FormControl('', [Validators.required]),
+                research_regions: new FormArray([], [Validators.required]),
+                institute_regions: new FormArray([], [Validators.required]),
+                use: new FormControl('', [Validators.required]),
+              });
+
+            }
             this.step3 = false;
             this.step4 = true;
             this.spinner.hide()
@@ -120,16 +137,19 @@ export class TermsconditionsComponent implements OnInit {
       this.step4 = false
       let params = this.tc_Form.value;
       params['user_id'] = this.selectedUser ? this.selectedUser['id'] : undefined;
+      params['email'] = this.selectedUser ? this.selectedUser['email'] : this.emailForm.value['email'];
       params['guide_selected'] = this.selectedGuidiline.map(g => g.id);
-      this.tcService.setDownload(this.tc_Form.value)
+      console.log(params)
+      this.tcService.setDownload(params)
         .subscribe(
           res => {
             this.spinner.hide();
-            // console.log(res);
+            // console.log('onSetTC', res);
           },
           error => {
             this.step5 = false;
             this.spinner.hide();
+            this.error = error.statusText
             console.error(error)
           }
         )
@@ -154,20 +174,25 @@ export class TermsconditionsComponent implements OnInit {
   }
 
 
-  downloadFiles() { }
+  safeURL(url) {
+    url = url.replace("watch?v=", "embed/");
+    if (!this.isYoutube(url))
+      url = this.filePath + url;
+
+    return url;
+    // return this._sanitizer.bypassSecurityTrustResourceUrl(url) ;
+  }
   openFile(file, content) {
-    console.log(file, content)
-    // this.open(content)
+    this.selectedFile = file;
+    this.open(content)
   }
 
   open(content) {
-    let closeResult;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      closeResult = `Closed with: ${result}`;
-      console.log(closeResult)
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
+      window.open(result, "_blank");
+      this.selectedFile = {};
     }, (reason) => {
-      console.log(closeResult)
-      closeResult = `Dismissed ${reason}`;
+      this.selectedFile = {};
     });
   }
 
@@ -184,5 +209,9 @@ export class TermsconditionsComponent implements OnInit {
         },
         error => { console.error(error) }
       )
+  }
+  isYoutube(url) {
+    let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    return (url.match(p)) ? '1' : '0';
   }
 }

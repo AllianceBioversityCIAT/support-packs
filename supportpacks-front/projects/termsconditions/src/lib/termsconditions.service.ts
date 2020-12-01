@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { environment } from './environments/environment';
 import { Subject } from 'rxjs';
 
 
@@ -59,5 +58,13 @@ export class TermsconditionsService {
   getRegions() {
     // let app_id = environment.app_id;
     return this.http.get<any>(`${this.env['api']}/sp/regions`).pipe();
+  }
+
+  /**
+   * 
+   * 
+   */
+  getFilesPath(){
+    return `${this.env['api_name']}/public/data/`
   }
 }

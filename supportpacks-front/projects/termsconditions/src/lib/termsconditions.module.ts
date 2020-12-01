@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule } from '@angular/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TermsconditionsComponent } from './termsconditions.component';
 
@@ -16,7 +16,7 @@ import { TermsconditionsComponent } from './termsconditions.component';
     // NgModule,
     ReactiveFormsModule,
     FormsModule,
-    // NgxDocViewerModule,
+    NgxDocViewerModule,
     BrowserAnimationsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
