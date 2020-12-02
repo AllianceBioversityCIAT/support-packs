@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataListComponent } from './data-list.component';
+import { DataListComponent } from './sp-datalist.component';
 
 describe('DataListComponent', () => {
   let component: DataListComponent;

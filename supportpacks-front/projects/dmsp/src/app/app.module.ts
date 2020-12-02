@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { sp-termsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
 import { environment } from '../environments/environment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DataListModule } from 'projects/data-list/src/public-api';
+import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
 
 @NgModule({
   declarations: [

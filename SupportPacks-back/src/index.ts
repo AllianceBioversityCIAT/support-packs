@@ -4,7 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import routes from "./routes";
 
-const { WebSocketServer } = require('@txtextcontrol/tx-websocket-server');
+// const { WebSocketServer } = require('@txtextcontrol/tx-websocket-server');
 
 require('dotenv').config();
 // dotenv.config();
@@ -26,6 +26,7 @@ app.use(helmet(
 ));
 app.use(bodyParser.json());
 app.use('/melsp/', express.static(parentDir + '/supportpacks-front/dist/melsp/'));
+app.use('/dmsp/', express.static(parentDir + '/supportpacks-front/dist/dmsp/'));
 // app.use(express.static(parentDir + '/supportpacks-front/dist/melsp/'));
 
 //routes
@@ -33,6 +34,9 @@ app.use("/api", routes);
 // console.log(HOST, PORT)
 app.get('/melsp/*', (req, res) => {
     res.sendFile(parentDir + "/supportpacks-front/dist/melsp/index.html")
+});
+app.get('/dmsp/*', (req, res) => {
+    res.sendFile(parentDir + "/supportpacks-front/dist/dmsp/index.html")
 });
 
 
@@ -53,8 +57,8 @@ app.listen(PORT, `${HOST}`, () => {
 });
 
 
-var wsServer = new WebSocketServer(app,
-    {
-        serviceAddress: HOST, servicePort: PORT
-    }
-);
+// var wsServer = new WebSocketServer(app,
+//     {
+//         serviceAddress: HOST, servicePort: PORT
+//     }
+// );

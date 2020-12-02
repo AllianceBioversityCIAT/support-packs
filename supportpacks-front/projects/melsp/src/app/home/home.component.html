@@ -73,13 +73,13 @@
 <!-- Profile selection for search -->
 <div class="resultsBlock form-group">
     <div class="col removeFilters">
-        <button *ngIf="filterDataId.role" class="btn btn-outline-danger col-sm-2"
+        <button *ngIf="filterData.role" class="btn btn-outline-danger col-sm-2"
             (click)="selectFilter('role',{name:null, id: null})">{{filterData.role}} <span
                 aria-hidden="true">&times;</span></button>
-        <button *ngIf="filterDataId.stage" class="btn btn-outline-danger col-sm-2"
+        <button *ngIf="filterData.stage" class="btn btn-outline-danger col-sm-2"
             (click)="selectFilter('stage',{name:null, id: null})">{{filterData.stage}} <span
                 aria-hidden="true">&times;</span></button>
-        <button *ngIf="filterDataId.category" class="btn btn-outline-danger col-sm-2"
+        <button *ngIf="filterData.category" class="btn btn-outline-danger col-sm-2"
             (click)="selectFilter('category',{name:null, id: null})">{{filterData.category}} <span
                 aria-hidden="true">&times;</span></button>
     </div>

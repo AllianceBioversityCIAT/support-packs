@@ -127,41 +127,6 @@
         }
       }
     },
-    "sp-termsconditions": {
-      "projectType": "library",
-      "root": "projects/sp-termsconditions",
-      "sourceRoot": "projects/sp-termsconditions/src",
-      "prefix": "tc",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/sp-termsconditions/tsconfig.lib.json",
-            "project": "projects/sp-termsconditions/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/sp-termsconditions/src/test.ts",
-            "tsConfig": "projects/sp-termsconditions/tsconfig.spec.json",
-            "karmaConfig": "projects/sp-termsconditions/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sp-termsconditions/tsconfig.lib.json",
-              "projects/sp-termsconditions/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "dmsp": {
       "projectType": "application",
       "schematics": {
@@ -286,33 +251,68 @@
         }
       }
     },
-    "data-list": {
+    "sp-termsconditions": {
       "projectType": "library",
-      "root": "projects/data-list",
-      "sourceRoot": "projects/data-list/src",
-      "prefix": "dl",
+      "root": "projects/libs/sp-termsconditions",
+      "sourceRoot": "projects/libs/sp-termsconditions/src",
+      "prefix": "tc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/data-list/tsconfig.lib.json",
-            "project": "projects/data-list/ng-package.json"
+            "tsConfig": "projects/libs/sp-termsconditions/tsconfig.lib.json",
+            "project": "projects/libs/sp-termsconditions/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/data-list/src/test.ts",
-            "tsConfig": "projects/data-list/tsconfig.spec.json",
-            "karmaConfig": "projects/data-list/karma.conf.js"
+            "main": "projects/libs/sp-termsconditions/src/test.ts",
+            "tsConfig": "projects/libs/sp-termsconditions/tsconfig.spec.json",
+            "karmaConfig": "projects/libs/sp-termsconditions/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/data-list/tsconfig.lib.json",
-              "projects/data-list/tsconfig.spec.json"
+              "projects/libs/sp-termsconditions/tsconfig.lib.json",
+              "projects/libs/sp-termsconditions/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "sp-datalist": {
+      "projectType": "library",
+      "root": "projects/libs/sp-datalist",
+      "sourceRoot": "projects/libs/sp-datalist/src",
+      "prefix": "dl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/libs/sp-datalist/tsconfig.lib.json",
+            "project": "projects/libs/sp-datalist/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/libs/sp-datalist/src/test.ts",
+            "tsConfig": "projects/libs/sp-datalist/tsconfig.spec.json",
+            "karmaConfig": "projects/libs/sp-datalist/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/libs/sp-datalist/tsconfig.lib.json",
+              "projects/libs/sp-datalist/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

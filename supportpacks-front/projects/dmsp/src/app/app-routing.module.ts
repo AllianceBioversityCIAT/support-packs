@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'dmsp-home', component: HomeComponent, runGuardsAndResolvers: 'always' },
-  { path: '', redirectTo: '/dmsp-home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, runGuardsAndResolvers: 'always' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

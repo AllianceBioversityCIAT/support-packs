@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataListService } from './data-list.service';
+import { DataListService } from './sp-datalist.service';
 
 describe('DataListService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

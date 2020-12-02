@@ -6,8 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SSL_OP_SINGLE_DH_USE } from 'constants';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { env } from 'process';
-import { SPTermsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
-import { DataListComponent } from './data-list.component';
+// import { SPTermsconditionsModule } from 'projects/libs/sp-termsconditions/src/lib/sp-termsconditions.module';
+import { SPTermsconditionsModule } from 'projects/libs/sp-termsconditions/src/public-api';
+import { DataListComponent } from './sp-datalist.component';
 
 
 @NgModule({

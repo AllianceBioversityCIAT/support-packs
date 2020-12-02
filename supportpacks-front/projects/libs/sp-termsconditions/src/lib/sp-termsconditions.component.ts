@@ -55,7 +55,10 @@ export class SPTermsconditionsComponent implements OnInit {
 
   tc_Form;
   selectedUser = {};
-  selectedFile = {};
+  selectedFile = {
+    name: null,
+    source: null
+  };
   filePath = null;
 
   constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) { }
@@ -190,9 +193,15 @@ export class SPTermsconditionsComponent implements OnInit {
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
       window.open(result, "_blank");
-      this.selectedFile = {};
+      this.selectedFile = {
+        name: null,
+        source: null
+      };
     }, (reason) => {
-      this.selectedFile = {};
+      this.selectedFile = {
+        name: null,
+        source: null
+      };
     });
   }
 

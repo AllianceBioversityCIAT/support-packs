@@ -20,16 +20,16 @@
     ],
     "paths": {
       "sp-termsconditions": [
-        "dist/sp-termsconditions"
+        "../dist/sp-termsconditions"
       ],
       "sp-termsconditions/*": [
-        "dist/sp-termsconditions/*"
+        "../dist/sp-termsconditions/*"
       ],
-      "data-list": [
-        "dist/data-list"
+      "sp-datalist": [
+        "dist/sp-datalist"
       ],
-      "data-list/*": [
-        "dist/data-list/*"
+      "sp-datalist/*": [
+        "dist/sp-datalist/*"
       ]
     }
   },

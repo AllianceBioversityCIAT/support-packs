@@ -10,30 +10,24 @@ import { HomeComponent } from './home/home.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataListDirective } from './directives/data-list.directive';
-import { DataListComponent } from './data-list/data-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { sp-termsconditionsModule } from 'projects/sp-termsconditions/src/public-api';
 import { ResourcesComponent } from './resources/resources.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
 
 import { faChevronLeft, faToggleOff, faToggleOn, faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-// Add icons to the library for convenient access in other components
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { environment } from '../environments/environment';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { SortPipe } from './pipes/sort.pipe';
-import { DataListModule } from 'projects/data-list/src/public-api';
+import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DataListDirective,
-    DataListComponent,
     ResourcesComponent,
     LoginComponent,
     SortPipe
@@ -48,7 +42,6 @@ import { DataListModule } from 'projects/data-list/src/public-api';
     FormsModule,
     BrowserAnimationsModule,
     DataListModule.forRoot(environment),
-    // sp-termsconditionsModule.forRoot(environment),
     FontAwesomeModule
   ],
   providers: [
@@ -61,7 +54,6 @@ import { DataListModule } from 'projects/data-list/src/public-api';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    // Add multiple icons to the library
     library.addIcons(faChevronLeft, faToggleOff, faToggleOn, faCoffee);
   }
 }

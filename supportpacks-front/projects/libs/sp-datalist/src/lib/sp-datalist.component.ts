@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, OnDestroy, SimpleChange } from '@angular/core';
-import { trigger, transition, style, animate, } from '@angular/animations';
-import { SppServices } from '../services/spp-services.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { EventEmitter, Input, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, Output, SimpleChange } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
-
+import { DataListService } from './sp-datalist.service';
+// import { DataListService } from '../public-api';
 
 @Component({
-  selector: 'data-list',
-  templateUrl: './data-list.component.html',
-  styleUrls: ['./data-list.component.scss'],
+  selector: 'dl-lib',
+  templateUrl: './sp-datalist.component.html',
+  styleUrls: ['./sp-datalist.component.scss'],
   animations: [
     trigger(
       'inOutAnimation',
@@ -32,9 +33,18 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
     )
   ]
 })
-export class DataListComponent implements OnInit, OnDestroy {
-  @Input() data: any;
-  @Input() names: any;
+export class DataListComponent implements OnInit {
+
+  @Input() data: any = {
+    role: null,
+    stage: null,
+    category: null
+  };
+  @Input() ids: []
+  @Output() rData = new EventEmitter<any>();
+
+
+  private customerDiffer: KeyValueDiffer<string, any>;
 
   recomendedDocs = [];
   selectedArray = [];
@@ -42,32 +52,45 @@ export class DataListComponent implements OnInit, OnDestroy {
   form: FormGroup;
   isVisible = false;
 
-  constructor(private fb: FormBuilder, private sppServices: SppServices, private spinner: NgxSpinnerService) {
+
+  constructor(private listServices: DataListService, private fb: FormBuilder, private differs: KeyValueDiffers, private spinner: NgxSpinnerService) {
     this.form = this.fb.group({
       docsArray: this.fb.array([], [Validators.required])
-    })
-
+    });
+    if (this.data) {
+      this.customerDiffer = this.differs.find(this.data).create();
+    }
   }
 
   ngOnInit() {
-    // this.eventsSubscription = this.events.subscribe((data) => { console.log(data) });
   }
-
-  ngOnDestroy() {
-    // this.eventsSubscription.unsubscribe();
-  }
-
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
-    const log: string[] = [];
     for (const propName in changes) {
       const changedProp = changes[propName];
-      if (this.hasNull(changedProp.currentValue) && propName == 'data') {
+      if (this.listServices.hasNull(changedProp.currentValue) && propName == 'ids') {
+        this.spinner.show()
         this.loadComponent(changedProp.currentValue)
       } else {
         this.resetData();
       }
     }
+
+
+  }
+
+  restartData() {
+    this.rData.emit({
+      role: null,
+      stage: null,
+      category: null
+    });
+  }
+
+  resetData() {
+    this.selectedArray = [];
+    this.recomendedDocs = [];
+    this.isVisible = false;
   }
 
   onBack(ev) {
@@ -79,26 +102,22 @@ export class DataListComponent implements OnInit, OnDestroy {
     this.selectedData = [];
   }
 
-  private resetData() {
-    this.selectedArray = [];
-    this.recomendedDocs = [];
-    this.isVisible = false;
-  }
-
   loadComponent(params: any) {
-    // this.isVisible = false;
-    this.sppServices.getRSC(params).subscribe(
+    this.isVisible = false;
+    this.recomendedDocs = []
+    this.listServices.getRSC(params).subscribe(
       res => {
         this.spinner.hide();
         this.recomendedDocs = res;
-        // console.log(res)
+        // console.log('res', this.recomendedDocs)
       },
       error => {
         this.spinner.hide();
-        console.log(error)
+        console.error(error)
       }
     )
   }
+
 
   validateFilterData() {
     return (this.data.role && this.data.stage && this.data.category) && !this.isVisible;
@@ -128,11 +147,9 @@ export class DataListComponent implements OnInit, OnDestroy {
     this.isVisible = true;
   }
 
-  private hasNull(obj) {
-    for (var key in obj) {
-      if (obj[key] === null || obj[key] == "")
-        return false;
-    }
-    return true;
+  isYoutube(url) {
+    let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    return (url.match(p)) ? '1' : '0';
   }
+
 }

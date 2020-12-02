@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 const API = environment['api'];
-const app_id = environment.app_id;
+const app_id = environment['app_id'];
 
 @Injectable({
   providedIn: 'root'
