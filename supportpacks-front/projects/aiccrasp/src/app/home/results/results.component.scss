@@ -1,0 +1,32 @@
+
+.container{
+    color: var(--darkText);
+    padding: 2em;
+    p {
+        text-align: justify;
+    }
+
+    section {
+        margin-bottom: 3.5em;
+    }
+    .require-search {
+        background-color: #EFEFEF;
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+            font-size: 24px;
+        }
+        .icons {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            fa-icon {
+                margin: 0 1.5em;
+                font-size: 3em;
+            }
+        }
+    }
+}

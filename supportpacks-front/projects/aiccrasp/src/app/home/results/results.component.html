@@ -1,0 +1,66 @@
+<div class="container">
+
+    <section class="description">
+        <h1>AICCRA Tools - Support Packs</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a ipsum vel dolor varius vehicula. Vivamus
+            faucibus quam elit, id fringilla tellus dignissim ut. Aliquam tempus nulla nec iaculis varius. Donec sodales
+            neque vel diam tempor viverra. Sed molestie nisi at velit feugiat, at suscipit urna consectetur. Praesent
+            porta
+            volutpat nibh, at venenatis mauris pulvinar ac. Nam tincidunt pretium varius. Nunc varius aliquam ipsum in
+            tincidunt.
+
+            Fusce auctor, nisl eu consectetur maximus, ante ipsum condimentum enim, non placerat eros neque vitae nisl.
+            Integer dignissim turpis in sem blandit ullamcorper. Morbi orci odio, varius vitae accumsan a, mollis sed
+            risus.
+            Etiam eget volutpat ligula, ac rhoncus ante. Aenean nisl diam, vehicula vel vestibulum hendrerit, convallis
+            et
+            ipsum. Sed sit amet velit aliquet, lacinia lorem at, vehicula mauris. Vestibulum vulputate vel felis nec
+            ullamcorper. Quisque viverra leo quis metus iaculis tincidunt. Vivamus tempus pulvinar magna, at scelerisque
+            nibh iaculis sit amet. Aliquam hendrerit magna at lectus bibendum scelerisque. Vivamus luctus, enim in
+            tristique
+            laoreet, est mi pretium nibh, ac porta felis nunc vel ipsum. Aliquam condimentum dui mauris, at luctus magna
+            porta vitae.</p>
+    </section>
+
+    <section class="require-search">
+        <p class="message">Please select the 3 options in the left panel and find useful tools</p>
+        <div class="icons">
+            <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
+            <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
+            <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="selected-filters"></div>
+        <div class="recommended-tools">
+            <ol>
+                <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+                    <ngb-panel id="custom-panel-1">
+                        <ng-template ngbPanelHeader let-opened="opened">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="m-0">First panel - {{ opened ? 'opened' : 'collapsed' }}</h5>
+                                <button ngbPanelToggle class="btn btn-link p-0">Toggle first</button>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. 3 wolf moon officia
+                            aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                            Brunch 3 wolf moon tempor,
+                            sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                            anim keffiyeh helvetica,
+                            craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                            butcher vice lomo. Leggings
+                            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
+                            heard of them accusamus
+                            labore sustainable VHS.
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ol>
+        </div>
+    </section>
+    <section class="downloads"></section>
+
+</div>

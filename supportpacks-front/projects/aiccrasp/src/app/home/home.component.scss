@@ -1,0 +1,7 @@
+
+.grid-container{
+    width: 100vw;
+    max-width: 100vw; 
+    display: grid;
+    grid-template-columns: auto 1fr;
+}

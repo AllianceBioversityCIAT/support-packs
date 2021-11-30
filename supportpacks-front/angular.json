@@ -320,6 +320,129 @@
           }
         }
       }
+    },
+    "aiccrasp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/aiccrasp",
+      "sourceRoot": "projects/aiccrasp/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/aiccrasp",
+            "index": "projects/aiccrasp/src/index.html",
+            "main": "projects/aiccrasp/src/main.ts",
+            "polyfills": "projects/aiccrasp/src/polyfills.ts",
+            "tsConfig": "projects/aiccrasp/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/aiccrasp/src/favicon.ico",
+              "projects/aiccrasp/src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "projects/aiccrasp/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/aiccrasp/src/environments/environment.ts",
+                  "with": "projects/aiccrasp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "aiccrasp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "aiccrasp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "aiccrasp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/aiccrasp/src/test.ts",
+            "polyfills": "projects/aiccrasp/src/polyfills.ts",
+            "tsConfig": "projects/aiccrasp/tsconfig.spec.json",
+            "karmaConfig": "projects/aiccrasp/karma.conf.js",
+            "assets": [
+              "projects/aiccrasp/src/favicon.ico",
+              "projects/aiccrasp/src/assets"
+            ],
+            "styles": [
+              "projects/aiccrasp/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/aiccrasp/tsconfig.app.json",
+              "projects/aiccrasp/tsconfig.spec.json",
+              "projects/aiccrasp/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/aiccrasp/e2e/protractor.conf.js",
+            "devServerTarget": "aiccrasp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "aiccrasp:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "melsp"
