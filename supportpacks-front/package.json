@@ -5,6 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --port=7000 --disable-host-check",
+    "start-aiccrasp": "ng serve --project=aiccrasp --host=0.0.0.0 --port=7000 --disable-host-check",
+    "start-dmsp": "ng serve --project=dmsp --host=0.0.0.0 --port=7000 --disable-host-check",
+    "start-melsp": "ng serve --project=melsp --host=0.0.0.0 --port=7000 --disable-host-check",
     "start:dev": "forever start ./node_modules/@angular/cli/bin/ng serve --host=0.0.0.0 --port=7000 --disable-host-check",
     "build": "ng build",
     "test": "ng test",
