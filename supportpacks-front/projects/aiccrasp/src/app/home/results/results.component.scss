@@ -30,3 +30,14 @@
         }
     }
 }
+
+.btn-expand{
+    outline: none !important;
+    box-shadow: none;
+}
+
+.accordion-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

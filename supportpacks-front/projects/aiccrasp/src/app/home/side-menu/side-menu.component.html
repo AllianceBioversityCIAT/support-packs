@@ -5,18 +5,31 @@
     <div class="filters">
 
         <div class="filter">
+            <p><strong>Thematic area</strong></p>
+            <div ngbDropdown placement="right" class="d-inline-block" #areaDrop="ngbDropdown"
+            (mouseenter)="$event.stopPropagation(); areaDrop.open();"
+            (mouseleave)="$event.stopPropagation(); areaDrop.close();">
+                <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
+                    <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
+                    {{filterData.area == null ? 'Select thematic area...':filterData.area}}
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
+                    <button *ngFor="let area of areas" ngbDropdownItem (click)="selectFilter('area',area)">{{area}}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter">
             <p><strong>Target user</strong></p>
             <div ngbDropdown placement="right" placement="right" class="d-inline-block" #roleDrop="ngbDropdown"
                 (mouseenter)="$event.stopPropagation(); roleDrop.open();"
                 (mouseleave)="$event.stopPropagation(); roleDrop.close();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
-                    Select target user
+                    {{filterData.user == null ? 'Select target user...':filterData.user}}
                 </button>
-                <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem> Action - 1 </button>
-                    <button ngbDropdownItem>Another Action</button>
-                    <button ngbDropdownItem>Something else is here</button>
+                <div ngbDropdownMenu class="dropdown-menu shadow -lg" aria-labelledby="dropdownBasic1">
+                    <button *ngFor="let user of users" ngbDropdownItem (click)="selectFilter('user',user)">{{user}}</button>
                 </div>
             </div>
         </div>
@@ -28,32 +41,15 @@
             (mouseleave)="$event.stopPropagation(); phaseDrop.close();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
-                    Select project phase
+                    {{filterData.phase == null ? 'Select project phase...':filterData.phase}}
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem>Action - 1</button>
-                    <button ngbDropdownItem>Another Action</button>
-                    <button ngbDropdownItem>Something else is here</button>
+                    <button *ngFor="let phase of phases" ngbDropdownItem (click)="selectFilter('phase',phase)">{{phase}}</button>
                 </div>
             </div>
         </div>
 
-        <div class="filter">
-            <p><strong>Thematic area</strong></p>
-            <div ngbDropdown placement="right" class="d-inline-block" #areaDrop="ngbDropdown"
-            (mouseenter)="$event.stopPropagation(); areaDrop.open();"
-            (mouseleave)="$event.stopPropagation(); areaDrop.close();">
-                <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
-                    <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
-                    Select thematic area
-                </button>
-                <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem>Action - 1</button>
-                    <button ngbDropdownItem>Another Action</button>
-                    <button ngbDropdownItem>Something else is here</button>
-                </div>
-            </div>
-        </div>
+
 
 
     </div>
