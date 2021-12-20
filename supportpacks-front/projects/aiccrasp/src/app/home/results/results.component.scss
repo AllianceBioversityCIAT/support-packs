@@ -1,15 +1,38 @@
 
 .container{
+    // margin: 0;
+    
+    .welcome{
+        margin-bottom: 1em;
+    }
+    h1{
+        font-weight: bold;
+    }
+    h2, h3, h4, h5, h6 {
+        font-weight: 600;
+    }
+    // overflow-y: scroll;
     color: var(--darkText);
-    padding: 2em;
+    padding: 3em 2em;
     p {
         text-align: justify;
     }
 
     section {
-        margin-bottom: 3.5em;
+        margin-top: 1em;
     }
+    .description{
+         .question {
+            width: 100%;
+            outline: none !important;
+            box-shadow: none !important;
+            color: #0e153a !important;
+            font-weight: 600 !important;
+        }
+    }
+
     .require-search {
+        border-radius: 14px;
         background-color: #EFEFEF;
         padding: 2em;
         display: flex;
@@ -40,4 +63,34 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.resources-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em 2em;
+    width: 100%;
+    .resource {
+        background-color: #EFEFEF;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        .resource-name{
+            padding: 0.5em;
+        }
+        .resource-type{
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            width: auto;
+            background-color: #98d4dc;
+            padding: 0 1em;
+        }
+    }
+}
+
+.icon-folder-files {
+    content: url('./../../../assets/svg/folder_files.svg');
+    width: 40%;
+    // height: 200px;
 }

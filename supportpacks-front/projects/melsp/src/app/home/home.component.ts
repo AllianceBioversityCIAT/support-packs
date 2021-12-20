@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SppServices } from '../services/spp-services.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 
 import { faList, faPaperPlane, faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +13,22 @@ import { AuthService, User } from '../services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        overflow: 'hidden',
+        height: '*',
+        width: '*'
+      })),
+      state('out', style({
+        opacity: '0',
+        overflow: 'hidden',
+        height: '0px',
+        width: '0px'
+      })),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
+    ])
+    ,
     trigger(
       'inOutAnimation',
       [

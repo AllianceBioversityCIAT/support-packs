@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,7 +6,21 @@ import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-i
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
-  animations: [
+  animations: [    trigger('slideInOut', [
+    state('in', style({
+      overflow: 'hidden',
+      height: '*',
+      width: '*'
+    })),
+    state('out', style({
+      opacity: '0',
+      overflow: 'hidden',
+      height: '0px',
+      width: '0px'
+    })),
+    transition('in => out', animate('400ms ease-in-out')),
+    transition('out => in', animate('400ms ease-in-out'))
+  ]),
     trigger(
       'inOutAnimation',
       [

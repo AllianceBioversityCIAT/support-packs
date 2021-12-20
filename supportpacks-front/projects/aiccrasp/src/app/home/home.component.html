@@ -1,5 +1,7 @@
 <div class="grid-container">
     <app-side-menu (filtersEmitter)="parentFilters=$event"></app-side-menu>
-    <app-results [filters]="this.parentFilters"></app-results>
+    <div class="results-container">
+        <app-results [filters]="this.parentFilters"></app-results>
+    </div>
     <!-- <router-outlet></router-outlet> -->
 </div>
