@@ -12,7 +12,7 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData()" class="results shadow-sm" [@inOutAnimation]>
+    <section *ngIf="validateFilterData()" class="results shadow-lg" [@inOutAnimation]>
         <div class="selected-filters"></div>
         <div class="recommended-tools">
             <h3><strong>Recommended tools</strong></h3>
@@ -26,7 +26,7 @@
                                             class="material-icons-round">
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
                                         </span></button>
-                                    <h5 class="m-0"><a href="tool.link" target="_blank">{{tool.name}}</a></h5>
+                                    <h5 class="m-0"><a href="{{tool.link}}" target="_blank">{{tool.name}}</a></h5>
                                 </div>
                                 <strong class="importance-level">{{tool.importance_level}}</strong>
                             </div>
