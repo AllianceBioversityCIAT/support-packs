@@ -32,8 +32,8 @@
     }
 
     .require-search {
-        border-radius: 14px;
-        background-color: #EFEFEF;
+        border-radius: 10px;
+        background-color: var(--lightGray);
         padding: 2em;
         display: flex;
         flex-direction: column;
@@ -64,6 +64,13 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.results{
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 10px;
+}
+
 .resources-list{
     display: flex;
     flex-direction: column;

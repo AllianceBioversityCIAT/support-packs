@@ -2,7 +2,7 @@
 
     <h1 class="welcome">Welcome to the AICCRA Tools Support Pack</h1>
 
-    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
+    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search shadow-sm">
         <p class="message">Please select the 3 options in the left panel and find useful tools</p>
         <div class="icons">
             <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
@@ -12,7 +12,7 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData()" class="results" [@inOutAnimation]>
+    <section *ngIf="validateFilterData()" class="results shadow-sm" [@inOutAnimation]>
         <div class="selected-filters"></div>
         <div class="recommended-tools">
             <h3><strong>Recommended tools</strong></h3>
@@ -49,8 +49,7 @@
         </div>
     </section>
     <section class="downloads"></section>
-    <section class="description-container">
-        <br>
+    <section class="description-container shadow-sm">
         <div class="description">
             <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">
