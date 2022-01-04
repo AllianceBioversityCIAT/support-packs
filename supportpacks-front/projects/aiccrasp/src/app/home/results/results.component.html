@@ -2,7 +2,7 @@
 
     <h1 class="welcome">Welcome to the AICCRA Tools Support Pack</h1>
 
-    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search shadow-sm">
+    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search md-shadow">
         <p class="message">Please select the 3 options in the left panel and find useful tools</p>
         <div class="icons">
             <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
@@ -12,7 +12,7 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData()" class="results shadow-lg" [@inOutAnimation]>
+    <section *ngIf="validateFilterData()" class="results md-shadow" [@inOutAnimation]>
         <div class="selected-filters"></div>
         <div class="recommended-tools">
             <h3><strong>Recommended tools</strong></h3>
@@ -21,14 +21,19 @@
                     <ngb-panel id="custom-panel-1">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="d-flex align-items-center accordion-header" ngbPanelToggle>
-                                <div class="name d-flex align-items-center">
+                                <div class="accordion-left d-flex align-items-center">
+                                    <input type="checkbox" name="" id="">
                                     <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
                                             class="material-icons-round">
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
-                                        </span></button>
+                                        </span>
+                                    </button>
                                     <h5 class="m-0"><a href="{{tool.link}}" target="_blank">{{tool.name}}</a></h5>
                                 </div>
-                                <strong class="importance-level">{{tool.importance_level}}</strong>
+                                <div class="accordion-right d-flex align-items-center">
+                                    <strong class="importance-level">{{tool.importance_level}}</strong>
+                                    <div class="importance-color"></div>
+                                </div>
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
@@ -49,7 +54,7 @@
         </div>
     </section>
     <section class="downloads"></section>
-    <section class="description-container shadow-sm">
+    <section class="description-container md-shadow">
         <div class="description">
             <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">

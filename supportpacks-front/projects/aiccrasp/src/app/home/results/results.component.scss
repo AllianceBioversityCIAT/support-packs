@@ -69,6 +69,31 @@
     background-color: #fff;
     padding: 1em;
     border-radius: 10px;
+    .metadata {
+        text-align: justify;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .accordion-header{
+        padding: 0 !important;
+        .accordion-left {
+            input{
+                margin: 0 .5em;
+                width: 18px;
+                height: 18px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        .accordion-right {
+            .importance-color {
+                width: 20px;
+                height: 100%;
+                background-color: red;
+            }
+        }
+    }
 }
 
 .resources-list{
@@ -83,12 +108,15 @@
         justify-content: space-between;
         box-sizing: border-box;
         .resource-name{
-            padding: 0.5em;
+            padding: 0.5em 1em;
+            font-weight: 500;
+            font-size: 14px;
         }
         .resource-type{
             display: flex;
             align-items: center;
             font-weight: 600;
+            font-size: 14px;
             width: auto;
             background-color: #98d4dc;
             padding: 0 1em;
