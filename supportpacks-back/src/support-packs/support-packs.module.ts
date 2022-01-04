@@ -11,10 +11,11 @@ import { Download } from './entities/download.entity';
 import { User } from './entities/user.entity.';
 import { DownloadGuidelines } from './entities/download-guidelines.entity';
 import { Region } from './entities/region.entity';
-import { DownloadRegions } from './entities/download-guidelines.entity copy';
+import { DownloadRegions } from './entities/download-regions.entity';
+import { ResourcesGuidelines } from './entities/resources-guidelines.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Guideline, Category, Role, Stage, ImportanceLevel, User,Region, Download, DownloadGuidelines, DownloadRegions])],
+  imports: [SequelizeModule.forFeature([Guideline, Category, Role, Stage, ImportanceLevel, User,Region, Download, DownloadGuidelines, DownloadRegions, ResourcesGuidelines])],
   controllers: [SupportPacksController],
   providers: [SupportPacksService]
 })

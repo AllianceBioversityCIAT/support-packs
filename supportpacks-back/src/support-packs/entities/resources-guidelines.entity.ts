@@ -1,25 +1,34 @@
 
 import sequelize from 'sequelize';
 import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, HasMany, BelongsTo, ForeignKey } from 'sequelize-typescript';
-import { Download } from './download.entity';
 import { Guideline } from './guideline.entity';
-import { ImportanceLevel } from './importance-level.entity';
 
-@Table({ tableName: 'sp_download_guidelines', timestamps: false })
-export class DownloadGuidelines extends Model {
+@Table({ tableName: 'sp_resources_guidelines', timestamps: false })
+export class ResourcesGuidelines extends Model {
 
     @PrimaryKey
     @AutoIncrement
     @Column
     public id: number;
 
-    @BelongsTo(() => Download)
-    download: Download;
-  
-    @ForeignKey(() => Download)
-    @PrimaryKey
+    @Column({ defaultValue: true })
+    public active: boolean;
+
+    @Length({ min: 3, max: 20 })
     @Column
-    download_id: number;
+    public name: string;
+
+    @Length({ min: 3, max: 20 })
+    @Column
+    public code: string;
+
+    @Length({ min: 3, max: 20 })
+    @Column
+    public source: string;
+
+    @Length({ min: 3, max: 20 })
+    @Column
+    public type: string;
   
     @BelongsTo(() => Guideline)
     guideline: Guideline;
@@ -29,5 +38,6 @@ export class DownloadGuidelines extends Model {
     @Column
     guideline_id: number;
 
+    
 
 }

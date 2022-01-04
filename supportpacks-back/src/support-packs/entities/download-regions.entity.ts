@@ -2,8 +2,6 @@
 import sequelize from 'sequelize';
 import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, HasMany, BelongsTo, ForeignKey } from 'sequelize-typescript';
 import { Download } from './download.entity';
-import { Guideline } from './guideline.entity';
-import { ImportanceLevel } from './importance-level.entity';
 import { Region } from './region.entity';
 
 @Table({ tableName: 'sp_download_regions', timestamps: false })
@@ -20,7 +18,7 @@ export class DownloadRegions extends Model {
     @ForeignKey(() => Download)
     @PrimaryKey
     @Column
-    downloadId: number;
+    download_id: number;
   
     @BelongsTo(() => Region)
     region: Region;
@@ -28,9 +26,9 @@ export class DownloadRegions extends Model {
     @ForeignKey(() => Region)
     @PrimaryKey
     @Column
-    regionId: number;
+    region_id: number;
 
     @Column
-    public scope: string;
+    public region_scope: string;
 
 }
