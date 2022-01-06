@@ -1,6 +1,7 @@
 
 import sequelize from 'sequelize';
-import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import { App } from './app.entity';
 import { DownloadGuidelines } from './download-guidelines.entity';
 import { ImportanceLevel } from './importance-level.entity';
 
@@ -31,6 +32,7 @@ export class Guideline extends Model {
     @Column
     public type: string;
 
+    @ForeignKey(() => App)
     @Column
     public app_id: number;
 

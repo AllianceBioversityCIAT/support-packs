@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-
 import { environment } from '../../environments/environment';
 
 const API = environment['api'];
 const app_id = environment.app_id;
+@Injectable({
+  providedIn: 'root'
+})
 
 export class AiccraToolsService {
 

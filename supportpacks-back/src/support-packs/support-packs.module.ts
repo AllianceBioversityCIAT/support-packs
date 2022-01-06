@@ -13,10 +13,13 @@ import { DownloadGuidelines } from './entities/download-guidelines.entity';
 import { Region } from './entities/region.entity';
 import { DownloadRegions } from './entities/download-regions.entity';
 import { ResourcesGuidelines } from './entities/resources-guidelines.entity';
+import { App } from './entities/app.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Guideline, Category, Role, Stage, ImportanceLevel, User,Region, Download, DownloadGuidelines, DownloadRegions, ResourcesGuidelines])],
+  imports: [SequelizeModule.forFeature([
+    App, Guideline, Category, Role, Stage, ImportanceLevel, User, Region, Download, DownloadGuidelines, DownloadRegions, ResourcesGuidelines])
+  ],
   controllers: [SupportPacksController],
   providers: [SupportPacksService]
 })
-export class SupportPacksModule {}
+export class SupportPacksModule { }
