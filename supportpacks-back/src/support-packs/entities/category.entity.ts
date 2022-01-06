@@ -1,6 +1,7 @@
 
 import sequelize from 'sequelize';
-import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, HasMany, ForeignKey } from 'sequelize-typescript';
+import { App } from './app.entity';
 import { ImportanceLevel } from './importance-level.entity';
 
 @Table({ tableName: 'sp_categories', timestamps: false })
@@ -14,6 +15,8 @@ export class Category extends Model {
     @Column
     public name: string;
 
+
+    @ForeignKey(() => App)
     @Column
     public app_id: number;
 
