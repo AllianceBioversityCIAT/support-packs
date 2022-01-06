@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 
 @Component({
   selector: 'app-results',
@@ -69,11 +70,40 @@ export class ResultsComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private listServices: DataListService) { }
 
   ngOnInit() {
   }
 
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
+    // Extract changes to the input property by its name
+    for (const propName in changes) {
+      const changedProp = changes[propName];
+      if (this.listServices.hasNull(changedProp.currentValue) && propName == 'ids') {
+        // this.spinner.show()
+        this.loadComponent(changedProp.currentValue)
+      } else {
+        // this.resetData();
+      }
+    }
+  }
+
+  loadComponent(params: any) {
+    // this.isVisible = false;
+    this.tools = []
+    this.listServices.getRSC(params).subscribe(
+      res => {
+        // this.spinner.hide();
+        this.tools = res;
+        // console.log('res', this.recomendedDocs)
+      },
+      error => {
+        // this.spinner.hide();
+        console.error(error)
+      }
+    )
+  }
+  
   validateFilterData() {
     if(this.filters) {
       return this.filters.user !== null && this.filters.phase !== null && this.filters.area !== null;

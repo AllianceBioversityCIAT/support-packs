@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChange } from '@angular/core';
 import { faUserCircle, faClock, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { AiccraToolsService } from '../../services/aiccra-tools.service';
 
 
 @Component({
@@ -9,11 +10,6 @@ import { faUserCircle, faClock, faBookmark } from '@fortawesome/free-solid-svg-i
 })
 export class SideMenuComponent implements OnInit {
 
-  roles = [
-    { name: 'Program Manager' },
-    { name: 'Project Manager' },
-    { name: 'M&E Officer' },
-  ]
 
   filterData = {
     user: null,
@@ -46,11 +42,34 @@ export class SideMenuComponent implements OnInit {
 
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private aiccraService: AiccraToolsService) { }
 
   ngOnInit() {
+    this.getFilters();
   }
 
+  getFilters() {
+    Promise.all([this.aiccraService.getSPUsers().toPromise(), this.aiccraService.getSPAreas().toPromise(), this.aiccraService.getSPPhases().toPromise()])
+      .then(([users, areas, phases]) => {
+        this.users = users;
+        this.areas = areas;
+        this.phases = phases;
+        // this.spinner.hide()
+      })
+      .catch(error => 
+        // this.spinner.hide()
+        console.log(error)
+        
+        );
+
+  }
+
+  resetData() {
+    // this.selectedArray = [];
+    // this.recomendedDocs = [];
+    // this.isVisible = false;
+  }
+  
   selectFilter(type: string, data: any) {
     this.filterData[type] = data;
     // this.filterDataId[type] = data.id;
@@ -59,6 +78,7 @@ export class SideMenuComponent implements OnInit {
     this.filtersEmitter.emit(this.filterData);
     console.log(this.filterData)
   }
+
 
 
 }

@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  app_id: 2,
+  name: 'AICCRA Tools Support Pack',
+  api_name:'http://localhost:4410/api',
+  api: '/api'
 };
 
 /*
