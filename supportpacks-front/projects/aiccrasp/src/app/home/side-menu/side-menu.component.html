@@ -14,7 +14,7 @@
                     {{filterData.area == null ? 'Select thematic area...':filterData.area}}
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let area of areas" ngbDropdownItem (click)="selectFilter('area',area)">{{area}}</button>
+                    <button *ngFor="let area of areas" ngbDropdownItem (click)="selectFilter('area',area.name)">{{area.name}}</button>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                     {{filterData.user == null ? 'Select target user...':filterData.user}}
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow -lg" aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let user of users" ngbDropdownItem (click)="selectFilter('user',user)">{{user}}</button>
+                    <button *ngFor="let user of users" ngbDropdownItem (click)="selectFilter('user',user.name)">{{user.name}}</button>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     {{filterData.phase == null ? 'Select project phase...':filterData.phase}}
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let phase of phases" ngbDropdownItem (click)="selectFilter('phase',phase)">{{phase}}</button>
+                    <button *ngFor="let phase of phases" ngbDropdownItem (click)="selectFilter('phase',phase.name)">{{phase.name}}</button>
                 </div>
             </div>
         </div>

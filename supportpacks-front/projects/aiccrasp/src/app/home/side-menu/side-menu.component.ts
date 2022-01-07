@@ -17,22 +17,9 @@ export class SideMenuComponent implements OnInit {
     area: null,
   }
 
-  users: any[] = ["Researcher", "Technical staff (public/private)", "Academia"]
-  phases: any[] = ["Design", "Implementation", "Monitoring and Evaluation"]
-  areas: any[] = [
-    "Calculators / Mitigation options",
-    " Climate information services",
-    " Climate risk assessment",
-    " Climate - smart business models",
-    " Gender",
-    " Monitoring reporting and verification",
-    " Program support",
-    " Prioritisation",
-    " Scaling",
-    " Science - policy platform",
-    " Situation analysis",
-    " Targeting / Need assessment"
-  ];
+  users: any[] = []
+  phases: any[] = []
+  areas: any[] = [];
 
   selectedRole;
 

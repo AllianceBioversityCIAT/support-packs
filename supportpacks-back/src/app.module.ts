@@ -30,6 +30,10 @@ require('dotenv').config();
       rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/dmsp/'),
       serveRoot: '/dmsp',
       exclude: ['/api*'],
+    },{
+      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'),
+      serveRoot: '/aiccrasp',
+      exclude: ['/api*'],
     }),
   ],
   controllers: [AppController],
