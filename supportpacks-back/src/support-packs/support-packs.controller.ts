@@ -36,9 +36,10 @@ export class SupportPacksController {
     return this.supportPacksService.findAllStagesByApp(app_id);
   }
 
-  @Get('guidelines/byRSC')
+  @Get('guidelinesByRSC')
   getGuidelinesByRoleStageCategory(@Body() {role, stage, category}) {
-
+    console.log({role, stage, category});
+    
     return this.supportPacksService.getGuidelinesByRoleStageCategory(role, stage, category);
   }
   @Get('guidelines-all/:userId?/:app_id')

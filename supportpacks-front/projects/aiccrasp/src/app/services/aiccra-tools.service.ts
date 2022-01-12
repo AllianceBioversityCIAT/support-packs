@@ -46,7 +46,7 @@ export class AiccraToolsService {
    * @param category
    */
   getRSC(params) {
-    return this.http.post<any>(`${API}/sp/guidelines/byRSC`, params).pipe();
+    return this.http.get<any>(`${API}/sp/guidelinesByRSC`, params).pipe();
   }
   /**
    * 
@@ -54,5 +54,17 @@ export class AiccraToolsService {
    */
   updateImportanceLevel(params) {
     return this.http.patch<any>(`${API}/sp/importance-level`, params).pipe();
+  }
+
+    /**
+   * 
+   * check if obj has null properties
+   */
+  hasNull(obj) {
+    for (var key in obj) {
+      if (obj[key] === null || obj[key] == "")
+        return false;
+    }
+    return true;
   }
 }

@@ -153,15 +153,15 @@ export class SupportPacksService {
         g.name,
         g.type,
         TRIM(g.source) AS "source",
-        il.importance_level as "level",
+        il.importance_level as "importance_level",
         (
             CASE il.importance_level
-            WHEN 4 THEN "Very Important"
-            WHEN 3 THEN "Important"
-            WHEN 2 THEN "Useful"
-            WHEN 1 THEN "Optional"
+            WHEN "Very Important" THEN 1
+            WHEN "Important" THEN 2
+            WHEN "Useful" THEN 3
+            WHEN "Optional" THEN 4
             END
-        ) AS "importance_level"
+        ) AS "level"
     FROM
         sp_importance_levels il
     INNER JOIN sp_categories c ON il.category_id = c.id
@@ -173,8 +173,7 @@ export class SupportPacksService {
     AND il.stage_id = :stage
     AND il.category_id = :category
     AND g.active = 1
-    ORDER BY
-        composedCode
+    ORDER BY level, composedCode ASC
     `;
 
     try {

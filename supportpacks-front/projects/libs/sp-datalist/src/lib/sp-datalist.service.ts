@@ -16,7 +16,7 @@ export class DataListService {
  * @param category
  */
   getRSC(params) {
-    return this.http.post<any>(`${this.env['api']}/sp/guidelines/byRSC`, params).pipe();
+    return this.http.post<any>(`${this.env['api']}/sp/guidelinesByRSC`, params).pipe();
   }
 
   /**

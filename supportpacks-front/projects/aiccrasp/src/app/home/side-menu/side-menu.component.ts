@@ -12,14 +12,19 @@ export class SideMenuComponent implements OnInit {
 
 
   filterData = {
-    user: null,
-    phase: null,
-    area: null,
+    role: null,
+    stage: null,
+    category: null
+  }
+  filterDataIds = {
+    role: null,
+    stage: null,
+    category: null
   }
 
-  users: any[] = []
-  phases: any[] = []
-  areas: any[] = [];
+  roles: any[] = []
+  stages: any[] = []
+  categories: any[] = [];
 
   selectedRole;
 
@@ -38,9 +43,9 @@ export class SideMenuComponent implements OnInit {
   getFilters() {
     Promise.all([this.aiccraService.getSPUsers().toPromise(), this.aiccraService.getSPAreas().toPromise(), this.aiccraService.getSPPhases().toPromise()])
       .then(([users, areas, phases]) => {
-        this.users = users;
-        this.areas = areas;
-        this.phases = phases;
+        this.roles = users;
+        this.categories = areas;
+        this.stages = phases;
         // this.spinner.hide()
       })
       .catch(error => 
@@ -58,8 +63,8 @@ export class SideMenuComponent implements OnInit {
   }
   
   selectFilter(type: string, data: any) {
-    this.filterData[type] = data;
-    // this.filterDataId[type] = data.id;
+    this.filterData[type] = data.name;
+    this.filterDataIds[type] = data.id;
     // this.filterDataId = Object.assign({}, this.filterDataId);
     this.filterData = Object.assign({}, this.filterData);
     this.filtersEmitter.emit(this.filterData);
