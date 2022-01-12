@@ -17,9 +17,9 @@
         <div class="recommended-tools">
             <h3><strong>Recommended tools</strong></h3>
             <ol>
-                <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1" *ngFor="let tool of tools">
-                    <ngb-panel id="custom-panel-1">
-                        <ng-template ngbPanelHeader let-opened="opened">
+                <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of tools">
+                    <ngb-panel id="tool-panel-{{tool.id}}">
+                        <ng-template ngbPanelHeader >
                             <div class="d-flex align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left d-flex align-items-center">
                                     <input type="checkbox" name="" id="">
@@ -28,7 +28,7 @@
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
                                         </span>
                                     </button>
-                                    <h5 class="m-0"><a href="{{tool.link}}" target="_blank">{{tool.name}}</a></h5>
+                                    <h5 class="m-0"><a href="{{tool.source}}" target="_blank">{{tool.name}}</a></h5>
                                 </div>
                                 <div class="accordion-right d-flex align-items-center">
                                     <strong class="importance-level">{{tool.importance_level}}</strong>
