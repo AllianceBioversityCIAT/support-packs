@@ -33,6 +33,7 @@ export class SideMenuComponent implements OnInit {
   faBookmark = faBookmark;
 
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
+  @Output() filtersIdsEmitter:EventEmitter<any> = new EventEmitter();
 
   constructor(private aiccraService: AiccraToolsService) { }
 
@@ -65,9 +66,13 @@ export class SideMenuComponent implements OnInit {
   selectFilter(type: string, data: any) {
     this.filterData[type] = data.name;
     this.filterDataIds[type] = data.id;
-    // this.filterDataId = Object.assign({}, this.filterDataId);
+
     this.filterData = Object.assign({}, this.filterData);
+    this.filterDataIds = Object.assign({}, this.filterDataIds);
+    
     this.filtersEmitter.emit(this.filterData);
+    this.filtersIdsEmitter.emit(this.filterDataIds);
+
     console.log(this.filterData)
   }
 

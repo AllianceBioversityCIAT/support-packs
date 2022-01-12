@@ -46,7 +46,7 @@ export class AiccraToolsService {
    * @param category
    */
   getRSC(params) {
-    return this.http.get<any>(`${API}/sp/guidelinesByRSC`, params).pipe();
+    return this.http.post<any>(`${API}/sp/guidelinesByRSC`, params).pipe();
   }
   /**
    * 

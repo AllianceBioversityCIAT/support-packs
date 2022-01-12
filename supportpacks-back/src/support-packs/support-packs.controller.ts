@@ -36,7 +36,7 @@ export class SupportPacksController {
     return this.supportPacksService.findAllStagesByApp(app_id);
   }
 
-  @Get('guidelinesByRSC')
+  @Post('guidelinesByRSC')
   getGuidelinesByRoleStageCategory(@Body() {role, stage, category}) {
     console.log({role, stage, category});
     

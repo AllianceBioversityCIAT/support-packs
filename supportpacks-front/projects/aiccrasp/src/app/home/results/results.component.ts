@@ -52,6 +52,7 @@ export class ResultsComponent implements OnInit {
   faBookmark = faBookmark;
 
   @Input() filters;
+  @Input() filtersIds;
 
   tools = [
     // {
@@ -80,7 +81,7 @@ export class ResultsComponent implements OnInit {
     // Extract changes to the input property by its name
     for (const propName in changes) {
       const changedProp = changes[propName];
-      if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'ids') {
+      if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
         // this.spinner.show()
         this.loadComponent(changedProp.currentValue)
       } else {
@@ -97,7 +98,7 @@ export class ResultsComponent implements OnInit {
         // this.spinner.hide();
         console.log(res);
         
-        // this.tools = res;
+        this.tools = res;
         // console.log('res', this.recomendedDocs)
       },
       error => {
@@ -109,7 +110,7 @@ export class ResultsComponent implements OnInit {
   
   validateFilterData() {
     if(this.filters) {
-      return this.filters.user !== null && this.filters.phase !== null && this.filters.area !== null;
+      return this.filters.role !== null && this.filters.stage !== null && this.filters.category !== null;
     }
     return false;
   }
