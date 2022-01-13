@@ -146,7 +146,7 @@ export class SupportPacksService {
 
   async getGuidelinesByRoleStageCategory(role: string, stage: string, category: string) {
 
-    let sqlQuery = `SELECT
+    let getGuidelinesQuery = `SELECT
     g.id,
     g.code,
     (REPLACE(g.code, ".", "")) as "composedCode",
@@ -173,18 +173,41 @@ export class SupportPacksService {
     AND il.stage_id = :stage
     AND il.category_id = :category
     AND g.active = 1
-    ORDER BY level, composedCode ASC
+    ORDER BY level, code ASC
     `;
 
     try {
-      const guidelinesByRoleStageCategory = await this.sequelize.query(
-        sqlQuery,
+      let guidelinesByRSC:any = await this.sequelize.query(
+        getGuidelinesQuery,
         {
           replacements: { role, stage, category },
           type: 'SELECT'
         }
       );
-      return guidelinesByRoleStageCategory;
+
+      const guidelinesIds = guidelinesByRSC.map((g:any) => g.id);
+      
+      let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
+      WHERE guideline_id IN (:guidelinesIds)`;
+  
+      const resourcesByTool: any = await this.sequelize.query(
+        getResourcesByTool,
+        {
+          replacements: { guidelinesIds },
+          type: 'SELECT'
+        }
+      );
+
+      // Add resources to tools
+      for (let i = 0; i < guidelinesByRSC.length; i++) {
+        const guideline_id = guidelinesByRSC[i].id;
+        guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);     
+      }
+
+      console.log(guidelinesByRSC);
+      
+
+      return guidelinesByRSC;
     } catch (error) {
       console.log(error)
       return error;
