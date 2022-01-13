@@ -11,7 +11,9 @@
             (mouseleave)="$event.stopPropagation(); areaDrop.close();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
-                    {{filterData.category == null ? 'Select thematic area...':filterData.category}}
+                    <div class="filter-text">
+                        {{filterData.category == null ? 'Select thematic area...':filterData.category}}
+                    </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
                     <button *ngFor="let category of categories" ngbDropdownItem (click)="selectFilter('category',category)">{{category.name}}</button>
@@ -26,7 +28,9 @@
                 (mouseleave)="$event.stopPropagation(); roleDrop.close();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
-                    {{filterData.role == null ? 'Select target user...':filterData.role}}
+                    <div class="filter-text">
+                        {{filterData.role == null ? 'Select target user...':filterData.role}}
+                    </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow -lg" aria-labelledby="dropdownBasic1">
                     <button *ngFor="let role of roles" ngbDropdownItem (click)="selectFilter('role',role)">{{role.name}}</button>
@@ -41,7 +45,9 @@
             (mouseleave)="$event.stopPropagation(); phaseDrop.close();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
-                    {{filterData.stage == null ? 'Select project phase...':filterData.stage}}
+                    <div class="filter-text">
+                        {{filterData.stage == null ? 'Select project phase...':filterData.stage}}
+                    </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
                     <button *ngFor="let stage of stages" ngbDropdownItem (click)="selectFilter('stage',stage)">{{stage.name}}</button>
