@@ -2,7 +2,7 @@
 
     <h1 class="welcome">Welcome to the AICCRA Tools Support Pack</h1>
 
-    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search md-shadow">
+    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
         <p class="message">Please select the 3 options in the left panel and find useful tools</p>
         <div class="icons">
             <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
@@ -12,16 +12,16 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData()" class="results md-shadow" [@inOutAnimation]>
+    <section *ngIf="validateFilterData()" class="results" [@inOutAnimation]>
         <div class="selected-filters"></div>
         <div class="recommended-tools">
-            <h3><strong>Recommended tools</strong></h3>
+            <h3 class="mb-3"><strong>Recommended tools</strong></h3>
             <ol>
                 <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of tools">
                     <ngb-panel id="tool-panel-{{tool.id}}">
                         <ng-template ngbPanelHeader >
-                            <div class="d-flex align-items-center accordion-header" ngbPanelToggle>
-                                <div class="accordion-left d-flex align-items-center">
+                            <div class="align-items-center accordion-header" ngbPanelToggle>
+                                <div class="accordion-left align-items-center">
                                     <input type="checkbox" name="" id="">
                                     <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
                                             class="material-icons-round">
@@ -54,7 +54,7 @@
         </div>
     </section>
     <section class="downloads"></section>
-    <section class="description-container md-shadow">
+    <section class="description-container">
         <div class="description">
             <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">
