@@ -14,10 +14,11 @@ import { Region } from './entities/region.entity';
 import { DownloadRegions } from './entities/download-regions.entity';
 import { ResourcesGuidelines } from './entities/resources-guidelines.entity';
 import { App } from './entities/app.entity';
+import { GuidelinesMetadata } from './entities/guidelines-metadata.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature([
-    App, Guideline, Category, Role, Stage, ImportanceLevel, User, Region, Download, DownloadGuidelines, DownloadRegions, ResourcesGuidelines])
+    App, Guideline, Category, Role, Stage, ImportanceLevel, User, Region, Download, DownloadGuidelines, DownloadRegions, ResourcesGuidelines, GuidelinesMetadata])
   ],
   controllers: [SupportPacksController],
   providers: [SupportPacksService]

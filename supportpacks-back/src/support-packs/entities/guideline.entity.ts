@@ -1,8 +1,9 @@
 
 import sequelize from 'sequelize';
-import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, BelongsTo, HasMany, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, Length, PrimaryKey, AutoIncrement, CreatedAt, UpdatedAt, Default, Sequelize, DataType, BelongsTo, HasMany, ForeignKey, HasOne } from 'sequelize-typescript';
 import { App } from './app.entity';
 import { DownloadGuidelines } from './download-guidelines.entity';
+import { GuidelinesMetadata } from './guidelines-metadata.entity';
 import { ImportanceLevel } from './importance-level.entity';
 
 @Table({tableName: 'sp_guidelines'})
@@ -51,4 +52,7 @@ export class Guideline extends Model {
 
     @HasMany(() => DownloadGuidelines)
     downloads: DownloadGuidelines[];
+    
+    @HasOne(() => GuidelinesMetadata)
+    metadata: GuidelinesMetadata[];
 }

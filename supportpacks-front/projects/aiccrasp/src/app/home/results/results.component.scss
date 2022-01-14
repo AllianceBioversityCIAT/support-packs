@@ -64,6 +64,9 @@
     justify-content: space-between;
 }
 
+::ng-deep .card {
+    margin-top: 5px;
+}
 .results{
     background-color: #fff;
     padding: 2em;
@@ -134,15 +137,18 @@
             padding: 0.5em 1em;
             font-weight: 500;
             font-size: 14px;
+            width: 70%;
         }
         .resource-type{
             display: flex;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             font-weight: 600;
             font-size: 14px;
-            width: auto;
             background-color: #98d4dc;
             padding: 0 1em;
+            width: 30%;
         }
     }
 }
