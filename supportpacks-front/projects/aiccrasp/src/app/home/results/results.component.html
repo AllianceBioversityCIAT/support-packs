@@ -19,7 +19,7 @@
             <ol>
                 <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of tools">
                     <ngb-panel id="tool-panel-{{tool.id}}">
-                        <ng-template ngbPanelHeader >
+                        <ng-template ngbPanelHeader let-opened="opened">
                             <div class="align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left align-items-center">
                                     <input type="checkbox" name="" id="">
