@@ -161,13 +161,18 @@ export class SupportPacksService {
             WHEN "Useful" THEN 3
             WHEN "Optional" THEN 4
             END
-        ) AS "level"
+        ) AS "level",
+        gm.description,
+        gm.estimated_time,
+        gm.strengths,
+        gm.limitations
     FROM
         sp_importance_levels il
     INNER JOIN sp_categories c ON il.category_id = c.id
     INNER JOIN sp_stages s ON il.stage_id = s.id
     INNER JOIN sp_roles r ON il.role_id = r.id
     INNER JOIN sp_guidelines g ON il.guideline_id = g.id
+    LEFT JOIN sp_guidelines_metadata gm ON gm.guideline_id = g.id
     WHERE
         il.role_id = :role
     AND il.stage_id = :stage
