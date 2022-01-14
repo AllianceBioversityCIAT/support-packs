@@ -27,7 +27,7 @@ module.exports = {
         onDelete: 'cascade'
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       target_scale: {
         type: Sequelize.STRING,
@@ -54,7 +54,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       strengths: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       limitations: {
         type: Sequelize.STRING,
@@ -75,6 +75,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('sp_guidelines_metadata');
   }
 };
