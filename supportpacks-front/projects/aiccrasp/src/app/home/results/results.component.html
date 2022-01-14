@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="accordion-right d-flex align-items-center">
                                     <strong class="importance-level">{{tool.importance_level}}</strong>
-                                    <div class="importance-color"></div>
+                                    <div class="importance-color {{tool.importance_level.toLowerCase().split(' ').join('-')}}"></div>
                                 </div>
                             </div>
                         </ng-template>

@@ -116,7 +116,18 @@
                 height: 10px;
                 border-radius: 50%;
                 justify-self: flex-end;
-                background-color: red;
+            }
+            .very-important {
+                background-color: #00AEAD;
+            }
+            .important {
+                background-color: #019875;
+            }
+            .useful {
+                background-color: #72CC50;
+            }
+            .optional {
+                background-color: #BFD834;
             }
         }
     }
