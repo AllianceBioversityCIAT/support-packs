@@ -189,7 +189,9 @@ export class SupportPacksService {
           type: 'SELECT'
         }
       );
-
+      console.log(guidelinesByRSC);
+      
+      if(guidelinesByRSC.length == 0) return [];
       const guidelinesIds = guidelinesByRSC.map((g:any) => g.id);
       
       let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
