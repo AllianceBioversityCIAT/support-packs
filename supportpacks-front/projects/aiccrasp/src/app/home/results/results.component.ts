@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
@@ -54,31 +55,21 @@ export class ResultsComponent implements OnInit {
   @Input() filters;
   @Input() filtersIds;
 
-  tools = [
-    // {
-    //   name: "CSA Prioritisation Framework (CSA-PF)",
-    //   link: "https://ccafs.cgiar.org/resources/tools/climate-smart-agriculture-prioritization-framework",
-    //   importance_level: "Very important",
-    //   description: "The CSA Prioritisation Framework (CSA-PF), designed for channelling CSA investments, has the objective to help decision makers identify best-bet CSA investment portfolios that achieve gains in food security, farmers’ resilience to climate change, and low-emissions development in the agriculture sector. The framework is divided into four phases: (i) initial assessment of CSA options; (ii) identification of top CSA options (workshop); (iii) calculation of cost and benefits of top CSA options; and (iv) portfolio development and evaluation of barriers (workshop).",
-    //   strengths: "Incorporates expert and stakeholder views, often reflective of realities in the field  , Alignment with national programs and policies, Speed to completion, Farmer-centric.",
-    //   limitations: "Subject to bias if groups are dominated by certain individuals (e.g. women left out)",
-    //   resources: [
-    //     {name: "1.1  Climate-smart solutions for Mali", link: "https://hdl.handle.net/10568/72419",type: "Reports and other publications" },
-    //     {name: "1.2 Assessing climate change adaptation needs in the agricultural sector", link: "https://hdl.handle.net/10568/80014", type: "Reports and other publications"},
-    //     {name: "1.3 Climate-smart agriculture investment prioritisation framework", link: "https://ccafs.cgiar.org/sites/default/files/projects/attachments/CSA%20Investment%20Prioritization%20Framework%20EN%20Dic2014.pdf",type: "Reports and other publications"},
-    //     {name: "1.4 CSA prioritisation framework", link: "https://p4s.ccafs.cgiar.org/tools/csa-prioritization-framework",type: "Outreach products"},
+  recommendedTools = [];
+  selectedTools = [];
+  form: FormGroup;
 
-    //   ]
-    // }
-  ]
 
-  constructor(private aiccraToolsService: AiccraToolsService) { }
+  constructor(private aiccraToolsService: AiccraToolsService,private fb: FormBuilder) { }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
+    this.form = this.fb.group({
+      toolsArray: this.fb.array([], [Validators.required])
+    });
     for (const propName in changes) {
       const changedProp = changes[propName];
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
@@ -92,13 +83,13 @@ export class ResultsComponent implements OnInit {
 
   loadComponent(params: any) {
     // this.isVisible = false;
-    this.tools = []
+    this.recommendedTools = []
     this.aiccraToolsService.getRSC(params).subscribe(
       res => {
         // this.spinner.hide();
         console.log(res);
         
-        this.tools = res;
+        this.recommendedTools = res;
         // console.log('res', this.recomendedDocs)
       },
       error => {
@@ -113,6 +104,25 @@ export class ResultsComponent implements OnInit {
       return this.filters.role !== null && this.filters.stage !== null && this.filters.category !== null;
     }
     return false;
+  }
+
+  onCheckboxChange(e) {
+    const toolsArray: FormArray = this.form.get('toolsArray') as FormArray;
+
+    if (e.target.checked) {
+      toolsArray.push(new FormControl(e.target.value));
+      this.selectedTools.push(this.recommendedTools.find(doc => e.target.value == doc.id))
+    } else {
+      let i: number = 0;
+      toolsArray.controls.forEach((item: FormControl) => {
+        if (item.value == e.target.value) {
+          toolsArray.removeAt(i);
+          this.selectedTools.splice(i, 1);
+          return;
+        }
+        i++;
+      });
+    }
   }
 
 }

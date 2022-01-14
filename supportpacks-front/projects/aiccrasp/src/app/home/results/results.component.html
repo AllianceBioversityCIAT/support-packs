@@ -17,12 +17,15 @@
         <div class="recommended-tools">
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
             <ol>
-                <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of tools">
+                <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of recommendedTools">
                     <ngb-panel id="tool-panel-{{tool.id}}">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left align-items-center">
-                                    <input type="checkbox" name="" id="">
+                                    <input type="checkbox" name="" id="tool-{{tool.id}}"
+                                    [value]="tool.id"
+                                    aria-label="Checkbox to selec following tool"
+                                    >
                                     <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
                                             class="material-icons-round">
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
@@ -51,6 +54,7 @@
                     </ngb-panel>
                 </ngb-accordion>
             </ol>
+            <button class="btn-arrow" [disabled]="true">Access to selected tools</button>
         </div>
     </section>
     <section class="downloads"></section>
