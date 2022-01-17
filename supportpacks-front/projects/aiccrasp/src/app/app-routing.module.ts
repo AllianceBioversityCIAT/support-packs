@@ -8,8 +8,15 @@ const routes: Routes = [
   loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
   //  runGuardsAndResolvers: 'always'
   },
+  { 
+  path: 'guidelines',
+  loadChildren: () => import('./guidelines/guidelines.module').then(mod => mod.GuidelinesModule),
+  //  runGuardsAndResolvers: 'always'
+  },
   // { path: 'resources', component: ResourcesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+
 ];
 
 @NgModule({

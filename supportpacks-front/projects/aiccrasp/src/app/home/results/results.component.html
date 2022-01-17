@@ -23,7 +23,7 @@
                             <div class="align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left align-items-center">
                                     <input type="checkbox" name="" id="tool-{{tool.id}}"
-                                    [value]="tool.id"
+                                    [value]="tool.id" (change)="onCheckboxChange($event)" 
                                     aria-label="Checkbox to selec following tool"
                                     >
                                     <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
@@ -54,7 +54,7 @@
                     </ngb-panel>
                 </ngb-accordion>
             </ol>
-            <button class="btn-arrow" [disabled]="true">Access to selected tools</button>
+            <button class="btn-arrow" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access to selected tools</button>
         </div>
     </section>
     <section class="downloads"></section>

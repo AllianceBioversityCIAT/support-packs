@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
+import { join } from 'path';
 import { AppService } from './app.service';
+const parentDir = require('path').resolve(process.cwd(), '../');
 
 @Controller()
 export class AppController {
@@ -9,4 +11,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  // @Get('aiccrasp')
+  // sendApplication(@Res() res) {
+  //   res.sendFile('aiccrasp/index.html');
+  // }
 }

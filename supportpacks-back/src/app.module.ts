@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { SupportPacksModule } from './support-packs/support-packs.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { FrontendMiddleware } from './frontend.middleware';
 
 require('dotenv').config();
 
@@ -31,7 +32,8 @@ require('dotenv').config();
       serveRoot: '/dmsp',
       exclude: ['/api*'],
     },{
-      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'),
+      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp'),
+      // renderPath:'index.html',
       serveRoot: '/aiccrasp',
       exclude: ['/api*'],
     }),
@@ -39,4 +41,12 @@ require('dotenv').config();
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+
+  // configure(frontEnd: MiddlewareConsumer) {
+  //   frontEnd.apply(FrontendMiddleware).forRoutes({
+  //     path: '/aiccrasp', // For all routes
+  //     method: RequestMethod.ALL, // For all methods
+  //   });
+  // }
+}

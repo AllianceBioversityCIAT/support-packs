@@ -125,4 +125,9 @@ export class ResultsComponent implements OnInit {
     }
   }
 
+  goToSelectedTools(){
+    console.log(this.selectedTools);
+    
+  }
+
 }
