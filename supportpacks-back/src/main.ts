@@ -4,6 +4,7 @@ import * as bodyParser from "body-parser";
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import express from 'express';
 require('dotenv').config();
 
 
@@ -24,7 +25,8 @@ async function bootstrap() {
     console.log(err)
 });
 
-  // app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist'));
+
+  // app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'));
 
   await app.listen(PORT, `${HOST}`, () => {
     console.log(`Current parent directory: ${parentDir} `);

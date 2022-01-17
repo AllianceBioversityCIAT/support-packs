@@ -12,8 +12,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  // @Get('aiccrasp')
+  // @Get('aiccrasp/**')
   // sendApplication(@Res() res) {
-  //   res.sendFile('aiccrasp/index.html');
+  //   res.sendFile(parentDir + '/supportpacks-front/dist/aiccrasp/index.html');
   // }
 }

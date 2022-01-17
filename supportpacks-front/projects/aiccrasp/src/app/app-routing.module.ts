@@ -3,19 +3,30 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { 
-  path: 'home',
-  loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
-  //  runGuardsAndResolvers: 'always'
-  },
-  { 
-  path: 'guidelines',
-  loadChildren: () => import('./guidelines/guidelines.module').then(mod => mod.GuidelinesModule),
-  //  runGuardsAndResolvers: 'always'
+  {
+    path: 'aiccrasp',
+    children: [
+      { 
+      path: '',
+      redirectTo: 'home',
+      pathMatch: 'full'
+      //  runGuardsAndResolvers: 'always'
+      },
+      { 
+      path: 'home',
+      loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
+      //  runGuardsAndResolvers: 'always'
+      },
+      { 
+      path: 'guidelines',
+      loadChildren: () => import('./guidelines/guidelines.module').then(mod => mod.GuidelinesModule),
+      //  runGuardsAndResolvers: 'always'
+      },
+    ]
   },
   // { path: 'resources', component: ResourcesComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: 'aiccrasp', pathMatch: 'full' },
+  { path: '**', redirectTo: 'aiccrasp', pathMatch: 'full' }
 
 ];
 

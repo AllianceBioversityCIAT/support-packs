@@ -42,11 +42,12 @@ require('dotenv').config();
   providers: [AppService],
 })
 export class AppModule {
-
-  // configure(frontEnd: MiddlewareConsumer) {
-  //   frontEnd.apply(FrontendMiddleware).forRoutes({
-  //     path: '/aiccrasp', // For all routes
-  //     method: RequestMethod.ALL, // For all methods
-  //   });
+  // configure(consumer: MiddlewareConsumer): void {
+  //   consumer.apply(FrontendMiddleware).forRoutes(
+  //     {
+  //       path: 'aiccrasp/**', // For all routes
+  //       method: RequestMethod.ALL, // For all methods
+  //     },
+  //   );
   // }
 }
