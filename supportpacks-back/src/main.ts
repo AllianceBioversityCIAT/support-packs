@@ -26,7 +26,7 @@ async function bootstrap() {
 });
 
 
-  // app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'));
+  app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'));
 
   await app.listen(PORT, `${HOST}`, () => {
     console.log(`Current parent directory: ${parentDir} `);
