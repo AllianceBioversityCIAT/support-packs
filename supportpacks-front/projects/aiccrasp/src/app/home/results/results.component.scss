@@ -63,9 +63,12 @@
     align-items: center;
     justify-content: space-between;
 }
-
-::ng-deep .card {
-    margin-top: 5px;
+.recommended-tools{
+    ngb-accordion{
+        ::ng-deep .card {
+            margin-top: 5px;
+        }
+    }
 }
 .results{
     background-color: #fff;

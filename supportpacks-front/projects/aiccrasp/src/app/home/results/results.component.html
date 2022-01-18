@@ -18,7 +18,7 @@
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
             <ol>
                 <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of recommendedTools">
-                    <ngb-panel id="tool-panel-{{tool.id}}">
+                    <ngb-panel id="tool-panel-{{tool.id}} tool-card">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left align-items-center">
