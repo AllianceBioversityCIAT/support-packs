@@ -1,5 +1,6 @@
 
 .container{
+    min-height: 100vh;
     color: var(--darkText);
     padding: 2em 3em;
     background-color: var(--background);
@@ -135,6 +136,17 @@
         }
     }
 }
+li.tool{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 2em;
+    .tool-name {
+        display: flex;
+        gap: 0.5em;
+        font-weight: 700;
+    }
+}
 
 .resources-list{
     display: flex;
@@ -142,6 +154,9 @@
     gap: 0.5em;
     padding: 0.5em 2em;
     width: 100%;
+    &.download {
+    padding: 0.5em 0 0.5em 2em;
+    }
     .resource {
         background-color: #EFEFEF;
         display: flex;
@@ -152,6 +167,15 @@
             font-weight: 500;
             font-size: 14px;
             width: 70%;
+            display: flex;
+            align-items: center;
+            gap: .5em;
+            a{
+                span {
+                    font-size: 16px !important;
+                }
+                text-decoration: underline;
+            }
         }
         .resource-type{
             display: flex;
@@ -165,6 +189,12 @@
             width: 30%;
         }
     }
+}
+
+.downloads {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 6px;
 }
 
 .icon-folder-files {

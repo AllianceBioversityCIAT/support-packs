@@ -60,6 +60,8 @@ export class ResultsComponent implements OnInit {
   form: FormGroup;
 
 
+  showSelectedTools: boolean = false;
+
   constructor(private aiccraToolsService: AiccraToolsService,private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -90,6 +92,8 @@ export class ResultsComponent implements OnInit {
         console.log(res);
         
         this.recommendedTools = res;
+        this.selectedTools = [];
+        this.showSelectedTools = false;
         // console.log('res', this.recomendedDocs)
       },
       error => {
@@ -127,7 +131,7 @@ export class ResultsComponent implements OnInit {
 
   goToSelectedTools(){
     console.log(this.selectedTools);
-    
+    this.showSelectedTools = true;
   }
 
 }

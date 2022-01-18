@@ -12,20 +12,19 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData()" class="results" [@inOutAnimation]>
+    <section *ngIf="validateFilterData() && !this.showSelectedTools" class="results" [@inOutAnimation]>
         <div class="selected-filters"></div>
         <div class="recommended-tools">
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
             <ol>
-                <ngb-accordion #a="ngbAccordion"  *ngFor="let tool of recommendedTools">
+                <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
                     <ngb-panel id="tool-panel-{{tool.id}} tool-card">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="align-items-center accordion-header" ngbPanelToggle>
                                 <div class="accordion-left align-items-center">
-                                    <input type="checkbox" name="" id="tool-{{tool.id}}"
-                                    [value]="tool.id" (change)="onCheckboxChange($event)" 
-                                    aria-label="Checkbox to selec following tool"
-                                    >
+                                    <input type="checkbox" name="" id="tool-{{tool.id}}" [value]="tool.id"
+                                        (change)="onCheckboxChange($event)"
+                                        aria-label="Checkbox to selec following tool">
                                     <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
                                             class="material-icons-round">
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
@@ -35,7 +34,9 @@
                                 </div>
                                 <div class="accordion-right d-flex align-items-center">
                                     <strong class="importance-level">{{tool.importance_level}}</strong>
-                                    <div class="importance-color {{tool.importance_level.toLowerCase().split(' ').join('-')}}"></div>
+                                    <div
+                                        class="importance-color {{tool.importance_level.toLowerCase().split(' ').join('-')}}">
+                                    </div>
                                 </div>
                             </div>
                         </ng-template>
@@ -54,15 +55,41 @@
                     </ngb-panel>
                 </ngb-accordion>
             </ol>
-            <button class="btn-arrow" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access to selected tools</button>
+            <button class="btn-arrow" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+                to selected tools</button>
         </div>
     </section>
-    <section class="downloads"></section>
+    <section *ngIf="this.showSelectedTools" class="downloads">
+        <h3>Tools selected</h3>
+        <ul>
+            <li *ngFor="let tool of this.selectedTools" class="tool">
+                <div class="tool-name "><a href="tool.source" target="_blank">
+                        <span class="material-icons-round">
+                            launch
+                        </span>
+                    </a>
+                    {{tool.name}}
+                </div>
+                <div class="resources-list">
+                    <div *ngFor="let resource of tool.resources" class="resource">
+                        <div class="resource-name">
+                            <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
+                                <span class="material-icons-round">
+                                    launch
+                                </span></a>
+                            {{resource.name}}
+                        </div>
+                        <div class="resource-type">{{resource.type}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
     <section class="description-container">
         <div class="description">
             <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">
-                    <ng-template ngbPanelHeader >
+                    <ng-template ngbPanelHeader>
                         <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
                             <span>
                                 What is the AICCRA tools support pack?
@@ -81,7 +108,7 @@
                     </ng-template>
                 </ngb-panel>
                 <ngb-panel id="static-2">
-                    <ng-template ngbPanelHeader >
+                    <ng-template ngbPanelHeader>
                         <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
                             <span>
                                 Why was it developed?
@@ -102,8 +129,8 @@
                         </p>
                     </ng-template>
                 </ngb-panel>
-                <ngb-panel id="static-3" >
-                    <ng-template ngbPanelHeader >
+                <ngb-panel id="static-3">
+                    <ng-template ngbPanelHeader>
                         <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
                             <span>
                                 How does the tools support pack integrate gender?
@@ -118,8 +145,8 @@
                         </p>
                     </ng-template>
                 </ngb-panel>
-                <ngb-panel id="static-4" >
-                    <ng-template ngbPanelHeader >
+                <ngb-panel id="static-4">
+                    <ng-template ngbPanelHeader>
                         <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
                             <span>
                                 What will I find in the tools support pack?
@@ -150,8 +177,8 @@
                         </p>
                     </ng-template>
                 </ngb-panel>
-                <ngb-panel id="static-5" >
-                    <ng-template ngbPanelHeader >
+                <ngb-panel id="static-5">
+                    <ng-template ngbPanelHeader>
                         <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
                             <span>
                                 How can I add resources to the tools support pack?
