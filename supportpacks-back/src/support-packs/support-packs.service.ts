@@ -181,40 +181,44 @@ export class SupportPacksService {
     ORDER BY level, code ASC
     `;
 
+
     try {
-      let guidelinesByRSC:any = await this.sequelize.query(
-        getGuidelinesQuery,
-        {
-          replacements: { role, stage, category },
-          type: 'SELECT'
-        }
-      );
-      console.log(guidelinesByRSC);
-      
-      if(guidelinesByRSC.length == 0) return [];
-      const guidelinesIds = guidelinesByRSC.map((g:any) => g.id);
-      
-      let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
-      WHERE guideline_id IN (:guidelinesIds)`;
+      if(role != undefined && stage != undefined && category != undefined) {      
+        let guidelinesByRSC:any = await this.sequelize.query(
+          getGuidelinesQuery,
+          {
+            replacements: { role, stage, category },
+            type: 'SELECT'
+          }
+        );
+        console.log(guidelinesByRSC);
+        
+        if(guidelinesByRSC.length == 0) return [];
+        const guidelinesIds = guidelinesByRSC.map((g:any) => g.id);
+        
+        let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
+        WHERE guideline_id IN (:guidelinesIds)`;
+    
+        const resourcesByTool: any = await this.sequelize.query(
+          getResourcesByTool,
+          {
+            replacements: { guidelinesIds },
+            type: 'SELECT'
+          }
+        );
   
-      const resourcesByTool: any = await this.sequelize.query(
-        getResourcesByTool,
-        {
-          replacements: { guidelinesIds },
-          type: 'SELECT'
+        // Add resources to tools
+        for (let i = 0; i < guidelinesByRSC.length; i++) {
+          const guideline_id = guidelinesByRSC[i].id;
+          guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);     
         }
-      );
-
-      // Add resources to tools
-      for (let i = 0; i < guidelinesByRSC.length; i++) {
-        const guideline_id = guidelinesByRSC[i].id;
-        guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);     
+  
+        console.log(guidelinesByRSC);
+        
+  
+        return guidelinesByRSC;
       }
-
-      console.log(guidelinesByRSC);
-      
-
-      return guidelinesByRSC;
+      return [];
     } catch (error) {
       console.log(error)
       return error;
