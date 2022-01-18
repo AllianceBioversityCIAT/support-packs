@@ -19,7 +19,7 @@ export class GuidelinesMetadata extends Model {
     @Column
     guideline_id: number;
 
-    @Column
+    @Column(DataType.TEXT)
     public description: string;
 
     @Column
@@ -46,16 +46,16 @@ export class GuidelinesMetadata extends Model {
     @Column
     public estimated_time: string;
 
-    @Column
+    @Column(DataType.TEXT)
     public strengths: string;
 
-    @Column
+    @Column(DataType.TEXT)
     public limitations: string;
 
     @Column
     public is_tested_online: string;
 
-    @Column
+    @Column(DataType.TEXT)
     public key_references: string;
 
 
