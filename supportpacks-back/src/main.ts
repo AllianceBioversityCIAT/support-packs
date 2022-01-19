@@ -19,6 +19,12 @@ async function bootstrap() {
   // app.enableCors();
   app.use(helmet({ frameguard: false }));
   app.use(bodyParser.json());
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
 
 //   app.use((err: any, req: any, res: { setHeader: (arg0: string, arg1: string) => void; }, next: any) => {
 //     res.setHeader('Cross-Origin-Resource-Policy', 'same-site')

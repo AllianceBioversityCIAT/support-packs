@@ -391,7 +391,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "aiccrasp:build:production"
+              "browserTarget": "aiccrasp:build:production",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },
