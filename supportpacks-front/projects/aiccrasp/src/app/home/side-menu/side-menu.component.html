@@ -8,7 +8,8 @@
             <p><strong>Thematic area</strong></p>
             <div ngbDropdown placement="right" class="d-inline-block" #areaDrop="ngbDropdown"
             (mouseenter)="$event.stopPropagation(); areaDrop.open();"
-            (mouseleave)="$event.stopPropagation(); areaDrop.close();">
+            
+            >
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
                     <div class="filter-text">
@@ -25,7 +26,7 @@
             <p><strong>Target user</strong></p>
             <div ngbDropdown placement="right" placement="right" class="d-inline-block" #roleDrop="ngbDropdown"
                 (mouseenter)="$event.stopPropagation(); roleDrop.open();"
-                (mouseleave)="$event.stopPropagation(); roleDrop.close();">
+                >
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
                     <div class="filter-text">
@@ -42,7 +43,7 @@
             <p><strong>Project phase</strong></p>
             <div ngbDropdown placement="right" class="d-inline-block" #phaseDrop="ngbDropdown"
             (mouseenter)="$event.stopPropagation(); phaseDrop.open();"
-            (mouseleave)="$event.stopPropagation(); phaseDrop.close();">
+            >
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
                     <div class="filter-text">
