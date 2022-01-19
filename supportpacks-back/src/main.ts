@@ -20,10 +20,10 @@ async function bootstrap() {
   app.use(helmet({ frameguard: false }));
   app.use(bodyParser.json());
 
-  app.use((err: any, req: any, res: { setHeader: (arg0: string, arg1: string) => void; }, next: any) => {
-    res.setHeader('Cross-Origin-Resource-Policy', 'same-site')
-    console.log(err)
-});
+//   app.use((err: any, req: any, res: { setHeader: (arg0: string, arg1: string) => void; }, next: any) => {
+//     res.setHeader('Cross-Origin-Resource-Policy', 'same-site')
+//     console.log(err)
+// });
 
 
   app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'));
