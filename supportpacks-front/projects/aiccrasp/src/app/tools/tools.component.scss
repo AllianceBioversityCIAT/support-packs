@@ -1,0 +1,34 @@
+.tools-container{
+    padding: 1em 6em;
+}
+.h2,
+h2 {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.fa-icon{
+    margin-right: 10px;
+    margin-left: 15px;
+    margin-top: 25px;
+    cursor: pointer;
+}
+.grayBox {
+    background-color: #f1f1f1;
+    /* height: 100%; */
+    padding: 8px;
+    .badge {
+        display: inline-block;
+        min-width: 10px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        // background-color: #777;
+        border-radius: 10px;
+    }
+}
