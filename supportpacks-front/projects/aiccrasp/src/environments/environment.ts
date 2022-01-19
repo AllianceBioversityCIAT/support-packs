@@ -7,7 +7,7 @@ export const environment = {
   app_id: 3,
   name: 'AICCRA Tools Support Pack',
   api_name:'http://localhost:4410/api',
-  api: '/api'
+  api: 'http://localhost:4410/api'
 };
 
 /*

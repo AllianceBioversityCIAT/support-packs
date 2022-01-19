@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GuidelinesComponent } from './guidelines.component';
+import { ToolsComponent } from './tools.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    // pathMatch: 'prefix',
-    component: GuidelinesComponent
+    component: ToolsComponent
   }
 ];
 
@@ -15,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GuidelinesRoutingModule { }
+export class ToolsRoutingModule { }

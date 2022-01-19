@@ -18,8 +18,8 @@ const routes: Routes = [
       //  runGuardsAndResolvers: 'always'
       },
       { 
-      path: 'guidelines',
-      loadChildren: () => import('./guidelines/guidelines.module').then(mod => mod.GuidelinesModule),
+      path: 'tools',
+      loadChildren: () => import('./tools/tools.module').then(mod => mod.ToolsModule),
       //  runGuardsAndResolvers: 'always'
       },
     ]
