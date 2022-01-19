@@ -9,14 +9,14 @@ require('dotenv').config();
 
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {cors: true});
   const parentDir = require('path').resolve(process.cwd(), '../');
 
   const PORT: number = parseInt(process.env.PORT as string, 10);
   const HOST: string = process.env.LOCALHOST;
 
   // Call midlewares
-  app.enableCors();
+  // app.enableCors();
   app.use(helmet({ frameguard: false }));
   app.use(bodyParser.json());
 
