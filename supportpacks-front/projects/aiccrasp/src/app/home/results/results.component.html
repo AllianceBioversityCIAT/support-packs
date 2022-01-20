@@ -1,6 +1,9 @@
 <div class="container">
 
-    <h1 class="welcome">Welcome to the AICCRA Tools Support Pack</h1>
+    <div class="welcome-container">
+        <h1 class="welcome">Welcome to</h1>
+        <h3>AICCRA Tools Support Pack</h3>
+    </div>
 
     <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
         <p class="message">Please select the 3 options in the left panel and find useful tools</p>
@@ -86,6 +89,7 @@
         </ul>
     </section>
     <section class="description-container">
+        <h3 class="faq-title">Frequently Asked Questions (FAQ)</h3>
         <div class="description">
             <ngb-accordion [closeOthers]="true" activeIds="static-1">
                 <ngb-panel id="static-1">

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, SimpleChange } from '@angular/core';
+import { Router } from '@angular/router';
 import { faUserCircle, faClock, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
 
@@ -35,7 +36,7 @@ export class SideMenuComponent implements OnInit {
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
   @Output() filtersIdsEmitter:EventEmitter<any> = new EventEmitter();
 
-  constructor(private aiccraService: AiccraToolsService) { }
+  constructor(private aiccraService: AiccraToolsService, private router: Router) { }
 
   ngOnInit() {
     this.getFilters();
@@ -63,6 +64,23 @@ export class SideMenuComponent implements OnInit {
     // this.isVisible = false;
   }
   
+  resetFilters(type: string, data: any) {
+    this.filterData = {
+      role: null,
+      stage: null,
+      category: null
+    }
+    this.filterDataIds = {
+      role: null,
+      stage: null,
+      category: null
+    }
+    
+    this.filtersEmitter.emit(this.filterData);
+    this.filtersIdsEmitter.emit(this.filterDataIds);
+
+    console.log(this.filterData)
+  }
   selectFilter(type: string, data: any) {
     this.filterData[type] = data.name;
     this.filterDataIds[type] = data.id;
@@ -76,6 +94,10 @@ export class SideMenuComponent implements OnInit {
     console.log(this.filterData)
   }
 
-
+  goToOverview(){
+    console.log('goToOverview');
+    
+    this.router.navigate(['/aiccrasp/overview']);
+  }
 
 }

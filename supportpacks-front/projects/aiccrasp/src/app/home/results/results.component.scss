@@ -3,9 +3,31 @@
     min-height: 100vh;
     color: var(--darkText);
     padding: 2em 3em;
-    background-color: var(--background);
-    .welcome{
-        margin-bottom: 1em;
+    background: rgba(255 255 255 / 25%);
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 20%);
+    backdrop-filter: blur(14.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+  
+    .welcome-container{
+        width: 100%;
+        display: flex;
+        margin-bottom: 2em;
+        // flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        .welcome{
+            // margin-bottom: .5em;
+            text-transform: uppercase;
+        }
+        h3{
+            background-color: var(--secondaryColor);
+            color: white;
+            padding: .5em 1em;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+        }
     }
     h1{
         font-weight: bold;
@@ -68,11 +90,16 @@
     ngb-accordion{
         ::ng-deep .card {
             margin-top: 5px;
+            .card-header {
+
+                background-color: white;
+            }
         }
     }
 }
 .results{
-    background-color: #fff;
+    background-color: var(--lightGray);
+
     padding: 2em;
     border-radius: 6px;
     .metadata {
@@ -192,7 +219,8 @@ li.tool{
 }
 
 .downloads {
-    background-color: #fff;
+    background-color: var(--lightGray);
+
     padding: 2em;
     border-radius: 6px;
 }
@@ -202,43 +230,13 @@ li.tool{
     width: 40%;
     // height: 200px;
 }
-.btn-arrow {
-    min-width: 130px;
-    height: 40px;
-    color: #fff;
-    padding: 5px 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-    outline: none;
-    overflow: hidden;
-    border-radius: 5px;
-    border: none;
-    background-color: #3a86ff;
-    &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    
-  }
-  .btn-arrow:hover:not(:disabled) {
-    border-radius: 5px;
-    padding-right: 24px;
-    padding-left:8px;
-  }
-  .btn-arrow:hover:not(:disabled):after {
-    opacity: 1;
-    right: 10px;
-  }
-  .btn-arrow:after{
-    content: "\00BB";
-    position: absolute;
-    opacity: 0;
-    font-size: 20px;
-    line-height: 40px;
-    top: 0;
-    right: -20px;
-    transition: 0.4s;
-  }
+
+.faq-title{
+    background-color: var(--secondaryColor);
+            color: white;
+            padding: .5em 1em;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            width: fit-content;
+}

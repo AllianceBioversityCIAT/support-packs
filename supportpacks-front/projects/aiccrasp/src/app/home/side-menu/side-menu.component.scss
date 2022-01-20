@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content:space-between;
     align-items: center;
-    padding: 1em;
+    padding: 3em 1em;
     .logo-container {
         background-color: #fff;
         height: 300px;
@@ -26,7 +26,7 @@
     }
 
     .filters{
-        height: calc(100vh - 350px);
+        height: auto;
         width: 100%;
         padding: 1em;
         display: flex;
@@ -84,4 +84,9 @@
             }
         }
     }
+}
+.btn-arrow {
+    display: flex;
+    align-items: center;
+    gap: .5em;
 }
