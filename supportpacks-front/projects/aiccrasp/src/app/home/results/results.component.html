@@ -14,9 +14,21 @@
         </div>
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
-
     <section *ngIf="validateFilterData() && !this.showSelectedTools" class="results" [@inOutAnimation]>
-        <div class="selected-filters"></div>
+        <div class="results-title"><strong>Results:</strong></div>
+        <div class="selected-filters">
+            <div class="filter area shadow-sm">
+                <span class="material-icons-round">bookmark</span>
+                {{this.filters.category}}
+            </div>
+            <div class="filter user shadow-sm">
+                <span class="material-icons-round">account_circle</span>
+                {{this.filters.role}}
+            </div>
+            <div class="filter phase shadow-sm">
+                <span class="material-icons-round">watch_later</span>{{this.filters.stage}}
+            </div>
+        </div>
         <div class="recommended-tools">
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
             <ol>

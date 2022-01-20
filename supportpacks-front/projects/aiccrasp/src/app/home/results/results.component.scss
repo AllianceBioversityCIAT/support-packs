@@ -111,9 +111,25 @@
 }
 .results{
     background-color: var(--lightGray);
-
     padding: 2em;
     border-radius: 6px;
+    .selected-filters{
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1em;
+        margin-bottom: 2em;
+        .filter {
+            width: auto;
+            padding: .2em .5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+            background-color: white;
+            color: var(--darkText);
+            border-radius: 20px;
+        }
+    }
     .metadata {
         text-align: justify;
         font-weight: 500;
