@@ -112,7 +112,8 @@ export class ResultsComponent implements OnInit {
 
   onCheckboxChange(e) {
     const toolsArray: FormArray = this.form.get('toolsArray') as FormArray;
-
+    console.log(toolsArray);
+    
     if (e.target.checked) {
       toolsArray.push(new FormControl(e.target.value));
       this.selectedTools.push(this.recommendedTools.find(doc => e.target.value == doc.id))
@@ -132,6 +133,11 @@ export class ResultsComponent implements OnInit {
   goToSelectedTools(){
     console.log(this.selectedTools);
     this.showSelectedTools = true;
+  }
+
+  backToResults(){
+    this.selectedTools = [];
+    this.showSelectedTools = false;
   }
 
 }

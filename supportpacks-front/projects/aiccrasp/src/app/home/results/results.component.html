@@ -71,15 +71,16 @@
                     </ngb-panel>
                 </ngb-accordion>
             </ol>
-            <button class="btn-arrow" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
                 to selected tools</button>
         </div>
     </section>
     <section *ngIf="this.showSelectedTools" class="downloads">
+        <button class="btn-arrow-left mb-3" (click)="backToResults()">Back</button>
         <h3>Tools selected</h3>
         <ul>
             <li *ngFor="let tool of this.selectedTools" class="tool">
-                <div class="tool-name "><a href="tool.source" target="_blank">
+                <div class="tool-name "><a href="{{tool.source}}" target="_blank">
                         <span class="material-icons-round">
                             launch
                         </span>
