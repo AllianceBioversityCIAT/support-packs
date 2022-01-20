@@ -18,7 +18,7 @@ const routes: Routes = [
       //  runGuardsAndResolvers: 'always'
       },
       { 
-      path: 'tools',
+      path: 'overview',
       loadChildren: () => import('./tools/tools.module').then(mod => mod.ToolsModule),
       //  runGuardsAndResolvers: 'always'
       },
