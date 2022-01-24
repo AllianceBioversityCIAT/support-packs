@@ -37,6 +37,7 @@ import { SPTermsconditionsService } from './sp-termsconditions.service';
 })
 export class SPTermsconditionsComponent implements OnInit {
 
+  @Input() tcText: any;
   @Input() docsArray: any;
   @Input() selectedGuidiline: any;
   @Output() goBack = new EventEmitter<boolean>();

@@ -33,6 +33,8 @@ import { DataListService } from './sp-datalist.service';
     )
   ]
 })
+
+const tcText = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
 export class DataListComponent implements OnInit {
 
   @Input() data: any = {
