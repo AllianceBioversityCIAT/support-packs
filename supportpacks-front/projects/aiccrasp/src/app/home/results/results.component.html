@@ -32,6 +32,8 @@
         </div>
         <div class="recommended-tools">
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
+            <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+                to related resources</button>
             <ol>
                 <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
                     <ngb-panel id="tool-panel-{{tool.id}} tool-card">
@@ -73,7 +75,7 @@
                 </ngb-accordion>
             </ol>
             <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
-                to selected tools</button>
+                to related resources</button>
         </div>
     </section>
 
