@@ -1,10 +1,11 @@
 <div class="container">
+    <!-- <terms-conditions [tcText]="tcAICCRA" [docsArray]="selectedArray" [selectedGuidiline]="selectedTools" class="tc-container"
+    (goBack)="backToResults($event)"></terms-conditions> -->
 
     <div class="welcome-container">
         <h1 class="welcome">Welcome to</h1>
         <h3>AICCRA Tools Support Pack</h3>
     </div>
-
     <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
         <p class="message">Please select the 3 options in the left panel and find useful tools</p>
         <div class="icons">
@@ -75,7 +76,9 @@
                 to selected tools</button>
         </div>
     </section>
+
     <section *ngIf="this.showSelectedTools" class="downloads">
+            <!-- # T&C component -->
         <button class="btn-arrow-left mb-3" (click)="backToResults()">Back</button>
         <h3>Tools selected</h3>
         <ul>
@@ -215,7 +218,5 @@
             </ngb-accordion>
         </div>
     </section>
-    <!-- # T&C component -->
-    <!-- <tc-module [docsArray]="selectedArray" [selectedGuidiline]="selectedTools" class="container" *ngIf="isVisible"
-    (goBack)="backToResults()"></tc-module> -->
+
 </div>

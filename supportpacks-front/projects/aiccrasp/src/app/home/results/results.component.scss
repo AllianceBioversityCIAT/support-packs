@@ -248,9 +248,9 @@ li.tool{
 
 .downloads {
     background-color: var(--lightGray);
-
     padding: 2em;
     border-radius: 6px;
+
     .resources-list{
         .resource{
         background-color: white;
@@ -264,3 +264,7 @@ li.tool{
     // height: 200px;
 }
 
+.tc-container {
+    width: 100%;
+    height: 500px;
+}

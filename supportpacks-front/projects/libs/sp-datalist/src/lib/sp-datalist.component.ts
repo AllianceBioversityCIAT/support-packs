@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DataListService } from './sp-datalist.service';
 // import { DataListService } from '../public-api';
 
+const tcText = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
 @Component({
   selector: 'dl-lib',
   templateUrl: './sp-datalist.component.html',
@@ -34,7 +35,6 @@ import { DataListService } from './sp-datalist.service';
   ]
 })
 
-const tcText = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
 export class DataListComponent implements OnInit {
 
   @Input() data: any = {
@@ -53,7 +53,7 @@ export class DataListComponent implements OnInit {
   selectedData = [];
   form: FormGroup;
   isVisible = false;
-
+  tcText = tcText;
 
   constructor(private listServices: DataListService, private fb: FormBuilder, private differs: KeyValueDiffers, private spinner: NgxSpinnerService) {
     this.form = this.fb.group({

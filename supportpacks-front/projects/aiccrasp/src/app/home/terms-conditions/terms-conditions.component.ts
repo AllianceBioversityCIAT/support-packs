@@ -1,17 +1,14 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { error } from 'protractor';
-import { SPTermsconditionsService } from './sp-termsconditions.service';
-
+import {TermsConditionsService} from '../../services/terms-conditions.service'
 @Component({
-  selector: 'tc-module',
-  templateUrl: './sp-termsconditions.component.html',
-  styles: [],
-  styleUrls: ['./sp-termsconditions.component.scss'],
+  selector: 'terms-conditions',
+  templateUrl: './terms-conditions.component.html',
+  styleUrls: ['./terms-conditions.component.scss'],
   animations: [
     trigger(
       'inOutAnimation',
@@ -35,7 +32,7 @@ import { SPTermsconditionsService } from './sp-termsconditions.service';
     )
   ]
 })
-export class SPTermsconditionsComponent implements OnInit {
+export class TermsConditionsComponent implements OnInit {
 
   @Input() tcText: any;
   @Input() docsArray: any;
@@ -62,7 +59,7 @@ export class SPTermsconditionsComponent implements OnInit {
   };
   filePath = null;
 
-  constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
+  constructor(private tcService: TermsConditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
     console.log('T&C Component');
 
   }
@@ -228,4 +225,5 @@ export class SPTermsconditionsComponent implements OnInit {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     return (url.match(p)) ? '1' : '0';
   }
+
 }
