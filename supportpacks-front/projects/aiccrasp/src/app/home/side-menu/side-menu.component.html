@@ -7,9 +7,7 @@
         <div class="filter">
             <p><strong>Thematic area</strong></p>
             <div ngbDropdown placement="right" class="d-inline-block" #areaDrop="ngbDropdown"
-            (mouseclick)="$event.stopPropagation(); areaDrop.open();"
-            
-            >
+                (mouseclick)="$event.stopPropagation(); areaDrop.open();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
                     <div class="filter-text">
@@ -17,7 +15,8 @@
                     </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let category of categories" ngbDropdownItem (click)="selectFilter('category',category)">{{category.name}}</button>
+                    <button *ngFor="let category of categories" ngbDropdownItem
+                        (click)="selectFilter('category',category)">{{category.name}}</button>
                 </div>
             </div>
         </div>
@@ -25,8 +24,7 @@
         <div class="filter">
             <p><strong>Target user</strong></p>
             <div ngbDropdown placement="right" placement="right" class="d-inline-block" #roleDrop="ngbDropdown"
-                (mouseclick)="$event.stopPropagation(); roleDrop.open();"
-                >
+                (mouseclick)="$event.stopPropagation(); roleDrop.open();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
                     <div class="filter-text">
@@ -34,7 +32,8 @@
                     </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow -lg" aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let role of roles" ngbDropdownItem (click)="selectFilter('role',role)">{{role.name}}</button>
+                    <button *ngFor="let role of roles" ngbDropdownItem
+                        (click)="selectFilter('role',role)">{{role.name}}</button>
                 </div>
             </div>
         </div>
@@ -42,8 +41,7 @@
         <div class="filter">
             <p><strong>Project phase</strong></p>
             <div ngbDropdown placement="right" class="d-inline-block" #phaseDrop="ngbDropdown"
-            (mouseclick)="$event.stopPropagation(); phaseDrop.open();"
-            >
+                (mouseclick)="$event.stopPropagation(); phaseDrop.open();">
                 <button class="btn btn-filter shadow-sm rounded-pill bg-white" id="dropdownBasic1" ngbDropdownToggle>
                     <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
                     <div class="filter-text">
@@ -51,13 +49,14 @@
                     </div>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu shadow " aria-labelledby="dropdownBasic1">
-                    <button *ngFor="let stage of stages" ngbDropdownItem (click)="selectFilter('stage',stage)">{{stage.name}}</button>
+                    <button *ngFor="let stage of stages" ngbDropdownItem
+                        (click)="selectFilter('stage',stage)">{{stage.name}}</button>
                 </div>
             </div>
         </div>
 
     </div>
-    <button class="btn-arrow-right" (click)="goToOverview()" ><span class="material-icons-round">
-        format_list_bulleted
+    <button class="btn-arrow-right" (click)="goToOverview()"><span class="material-icons-round">
+            format_list_bulleted
         </span> AICCRA Tools Overview</button>
 </div>

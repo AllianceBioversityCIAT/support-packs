@@ -6,8 +6,30 @@
         <h1 class="welcome">Welcome to</h1>
         <h3>AICCRA Tools Support Pack</h3>
     </div>
+    <div class="welcome-description">
+        <p>
+
+            <strong>The AICCRA Tools Support Pack is a convenient one-stop shop for climate-smart agriculture (CSA)
+            related tools</strong>. It is a targeted, small to medium-sized database of tools. The tools chosen for the
+            support pack have
+            either been developed and/or successfully used by the CGIAR research programme on Climate Change Agriculture
+            and Food Security (CCAFS) for CSA programme design, targeting, implementation, monitoring and evaluation or
+            scaling. A variety of useful supporting materials such as use cases, training guides, peer reviewed journal
+            articles and videos are accessible with each tool.<br><br>
+
+            The tools support pack was developed to: <br>
+            - <strong>Avoid duplication of work.</strong> By collaborating with the flagship programme leads and science
+            officers a tailored selection of readily available tools was gathered to meet the needs of
+            the AICCRA countries and partners.<br>
+            - <strong>To guide the user in selecting the tool that is most appropriate to their needs.</strong> By using
+            a step-by-step filter, users can easily select the tool most suited to their specific needs
+            and capacities.<br>
+            - <strong>For efficiency and convenience.</strong> The tools are clearly described and easily accessible in a
+            single location for the convenience of the user.
+        </p>
+    </div>
     <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
-        <p class="message">Please select the 3 options in the left panel and find useful tools</p>
+        <p class="message">Please use the three filters on the left panel to identify useful tools</p>
         <div class="icons">
             <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
             <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
@@ -32,7 +54,8 @@
         </div>
         <div class="recommended-tools">
             <h3 class="mb-3"><strong>Recommended tools</strong></h3>
-            <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+            <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right"
+                [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
                 to related resources</button>
             <ol>
                 <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
@@ -74,13 +97,14 @@
                     </ngb-panel>
                 </ngb-accordion>
             </ol>
-            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0"
+                (click)="goToSelectedTools()">Access
                 to related resources</button>
         </div>
     </section>
 
     <section *ngIf="this.showSelectedTools" class="downloads">
-            <!-- # T&C component -->
+        <!-- # T&C component -->
         <button class="btn-arrow-left mb-3" (click)="backToResults()">Back</button>
         <h3>Tools selected</h3>
         <ul>
