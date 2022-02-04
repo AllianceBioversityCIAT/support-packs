@@ -17,7 +17,13 @@ async function bootstrap() {
 
   // Call midlewares
   // app.enableCors();
-  app.use(helmet());// { frameguard: false }
+  // app.use(helmet());// { frameguard: false }
+  // app.use(helmet.contentSecurityPolicy({
+  //   directives: {
+  //     // ...
+  //     frameSrc: ['https://wordpress.com']
+  //   }
+  // }));
   app.use(bodyParser.json());
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
