@@ -23,6 +23,7 @@ async function bootstrap() {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    res.header('Cross-Origin-Resource-Policy', 'same-site')
     next();
   });
 

@@ -53,10 +53,13 @@
             </div>
         </div>
         <div class="recommended-tools">
-            <h3 class="mb-3"><strong>Recommended tools</strong></h3>
+            <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+                build_circle
+                </span><strong>Recommended tools</strong></h3>
             <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right"
                 [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
                 to related resources</button>
+                <i class="advice">Expand the tool to see its details and related resources.</i>
             <ol>
                 <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
                     <ngb-panel id="tool-panel-{{tool.id}} tool-card">
@@ -106,24 +109,28 @@
     <section *ngIf="this.showSelectedTools" class="downloads">
         <!-- # T&C component -->
         <button class="btn-arrow-left mb-3" (click)="backToResults()">Back</button>
-        <h3>Tools selected</h3>
+        <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+            build_circle
+            </span><strong>Tools selected</strong></h3>
         <ul>
             <li *ngFor="let tool of this.selectedTools" class="tool">
-                <div class="tool-name "><a href="{{tool.source}}" target="_blank">
+                <div class="tool-name ">
                         <span class="material-icons-round">
-                            launch
+                            build_circle
                         </span>
+                    <a href="{{tool.source}}" target="_blank">
+                        {{tool.name}}
                     </a>
-                    {{tool.name}}
                 </div>
                 <div class="resources-list">
                     <div *ngFor="let resource of tool.resources" class="resource">
                         <div class="resource-name">
-                            <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
                                 <span class="material-icons-round">
-                                    launch
-                                </span></a>
-                            {{resource.name}}
+                                    link
+                                </span>
+                                <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
+                                    {{resource.name}}
+                                </a>
                         </div>
                         <div class="resource-type">{{resource.type}}</div>
                     </div>
