@@ -141,7 +141,7 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  backToResults(ev){
+  backToResults(ev?){
     this.selectedTools = [];
     this.showSelectedTools = false;
   }
