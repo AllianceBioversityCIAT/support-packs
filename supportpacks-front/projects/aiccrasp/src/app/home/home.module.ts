@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
+    NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

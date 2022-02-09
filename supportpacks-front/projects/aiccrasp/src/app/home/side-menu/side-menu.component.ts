@@ -1,6 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, PipeTransform, SimpleChange } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faUserCircle, faClock, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
 
 
@@ -33,6 +36,10 @@ export class SideMenuComponent implements OnInit {
   faClock = faClock;
   faBookmark = faBookmark;
 
+  searchFilter = new FormControl('');
+  tools$: Observable<any[]>;
+  allTools = [];
+
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
   @Output() filtersIdsEmitter:EventEmitter<any> = new EventEmitter();
 
@@ -40,6 +47,9 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
     this.getFilters();
+    this.getAllTools();
+    console.log('SEARCH FILTER',this.searchFilter);
+    
   }
 
   getFilters() {
@@ -63,7 +73,38 @@ export class SideMenuComponent implements OnInit {
     // this.recomendedDocs = [];
     // this.isVisible = false;
   }
-  
+
+  getAllTools() {
+    // this.spinner.show();
+    // let id = this.currentUser ? this.currentUser.user.id : undefined
+    this.aiccraService.getAllGuidelines()
+      .subscribe(
+        res => {
+          this.allTools = res;
+          console.log(res);
+          this.tools$ = this.searchFilter.valueChanges.pipe(
+            startWith(''),
+            map((text:string) => this.search(text))
+          );
+          // this.spinner.hide()
+
+        },
+        error => {
+          // this.spinner.hide()
+          console.error(error)
+        }
+      )
+  }
+
+  search(text: string, pipe?: PipeTransform): any[] {
+    return this.allTools.filter(tool => {
+      const term = text.toLowerCase();
+      return tool.name.toLowerCase().includes(term)
+        || tool.id == parseInt(term)
+      // || pipe.transform(country.population).includes(term);
+    });
+  }
+
   resetFilters(type: string, data: any) {
     this.filterData = {
       role: null,
@@ -98,6 +139,10 @@ export class SideMenuComponent implements OnInit {
     console.log('goToOverview');
     
     this.router.navigate(['/aiccrasp/overview']);
+  }
+
+  findTool() {
+    
   }
 
 }

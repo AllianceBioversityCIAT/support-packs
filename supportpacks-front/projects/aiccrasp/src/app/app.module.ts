@@ -26,6 +26,7 @@ import { TermsConditionsComponent } from './home/terms-conditions/terms-conditio
     AppRoutingModule,
     BrowserAnimationsModule,
     SPTermsconditionsModule.forRoot(environment),
+    
   ],
   providers: [
 

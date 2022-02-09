@@ -12,27 +12,81 @@
     justify-content:space-between;
     align-items: center;
     padding: 3em 1em;
+
     .logo-container {
-        background-color: #fff;
+        // background-color: #fff;
         height: 300px;
         width: 300px;
-        border-radius: 50%;
+        // border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        img{
-            max-width: 75%;
+        .icon-searching-files{
+            content: url('./../../../assets/svg/file_searching.svg');
+            width: 70%;
+            // height: 100%;
         }
+
     }
 
     .filters{
-        height: auto;
+        // height: auto;
+        flex-grow: 1;
         width: 100%;
         padding: 1em;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        .search-title{
+            color: #fff;
+            font-size: 18px;
+            align-self: flex-start;
+            margin-bottom: .6em;
+        }
+        form {
+            position: relative;
+            margin-bottom: 3em;
+            padding: 0.4em 0.9em;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            input{
+                outline: none;
+                border: none;
+                flex-grow: 1;
+                &:focus + .icon + .search-results {
+                    display: block;
+                }
+            }
+            .icon{
+                cursor: pointer;
+            }
+            .search-results{
+                display: none;
+                border-radius: 10px;
+                background-color: white;
+                width: 100%;
+                height: auto;
+                position: absolute;
+                top: 40px;
+                left: 0px;
+                list-style: none;
+                z-index: 2;
+                gap: .2em;
+                li{
+                    width: 100%;
+                    padding: .5em;
+                    &:hover{
+                        background-color: whitesmoke;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
         .filter{
             width: 100%;
             margin-bottom: 2em;
@@ -41,9 +95,9 @@
             align-items: center;
             p{
                 color: #fff;
-                font-size: 20px;
+                font-size: 18px;
                 align-self: flex-start;
-                margin-bottom: .5em;
+                margin-bottom: .4em;
             }
             .dropdown {
                 color: var(--darkText);
