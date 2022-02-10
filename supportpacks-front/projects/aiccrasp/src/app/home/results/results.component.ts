@@ -53,6 +53,7 @@ export class ResultsComponent implements OnInit {
   faClock = faClock;
   faBookmark = faBookmark;
 
+  @Input() toolFounded;
   @Input() filters;
   @Input() filtersIds;
 
@@ -77,7 +78,13 @@ export class ResultsComponent implements OnInit {
       const changedProp = changes[propName];
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
         // this.spinner.show()
+        console.log(changedProp);
+        
         this.loadComponent(changedProp.currentValue)
+      } else if(propName == 'toolFounded') {
+        // this.resetData();
+        console.log({changedProp});
+        
       } else {
         // this.resetData();
       }

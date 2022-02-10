@@ -1,7 +1,7 @@
 <div class="grid-container">
-    <app-side-menu (filtersEmitter)="parentFilters=$event"  (filtersIdsEmitter)="parentFiltersIds=$event"></app-side-menu>
+    <app-side-menu (filtersEmitter)="parentFilters=$event"  (filtersIdsEmitter)="parentFiltersIds=$event" (toolFoundedEmitter)="toolFounded=$event"></app-side-menu>
     <div class="results-container">
-        <app-results [filters]="this.parentFilters" [filtersIds]="this.parentFiltersIds"></app-results>
+        <app-results [filters]="this.parentFilters" [filtersIds]="this.parentFiltersIds" [toolFounded]="this.toolFounded"></app-results>
     </div>
     <!-- <router-outlet></router-outlet> -->
 </div>

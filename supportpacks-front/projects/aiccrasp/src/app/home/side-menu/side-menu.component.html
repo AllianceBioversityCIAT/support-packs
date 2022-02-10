@@ -10,7 +10,7 @@
                 <input  type="text" [formControl]="this.searchFilter">
                 <span class="material-icons-round icon">search</span>
                     <ul *ngIf="this.searchFilter.value != ''" class="search-results">
-                        <li *ngFor="let tool of tools$ | async | slice:0:5; let i=index" (click)="findTool()">
+                        <li *ngFor="let tool of tools$ | async | slice:0:5; let i=index" (click)="findTool($event,tool)">
                             <ngb-highlight class="align-middle" [result]="tool.name" [term]="searchFilter.value" ></ngb-highlight>
                             <!-- {{tool.name}} -->
                         </li>

@@ -26,6 +26,7 @@ export class SideMenuComponent implements OnInit {
     category: null
   }
 
+
   roles: any[] = []
   stages: any[] = []
   categories: any[] = [];
@@ -42,13 +43,13 @@ export class SideMenuComponent implements OnInit {
 
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
   @Output() filtersIdsEmitter:EventEmitter<any> = new EventEmitter();
+  @Output() toolFoundedEmitter:EventEmitter<any> = new EventEmitter();
 
   constructor(private aiccraService: AiccraToolsService, private router: Router) { }
 
   ngOnInit() {
     this.getFilters();
     this.getAllTools();
-    console.log('SEARCH FILTER',this.searchFilter);
     
   }
 
@@ -141,7 +142,9 @@ export class SideMenuComponent implements OnInit {
     this.router.navigate(['/aiccrasp/overview']);
   }
 
-  findTool() {
+  findTool(e, tool) {
+    this.toolFoundedEmitter.emit(tool);
+    console.log(tool);
     
   }
 
