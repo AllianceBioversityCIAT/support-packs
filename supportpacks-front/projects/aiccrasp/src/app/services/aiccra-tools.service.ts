@@ -38,6 +38,10 @@ export class AiccraToolsService {
     return this.http.get<any>(`${API}/sp/guidelines-all/${id}/${app_id}`).pipe();
   }
 
+  getGuidelineById(guideline_id) {
+    return this.http.get<any>(`${API}/sp/guidelineById/${guideline_id}`).pipe();
+  }
+
   /**
    * 
    * @params 

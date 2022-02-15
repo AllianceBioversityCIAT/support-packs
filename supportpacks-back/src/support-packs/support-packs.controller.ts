@@ -17,6 +17,11 @@ export class SupportPacksController {
 
     return this.supportPacksService.findAllGuidelinesByApp(app_id);
   }
+  @Get('guidelineById/:guideline_id')
+  findGuidelineById(@Param('guideline_id') guideline_id) {
+
+    return this.supportPacksService.findGuidelineById(guideline_id);
+  }
 
   @Get('categories/:app_id')
   findAllCategoriesByApp(@Param('app_id') app_id) {

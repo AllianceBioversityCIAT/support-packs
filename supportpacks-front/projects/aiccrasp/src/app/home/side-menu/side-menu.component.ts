@@ -1,3 +1,4 @@
+import { error } from '@angular/compiler/src/util';
 import { Component, EventEmitter, OnInit, Output, PipeTransform, SimpleChange } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -143,9 +144,13 @@ export class SideMenuComponent implements OnInit {
   }
 
   findTool(e, tool) {
-    this.toolFoundEmitter.emit(tool);
-    this.searchFilter.setValue('');
-    console.log(tool);
+    this.aiccraService.getGuidelineById(tool.id).subscribe(res => {
+      console.log({res})
+      this.toolFoundEmitter.emit(res);
+      this.searchFilter.setValue('');
+    }, error => {
+      console.log(error);
+    })
     
   }
 

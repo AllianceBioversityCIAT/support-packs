@@ -12,6 +12,7 @@ import { Role } from './entities/role.entity';
 import { Stage } from './entities/stage.entity';
 import { User } from './entities/user.entity.';
 import moment from 'moment';
+import { GuidelinesMetadata } from './entities/guidelines-metadata.entity';
 
 @Injectable()
 export class SupportPacksService {
@@ -34,6 +35,61 @@ export class SupportPacksService {
         }
       );
       return guidelines;
+
+    } catch (error) {
+      return error;
+    }
+
+
+  }
+  async findGuidelineById(guideline_id: string) {
+    try {
+      const guideline = await this.sequelize.query(
+        `SELECT
+    g.id,
+    g.code,
+    (REPLACE(g.code, ".", "")) as "composedCode",
+        g.name,
+        g.type,
+        TRIM(g.source) AS "source",
+        gm.description,
+        gm.estimated_time,
+        gm.strengths,
+        gm.limitations
+    FROM
+    sp_guidelines g 
+    LEFT JOIN sp_guidelines_metadata gm ON gm.guideline_id = g.id
+    WHERE
+        g.id = :guideline_id
+    `,
+
+        {
+          type: 'SELECT',
+          replacements: { guideline_id },
+          // type: QueryTypes.SELECT
+        }
+      );
+
+      let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
+        WHERE guideline_id = :guideline_id`;
+
+      const resources = await this.sequelize.query(
+        getResourcesByTool,
+        {
+
+          replacements: { guideline_id },
+          type: 'SELECT'
+        }
+      );
+
+      console.log({ resources });
+
+
+      let tool = Object.assign(guideline[0]);
+      tool.resources = resources;
+      console.log({tool});
+
+      return tool;
 
     } catch (error) {
       return error;
@@ -183,8 +239,8 @@ export class SupportPacksService {
 
 
     try {
-      if(role != undefined && stage != undefined && category != undefined) {      
-        let guidelinesByRSC:any = await this.sequelize.query(
+      if (role != undefined && stage != undefined && category != undefined) {
+        let guidelinesByRSC: any = await this.sequelize.query(
           getGuidelinesQuery,
           {
             replacements: { role, stage, category },
@@ -192,13 +248,13 @@ export class SupportPacksService {
           }
         );
         console.log(guidelinesByRSC);
-        
-        if(guidelinesByRSC.length == 0) return [];
-        const guidelinesIds = guidelinesByRSC.map((g:any) => g.id);
-        
+
+        if (guidelinesByRSC.length == 0) return [];
+        const guidelinesIds = guidelinesByRSC.map((g: any) => g.id);
+
         let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
         WHERE guideline_id IN (:guidelinesIds)`;
-    
+
         const resourcesByTool: any = await this.sequelize.query(
           getResourcesByTool,
           {
@@ -206,16 +262,16 @@ export class SupportPacksService {
             type: 'SELECT'
           }
         );
-  
+
         // Add resources to tools
         for (let i = 0; i < guidelinesByRSC.length; i++) {
           const guideline_id = guidelinesByRSC[i].id;
-          guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);     
+          guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);
         }
-  
+
         console.log(guidelinesByRSC);
-        
-  
+
+
         return guidelinesByRSC;
       }
       return [];
@@ -377,7 +433,7 @@ export class SupportPacksService {
   }
 
   // Set Downloaded Region
- async setDownloadedRegion(body: any) {
+  async setDownloadedRegion(body: any) {
     const { download_id, region_id, region_scope } = body;
     try {
       let sqlQuery = `
@@ -389,7 +445,7 @@ export class SupportPacksService {
         sqlQuery,
         {
           replacements: { download_id, region_id, region_scope },
-          type:'INSERT'
+          type: 'INSERT'
         }
       );
 
@@ -424,13 +480,13 @@ export class SupportPacksService {
         ga.institute_regions.forEach((region: any) => {
           promises.push(this.setDownloadedRegion({ download_id: download_id['id'], region_id: region, region_scope: "instituteRegion" }))
         });
-          // Set region(s) of your research interest download
-          ga.research_regions.forEach((research: any) => {
-            promises.push(this.setDownloadedRegion({ download_id: download_id['id'], region_id: research, region_scope: "researchRegion" }))
-          });
+        // Set region(s) of your research interest download
+        ga.research_regions.forEach((research: any) => {
+          promises.push(this.setDownloadedRegion({ download_id: download_id['id'], region_id: research, region_scope: "researchRegion" }))
+        });
         //   // guides?.concat( researchs, institutes)
-          let savedManager = await Promise.all(promises);
-          console.log(savedManager);
+        let savedManager = await Promise.all(promises);
+        console.log(savedManager);
       }
 
       return download_id;
