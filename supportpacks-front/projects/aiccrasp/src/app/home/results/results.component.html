@@ -28,6 +28,7 @@
             single location for the convenience of the user.
         </p>
     </div>
+
     <section [@slideInOut] *ngIf="!validateFilterData() && !this.foundByName" class="require-search">
         <p class="message">Please use the three filters on the left panel to identify useful tools</p>
         <div class="icons">
@@ -37,6 +38,7 @@
         </div>
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
+
     <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results" [@inOutAnimation]>
         <div class="results-title"><strong>Results:</strong></div>
         <div class="selected-filters">
@@ -105,8 +107,10 @@
                 to related resources</button>
         </div>
     </section>
+
     <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results" [@inOutAnimation]>
         <div class="recommended-tools">
+        <div class="results-title"><strong>Search results: <i>"{{recommendedTools[0].name}}"</i></strong></div>
             <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
                 build_circle
                 </span><strong>Tool found</strong></h3>
