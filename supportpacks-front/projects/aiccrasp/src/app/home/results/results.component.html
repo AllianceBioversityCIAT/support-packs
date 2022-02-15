@@ -28,7 +28,7 @@
             single location for the convenience of the user.
         </p>
     </div>
-    <section [@slideInOut] *ngIf="!validateFilterData()" class="require-search">
+    <section [@slideInOut] *ngIf="!validateFilterData() && !this.foundByName" class="require-search">
         <p class="message">Please use the three filters on the left panel to identify useful tools</p>
         <div class="icons">
             <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
@@ -37,7 +37,7 @@
         </div>
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
-    <section *ngIf="validateFilterData() && !this.showSelectedTools" class="results" [@inOutAnimation]>
+    <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results" [@inOutAnimation]>
         <div class="results-title"><strong>Results:</strong></div>
         <div class="selected-filters">
             <div class="filter area shadow-sm">
@@ -81,6 +81,51 @@
                                     <div
                                         class="importance-color {{tool.importance_level.toLowerCase().split(' ').join('-')}}">
                                     </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div class="metadata">{{tool.description}}</div>
+                            <div class="metadata"><strong>Time: </strong>{{tool.estimated_time}}</div>
+                            <div class="metadata"><strong>Strengths: </strong>{{tool.strengths}}</div>
+                            <div class="metadata"><strong>Limitations: </strong>{{tool.limitations}}</div>
+                            <h5 class="mt-2"><strong>Recommended resources</strong></h5>
+                            <div class="resources-list">
+                                <div *ngFor="let resource of tool.resources" class="resource">
+                                    <div class="resource-name">{{resource.name}}</div>
+                                    <div class="resource-type">{{resource.type}}</div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ol>
+            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0"
+                (click)="goToSelectedTools()">Access
+                to related resources</button>
+        </div>
+    </section>
+    <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results" [@inOutAnimation]>
+        <div class="recommended-tools">
+            <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+                build_circle
+                </span><strong>Tool found</strong></h3>
+                <i class="advice">Expand the tool to see its details and related resources.</i>
+            <ol>
+                <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools" activeIds="tool-panel-0">
+                    <ngb-panel id="tool-panel-0">
+                        <ng-template ngbPanelHeader let-opened="opened">
+                            <div class="align-items-center accordion-header" ngbPanelToggle>
+                                <div class="accordion-left align-items-center">
+                                    <input type="checkbox" name="" id="tool-{{tool.id}}" [value]="tool.id"
+                                        (change)="onCheckboxChange($event)"
+                                        aria-label="Checkbox to selec following tool">
+                                    <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
+                                            class="material-icons-round">
+                                            {{ opened ? 'expand_more' : 'chevron_right' }}
+                                        </span>
+                                    </button>
+                                    <h5 class="m-0" style="padding: 10px;"><a href="{{tool.source}}" target="_blank">{{tool.name}}</a></h5>
                                 </div>
                             </div>
                         </ng-template>

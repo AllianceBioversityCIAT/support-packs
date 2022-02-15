@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   parentFilters: any;
   parentFiltersIds: any;
 
-  toolFounded: any;
+  toolFound: any;
   constructor() { }
 
   ngOnInit() {

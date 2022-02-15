@@ -43,7 +43,7 @@ export class SideMenuComponent implements OnInit {
 
   @Output() filtersEmitter:EventEmitter<any> = new EventEmitter();
   @Output() filtersIdsEmitter:EventEmitter<any> = new EventEmitter();
-  @Output() toolFoundedEmitter:EventEmitter<any> = new EventEmitter();
+  @Output() toolFoundEmitter:EventEmitter<any> = new EventEmitter();
 
   constructor(private aiccraService: AiccraToolsService, private router: Router) { }
 
@@ -143,7 +143,8 @@ export class SideMenuComponent implements OnInit {
   }
 
   findTool(e, tool) {
-    this.toolFoundedEmitter.emit(tool);
+    this.toolFoundEmitter.emit(tool);
+    this.searchFilter.setValue('');
     console.log(tool);
     
   }

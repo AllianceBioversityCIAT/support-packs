@@ -9,7 +9,7 @@ import { AiccraToolsService } from '../../services/aiccra-tools.service';
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
-  animations: [    trigger('slideInOut', [
+  animations: [trigger('slideInOut', [
     state('in', style({
       overflow: 'hidden',
       height: '*',
@@ -24,26 +24,26 @@ import { AiccraToolsService } from '../../services/aiccra-tools.service';
     transition('in => out', animate('400ms ease-in-out')),
     transition('out => in', animate('400ms ease-in-out'))
   ]),
-    trigger(
-      'inOutAnimation',
-      [
-        transition(':enter', [
+  trigger(
+    'inOutAnimation',
+    [
+      transition(':enter', [
 
-          // css styles at start of transition
-          style({ opacity: 0 }),
+        // css styles at start of transition
+        style({ opacity: 0 }),
 
-          // animation and styles at end of transition
-          animate('.3s', style({ opacity: 1 }))
-        ]),
-        transition(':leave', [
-          // css styles at start of transition
-          style({ opacity: 1 }),
+        // animation and styles at end of transition
+        animate('.3s', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        // css styles at start of transition
+        style({ opacity: 1 }),
 
-          // animation and styles at end of transition
-          animate('.3s', style({ opacity: 0 }))
-        ])
-      ]
-    )
+        // animation and styles at end of transition
+        animate('.3s', style({ opacity: 0 }))
+      ])
+    ]
+  )
   ]
 })
 export class ResultsComponent implements OnInit {
@@ -53,7 +53,7 @@ export class ResultsComponent implements OnInit {
   faClock = faClock;
   faBookmark = faBookmark;
 
-  @Input() toolFounded;
+  @Input() toolFound;
   @Input() filters;
   @Input() filtersIds;
 
@@ -64,7 +64,9 @@ export class ResultsComponent implements OnInit {
   tcIsVisible = false;
   showSelectedTools: boolean = false;
 
-  constructor(private aiccraToolsService: AiccraToolsService,private fb: FormBuilder) { }
+  foundByName = false;
+
+  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder) { }
 
   ngOnInit() {
   }
@@ -79,12 +81,12 @@ export class ResultsComponent implements OnInit {
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
         // this.spinner.show()
         console.log(changedProp);
-        
+
         this.loadComponent(changedProp.currentValue)
-      } else if(propName == 'toolFounded') {
+      } else if (propName == 'toolFound') {
         // this.resetData();
-        console.log({changedProp});
-        
+        console.log({ changedProp });
+        this.loadTool(changedProp.currentValue)
       } else {
         // this.resetData();
       }
@@ -98,10 +100,12 @@ export class ResultsComponent implements OnInit {
       res => {
         // this.spinner.hide();
         console.log(res);
-        
+
         this.recommendedTools = res;
         this.selectedTools = [];
         this.showSelectedTools = false;
+        this.foundByName = false;
+
         // console.log('res', this.recomendedDocs)
       },
       error => {
@@ -110,9 +114,17 @@ export class ResultsComponent implements OnInit {
       }
     )
   }
-  
+
+  loadTool(tool) {
+    this.recommendedTools = [];
+    this.recommendedTools.push(tool);
+    this.selectedTools = [];
+    this.showSelectedTools = false;
+    this.foundByName = true;
+  }
+
   validateFilterData() {
-    if(this.filters) {
+    if (this.filters) {
       return this.filters.role !== null && this.filters.stage !== null && this.filters.category !== null;
     }
     return false;
@@ -121,7 +133,7 @@ export class ResultsComponent implements OnInit {
   onCheckboxChange(e) {
     const toolsArray: FormArray = this.form.get('toolsArray') as FormArray;
     console.log(toolsArray);
-    
+
     if (e.target.checked) {
       toolsArray.push(new FormControl(e.target.value));
       this.selectedTools.push(this.recommendedTools.find(doc => e.target.value == doc.id))
@@ -138,17 +150,17 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  goToSelectedTools(){
+  goToSelectedTools() {
     console.log(this.selectedTools);
     this.selectedArray = this.form.value['docsArray'];
 
     this.showSelectedTools = true;
     this.tcIsVisible = true;
     console.log(this.tcIsVisible);
-    
+
   }
 
-  backToResults(ev?){
+  backToResults(ev?) {
     this.selectedTools = [];
     this.showSelectedTools = false;
   }
