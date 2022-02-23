@@ -1,0 +1,114 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './assets/scss/variables.scss';
+// @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+// Variables
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+
+p{
+    font-weight: 500;
+}
+
+.md-shadow {
+    box-shadow: 0px 2px 9px 0px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+}
+
+
+.very-important, .level-4 {
+    background-color: #019875;
+}
+.important, .level-3 {
+    background-color: #00AEAD;
+}
+.useful, .level-2 {
+    background-color: #72CC50;
+}
+.optional, .level-1 {
+    background-color: #c2c2c2;
+}
+
+.btn-arrow-right {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--secondaryColor);
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    
+  }
+  .btn-arrow-right:hover:not(:disabled) {
+    border-radius: 5px;
+    padding-right: 24px;
+    padding-left:8px;
+  }
+  .btn-arrow-right:hover:not(:disabled):after {
+    opacity: 1;
+    right: 10px;
+  }
+  .btn-arrow-right:after{
+    content: "\00BB";
+    position: absolute;
+    opacity: 0;
+    font-size: 20px;
+    line-height: 40px;
+    top: 0;
+    right: -20px;
+    transition: 0.4s;
+  }
+
+  .btn-arrow-left {
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--secondaryColor);
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    
+  }
+  .btn-arrow-left:hover:not(:disabled) {
+    border-radius: 5px;
+    padding-left: 24px;
+    padding-right:8px;
+  }
+  .btn-arrow-left:hover:not(:disabled):before {
+    opacity: 1;
+    left: 10px;
+  }
+  .btn-arrow-left:before{
+    content: "\00AB";
+    position: absolute;
+    opacity: 0;
+    font-size: 20px;
+    line-height: 40px;
+    top: 0;
+    left: -20px;
+    transition: 0.4s;
+  }

@@ -1,0 +1,5 @@
+/SupportPacks-back/node_modules
+/SupportPacks-back/.env
+/SupportPacks-back/v2_20200904_sp_database.sql
+/no-upload.txt
+/SupportPacks-back/nodemon.json

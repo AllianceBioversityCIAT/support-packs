@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+// @import "./fontawesome/scss/fontawesome.scss";
+// @import "./fontawesome/scss/solid.scss";
+// @import "./fontawesome/scss/brands.scss";
+
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-primary.active,
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.very-important,
+.level-4 {
+    background-color: #c0504d !important;
+    color: #fff;
+}
+.important,
+.level-3 {
+    background-color: #da9694 !important;
+    color: #fff;
+}
+.useful,
+.level-2 {
+    background-color: #e6b8b7 !important;
+    color: #fff;
+}
+.optional,
+.level-1 {
+    background-color: #fff !important;
+    color: #222 !important;
+}

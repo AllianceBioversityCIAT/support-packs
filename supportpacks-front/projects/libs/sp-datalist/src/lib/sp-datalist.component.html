@@ -1,0 +1,55 @@
+<div class="container" [@inOutAnimation] style="margin-top: 3em;" *ngIf="validateFilterData()">
+
+    <p class="error" *ngIf="this.form.controls['docsArray'].errors?.required">
+        Checkbox is required, select at least one value.
+    </p>
+
+    <div id="step1" class="">
+        <h3 class="blockTitle">Documents recomended</h3>
+        <i class="messageResult">
+            <b class="nDocuments">{{recomendedDocs.length}} </b> Documents found for a <b>{{data.role.name}}</b> at
+            <b>{{data.stage.name}}</b>
+            stage
+        </i>
+        <div class="docResults">
+            <h5>{{data.category.name}}</h5>
+            <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+
+                <div *ngFor="let doc of recomendedDocs; let i=index">
+                    <div class="input-group row docRow">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="doc-{{doc.id}}" [value]="doc.id"
+                                    (change)="onCheckboxChange($event)" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                        <div class="input-group-prepend-txt d-flex col ">
+                            <i class="guideline-icon icon-type-{{isYoutube(doc.source)}}">
+
+                            </i>
+                            <label for="doc-{{doc.id}}">
+                                {{doc.name}}
+                            </label>
+
+                            <span class="importanceLevel {{doc.importance_level.toLowerCase().split(' ').join('-')}}">
+                                {{doc.importance_level}}
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-secondary" type='button' (click)="restartData()" style="margin-right: 1em;"> New
+                    search</button>
+                <input id="filtered-type" [disabled]="this.form.controls['docsArray'].errors?.required"
+                    class="download 1 btn btn-primary" type="submit" value="Download chosen documents">
+                <ngx-spinner></ngx-spinner>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<tc-module [tcText]="tcText" [docsArray]="selectedArray" [selectedGuidiline]="selectedData" class="container" *ngIf="true"
+    (goBack)="onBack($event)"></tc-module>

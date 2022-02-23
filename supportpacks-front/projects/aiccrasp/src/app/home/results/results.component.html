@@ -1,0 +1,304 @@
+<div class="container">
+    <!-- <terms-conditions [tcText]="tcAICCRA" [docsArray]="selectedArray" [selectedGuidiline]="selectedTools" class="tc-container"
+    (goBack)="backToResults($event)"></terms-conditions> -->
+
+    <div class="welcome-container">
+        <h1 class="welcome">Welcome to</h1>
+        <h3>AICCRA Tools Support Pack</h3>
+    </div>
+    <div class="welcome-description">
+        <p>
+
+            <strong>The AICCRA Tools Support Pack is a convenient one-stop shop for climate-smart agriculture (CSA)
+            related tools</strong>. It is a targeted, small to medium-sized database of tools. The tools chosen for the
+            support pack have
+            either been developed and/or successfully used by the CGIAR research programme on Climate Change Agriculture
+            and Food Security (CCAFS) for CSA programme design, targeting, implementation, monitoring and evaluation or
+            scaling. A variety of useful supporting materials such as use cases, training guides, peer reviewed journal
+            articles and videos are accessible with each tool.<br><br>
+
+            The tools support pack was developed to: <br>
+            - <strong>Avoid duplication of work.</strong> By collaborating with the flagship programme leads and science
+            officers a tailored selection of readily available tools was gathered to meet the needs of
+            the AICCRA countries and partners.<br>
+            - <strong>To guide the user in selecting the tool that is most appropriate to their needs.</strong> By using
+            a step-by-step filter, users can easily select the tool most suited to their specific needs
+            and capacities.<br>
+            - <strong>For efficiency and convenience.</strong> The tools are clearly described and easily accessible in a
+            single location for the convenience of the user.
+        </p>
+    </div>
+
+    <section [@slideInOut] *ngIf="!validateFilterData() && !this.foundByName" class="require-search">
+        <p class="message">Please use the three filters on the left panel to identify useful tools</p>
+        <div class="icons">
+            <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
+            <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
+            <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
+        </div>
+        <i class="icon-folder-files" style.width.px="520"></i>
+    </section>
+
+    <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results" [@inOutAnimation]>
+        <div class="results-title"><strong>Results:</strong></div>
+        <div class="selected-filters">
+            <div class="filter area shadow-sm">
+                <span class="material-icons-round">bookmark</span>
+                {{this.filters.category}}
+            </div>
+            <div class="filter user shadow-sm">
+                <span class="material-icons-round">account_circle</span>
+                {{this.filters.role}}
+            </div>
+            <div class="filter phase shadow-sm">
+                <span class="material-icons-round">watch_later</span>{{this.filters.stage}}
+            </div>
+        </div>
+        <div class="recommended-tools">
+            <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+                build_circle
+                </span><strong>Recommended tools</strong></h3>
+            <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right"
+                [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
+                to related resources</button>
+                <i class="advice">Expand the tool to see its details and related resources.</i>
+            <ol>
+                <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
+                    <ngb-panel id="tool-panel-{{tool.id}} tool-card">
+                        <ng-template ngbPanelHeader let-opened="opened">
+                            <div class="align-items-center accordion-header" ngbPanelToggle>
+                                <div class="accordion-left align-items-center">
+                                    <input type="checkbox" name="" id="tool-{{tool.id}}" [value]="tool.id"
+                                        (change)="onCheckboxChange($event)"
+                                        aria-label="Checkbox to selec following tool">
+                                    <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
+                                            class="material-icons-round">
+                                            {{ opened ? 'expand_more' : 'chevron_right' }}
+                                        </span>
+                                    </button>
+                                    <h5 class="m-0"><a href="{{tool.source}}" target="_blank">{{tool.name}}</a></h5>
+                                </div>
+                                <div class="accordion-right d-flex align-items-center">
+                                    <strong class="importance-level">{{tool.importance_level}}</strong>
+                                    <div
+                                        class="importance-color {{tool.importance_level.toLowerCase().split(' ').join('-')}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div class="metadata">{{tool.description}}</div>
+                            <div class="metadata"><strong>Time: </strong>{{tool.estimated_time}}</div>
+                            <div class="metadata"><strong>Strengths: </strong>{{tool.strengths}}</div>
+                            <div class="metadata"><strong>Limitations: </strong>{{tool.limitations}}</div>
+                            <h5 class="mt-2"><strong>Recommended resources</strong></h5>
+                            <div class="resources-list">
+                                <div *ngFor="let resource of tool.resources" class="resource">
+                                    <div class="resource-name">{{resource.name}}</div>
+                                    <div class="resource-type">{{resource.type}}</div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ol>
+            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0"
+                (click)="goToSelectedTools()">Access
+                to related resources</button>
+        </div>
+    </section>
+
+    <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results" [@inOutAnimation]>
+        <div class="recommended-tools">
+        <div class="results-title"><strong>Search results: <i class="font-weight-normal">"{{recommendedTools[0].name}}"</i></strong></div>
+            <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+                build_circle
+                </span><strong>Tool found</strong></h3>
+                <i class="advice">Expand the tool to see its details and related resources.</i>
+            <ol>
+                <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools" activeIds="tool-panel-0">
+                    <ngb-panel id="tool-panel-0">
+                        <ng-template ngbPanelHeader let-opened="opened">
+                            <div class="align-items-center accordion-header" ngbPanelToggle>
+                                <div class="accordion-left align-items-center">
+                                    <input type="checkbox" name="" id="tool-{{tool.id}}" [value]="tool.id"
+                                        (change)="onCheckboxChange($event)"
+                                        aria-label="Checkbox to selec following tool">
+                                    <button ngbPanelToggle class="btn p-0 d-flex align-items-center btn-expand"><span
+                                            class="material-icons-round">
+                                            {{ opened ? 'expand_more' : 'chevron_right' }}
+                                        </span>
+                                    </button>
+                                    <h5 class="m-0" style="padding: 10px;"><a href="{{tool.source}}" target="_blank">{{tool.name}}</a></h5>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div class="metadata">{{tool.description}}</div>
+                            <div class="metadata"><strong>Time: </strong>{{tool.estimated_time}}</div>
+                            <div class="metadata"><strong>Strengths: </strong>{{tool.strengths}}</div>
+                            <div class="metadata"><strong>Limitations: </strong>{{tool.limitations}}</div>
+                            <h5 class="mt-2"><strong>Recommended resources</strong></h5>
+                            <div class="resources-list">
+                                <div *ngFor="let resource of tool.resources" class="resource">
+                                    <div class="resource-name">{{resource.name}}</div>
+                                    <div class="resource-type">{{resource.type}}</div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ol>
+            <button class="btn-arrow-right" [disabled]="this.selectedTools.length == 0"
+                (click)="goToSelectedTools()">Access
+                to related resources</button>
+        </div>
+    </section>
+
+    <section *ngIf="this.showSelectedTools" class="downloads">
+        <!-- # T&C component -->
+        <button class="btn-arrow-left mb-3" (click)="backToResults($event)">Back</button>
+        <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
+            build_circle
+            </span><strong>Tools selected</strong></h3>
+        <ul>
+            <li *ngFor="let tool of this.selectedTools" class="tool">
+                <div class="tool-name ">
+                        <span class="material-icons-round">
+                            build_circle
+                        </span>
+                    <a href="{{tool.source}}" target="_blank">
+                        {{tool.name}}
+                    </a>
+                </div>
+                <div class="resources-list">
+                    <div *ngFor="let resource of tool.resources" class="resource">
+                        <div class="resource-name">
+                                <span class="material-icons-round">
+                                    link
+                                </span>
+                                <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
+                                    {{resource.name}}
+                                </a>
+                        </div>
+                        <div class="resource-type">{{resource.type}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="description-container">
+        <h3 class="faq-title">Frequently Asked Questions (FAQ)</h3>
+        <div class="description">
+            <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                <!-- <ngb-panel id="static-1">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
+                            <span>
+                                What is the AICCRA tools support pack?
+                            </span>
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <p>
+                            The tools support pack is a convenient ‘one-stop-shop’ for climate-smart agriculture (CSA)
+                            related tools. It is atargeted, small to medium sized database of tools. The tools chosen
+                            for the support pack have either been developed and/or successfully used by CCAFS for CSA
+                            programme design, targeting, implementation, monitoring and evaluation and scaling. A
+                            variety of useful supporting materials such as use cases, training guides, peer reviewed
+                            journal articles and videos are accessible with each tool.
+                        </p>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-2">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
+                            <span>
+                                Why was it developed?
+                            </span>
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <p>
+                            The tools support pack was developed to: <br>
+                            - Avoid duplication of work. By collaborating with the flagship programme leads and science
+                            officers a tailored selection of readily available tools was gathered to meet the needs of
+                            the AICCRA countries and partners.<br>
+                            - To guide the user in selecting the tool that is most appropriate to their needs. By using
+                            a step-by-step filter, users can easily select the tool most suited to their specific needs
+                            and capacities.<br>
+                            - For efficiency and convenience. The tools are clearly described and easily accessible in a
+                            single location for the convenience of the user.
+                        </p>
+                    </ng-template>
+                </ngb-panel> -->
+                <ngb-panel id="static-3">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
+                            <span>
+                                How does the tools support pack integrate gender?
+                            </span>
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <p>
+                            The AICCRA Gender and Social Inclusion (GSI) team provided key gender-responsive CSA tools
+                            to incorporate in the tools support pack. Furthermore, it is indicated in the metadata as to
+                            whether a tool integrates gender or not.
+                        </p>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-4">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
+                            <span>
+                                What will I find in the tools support pack?
+                            </span>
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <p>
+                            - A concise description of the tool and a hyperlink to access it<br>
+                            - Target scale (e.g. policy, farm, individual or programme)<br>
+                            - Key participants in the application of the tool (e.g. farmers, decision makers and social
+                            or climate change researchers)<br>
+                            - Method used (e.g. field assessment, focus group discussion, participatory analysis or a
+                            cost-benefit assessment)<br>
+                            - Types of input data or information needed (e.g. biophysical, crop yields, GHG emission
+                            data, meteorological or spatial)<br>
+                            - Expected outputs (e.g. characterisation of farm households, gender empowerment index or
+                            greenhouse gas (GHG) emission inventory)<br>
+                            - Required human resources to implement the tool (e.g. a stakeholder engagement specialist
+                            or technical staff trained in climate modelling and data interpretation)<br>
+                            - An estimate of the implementation time (excluding time needed for training)<br>
+                            - Strengths and limitations of the tool<br>
+                            - An indication of whether the tool can be tested online<br>
+                            - Key reference people and their contact details<br>
+                            - Hyperlinks to relevant use cases with brief descriptions on tool applications<br>
+                            - Hyperlinks to training materials such as guides and manuals and to additional information
+                            deemed useful (blogs, videos, project websites and reports).
+                        </p>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-5">
+                    <ng-template ngbPanelHeader>
+                        <button ngbPanelToggle class="btn p-0 d-flex align-items-center question">
+                            <span>
+                                How can I add resources to the tools support pack?
+                            </span>
+                        </button>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <p>
+                            The tools support pack is a live database with an upload functionality that allows
+                            colleagues and partners to add further supporting materials or tools. The upload button
+                            triggers a review process to ensure the proposed materials are relevant and of the desired
+                            quality.
+                        </p>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </section>
+
+</div>

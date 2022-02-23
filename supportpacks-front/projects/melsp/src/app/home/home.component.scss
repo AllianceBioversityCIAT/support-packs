@@ -1,0 +1,67 @@
+.selectionBlock {
+    .btn-danger {
+        background-color: #ef9a9a;
+        border-color: #ef9a9a;
+        align-items: center;
+        border-radius: 0;
+
+        img {
+            height: 30px;
+        }
+    }
+
+    .dropdown-menu.show {
+        width: 92%;
+
+        .dropdown-item {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            outline: none;
+            color: #009688;
+        }
+    }
+
+    .optionText{
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dropdown-item.active,
+    .dropdown-item:active {
+        background-color: #ef9a9a;
+        border-color: #ef9a9a;
+        color: white !important;
+    }
+
+    .select-active {
+        background-color:#d47979;
+        border-color:#d47979;
+    }
+}
+
+.resultsBlock {
+    .results-selection {
+        background: #f1f1f1;
+        padding: 2em;
+        font-size: 1.4em;
+        font-weight: lighter;
+        font-family: "Open Sans", sans-serif;
+        color: #444;
+        .checkIcon {
+            cursor: pointer;
+        }
+    }
+    .removeFilters{
+        margin: 5px 0;
+        .btn{
+            margin-right: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
