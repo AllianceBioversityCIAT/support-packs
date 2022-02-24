@@ -8,12 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { ResultsComponent } from './results/results.component';
-import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TermsConditionsComponent } from '../terms-conditions/terms-conditions.component';
+import { TermsConditionsModule } from '../terms-conditions/terms-conditions.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
-  declarations: [HomeComponent, SideMenuComponent, ResultsComponent, TermsConditionsComponent],
+  declarations: [HomeComponent, SideMenuComponent, ResultsComponent ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -21,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    TermsConditionsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
