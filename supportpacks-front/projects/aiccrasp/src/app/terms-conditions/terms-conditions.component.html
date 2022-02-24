@@ -4,7 +4,7 @@
     <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
         <h3 class="headTitle">Terms and conditions</h3>
         <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
-            <p> {{this.tcText}}
+            <p [innerHtml]="this.tcText"> 
             </p>
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
@@ -142,8 +142,8 @@
     </div>
 
     <!-- error message -->
-    <div class="row align-items-center" style="height: 300px;">
-        <div id='error' class="col" *ngIf="error">
+    <div *ngIf="error" class="row align-items-center" style="height: 300px;">
+        <div id='error' class="col" >
             {{this.error}}
             <p>Please contact the support pack team at <a href="mailto:f.elvira@cgiar.org">f.elvira@cgiar.org</a></p>
         </div>

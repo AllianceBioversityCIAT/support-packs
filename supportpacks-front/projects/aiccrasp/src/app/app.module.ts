@@ -14,18 +14,24 @@ import { AiccraToolsService } from './services/aiccra-tools.service';
 import { SPTermsconditionsModule } from 'projects/libs/sp-termsconditions/src/public-api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
-import { TermsConditionsComponent } from './home/terms-conditions/terms-conditions.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SPTermsconditionsModule.forRoot(environment),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
     
   ],
   providers: [

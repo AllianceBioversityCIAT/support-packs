@@ -1,12 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {TermsConditionsService} from '../../services/terms-conditions.service'
+import { error } from 'protractor';
+import { TermsConditionsService } from '../services/terms-conditions.service';
+
 @Component({
-  selector: 'terms-conditions',
+  selector: 'app-terms-conditions',
   templateUrl: './terms-conditions.component.html',
   styleUrls: ['./terms-conditions.component.scss'],
   animations: [
@@ -225,5 +227,4 @@ export class TermsConditionsComponent implements OnInit {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     return (url.match(p)) ? '1' : '0';
   }
-
 }
