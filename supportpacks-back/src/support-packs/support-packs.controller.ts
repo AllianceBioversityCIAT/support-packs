@@ -71,4 +71,9 @@ export class SupportPacksController {
   remove(@Param('id') id: string) {
     return this.supportPacksService.remove(+id);
   }
+
+  @Post('/download')
+  download(@Body() body) {
+    return this.supportPacksService.downloadManager(body);
+  }
 }

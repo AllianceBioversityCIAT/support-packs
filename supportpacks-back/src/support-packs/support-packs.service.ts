@@ -457,7 +457,7 @@ export class SupportPacksService {
 
   }
 
-  async downloadManager(ga: any, user_id) {
+  async downloadManager(ga: any, user_id?) {
     let download_id: any;
 
     try {
