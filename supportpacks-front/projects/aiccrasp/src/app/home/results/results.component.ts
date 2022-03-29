@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-results',
@@ -68,9 +69,10 @@ export class ResultsComponent implements OnInit {
 
   foundByName = false;
 
-  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder) { }
+  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
@@ -81,12 +83,14 @@ export class ResultsComponent implements OnInit {
     for (const propName in changes) {
       const changedProp = changes[propName];
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
-        // this.spinner.show()
+        // this.spinner.show();
         console.log(changedProp);
 
         this.loadComponent(changedProp.currentValue)
       } else if (propName == 'toolFound') {
         // this.resetData();
+        this.spinner.show();
+
         console.log({ changedProp });
         this.loadTool(changedProp.currentValue)
       } else {
@@ -97,10 +101,11 @@ export class ResultsComponent implements OnInit {
 
   loadComponent(params: any) {
     // this.isVisible = false;
+    this.spinner.show();
     this.recommendedTools = []
     this.aiccraToolsService.getRSC(params).subscribe(
       res => {
-        // this.spinner.hide();
+        this.spinner.hide();
         console.log(res);
 
         this.recommendedTools = res;
@@ -111,13 +116,14 @@ export class ResultsComponent implements OnInit {
         // console.log('res', this.recomendedDocs)
       },
       error => {
-        // this.spinner.hide();
+        this.spinner.hide();
         console.error(error)
       }
     )
   }
 
   loadTool(tool) {
+    this.spinner.show();
     this.recommendedTools = [];
     this.recommendedTools.push(tool);
     this.selectedTools = [];

@@ -39,8 +39,10 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
+    <!-- Tools found by filters -->
     <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results"
         [@inOutAnimation]>
+        <ngx-spinner bdColor = "rgba(0,0,0,0.2)" size = "medium" color = "#fff" type = "ball-fussion" [fullScreen] = "false"></ngx-spinner>
         <div class="results-title"><strong>Results:</strong></div>
         <div class="selected-filters">
             <div class="filter area shadow-sm">
@@ -55,7 +57,7 @@
                 <span class="material-icons-round">watch_later</span>{{this.filters.stage}}
             </div>
         </div>
-        <div class="recommended-tools">
+        <div *ngIf="this.recommendedTools.length > 0" class="recommended-tools" [@inOutAnimation]>
             <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
                     build_circle
                 </span><strong>Recommended tools</strong></h3>
@@ -109,8 +111,10 @@
         </div>
     </section>
 
+    <!-- Tool found by search bar -->
     <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results"
         [@inOutAnimation]>
+        <ngx-spinner bdColor = "rgba(0,0,0,0.2)" size = "medium" color = "#fff" type = "ball-fussion" [fullScreen] = "false"></ngx-spinner>
         <div class="recommended-tools">
             <div class="results-title"><strong>Search results: <i
                         class="font-weight-normal">"{{recommendedTools[0].name}}"</i></strong></div>
@@ -161,9 +165,9 @@
 
     <!-- # T&C component -->
     <app-terms-conditions *ngIf="this.showSelectedTools && tcIsVisible" [tcText]="tcAICCRA" [docsArray]="selectedArray" [selectedGuidiline]="selectedTools"
-        class="tc-container" (goBack)="backToResults($event)" (hideTC)="hideTC($event)" ></app-terms-conditions>
+        class="tc-container" (goBack)="backToResults($event)" (hideTC)="hideTC($event)" [@slideInOut] ></app-terms-conditions>
     
-        <section *ngIf="this.showSelectedTools  && !tcIsVisible" class="downloads">
+        <section *ngIf="this.showSelectedTools  && !tcIsVisible" class="downloads" [@inOutAnimation]>
 
         <button class="btn-arrow-left mb-3" (click)="backToResults($event)">Back</button>
         <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
@@ -308,5 +312,7 @@
             </ngb-accordion>
         </div>
     </section>
+
+    
 
 </div>

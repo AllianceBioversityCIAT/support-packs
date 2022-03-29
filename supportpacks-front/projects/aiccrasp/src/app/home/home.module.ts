@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TermsConditionsComponent } from '../terms-conditions/terms-conditions.component';
 import { TermsConditionsModule } from '../terms-conditions/terms-conditions.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FontAwesomeModule,
     ReactiveFormsModule,
     FormsModule,
-    TermsConditionsModule
+    TermsConditionsModule,
+    NgxSpinnerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

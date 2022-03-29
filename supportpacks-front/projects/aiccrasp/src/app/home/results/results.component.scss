@@ -117,6 +117,7 @@
     }
 }
 .results{
+    position: relative; // To be parent of loading spinner
     background-color: var(--lightGray);
     padding: 2em;
     border-radius: 6px;
