@@ -137,7 +137,8 @@ export class TermsConditionsComponent implements OnInit {
           }
         )
     } else {
-      this.step5 = true;
+      // this.step5 = true;
+      this.hideTC.emit();
       this.step3 = false;
     }
   }
