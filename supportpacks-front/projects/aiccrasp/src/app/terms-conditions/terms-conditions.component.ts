@@ -97,7 +97,7 @@ export class TermsConditionsComponent implements OnInit {
       this.tcService.getPersonInfo({ email: this.emailForm.value['email'] })
         .subscribe(
           res => {
-            console.log(res);
+            console.log({personInfo:res});
             this.selectedUser = res[0];
             if (res.length > 0) {
               this.tc_Form = new FormGroup({

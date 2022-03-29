@@ -44,6 +44,11 @@ export class SupportPacksController {
     return this.supportPacksService.getRegions(app_id);
   }
 
+  @Post('person/info')
+  getPersonInfo(@Body() {email}) {
+    return this.supportPacksService.getPersonInfo(email);
+  }
+
   @Post('guidelinesByRSC')
   getGuidelinesByRoleStageCategory(@Body() {role, stage, category}) {
     console.log({role, stage, category});

@@ -374,19 +374,53 @@ export class SupportPacksService {
 
   }
 
+  async getPersonInfo(email:string) {
+    console.log('Get Person Info');
+    
+    let sqlQuery = `
+                SELECT
+                -- Person
+                dp.id, dp.first_name, dp.last_name, dp.registeredAt, dp.email,
+                -- Download
+                dd.institute, dd.date
+                FROM
+                sp_person dp,
+                sp_download dd
+                WHERE
+                -- Person Filter
+                dp.email = :email
+                AND dp.id = dd.user_id
+                ORDER BY dd.id DESC limit 1;
+        `;
+
+        try {
+            const personInfo = await this.sequelize.query(
+                sqlQuery,
+                {
+                    replacements: { email },
+                    type: 'SELECT'
+                }
+            );
+            return personInfo;
+        } catch (error) {
+            console.log(error)
+            throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+        }
+  }
+
   // Set Downloaded
   async setDownload(body: any) {
     const { user_id, institute, intended_use } = body;
     try {
       let sqlQuery = `
-            INSERT INTO sp_download (user_id, institute, intended_use, filter_type, date)
-            VALUES (:user_id,:institute,:intended_use,:filter_type,:date)
+            INSERT INTO sp_download (user_id, institute, intended_use, filter_type)
+            VALUES (:user_id,:institute,:intended_use,:filter_type)
         `;
 
       const newDownload = await this.sequelize.query(
         sqlQuery,
         {
-          replacements: { user_id, institute, intended_use, date: moment().toDate(), filter_type: 0 },
+          replacements: { user_id, institute, intended_use,  filter_type: 0 },
           type: 'INSERT'
         }
       );
