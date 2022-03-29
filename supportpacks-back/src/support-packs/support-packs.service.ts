@@ -13,6 +13,7 @@ import { Stage } from './entities/stage.entity';
 import { User } from './entities/user.entity.';
 import moment from 'moment';
 import { GuidelinesMetadata } from './entities/guidelines-metadata.entity';
+import { DownloadDto } from './dto/download.dto';
 
 @Injectable()
 export class SupportPacksService {
@@ -457,8 +458,26 @@ export class SupportPacksService {
 
   }
 
-  async downloadManager(ga: any, user_id?) {
+  async getRegions(app_id: number) {
+    // const { app_id } = req.params;
+        try {
+            const regions = await this.sequelize.query(
+                'SELECT * FROM  sp_regions',
+                {
+                    // replacements: { app_id },
+                    type: 'SELECT'
+                }
+            );
+            return regions;
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+        }
+  }
+
+  async downloadManager(downloadDto: DownloadDto) {
     let download_id: any;
+
+    let {user_id, ...ga} = downloadDto;
 
     try {
       if (user_id == '' || !user_id) {

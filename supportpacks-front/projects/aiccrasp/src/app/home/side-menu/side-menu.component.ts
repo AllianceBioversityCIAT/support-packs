@@ -83,7 +83,7 @@ export class SideMenuComponent implements OnInit {
       .subscribe(
         res => {
           this.allTools = res;
-          console.log(res);
+          // console.log(res);
           this.tools$ = this.searchFilter.valueChanges.pipe(
             startWith(''),
             map((text:string) => this.search(text))

@@ -14,9 +14,9 @@ export class SupportPacksController {
 
   @Get('guidelines/:app_id')
   findAllGuidelinesByApp(@Param('app_id') app_id) {
-
     return this.supportPacksService.findAllGuidelinesByApp(app_id);
   }
+
   @Get('guidelineById/:guideline_id')
   findGuidelineById(@Param('guideline_id') guideline_id) {
 
@@ -31,14 +31,17 @@ export class SupportPacksController {
 
   @Get('roles/:app_id')
   findAllRolesByApp(@Param('app_id') app_id) {
-
     return this.supportPacksService.findAllRolesByApp(app_id);
   }
 
   @Get('stages/:app_id')
   findAllStagesByApp(@Param('app_id') app_id) {
-
     return this.supportPacksService.findAllStagesByApp(app_id);
+  }
+
+  @Get('regions')
+  getRegions(@Param('app_id') app_id) {
+    return this.supportPacksService.getRegions(app_id);
   }
 
   @Post('guidelinesByRSC')
