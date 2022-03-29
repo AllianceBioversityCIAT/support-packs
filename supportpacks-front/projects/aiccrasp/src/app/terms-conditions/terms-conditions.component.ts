@@ -40,6 +40,8 @@ export class TermsConditionsComponent implements OnInit {
   @Input() docsArray: any;
   @Input() selectedGuidiline: any;
   @Output() goBack = new EventEmitter<boolean>();
+  @Output() hideTC = new EventEmitter<boolean>();
+
   isVisible = false;
 
   step3 = true;
@@ -78,12 +80,15 @@ export class TermsConditionsComponent implements OnInit {
     for (const propName in changes) {
       const changedProp = changes[propName];
       // console.log(changedProp.currentValue.length)
-      if (changedProp.currentValue.length > 0) {
-        this.isVisible = true;
-      } else {
-        // console.log(changedProp, propName);
-        this.isVisible = false;
+      if(changedProp.currentValue != undefined){
+        if (changedProp.currentValue.length > 0) {
+          this.isVisible = true;
+        } else {
+          // console.log(changedProp, propName);
+          this.isVisible = false;
+        }
       }
+
     }
   }
 
@@ -151,12 +156,14 @@ export class TermsConditionsComponent implements OnInit {
         .subscribe(
           res => {
             this.spinner.hide();
+            this.hideTC.emit();
             // console.log('onSetTC', res);
           },
           error => {
             this.step5 = false;
             this.spinner.hide();
             this.error = error.statusText
+            // this.hideTC.emit();
             console.error(error)
           }
         )

@@ -64,6 +64,8 @@ export class ResultsComponent implements OnInit {
   tcIsVisible = false;
   showSelectedTools: boolean = false;
 
+
+
   foundByName = false;
 
   constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder) { }
@@ -163,6 +165,11 @@ export class ResultsComponent implements OnInit {
   backToResults(ev?) {
     this.selectedTools = [];
     this.showSelectedTools = false;
+    this.hideTC();
+  }
+  
+  hideTC(ev?) {
+    this.tcIsVisible = false;
   }
 
 }

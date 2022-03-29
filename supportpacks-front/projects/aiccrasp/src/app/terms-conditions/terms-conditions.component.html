@@ -9,8 +9,8 @@
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
                 <div class="row col form-group">
-                    <label for="mail"><b>Email:</b></label>
-                    <input type="email" class="form-control" formControlName="email" required />
+                    <label for="email"><b>Email:</b></label>
+                    <input type="email" id="email" class="form-control" formControlName="email" required />
 
                 </div>
                 <br>
@@ -95,8 +95,7 @@
                 <br>
                 <div class="d-flex col justify-content-between">
                     <div class="col-3 row justify-content-between">
-                        <button type="submit" class="download 2 btn btn-primary" [disabled]="!tc_Form.valid"
-                            (click)="step5 = true">
+                        <button type="submit" class="download 2 btn btn-primary" [disabled]="!tc_Form.valid">
                             Next
                         </button>
 
