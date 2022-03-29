@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { errorMonitor } from 'events';
 import { response } from 'express';
@@ -492,7 +492,7 @@ export class SupportPacksService {
       return download_id;
     } catch (error) {
       console.log(error)
-      return error;
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
 
   }
