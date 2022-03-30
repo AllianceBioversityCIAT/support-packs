@@ -72,7 +72,7 @@ export class ResultsComponent implements OnInit {
   constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    
+
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
@@ -83,7 +83,7 @@ export class ResultsComponent implements OnInit {
     for (const propName in changes) {
       const changedProp = changes[propName];
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
-        // this.spinner.show();
+        this.spinner.show();
         console.log(changedProp);
 
         this.loadComponent(changedProp.currentValue)
@@ -101,17 +101,17 @@ export class ResultsComponent implements OnInit {
 
   loadComponent(params: any) {
     // this.isVisible = false;
-    this.spinner.show();
+
     this.recommendedTools = []
     this.aiccraToolsService.getRSC(params).subscribe(
       res => {
-        this.spinner.hide();
         console.log(res);
 
         this.recommendedTools = res;
         this.selectedTools = [];
         this.showSelectedTools = false;
         this.foundByName = false;
+        this.spinner.hide();
 
         // console.log('res', this.recomendedDocs)
       },
@@ -123,12 +123,12 @@ export class ResultsComponent implements OnInit {
   }
 
   loadTool(tool) {
-    this.spinner.show();
     this.recommendedTools = [];
     this.recommendedTools.push(tool);
     this.selectedTools = [];
     this.showSelectedTools = false;
     this.foundByName = true;
+    this.spinner.hide();
   }
 
   validateFilterData() {

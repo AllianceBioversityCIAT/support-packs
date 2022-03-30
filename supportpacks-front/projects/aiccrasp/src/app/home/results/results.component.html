@@ -42,7 +42,7 @@
     <!-- Tools found by filters -->
     <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results"
         [@inOutAnimation]>
-        <ngx-spinner bdColor = "rgba(0,0,0,0.2)" size = "medium" color = "#fff" type = "ball-fussion" [fullScreen] = "false"></ngx-spinner>
+
         <div class="results-title"><strong>Results:</strong></div>
         <div class="selected-filters">
             <div class="filter area shadow-sm">
@@ -114,7 +114,7 @@
     <!-- Tool found by search bar -->
     <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results"
         [@inOutAnimation]>
-        <ngx-spinner bdColor = "rgba(0,0,0,0.2)" size = "medium" color = "#fff" type = "ball-fussion" [fullScreen] = "false"></ngx-spinner>
+
         <div class="recommended-tools">
             <div class="results-title"><strong>Search results: <i
                         class="font-weight-normal">"{{recommendedTools[0].name}}"</i></strong></div>
@@ -313,6 +313,6 @@
         </div>
     </section>
 
-    
+    <ngx-spinner bdColor = "rgba(0,0,0,0.25)" size = "large" color = "#fff" type = "ball-fussion" [fullScreen] = "true"></ngx-spinner>
 
 </div>
