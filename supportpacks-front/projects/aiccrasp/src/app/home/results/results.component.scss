@@ -209,7 +209,7 @@ li.tool{
     margin: 0;
     margin-top: 2em;
     a{
-        color: #142855;
+        // color: #142855;
     }
 
     .tool-name {
@@ -231,15 +231,23 @@ li.tool{
     .resource {
         background-color: rgb(223, 223, 223);
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         box-sizing: border-box;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         .resource-name{
+            display: flex;
+            align-items: center;
             padding: 0.5em 1em;
             font-weight: 500;
             font-size: 14px;
-            width: 70%;
-            display: flex;
-            align-items: center;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #e5e5e5;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            
             gap: .5em;
             a{
                 span {
@@ -251,14 +259,14 @@ li.tool{
         .resource-type{
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content:flex-start;
             text-align: center;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 12px;
             color: white;
             background-color: var(--primaryColor);
             padding: 0 1em;
-            width: 30%;
+            width: 100%;
         }
     }
 }
@@ -267,6 +275,7 @@ li.tool{
     background-color: var(--lightGray);
     padding: 2em;
     border-radius: 6px;
+
     .tool{
         border: 1px solid #e5e5e5;
         padding: 1em;
@@ -274,7 +283,25 @@ li.tool{
         background-color: white;
         .resources-list{
             .resource{
-            background-color: #f2f2f2;
+                background-color: #f2f2f2;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                box-sizing: border-box;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                .resource-name{
+                    width: 100%;
+                    background-color: white;
+                    border: 1px solid #e5e5e5;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                }
+                .resource-type{
+                    width: 100%;
+                    justify-content: flex-start;
+                    font-size: 12px;
+                }
             }
         }
     }
