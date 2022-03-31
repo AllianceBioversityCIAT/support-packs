@@ -18,7 +18,7 @@ async function bootstrap() {
   const HOST: string = process.env.LOCALHOST;
   // Call midlewares
   // app.enableCors();
-  // app.use(helmet());// { frameguard: false }
+  app.use(helmet());// { frameguard: false }
   // app.use(helmet.contentSecurityPolicy({
   //   directives: {
   //     // ...
