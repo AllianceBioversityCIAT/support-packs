@@ -410,17 +410,17 @@ export class SupportPacksService {
 
   // Set Downloaded
   async setDownload(body: any) {
-    const { user_id, institute, intended_use } = body;
+    const { user_id, institute, intended_use, app_id } = body;
     try {
       let sqlQuery = `
-            INSERT INTO sp_download (user_id, institute, intended_use, filter_type)
+            INSERT INTO sp_download (user_id, institute, intended_use, filter_type, app_id)
             VALUES (:user_id,:institute,:intended_use,:filter_type)
         `;
 
       const newDownload = await this.sequelize.query(
         sqlQuery,
         {
-          replacements: { user_id, institute, intended_use,  filter_type: 0 },
+          replacements: { user_id, institute, intended_use,  filter_type: 0, app_id },
           type: 'INSERT'
         }
       );
@@ -521,7 +521,7 @@ export class SupportPacksService {
       // else {
       // -TO-DO
       // }
-      download_id = await this.setDownload({ user_id, institute: ga.institute_name, intended_use: ga.use });
+      download_id = await this.setDownload({ user_id, institute: ga.institute_name, intended_use: ga.use, app_id: ga.app_id });
       if (download_id) {
         let promises: any = [];
         // Set Guidelines downloaded
