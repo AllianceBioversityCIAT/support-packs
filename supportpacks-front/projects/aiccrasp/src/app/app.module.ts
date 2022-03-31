@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { CommonModule } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     SPTermsconditionsModule.forRoot(environment),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule 
   ],
   exports: [
     

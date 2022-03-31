@@ -1,6 +1,4 @@
 <div class="container">
-    <!-- <app-terms-conditions [tcText]="tcAICCRA" [docsArray]="selectedArray" [selectedGuidiline]="selectedTools" class="tc-container"
-    (goBack)="backToResults($event)"></app-terms-conditions> -->
 
     <div class="welcome-container">
         <h1 class="welcome">Welcome to</h1>
@@ -10,7 +8,8 @@
         <p>
 
             <strong>The AICCRA Tools Support Pack is a convenient one-stop shop for climate-smart agriculture (CSA)
-            related tools</strong>. It is a targeted, small to medium-sized database of tools. The tools chosen for the
+                related tools</strong>. It is a targeted, small to medium-sized database of tools. The tools chosen for
+            the
             support pack have
             either been developed and/or successfully used by the CGIAR research programme on Climate Change Agriculture
             and Food Security (CCAFS) for CSA programme design, targeting, implementation, monitoring and evaluation or
@@ -24,7 +23,8 @@
             - <strong>To guide the user in selecting the tool that is most appropriate to their needs.</strong> By using
             a step-by-step filter, users can easily select the tool most suited to their specific needs
             and capacities.<br>
-            - <strong>For efficiency and convenience.</strong> The tools are clearly described and easily accessible in a
+            - <strong>For efficiency and convenience.</strong> The tools are clearly described and easily accessible in
+            a
             single location for the convenience of the user.
         </p>
     </div>
@@ -39,7 +39,10 @@
         <i class="icon-folder-files" style.width.px="520"></i>
     </section>
 
-    <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results" [@inOutAnimation]>
+    <!-- Tools found by filters -->
+    <section *ngIf="validateFilterData() && !this.showSelectedTools && !this.foundByName" class="results"
+        [@inOutAnimation]>
+
         <div class="results-title"><strong>Results:</strong></div>
         <div class="selected-filters">
             <div class="filter area shadow-sm">
@@ -54,14 +57,14 @@
                 <span class="material-icons-round">watch_later</span>{{this.filters.stage}}
             </div>
         </div>
-        <div class="recommended-tools">
+        <div *ngIf="this.recommendedTools.length > 0" class="recommended-tools" [@inOutAnimation]>
             <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
-                build_circle
+                    build_circle
                 </span><strong>Recommended tools</strong></h3>
             <button *ngIf="this.recommendedTools.length > 10" class="btn-arrow-right"
                 [disabled]="this.selectedTools.length == 0" (click)="goToSelectedTools()">Access
                 to related resources</button>
-                <i class="advice">Expand the tool to see its details and related resources.</i>
+            <i class="advice">Expand the tool to see its details and related resources.</i>
             <ol>
                 <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools">
                     <ngb-panel id="tool-panel-{{tool.id}} tool-card">
@@ -108,13 +111,17 @@
         </div>
     </section>
 
-    <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results" [@inOutAnimation]>
+    <!-- Tool found by search bar -->
+    <section *ngIf="this.toolFound != null && !this.showSelectedTools && this.foundByName" class="results"
+        [@inOutAnimation]>
+
         <div class="recommended-tools">
-        <div class="results-title"><strong>Search results: <i class="font-weight-normal">"{{recommendedTools[0].name}}"</i></strong></div>
+            <div class="results-title"><strong>Search results: <i
+                        class="font-weight-normal">"{{recommendedTools[0].name}}"</i></strong></div>
             <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
-                build_circle
+                    build_circle
                 </span><strong>Tool found</strong></h3>
-                <i class="advice">Expand the tool to see its details and related resources.</i>
+            <i class="advice">Expand the tool to see its details and related resources.</i>
             <ol>
                 <ngb-accordion #a="ngbAccordion" *ngFor="let tool of recommendedTools" activeIds="tool-panel-0">
                     <ngb-panel id="tool-panel-0">
@@ -129,7 +136,8 @@
                                             {{ opened ? 'expand_more' : 'chevron_right' }}
                                         </span>
                                     </button>
-                                    <h5 class="m-0" style="padding: 10px;"><a href="{{tool.source}}" target="_blank">{{tool.name}}</a></h5>
+                                    <h5 class="m-0" style="padding: 10px;"><a href="{{tool.source}}"
+                                            target="_blank">{{tool.name}}</a></h5>
                                 </div>
                             </div>
                         </ng-template>
@@ -155,18 +163,22 @@
         </div>
     </section>
 
-    <section *ngIf="this.showSelectedTools" class="downloads">
-        <!-- # T&C component -->
+    <!-- # T&C component -->
+    <app-terms-conditions *ngIf="this.showSelectedTools && tcIsVisible" [tcText]="tcAICCRA" [docsArray]="selectedArray" [selectedGuidiline]="selectedTools"
+        class="tc-container" (goBack)="backToResults($event)" (hideTC)="hideTC($event)" [@slideInOut] ></app-terms-conditions>
+    
+        <section *ngIf="this.showSelectedTools  && !tcIsVisible" class="downloads" [@inOutAnimation]>
+
         <button class="btn-arrow-left mb-3" (click)="backToResults($event)">Back</button>
         <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
-            build_circle
+                build_circle
             </span><strong>Tools selected</strong></h3>
         <ul>
             <li *ngFor="let tool of this.selectedTools" class="tool">
                 <div class="tool-name ">
-                        <span class="material-icons-round">
-                            build_circle
-                        </span>
+                    <span class="material-icons-round">
+                        build_circle
+                    </span>
                     <a href="{{tool.source}}" target="_blank">
                         {{tool.name}}
                     </a>
@@ -174,12 +186,12 @@
                 <div class="resources-list">
                     <div *ngFor="let resource of tool.resources" class="resource">
                         <div class="resource-name">
-                                <span class="material-icons-round">
-                                    link
-                                </span>
-                                <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
-                                    {{resource.name}}
-                                </a>
+                            <span class="material-icons-round">
+                                link
+                            </span>
+                            <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
+                                {{resource.name}}
+                            </a>
                         </div>
                         <div class="resource-type">{{resource.type}}</div>
                     </div>
@@ -300,5 +312,7 @@
             </ngb-accordion>
         </div>
     </section>
+
+    <ngx-spinner bdColor = "rgba(0,0,0,0.25)" size = "large" color = "#fff" type = "ball-fussion" [fullScreen] = "true"></ngx-spinner>
 
 </div>

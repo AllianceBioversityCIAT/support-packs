@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-results',
@@ -47,7 +48,7 @@ import { AiccraToolsService } from '../../services/aiccra-tools.service';
   ]
 })
 export class ResultsComponent implements OnInit {
-  tcAICCRA = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
+  tcAICCRA = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
 
   faUserCircle = faUserCircle;
   faClock = faClock;
@@ -64,11 +65,14 @@ export class ResultsComponent implements OnInit {
   tcIsVisible = false;
   showSelectedTools: boolean = false;
 
+
+
   foundByName = false;
 
-  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder) { }
+  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
@@ -79,12 +83,14 @@ export class ResultsComponent implements OnInit {
     for (const propName in changes) {
       const changedProp = changes[propName];
       if (this.aiccraToolsService.hasNull(changedProp.currentValue) && propName == 'filtersIds') {
-        // this.spinner.show()
+        this.spinner.show();
         console.log(changedProp);
 
         this.loadComponent(changedProp.currentValue)
       } else if (propName == 'toolFound') {
         // this.resetData();
+        this.spinner.show();
+
         console.log({ changedProp });
         this.loadTool(changedProp.currentValue)
       } else {
@@ -95,21 +101,22 @@ export class ResultsComponent implements OnInit {
 
   loadComponent(params: any) {
     // this.isVisible = false;
+
     this.recommendedTools = []
     this.aiccraToolsService.getRSC(params).subscribe(
       res => {
-        // this.spinner.hide();
         console.log(res);
 
         this.recommendedTools = res;
         this.selectedTools = [];
         this.showSelectedTools = false;
         this.foundByName = false;
+        this.spinner.hide();
 
         // console.log('res', this.recomendedDocs)
       },
       error => {
-        // this.spinner.hide();
+        this.spinner.hide();
         console.error(error)
       }
     )
@@ -121,6 +128,7 @@ export class ResultsComponent implements OnInit {
     this.selectedTools = [];
     this.showSelectedTools = false;
     this.foundByName = true;
+    this.spinner.hide();
   }
 
   validateFilterData() {
@@ -163,6 +171,11 @@ export class ResultsComponent implements OnInit {
   backToResults(ev?) {
     this.selectedTools = [];
     this.showSelectedTools = false;
+    this.hideTC();
+  }
+
+  hideTC(ev?) {
+    this.tcIsVisible = false;
   }
 
 }

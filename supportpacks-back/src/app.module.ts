@@ -20,7 +20,7 @@ require('dotenv').config();
       database: process.env.DB,
       models: [],
       autoLoadModels: true,
-      synchronize: false,
+      synchronize: false
     }),
     SupportPacksModule,
     ServeStaticModule.forRoot({

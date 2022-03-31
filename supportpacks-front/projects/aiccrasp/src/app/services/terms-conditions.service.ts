@@ -50,6 +50,8 @@ export class TermsConditionsService {
    */
   setDownload(params: any) {
     // let app_id = environment.app_id;
+    params.app_id = environment.app_id;
+    console.log(params);
     return this.http.post<any>(`${API}/sp/download`, params).pipe();
   }
 

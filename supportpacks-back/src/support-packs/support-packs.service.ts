@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { errorMonitor } from 'events';
 import { response } from 'express';
@@ -13,6 +13,7 @@ import { Stage } from './entities/stage.entity';
 import { User } from './entities/user.entity.';
 import moment from 'moment';
 import { GuidelinesMetadata } from './entities/guidelines-metadata.entity';
+import { DownloadDto } from './dto/download.dto';
 
 @Injectable()
 export class SupportPacksService {
@@ -373,19 +374,53 @@ export class SupportPacksService {
 
   }
 
+  async getPersonInfo(email:string) {
+    console.log('Get Person Info');
+    
+    let sqlQuery = `
+                SELECT
+                -- Person
+                dp.id, dp.first_name, dp.last_name, dp.registeredAt, dp.email,
+                -- Download
+                dd.institute, dd.date
+                FROM
+                sp_person dp,
+                sp_download dd
+                WHERE
+                -- Person Filter
+                dp.email = :email
+                AND dp.id = dd.user_id
+                ORDER BY dd.id DESC limit 1;
+        `;
+
+        try {
+            const personInfo = await this.sequelize.query(
+                sqlQuery,
+                {
+                    replacements: { email },
+                    type: 'SELECT'
+                }
+            );
+            return personInfo;
+        } catch (error) {
+            console.log(error)
+            throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+        }
+  }
+
   // Set Downloaded
   async setDownload(body: any) {
-    const { user_id, institute, intended_use } = body;
+    const { user_id, institute, intended_use, app_id } = body;
     try {
       let sqlQuery = `
-            INSERT INTO sp_download (user_id, institute, intended_use, filter_type, date)
-            VALUES (:user_id,:institute,:intended_use,:filter_type,:date)
+            INSERT INTO sp_download (user_id, institute, intended_use, filter_type, app_id)
+            VALUES (:user_id,:institute,:intended_use,:filter_type, :app_id)
         `;
 
       const newDownload = await this.sequelize.query(
         sqlQuery,
         {
-          replacements: { user_id, institute, intended_use, date: moment().toDate(), filter_type: 0 },
+          replacements: { user_id, institute, intended_use,  filter_type: 0, app_id },
           type: 'INSERT'
         }
       );
@@ -457,8 +492,26 @@ export class SupportPacksService {
 
   }
 
-  async downloadManager(ga: any, user_id) {
+  async getRegions(app_id: number) {
+    // const { app_id } = req.params;
+        try {
+            const regions = await this.sequelize.query(
+                'SELECT * FROM  sp_regions',
+                {
+                    // replacements: { app_id },
+                    type: 'SELECT'
+                }
+            );
+            return regions;
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+        }
+  }
+
+  async downloadManager(downloadDto: DownloadDto) {
     let download_id: any;
+
+    let {user_id, ...ga} = downloadDto;
 
     try {
       if (user_id == '' || !user_id) {
@@ -468,7 +521,7 @@ export class SupportPacksService {
       // else {
       // -TO-DO
       // }
-      download_id = await this.setDownload({ user_id, institute: ga.institute_name, intended_use: ga.use });
+      download_id = await this.setDownload({ user_id, institute: ga.institute_name, intended_use: ga.use, app_id: ga.app_id });
       if (download_id) {
         let promises: any = [];
         // Set Guidelines downloaded
@@ -492,7 +545,7 @@ export class SupportPacksService {
       return download_id;
     } catch (error) {
       console.log(error)
-      return error;
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
 
   }
