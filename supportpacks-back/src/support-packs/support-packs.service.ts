@@ -414,7 +414,7 @@ export class SupportPacksService {
     try {
       let sqlQuery = `
             INSERT INTO sp_download (user_id, institute, intended_use, filter_type, app_id)
-            VALUES (:user_id,:institute,:intended_use,:filter_type)
+            VALUES (:user_id,:institute,:intended_use,:filter_type, :app_id)
         `;
 
       const newDownload = await this.sequelize.query(
