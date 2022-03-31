@@ -4,6 +4,8 @@ import * as bodyParser from "body-parser";
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { Sequelize } from 'sequelize-typescript';
+
 import express from 'express';
 require('dotenv').config();
 
@@ -14,7 +16,6 @@ async function bootstrap() {
 
   const PORT: number = parseInt(process.env.PORT as string, 10);
   const HOST: string = process.env.LOCALHOST;
-
   // Call midlewares
   // app.enableCors();
   // app.use(helmet());// { frameguard: false }
