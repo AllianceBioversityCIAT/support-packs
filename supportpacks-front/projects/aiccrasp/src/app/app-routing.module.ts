@@ -22,6 +22,11 @@ const routes: Routes = [
       loadChildren: () => import('./tools/tools.module').then(mod => mod.ToolsModule),
       //  runGuardsAndResolvers: 'always'
       },
+      { 
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule),
+      //  runGuardsAndResolvers: 'always'
+      },
     ]
   },
   // { path: 'resources', component: ResourcesComponent },

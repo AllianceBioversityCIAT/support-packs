@@ -1,0 +1,81 @@
+
+.bg-container{
+    backdrop-filter: blur(14.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    background: url(./../../assets/images/africa-subtle.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.form-container{
+    width: 60%;
+    height: auto;
+    padding: 4em;
+    margin: 4em auto;
+    box-sizing: border-box;
+    .info-icon{
+        position: absolute;
+        top: -10px;
+        left: -10px;
+    }
+    .description {
+        text-align: justify;
+    }
+    .card{
+        background: #f8f8f8;
+    }
+    .title {
+        padding: 0.2em 1em;
+        background-color: #004085;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px 16px 5px 5px;
+        display: inline-block;
+    }
+    .welcome-container{
+        width: 100%;
+        display: flex;
+        margin-bottom: 2em;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        .welcome{
+            // margin-bottom: .5em;
+            text-transform: uppercase;
+        }
+        h1{
+            background-color: var(--secondaryColor);
+            color: white;
+            padding: .5em 1em;
+            border-radius: 8px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+    }
+}
+.resource-titles{
+    width: 100%;
+    gap: 2em;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    margin-bottom: 1em;
+}
+.resources{
+    width: 100%;
+
+    .resource{
+        gap: 2em;
+        width: 100%;
+        display: flex;
+        margin-bottom: 1em;
+
+    }
+}
+
+button.btn{
+padding: .1em .6em;
+font-weight: 600;
+}
