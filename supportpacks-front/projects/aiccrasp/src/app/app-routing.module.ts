@@ -23,7 +23,7 @@ const routes: Routes = [
       //  runGuardsAndResolvers: 'always'
       },
       { 
-      path: 'admin',
+      path: 'submit-tool',
       loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule),
       //  runGuardsAndResolvers: 'always'
       },

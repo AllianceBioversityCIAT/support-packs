@@ -17,21 +17,23 @@ export class Guideline extends Model {
     @Column({ defaultValue: true })
     public active: boolean;
 
-    @Length({ min: 3, max: 20 })
     @Column
     public name: string;
 
-    @Length({ min: 3, max: 20 })
     @Column
     public code: string;
 
-    @Length({ min: 3, max: 20 })
     @Column
     public source: string;
 
-    @Length({ min: 3, max: 20 })
     @Column
     public type: string;
+
+    @Column
+    registered_by: string;
+
+    @Column
+    contact: string;
 
     @ForeignKey(() => App)
     @Column

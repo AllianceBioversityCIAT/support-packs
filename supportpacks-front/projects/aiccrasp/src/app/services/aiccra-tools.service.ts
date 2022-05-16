@@ -61,6 +61,14 @@ export class AiccraToolsService {
   }
 
     /**
+   *  Request tool
+   * @param id string
+   */
+  requestTool(body) {
+    return this.http.post<any>(`${API}/sp/request-tool/${app_id}`, body);
+  }
+
+    /**
    * 
    * check if obj has null properties
    */

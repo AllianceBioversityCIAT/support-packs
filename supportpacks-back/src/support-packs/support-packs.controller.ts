@@ -12,6 +12,11 @@ export class SupportPacksController {
     return this.supportPacksService.create(createSupportPackDto);
   }
 
+  @Post('request-tool/:app_id')
+  requestTool(@Body() body, @Param('app_id') app_id) {
+    return this.supportPacksService.requestTool(app_id, body);
+  }
+
   @Get('guidelines/:app_id')
   findAllGuidelinesByApp(@Param('app_id') app_id) {
     return this.supportPacksService.findAllGuidelinesByApp(app_id);

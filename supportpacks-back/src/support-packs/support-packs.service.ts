@@ -14,7 +14,10 @@ import { User } from './entities/user.entity.';
 import moment from 'moment';
 import { GuidelinesMetadata } from './entities/guidelines-metadata.entity';
 import { DownloadDto } from './dto/download.dto';
+import { ImportanceLevel } from './entities/importance-level.entity';
+import { ResourcesGuidelines } from './entities/resources-guidelines.entity';
 
+const stages = { design: 9, implementation: 10, me: 11 }
 @Injectable()
 export class SupportPacksService {
 
@@ -24,10 +27,84 @@ export class SupportPacksService {
     return 'This action adds a new supportPack';
   }
 
+  async requestTool(app_id: string, body) {
+    try {
+
+      // 1. Create guideline
+      const newGuideline: any = await this.createGuideline(body.toolName, body.link, app_id, false, body.fullname, body.email);
+      const {
+        description,
+        estimated_time,
+        integrates_gender,
+        is_tested_online,
+        target_scale,
+        participants,
+        methods,
+        input_types,
+        limitations,
+        strengths,
+        expected_outputs,
+        human_resources,
+        key_references
+      } = body;
+
+      // 2. Create Guideline Metadata
+      const newGuidelineMetadata = await GuidelinesMetadata.create({
+        guideline_id: newGuideline.id,
+        description,
+        estimated_time,
+        integrates_gender,
+        is_tested_online,
+        target_scale,
+        participants,
+        methods,
+        input_types,
+        limitations,
+        strengths,
+        expected_outputs,
+        human_resources,
+        key_references
+      });
+
+      //3. Insert Importance Levels
+      const importanceLevels = [];
+      for (const stage in body.importanceResearcher) {
+        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 7, stage_id: stages[stage], importance_level: body.importanceResearcher[stage] });
+      }
+      for (const stage in body.importanceTechnical) {
+        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 8, stage_id: stages[stage], importance_level: body.importanceTechnical[stage] });
+      }
+      for (const stage in body.importanceAcademia) {
+        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 9, stage_id: stages[stage], importance_level: body.importanceAcademia[stage] });
+      }
+
+      const newImportanceLevels = await ImportanceLevel.bulkCreate(importanceLevels);
+
+
+      // 4. Create related resources
+      const newResources = [];
+      for (const resource of body.resources) {
+        newResources.push({ guideline_id: newGuideline.id, name: resource.resourceName, source: resource.resourceLink, type: resource.resourceCategory, active: true })
+      }
+
+      const resourcesSaved = await ResourcesGuidelines.bulkCreate(newResources);
+
+      return {msg: 'Your tool has been submitted.', newGuideline, newGuidelineMetadata, newImportanceLevels,resourcesSaved };
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async createGuideline(name: string, source: string, app_id: string, active: boolean, registered_by: string, contact: string) {
+    const newGuideline = { is_active: 0, name, source, type: 1, app_id, active }
+    return await Guideline.create(newGuideline);
+  }
+
   async findAllGuidelinesByApp(app_id: string) {
     try {
       const guidelines = await this.sequelize.query(
-        'SELECT * FROM  sp_guidelines WHERE app_id = :app_id ORDER BY code',
+        'SELECT * FROM  sp_guidelines WHERE app_id = :app_id AND active ORDER BY code',
         {
           mapToModel: true,
           model: Guideline,
@@ -56,7 +133,16 @@ export class SupportPacksService {
         gm.description,
         gm.estimated_time,
         gm.strengths,
-        gm.limitations
+        gm.limitations,
+        gm.integrates_gender,
+        gm.is_tested_online,
+        gm.target_scale,
+        gm.participants,
+        gm.methods,
+        gm.input_types,
+        gm.expected_outputs,
+        gm.human_resources,
+        gm.key_references
     FROM
     sp_guidelines g 
     LEFT JOIN sp_guidelines_metadata gm ON gm.guideline_id = g.id
@@ -88,7 +174,7 @@ export class SupportPacksService {
 
       let tool = Object.assign(guideline[0]);
       tool.resources = resources;
-      console.log({tool});
+      console.log({ tool });
 
       return tool;
 
@@ -222,7 +308,16 @@ export class SupportPacksService {
         gm.description,
         gm.estimated_time,
         gm.strengths,
-        gm.limitations
+        gm.limitations,
+        gm.integrates_gender,
+        gm.is_tested_online,
+        gm.target_scale,
+        gm.participants,
+        gm.methods,
+        gm.input_types,
+        gm.expected_outputs,
+        gm.human_resources,
+        gm.key_references
     FROM
         sp_importance_levels il
     INNER JOIN sp_categories c ON il.category_id = c.id
@@ -374,9 +469,9 @@ export class SupportPacksService {
 
   }
 
-  async getPersonInfo(email:string) {
+  async getPersonInfo(email: string) {
     console.log('Get Person Info');
-    
+
     let sqlQuery = `
                 SELECT
                 -- Person
@@ -393,19 +488,19 @@ export class SupportPacksService {
                 ORDER BY dd.id DESC limit 1;
         `;
 
-        try {
-            const personInfo = await this.sequelize.query(
-                sqlQuery,
-                {
-                    replacements: { email },
-                    type: 'SELECT'
-                }
-            );
-            return personInfo;
-        } catch (error) {
-            console.log(error)
-            throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    try {
+      const personInfo = await this.sequelize.query(
+        sqlQuery,
+        {
+          replacements: { email },
+          type: 'SELECT'
         }
+      );
+      return personInfo;
+    } catch (error) {
+      console.log(error)
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   // Set Downloaded
@@ -420,7 +515,7 @@ export class SupportPacksService {
       const newDownload = await this.sequelize.query(
         sqlQuery,
         {
-          replacements: { user_id, institute, intended_use,  filter_type: 0, app_id },
+          replacements: { user_id, institute, intended_use, filter_type: 0, app_id },
           type: 'INSERT'
         }
       );
@@ -494,24 +589,24 @@ export class SupportPacksService {
 
   async getRegions(app_id: number) {
     // const { app_id } = req.params;
-        try {
-            const regions = await this.sequelize.query(
-                'SELECT * FROM  sp_regions',
-                {
-                    // replacements: { app_id },
-                    type: 'SELECT'
-                }
-            );
-            return regions;
-        } catch (error) {
-            throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+    try {
+      const regions = await this.sequelize.query(
+        'SELECT * FROM  sp_regions',
+        {
+          // replacements: { app_id },
+          type: 'SELECT'
         }
+      );
+      return regions;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+    }
   }
 
   async downloadManager(downloadDto: DownloadDto) {
     let download_id: any;
 
-    let {user_id, ...ga} = downloadDto;
+    let { user_id, ...ga } = downloadDto;
 
     try {
       if (user_id == '' || !user_id) {

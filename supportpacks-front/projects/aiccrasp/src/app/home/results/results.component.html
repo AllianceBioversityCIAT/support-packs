@@ -7,16 +7,9 @@
     <div class="welcome-description">
         <p>
 
-            <strong>The AICCRA Tools Support Pack is a convenient one-stop shop for climate-smart agriculture (CSA)
-                related tools</strong>. It is a targeted, small to medium-sized database of tools. The tools chosen for
-            the
-            support pack have
-            either been developed and/or successfully used by the CGIAR research programme on Climate Change Agriculture
-            and Food Security (CCAFS) for CSA programme design, targeting, implementation, monitoring and evaluation or
-            scaling. A variety of useful supporting materials such as use cases, training guides, peer reviewed journal
-            articles and videos are accessible with each tool.<br><br>
+            <strong>The AICCRA Tools Support Pack is a convenient one-stop shop for climate-smart agriculture (CSA) related tools.</strong>. It is a targeted, small to medium-sized database of tools. The tools initially chosen for the support pack have been developed and successfully used by the CGIAR research programme on Climate Change Agriculture and Food Security (CCAFS) for CSA programme design, targeting, implementation, monitoring and evaluation or scaling.A variety of useful supporting materials such as use cases, training guides, peer reviewed journal articles and videos are accessible for each tool.<br><br>
 
-            The tools support pack was developed to: <br>
+            The tools support pack aims to: <br>
             - <strong>Avoid duplication of work.</strong> By collaborating with the flagship programme leads and science
             officers a tailored selection of readily available tools was gathered to meet the needs of
             the AICCRA countries and partners.<br>
@@ -36,7 +29,17 @@
             <fa-icon [icon]="faClock" class="fa-icon"></fa-icon>
             <fa-icon [icon]="faBookmark" class="fa-icon"></fa-icon>
         </div>
-        <i class="icon-folder-files" style.width.px="520"></i>
+        <div class="submit-tool mt-3">
+            <div class="alert alert-primary d-flex align-items-center" style="position: relative; font-size: 12px;
+            font-weight: 600;" role="alert">
+            <p class="m-0" style="font-size: 12px; font-weight: 600;">
+                <strong style="font-weight: bold;">NOTE:</strong>  We welcome the submission of AICCRA tools to be included in this Tools Support Pack.
+                <a routerLink="/aiccrasp/submit-tool" target="_blank">Go to submission form.</a>
+            </p>
+            
+            </div>
+        </div>
+        <!-- <i class="icon-folder-files" style.width.px="520"></i> -->
     </section>
 
     <!-- Tools found by filters -->
@@ -94,13 +97,24 @@
                             <div class="metadata"><strong>Time: </strong>{{tool.estimated_time}}</div>
                             <div class="metadata"><strong>Strengths: </strong>{{tool.strengths}}</div>
                             <div class="metadata"><strong>Limitations: </strong>{{tool.limitations}}</div>
-                            <h5 class="mt-2"><strong>Recommended resources</strong></h5>
+                            <div class="metadata"><strong>Does the tool integrate gender?: </strong>{{tool.integrates_gender}}</div>
+                            <div class="metadata"><strong>Can this tool be tested online?: </strong>{{tool.is_tested_online}}</div>
+                            <div class="metadata"><strong>Target scale: </strong>{{tool.target_scale}}</div>
+                            <div class="metadata"><strong>Participants: </strong>{{tool.participants}}</div>
+                            <div class="metadata"><strong>Methods used: </strong>{{tool.methods}}</div>
+                            <div class="metadata"><strong>Types of input data/information: </strong>{{tool.input_types}}</div>
+                            <div class="metadata"><strong>Expected outputs: </strong>{{tool.expected_outputs}}</div>
+                            <div class="metadata"><strong>Human resources: </strong>{{tool.human_resources}}</div>
+                            <div class="metadata"><strong>Key reference persons: </strong>{{tool.key_references}}</div>
+                            
+        
+                            <!-- <h5 class="mt-2"><strong>Recommended resources</strong></h5>
                             <div class="resources-list">
                                 <div *ngFor="let resource of tool.resources" class="resource">
                                     <div class="resource-name">{{resource.name}}</div>
                                     <div class="resource-type">{{resource.type}}</div>
                                 </div>
-                            </div>
+                            </div> -->
                         </ng-template>
                     </ngb-panel>
                 </ngb-accordion>
@@ -146,6 +160,15 @@
                             <div class="metadata"><strong>Time: </strong>{{tool.estimated_time}}</div>
                             <div class="metadata"><strong>Strengths: </strong>{{tool.strengths}}</div>
                             <div class="metadata"><strong>Limitations: </strong>{{tool.limitations}}</div>
+                            <div class="metadata"><strong>Does the tool integrate gender?: </strong>{{tool.integrates_gender}}</div>
+                            <div class="metadata"><strong>Can this tool be tested online?: </strong>{{tool.is_tested_online}}</div>
+                            <div class="metadata"><strong>Target scale: </strong>{{tool.target_scale}}</div>
+                            <div class="metadata"><strong>Participants: </strong>{{tool.participants}}</div>
+                            <div class="metadata"><strong>Methods used: </strong>{{tool.methods}}</div>
+                            <div class="metadata"><strong>Types of input data/information: </strong>{{tool.input_types}}</div>
+                            <div class="metadata"><strong>Expected outputs: </strong>{{tool.expected_outputs}}</div>
+                            <div class="metadata"><strong>Human resources: </strong>{{tool.human_resources}}</div>
+                            <div class="metadata"><strong>Key reference persons: </strong>{{tool.key_references}}</div>
                             <h5 class="mt-2"><strong>Recommended resources</strong></h5>
                             <div class="resources-list">
                                 <div *ngFor="let resource of tool.resources" class="resource">

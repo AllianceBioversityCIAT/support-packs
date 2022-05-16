@@ -1,8 +1,10 @@
 <div class="bg-container">
     <div class="form-container shadow rounded">
-        <div class="welcome-container">
+        <a routerLink="/aiccrasp/home">Go back to AICCRA Tools Support Pack</a>
+        <div class="welcome-container mt-3">
             <h1>AICCRA Tools Support Pack</h1>
-            <div class="alert alert-primary d-flex align-items-center" style="position: relative;" role="alert">
+            <div class="alert alert-primary d-flex align-items-center" style="position: relative;font-size: 14px;
+            font-weight: 500;" role="alert">
                 <div class="info-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                         class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
@@ -12,288 +14,340 @@
                     </svg>
                 </div>
                 <div class="description">
-                    We welcome the submission of other tools to be included in the AICCRA Tools Support Pack. Please
-                    fill in the fields below to submit a tool for consideration. The tool should be designed to help
-                    those in the fields of climate change and agriculture development to design, target, implement,
+                    Please fill in the fields below to submit a tool for consideration. The tool should be designed to
+                    help those in the fields of climate change and agriculture development to design, target, implement,
                     monitor, evaluate and/or scale activities and programmes. If we need more information regarding your
                     submission we will contact you. Submitted tools will be evaluated for inclusion based on relevance
                     and previous documentation.
+                </div>
 
+
+            </div>
+            <div class="card initial-validation" *ngIf="this.formDisabled">
+                <h5 class="card-header font-weight-bold" style="font-size: 16px;">Before submitting your tool</h5>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 14px;">
+                        <strong> Please confirm that it complies with the following criteria:</strong><br>
+                        1) The tool is fully completed and operational (not demo)<br>
+                        2) The tool has been applied and its use has been documented<br>
+                        3) Use cases and additional resources e.g manuals; guidelines; peer-reviewed papers are publicly
+                        available<br>
+                        4) There is a Key reference person able to provide technical support/guidance
+                    </p>
+                    <div class="d-flex w-100 justify-content-center">
+                        <button class="btn btn-primary" (click)="enableForm()">I confirm that the tool complies with the
+                            criteria</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <form action="" class="">
-            <h5 class="title">Who requests?</h5>
-            <div class="card p-3 mb-3">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="user" class="form-label">Full name</label>
-                        <input [(ngModel)]="this.requestTool.fullname" type="text" name="user" class="form-control"
-                            id="">
-                    </div>
-                    <div class="col-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input [(ngModel)]="this.requestTool.email" type="email" name="email" class="form-control"
-                            id="">
+        <form #toolForm="ngForm" autocomplete="off" action="" class="">
+            <fieldset [disabled]="this.formDisabled">
+                <h5 class="title">Who requests?</h5>
+                <div class="card p-3 mb-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="user" class="form-label">Full name</label>
+                            <input required [(ngModel)]="this.requestTool.fullname" type="text" name="user"
+                                class="form-control" id="">
+                        </div>
+                        <div class="col-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input required [(ngModel)]="this.requestTool.email" type="email" name="email"
+                                class="form-control" id="">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <h5 class="title">Basic info</h5>
-            <div class="card p-3 mb-3">
-                <div class="row">
-                    <div class="mb-3 col-12">
-                        <label for="toolName" class="form-label">Tool name</label>
-                        <input [(ngModel)]="this.requestTool.toolName" type="text" class="form-control" name="toolName">
-                    </div>
-                    <div class="mb-3 col-12">
-                        <label for="description">Description</label>
-                        <textarea [(ngModel)]="this.requestTool.description" name="description" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-
-                    <div class="mb-3 col-6">
-                        <label for="link">Link</label>
-                        <input [(ngModel)]="this.requestTool.link" type="text" class="form-control" name="link">
-                    </div>
-
-
-                    <div class="mb-3 col-6">
-                        <label for="time">Estimated time to implement (excl. training)</label>
-                        <input [(ngModel)]="this.requestTool.estimatedTime" type="text" class="form-control"
-                            name="time">
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label>Does the tool integrate gender?</label>
-                        <div class="options d-flex ">
-                            <button
-                                [ngClass]="{'btn btn-secondary':true, 'btn-success': this.requestTool.integratesGender}"
-                                style="margin-right: 10px;" type="button"
-                                (click)="setIntegratesGender(true);">Yes</button>
-                            <button
-                                [ngClass]="{'btn btn-secondary':true, 'btn-danger': this.requestTool.integratesGender  === false}"
-                                type="button" (click)="setIntegratesGender(false);">No</button>
+                <h5 class="title">Basic info</h5>
+                <div class="card p-3 mb-3">
+                    <div class="row">
+                        <div class="mb-3 col-12">
+                            <label for="toolName" class="form-label">Tool name</label>
+                            <input required [(ngModel)]="this.requestTool.toolName" type="text" class="form-control"
+                                name="toolName">
                         </div>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="time">Can this tool be tested online?</label>
-                        <div class="options d-flex ">
-                            <button
-                                [ngClass]="{'btn btn-secondary':true, 'btn-success': this.requestTool.isTestedOnline}"
-                                style="margin-right: 10px;" type="button"
-                                (click)="setIsTestedOnline(true);">Yes</button>
-                            <button
-                                [ngClass]="{'btn btn-secondary':true, 'btn-danger': this.requestTool.isTestedOnline === false}"
-                                type="button" (click)="setIsTestedOnline(false);">No</button>
-                        </div>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="targetScale">Target Scale</label>
-                        <textarea [(ngModel)]="this.requestTool.targetScale" name="targetScale" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="participants">Who participates?</label>
-                        <textarea [(ngModel)]="this.requestTool.participants" name="participants" id="" cols="10"
-                            rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="methods">Methods used</label>
-                        <textarea [(ngModel)]="this.requestTool.methodsUsed" name="methods" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="inputTypes">Types of input data/information</label>
-                        <textarea [(ngModel)]="this.requestTool.dataTypes" name="inputTypes" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-12">
-                        <label for="limitations">Limitations</label>
-                        <textarea [(ngModel)]="this.requestTool.limitations" name="limitations" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-12">
-                        <label for="strengths">Strengths</label>
-                        <textarea [(ngModel)]="this.requestTool.strengths" name="strengths" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="expectedOutputs">Expected output(s)</label>
-                        <textarea [(ngModel)]="this.requestTool.expectedOutputs" name="expectedOutputs" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="humanResources">Required human resources</label>
-                        <textarea [(ngModel)]="this.requestTool.humanResources" name="humanResources" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label for="referencePersons">Key reference person(s)</label>
-                        <textarea [(ngModel)]="this.requestTool.referencePersons" name="referencePersons" id="" cols="10" rows="2"
-                            class="form-control"></textarea>
-                    </div>
-
-                    <div class="col-6">
-                        <label for="categories">Thematic area</label>
-                        <select [(ngModel)]="this.requestTool.thematicArea"
-                            class="form-select form-select-sm form-control" name="categories" id="">
-                            <option [value]="null">Select an option</option>
-                            <option *ngFor="let area of thematicAreas" [value]="area.id">{{area.name}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <h5 class="title">Importance levels</h5>
-            <div class="row col-12 ml-0 p-0">
-                <div class="researcher mb-3 mr-0 col-12 card p-3">
-                    <div><strong>Researcher</strong> </div>
-                    <div class="importance-levels row">
-
-                        <div class="col">
-                            <label for="researcher-design">Design</label>
-                            <select [(ngModel)]="this.requestTool.importanceResearcher.design"
-                                class="form-select form-select-sm form-control" name="researcher-design" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
+                        <div class="mb-3 col-12">
+                            <label for="description">Description</label>
+                            <textarea required [(ngModel)]="this.requestTool.description" name="description" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
                         </div>
 
-                        <div class="col">
-                            <label for="researcher-implementation">Implementation</label>
-                            <select [(ngModel)]="this.requestTool.importanceResearcher.implementation"
-                                class="form-select form-select-sm form-control" name="researcher-implementation" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
+                        <div class="mb-3 col-6">
+                            <label for="link">Link</label>
+                            <input required [(ngModel)]="this.requestTool.link" type="text" class="form-control"
+                                name="link">
                         </div>
-                        <div class="col">
-                            <label for="researcher-me">Monitoring and evaluations</label>
-                            <select [(ngModel)]="this.requestTool.importanceResearcher.me"
-                                class="form-select form-select-sm form-control" name="researcher-me" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+
+
+                        <div class="mb-3 col-6">
+                            <label for="time">Estimated time to implement (excl. training)</label>
+                            <input required [(ngModel)]="this.requestTool.estimated_time" type="text"
+                                class="form-control" name="time">
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label>Does the tool integrate gender?</label>
+                            <div class="options d-flex ">
+                                <button
+                                    [ngClass]="{'btn btn-secondary':true, 'btn-success': this.requestTool.integrates_gender}"
+                                    style="margin-right: 10px;" type="button"
+                                    (click)="setintegrates_gender(true);">Yes</button>
+                                <button
+                                    [ngClass]="{'btn btn-secondary':true, 'btn-danger': this.requestTool.integrates_gender  === false}"
+                                    type="button" (click)="setintegrates_gender(false);">No</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="time">Can this tool be tested online?</label>
+                            <div class="options d-flex ">
+                                <button
+                                    [ngClass]="{'btn btn-secondary':true, 'btn-success': this.requestTool.is_tested_online}"
+                                    style="margin-right: 10px;" type="button"
+                                    (click)="setis_tested_online(true);">Yes</button>
+                                <button
+                                    [ngClass]="{'btn btn-secondary':true, 'btn-danger': this.requestTool.is_tested_online === false}"
+                                    type="button" (click)="setis_tested_online(false);">No</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="target_scale">Target Scale</label>
+                            <textarea required [(ngModel)]="this.requestTool.target_scale" name="target_scale" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="participants">Who participates?</label>
+                            <textarea required [(ngModel)]="this.requestTool.participants" name="participants" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="methods">Methods used</label>
+                            <textarea required [(ngModel)]="this.requestTool.methods" name="methods" id="" cols="10"
+                                rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="inputTypes">Types of input data/information</label>
+                            <textarea required [(ngModel)]="this.requestTool.input_types" name="inputTypes" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="limitations">Limitations</label>
+                            <textarea required [(ngModel)]="this.requestTool.limitations" name="limitations" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="strengths">Strengths</label>
+                            <textarea required [(ngModel)]="this.requestTool.strengths" name="strengths" id="" cols="10"
+                                rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="expected_outputs">Expected output(s)</label>
+                            <textarea required [(ngModel)]="this.requestTool.expected_outputs" name="expected_outputs"
+                                id="" cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="human_resources">Required human resources</label>
+                            <textarea required [(ngModel)]="this.requestTool.human_resources" name="human_resources"
+                                id="" cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="key_references">Key reference person(s)</label>
+                            <textarea required [(ngModel)]="this.requestTool.key_references" name="key_references" id=""
+                                cols="10" rows="3" class="form-control"></textarea>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="thematicArea">Thematic area</label>
+                            <select required role="button" [(ngModel)]="this.requestTool.thematicArea"
+                                class="form-select form-select-sm form-control" name="thematicArea" id="">
+                                <option [ngValue]="null">Select an option</option>
+                                <option *ngFor="let area of thematicAreas" [value]="area.id">{{area.name}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="technical mb-3 col-12 card p-3">
-                    <div><strong>Technical staff</strong> </div>
-                    <div class="importance-levels row">
 
-                        <div class="col">
-                            <label for="technical-design">Design</label>
-                            <select [(ngModel)]="this.requestTool.importanceTechnical.design"
-                                class="form-select form-select-sm form-control" name="technical-design" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
-                        </div>
+                <h5 class="title">User Profile and Project Phase relevance</h5>
+                <div class="alert alert-primary d-flex align-items-center" style="position: relative; font-size: 12px;
+                font-weight: 600;" role="alert">
+                    Please indicate the level of relevance of your tool for the following three potential users and for
+                    each specific project phase.
+                </div>
+                <div class="row col-12 ml-0 p-0">
+                    <div class="researcher mb-3 mr-0 col-12 card p-3">
+                        <div><strong>Researcher</strong> </div>
+                        <div class="importance-levels row">
 
-                        <div class="col">
-                            <label for="technical-implementation">Implementation</label>
-                            <select [(ngModel)]="this.requestTool.importanceTechnical.implementation"
-                                class="form-select form-select-sm form-control" name="technical-implementation" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
+                            <div class="col">
+                                <label for="researcher-design">Design</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceResearcher.design"
+                                    class="form-select form-select-sm form-control" name="researcher-design" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="researcher-implementation">Implementation</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceResearcher.implementation"
+                                    class="form-select form-select-sm form-control" name="researcher-implementation"
+                                    id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="researcher-me">Monitoring and evaluations</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceResearcher.me"
+                                    class="form-select form-select-sm form-control" name="researcher-me" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col">
-                            <label for="technical-me">Monitoring and evaluations</label>
-                            <select [(ngModel)]="this.requestTool.importanceTechnical.me"
-                                class="form-select form-select-sm form-control" name="technical-me" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
+                    </div>
+                    <div class="technical mb-3 col-12 card p-3">
+                        <div><strong>Technical staff</strong> </div>
+                        <div class="importance-levels row">
+
+                            <div class="col">
+                                <label for="technical-design">Design</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceTechnical.design"
+                                    class="form-select form-select-sm form-control" name="technical-design" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="technical-implementation">Implementation</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceTechnical.implementation"
+                                    class="form-select form-select-sm form-control" name="technical-implementation"
+                                    id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="technical-me">Monitoring and evaluations</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceTechnical.me"
+                                    class="form-select form-select-sm form-control" name="technical-me" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="academia mb-3 col-12 card p-3">
+                        <div><strong>Academia</strong> </div>
+                        <div class="importance-levels row">
+
+                            <div class="col">
+                                <label for="academia-design">Design</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceAcademia.design"
+                                    class="form-select form-select-sm form-control" name="academia-design" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="academia-implementation">Implementation</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceAcademia.implementation"
+                                    class="form-select form-select-sm form-control" name="academia-implementation"
+                                    id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="academia-me">Monitoring and evaluations</label>
+                                <select role="button" [(ngModel)]="this.requestTool.importanceAcademia.me"
+                                    class="form-select form-select-sm form-control" name="academia-me" id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="academia mb-3 col-12 card p-3">
-                    <div><strong>Academia</strong> </div>
-                    <div class="importance-levels row">
 
-                        <div class="col">
-                            <label for="academia-design">Design</label>
-                            <select [(ngModel)]="this.requestTool.importanceAcademia.design"
-                                class="form-select form-select-sm form-control" name="academia-design" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
-                        </div>
+                <h5 class="title">Resources</h5>
+                <div class="row  ml-0 p-3 mb-3 card">
 
-                        <div class="col">
-                            <label for="academia-implementation">Implementation</label>
-                            <select [(ngModel)]="this.requestTool.importanceAcademia.implementation"
-                                class="form-select form-select-sm form-control" name="academia-implementation" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="academia-me">Monitoring and evaluations</label>
-                            <select [(ngModel)]="this.requestTool.importanceAcademia.me"
-                                class="form-select form-select-sm form-control" name="academia-me" id="">
-                                <option [value]="null">Select an option</option>
-                                <option *ngFor="let level of importanceLevels" [value]="level">{{level}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h5 class="title">Resources</h5>
-            <div class="row col-12 ml-0 p-3 mb-3 card">
-
-                <!-- Add new resource -->
-                <div class="resource resource-titles mb-3">
-                    <div class="d-flex p-0 flex-column col">
+                    <!-- Add new resource -->
+                    <!-- <div class="resource resource-titles mb-3"> -->
+                    <div class="d-flex p-0 flex-column col-12 mb-1">
                         <label for="resourceName">Resource name</label>
-                        <input type="text" class="form-select form-select-sm form-control" name="resourceName">
+                        <input [(ngModel)]="newResource.resourceName" type="text"
+                            class="form-select form-select-sm form-control" name="resourceName">
                     </div>
                     <!-- <div class="col-4"> -->
-                    <div class="d-flex p-0 flex-column col-4">
+                    <div class="row col-12 p-0 m-0" style="gap: .5em;">
 
-                        <label for="resourceLink">Link</label>
-                        <input type="text" class="form-control" name="resourceLink">
-                    </div>
-                    <!-- <div class="col-2"> -->
-                    <div class="d-flex p-0 flex-column col-2">
+                        <div class="p-0 col-6">
 
-                        <label for="resourceLink">Category</label>
-                        <select class=" form-select form-select-sm form-control" name="resourceCategory" id="">
-                            <option [value]="null">Select an option</option>
-                            <option *ngFor="let type of resourceTypes" [value]="type">{{type}}</option>
-                        </select>
+                            <label for="resourceLink">Link</label>
+                            <input [(ngModel)]="newResource.resourceLink" type="text" class="form-control"
+                                name="resourceLink">
+                        </div>
+                        <!-- <div class="col-2"> -->
+                        <div class="p-0 col-5">
+
+                            <label for="resourceLink">Category</label>
+                            <select role="button" [(ngModel)]="newResource.resourceCategory"
+                                class=" form-select form-select-sm form-control" name="resourceCategory" id="">
+                                <option [ngValue]="null">Select an option</option>
+                                <option *ngFor="let type of resourceTypes" [value]="type">{{type}}</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn d-flex align-items-end p-0 col" (click)="this.addResource()"
+                            [disabled]="!(this.validateField(this.toolForm.controls.resourceName.value)
+                            && this.validateField(this.toolForm.controls.resourceLink.value)
+                            && this.validateField(this.toolForm.controls.resourceCategory.value))">
+                            <span class="material-icons-round" style="color: #007bff;">add_circle</span>
+                        </button>
                     </div>
-                    <button type="button" class="btn d-flex align-items-end" (click)="this.addResource()">
-                        <span class="material-icons-round" style="color: #007bff;">add_circle</span>
-                    </button>
+                    <!-- </div> -->
+
+                    <hr>
+                    <ol class="resources">
+                        <li class="resource d-flex" *ngFor="let res of this.requestTool.resources; let i = index">
+                            <!-- <div class="d-flex p-0 flex-column row mb-3"> -->
+                            <label class="m-0" for="resourceName-{{i}}">Resource {{i+1}}</label>
+                            <input required [(ngModel)]="res.resourceName" type="text"
+                                class="col-12 form-select form-select-sm form-control mb-0" name="resourceName_{{i}}">
+                            <!-- </div> -->
+                            <div class="row col-12 p-0 m-0" style="gap: .5em;">
+                                <input required [(ngModel)]="res.resourceLink" type="text" class="col-6 form-control"
+                                    name="resourceLink_{{i}}">
+                                <select role="button" [(ngModel)]="res.resourceCategory"
+                                    class="col-5 form-select form-select-sm form-control" name="resourceCategory_{{i}}"
+                                    id="">
+                                    <option [ngValue]="null">Select an option</option>
+                                    <option *ngFor="let type of resourceTypes" [value]="type">{{type}}</option>
+                                </select>
+                                <button type="button" class="btn d-flex align-items-center p-0 col"
+                                    (click)="this.deleteResource(i)">
+                                    <span class="material-icons-round" (click)="this.deleteResource(i)"
+                                        style="color:#b20707;">
+                                        delete </span>
+                                </button>
+                            </div>
+
+                        </li>
+                    </ol>
                 </div>
 
-                <hr>
-                <ol class="resources">
-                    <li class="resource" *ngFor="let res of this.requestTool.resources; let i = index">
-                        <input [(ngModel)]="res.resourceName" type="text"
-                            class="col form-select form-select-sm form-control" name="resourceName_{{i}}">
-                        <input [(ngModel)]="res.resourceLink" type="text" class="col-4 form-control"
-                            name="resourceLink_{{i}}">
-                        <select [(ngModel)]="res.resourceCategory" class="col-2 form-select form-select-sm form-control"
-                            name="resourceCategory_{{i}}" id="">
-                            <option [value]="null">Select an option</option>
-                            <option *ngFor="let type of resourceTypes" [value]="type">{{type}}</option>
-                        </select>
-                        <button type="button" class="btn d-flex align-items-center" (click)="this.deleteResource(i)">
-                            <span class="material-icons-round" (click)="this.deleteResource(i)" style="color:#b20707;">
-                                delete </span>
-                        </button>
-                    </li>
-                </ol>
-            </div>
+                <div class="row col-12 ml-0 p-0 mb-3 justify-content-end">
+                    <button (click)="this.saveTool()" class="btn btn-success flex-end" [disabled]="!(toolForm.valid && this.requestTool.integrates_gender != null 
+                    && this.requestTool.is_tested_online != null && this.requestTool.resources.length>0)"
+                    style="display: flex;
+                    gap: 0.5em;
+                    justify-content: center;
+                    align-items: center;">Submit tool<span class="material-icons-round" style="font-size: 18px;">send</span></button>
+                </div>
 
-            <div class="row col-12 ml-0 p-0 mb-3 justify-content-end">
-                <button (click)="this.saveTool()" class="btn btn-success flex-end">Save</button>
-            </div>
-
+            </fieldset>
         </form>
     </div>
 </div>
