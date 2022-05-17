@@ -277,12 +277,12 @@
                     <!-- Add new resource -->
                     <!-- <div class="resource resource-titles mb-3"> -->
                     <div class="d-flex p-0 flex-column col-12 mb-1">
-                        <label for="resourceName">Resource name</label>
+                        <label for="resourceName">Resource title</label>
                         <input [(ngModel)]="newResource.resourceName" type="text"
                             class="form-select form-select-sm form-control" name="resourceName">
                     </div>
                     <!-- <div class="col-4"> -->
-                    <div class="row col-12 p-0 m-0" style="gap: .5em;">
+                    <div class="row col-12 p-0 m-0 mb-1" style="gap: .5em;">
 
                         <div class="p-0 col-6">
 
@@ -291,7 +291,7 @@
                                 name="resourceLink">
                         </div>
                         <!-- <div class="col-2"> -->
-                        <div class="p-0 col-5">
+                        <div class="p-0 col">
 
                             <label for="resourceLink">Category</label>
                             <select role="button" [(ngModel)]="newResource.resourceCategory"
@@ -300,13 +300,14 @@
                                 <option *ngFor="let type of resourceTypes" [value]="type">{{type}}</option>
                             </select>
                         </div>
-                        <button type="button" class="btn d-flex align-items-end p-0 col" (click)="this.addResource()"
-                            [disabled]="!(this.validateField(this.toolForm.controls.resourceName.value)
-                            && this.validateField(this.toolForm.controls.resourceLink.value)
-                            && this.validateField(this.toolForm.controls.resourceCategory.value))">
-                            <span class="material-icons-round" style="color: #007bff;">add_circle</span>
-                        </button>
                     </div>
+                    <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center col-auto" (click)="this.addResource()"
+                        [disabled]="!(this.validateField(this.toolForm.controls.resourceName.value)
+                        && this.validateField(this.toolForm.controls.resourceLink.value)
+                        && this.validateField(this.toolForm.controls.resourceCategory.value))">
+                        Add resource
+                        <span class="material-icons-round ml-1" style="color: #fff; font-size: 20px">add_circle</span>
+                    </button>
                     <!-- </div> -->
 
                     <hr>
