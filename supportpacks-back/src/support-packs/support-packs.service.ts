@@ -97,7 +97,7 @@ export class SupportPacksService {
   }
 
   async createGuideline(name: string, source: string, app_id: string, active: boolean, registered_by: string, contact: string) {
-    const newGuideline = { is_active: 0, name, source, type: 1, app_id, active }
+    const newGuideline = { is_active: 0, name, source, type: 1, app_id, active, registered_by,contact }
     return await Guideline.create(newGuideline);
   }
 
