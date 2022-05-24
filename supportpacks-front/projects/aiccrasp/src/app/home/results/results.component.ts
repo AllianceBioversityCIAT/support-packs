@@ -1,11 +1,15 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faBookmark, faClock, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+import htmlToPdfmake from 'html-to-pdfmake';
+
+
+import * as html2pdf from 'html2pdf.js'
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -65,6 +69,9 @@ export class ResultsComponent implements OnInit {
   tcIsVisible = false;
   showSelectedTools: boolean = false;
 
+  title = 'AICCRA Tools';
+  
+  @ViewChild('pdfSection', null) pdfTable: ElementRef;
 
 
   foundByName = false;
@@ -176,6 +183,19 @@ export class ResultsComponent implements OnInit {
 
   hideTC(ev?) {
     this.tcIsVisible = false;
+  }
+
+
+  public downloadAsPDF() {
+    const opt = {
+      margin:       1,
+      filename:     'AICCRA-Tools.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 1 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    let element = document.getElementById('pdfSection');
+    html2pdf().from(element).set(opt).save();
   }
 
 }

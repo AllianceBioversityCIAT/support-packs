@@ -191,8 +191,11 @@
         class="tc-container" (goBack)="backToResults($event)" (hideTC)="hideTC($event)" [@slideInOut] ></app-terms-conditions>
     
         <section *ngIf="this.showSelectedTools  && !tcIsVisible" class="downloads" [@inOutAnimation]>
-
-        <button class="btn-arrow-left mb-3" (click)="backToResults($event)">Back</button>
+<div class="actions d-flex align-items-center justify-content-between">
+    <button class="btn-arrow-left mb-3" (click)="backToResults($event)">Back</button>
+    <button class="btn mb-3 d-flex align-items-center justify-content-between" style="background-color: var(--primaryColor); color: white; font-weight: bold;" (click)="downloadAsPDF()">Download<span class="material-icons-round ml-2" >picture_as_pdf</span></button>
+</div>
+        <div class="pdf-section" #pdfSection id="pdfSection">
         <h3 class="mb-3 d-flex align-items-center"><span class="material-icons-round">
                 build_circle
             </span><strong>Tools selected & related resources</strong></h3>
@@ -236,6 +239,7 @@
                 </div>
             </li>
         </ul>
+        </div>
     </section>
     <section class="description-container">
         <h3 class="faq-title">Frequently Asked Questions (FAQ)</h3>
