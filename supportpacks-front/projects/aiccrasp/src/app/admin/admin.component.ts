@@ -93,6 +93,7 @@ export class AdminComponent implements OnInit {
     resourceCategory: null
   }
 
+  submitted: boolean = false;
   formDisabled: boolean = true;
 
   @ViewChild('toolForm', null) toolForm!: NgForm;
@@ -152,6 +153,10 @@ export class AdminComponent implements OnInit {
       console.log(res);
       this.toolForm.reset();
       this.requestTool.resources = [];
+      this.submitted = true;
+      setTimeout(() => {
+        this.submitted = false;
+      }, 10000);
     }
     )
   }

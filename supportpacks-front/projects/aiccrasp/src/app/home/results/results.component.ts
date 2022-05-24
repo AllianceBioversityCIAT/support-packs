@@ -6,9 +6,6 @@ import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import htmlToPdfmake from 'html-to-pdfmake';
-
-
 import * as html2pdf from 'html2pdf.js'
 @Component({
   selector: 'app-results',
