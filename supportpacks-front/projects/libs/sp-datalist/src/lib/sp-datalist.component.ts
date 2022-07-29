@@ -45,6 +45,7 @@ export class DataListComponent implements OnInit {
   @Input() ids: []
   @Output() rData = new EventEmitter<any>();
 
+  
 
   private customerDiffer: KeyValueDiffer<string, any>;
 
@@ -52,6 +53,7 @@ export class DataListComponent implements OnInit {
   selectedArray = [];
   selectedData = [];
   form: FormGroup;
+  showTyC:Boolean;
   isVisible = false;
   tcText = tcText;
 
@@ -66,6 +68,15 @@ export class DataListComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  //Activate Terms and conditions
+  
+  activateTyC():void {
+    this.showTyC = true;
+  }
+
+  //finish active
+
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
     for (const propName in changes) {

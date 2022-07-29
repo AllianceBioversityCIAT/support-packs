@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'protractor';
 import { SPTermsconditionsService } from './sp-termsconditions.service';
 
+import * as html2pdf from 'html2pdf.js'
 @Component({
   selector: 'tc-module',
   templateUrl: './sp-termsconditions.component.html',
@@ -194,6 +195,10 @@ export class SPTermsconditionsComponent implements OnInit {
     this.selectedFile = file;
     this.open(content)
   }
+//investigate download func
+  downloadFiles(){
+    console.log("downloading files...");
+  }
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
@@ -228,4 +233,8 @@ export class SPTermsconditionsComponent implements OnInit {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     return (url.match(p)) ? '1' : '0';
   }
+  
+  
+
+  
 }
