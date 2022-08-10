@@ -3,7 +3,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule } from '@angular/
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SSL_OP_SINGLE_DH_USE } from 'constants';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { env } from 'process';
 // import { SPTermsconditionsModule } from 'projects/libs/sp-termsconditions/src/lib/sp-termsconditions.module';

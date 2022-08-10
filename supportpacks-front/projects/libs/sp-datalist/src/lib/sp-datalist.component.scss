@@ -12,6 +12,9 @@ strong {
         color: none;
         border: none;
         background: none;
+        @media (max-width:991px) {
+            margin-top: 12px;
+        }
         label{
             display: block;
             margin: inline-block;
@@ -33,6 +36,9 @@ strong {
         list-style: none;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         overflow: hidden;
+        @media (max-width:991px) {
+            height: 60px;
+        }
         label {
             margin-bottom: 0;
         }
@@ -41,23 +47,20 @@ strong {
         margin: 10px 0;
     }
     .input-group-prepend-txt {
-        // padding: 0px 40px 10;
+        padding-right: 125px;
         color: #7dc35c;
-        margin-left: 20px !important;
+        margin-left: 25px !important;
         position: absolute;
-        
-        // padding-left: 30px;
-        
         .importanceLevel {
             border-radius: 6px;
-            padding: 0px 5px;
+            padding: 0px 10px;
             font-size: 12px;
             text-align: center;
-            width: 95px;
+            width: 100px;
             margin: 3px;
             position: absolute;
-            right: 7px;
-            top: 5px;
+            right: 30px;
+            top: 2px;
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
             color: #fff;
         }
@@ -113,10 +116,12 @@ input{
     width: 20px;
     margin-right: .5em;
 }
-.guideline-icon.icon-type-0 {
+.guideline-icon.type-0 {
     background: url("./assets/type-0.png") no-repeat;
-    justify-content: flex-start;
+    @media (max-width:991px) {
+        margin-top: 12px;
+    }
 }
-.guideline-icon.icon-type-1 {
+.guideline-icon.type-1 {
     background: url("./assets/type-1.png") no-repeat;
 }

@@ -3,11 +3,13 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@a
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as JSZip from 'jszip';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { error } from 'protractor';
 import { SPTermsconditionsService } from './sp-termsconditions.service';
+import { FileSaver } from 'FileSaver';
+// import * as JSZip from 'jszip';
+// import { file } from 'jszip';
 
-import * as html2pdf from 'html2pdf.js'
 @Component({
   selector: 'tc-module',
   templateUrl: './sp-termsconditions.component.html',
@@ -36,7 +38,10 @@ import * as html2pdf from 'html2pdf.js'
     )
   ]
 })
+
+
 export class SPTermsconditionsComponent implements OnInit {
+  [x: string]: any;
 
   @Input() tcText: any;
   @Input() docsArray: any;
@@ -61,6 +66,9 @@ export class SPTermsconditionsComponent implements OnInit {
     name: null,
     source: null
   };
+  // selectGuidelines = {
+  //   na
+  // }
   filePath = null;
 
   constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
@@ -69,7 +77,7 @@ export class SPTermsconditionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.filePath = this.tcService.getFilesPath();
     this.getRegions();
   }
@@ -89,8 +97,11 @@ export class SPTermsconditionsComponent implements OnInit {
     }
   }
 
+
+
   goBackBtn() {
     this.goBack.emit(true);
+    this.isVisible = true;
   }
 
   onSetEmail() {
@@ -126,7 +137,7 @@ export class SPTermsconditionsComponent implements OnInit {
             this.step3 = false;
             this.step4 = true;
             this.spinner.hide()
-            // this.step5 = false;
+            //this.step5 = false;
           },
           error => {
             this.spinner.hide()
@@ -167,7 +178,6 @@ export class SPTermsconditionsComponent implements OnInit {
 
   onCheckboxChange(e, arrayName: string) {
     const array: FormArray = this.tc_Form.get(arrayName) as FormArray;
-
     if (e.target.checked) {
       array.push(new FormControl(e.target.value));
     } else {
@@ -195,9 +205,65 @@ export class SPTermsconditionsComponent implements OnInit {
     this.selectedFile = file;
     this.open(content)
   }
-//investigate download func
-  downloadFiles(){
-    console.log("downloading files...");
+
+  /*******************************************************Download steps*******************************************************/
+
+
+  downloadAll() {
+  // This is the function where I get the access links of all the uploaded files, which can weigh more than 11GB in total.
+  // But here I only get an array of links
+  const url = this.selectedGuidiline.map(u => u.source);
+  console.log(url);
+  // const urls = this.PROJECT.resources.map(u => u.link); 
+  this.tcService.downloadAll(url, this.downloadCallback); // my download service
+}
+
+
+// this is my callback function that I send to the service
+downloadCallback(metaData) {
+  const percent = metaData.percent;
+  setTimeout(() => {
+    console.log(percent);
+    if (percent >= 100) { 
+      console.log('Zip Downloaded'); 
+    }
+  }, 10);
+}
+
+  downloadFiles() {
+    // let zip = new JSZip();
+    // zip.file("readme.txt", "Files required");
+    // let txtFile = zip.folder("txt");
+    // this.selectedItems?.forEach((items) => {
+    //   this.downloadService.downloadFile(items.name)
+    //     .subscribe((response) => {
+    //       let base64 = response.output.split(",");
+    //       txtFile.file(items.name, base64[1], { base64: true });
+    //       zip.generateAsync({ type: "blob" })
+    //         .then((content) => {
+    //           // see FileSaver.js
+    //           FileSaver.saveAs(content, this.fileZipName);
+    //         });
+    //     });
+    // });
+
+
+    // let zip = new JSZip();
+    // zip.file("readme.txt", "Files required");
+    // let txtFile = zip.folder("txt");
+    // this.selectedItems?.forEach((this.selectedFile.name) => {
+    //   this.downloadService
+    //     .downloadFile(this.selectedFile.name)
+    //     .subscribe((response) => {
+    //       let base64 = response.output.split(",");
+    //       txtFile.file(this.selectedFile.name, base64[1], { base64: true });
+    //     });
+    // });
+    // zip.generateAsync({ type: "blob" })
+    //   .then((content) => {
+    //     // see FileSaver.js
+    //     FileSaver.saveAs(content, this.fileZipName);
+    //   });
   }
 
   open(content) {
@@ -218,7 +284,6 @@ export class SPTermsconditionsComponent implements OnInit {
   /**
    * 
    */
-
   getRegions() {
     this.tcService.getRegions().
       subscribe(
@@ -233,8 +298,5 @@ export class SPTermsconditionsComponent implements OnInit {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     return (url.match(p)) ? '1' : '0';
   }
-  
-  
-
-  
 }
+/*****************FUNCTIONS*******************/

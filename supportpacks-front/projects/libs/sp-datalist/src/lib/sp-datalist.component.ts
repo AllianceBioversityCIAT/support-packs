@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DataListService } from './sp-datalist.service';
 // import { DataListService } from '../public-api';
 
-const tcText = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
+const tcText = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously.However, you may click on <a class="skip 2" (Click)="onSetEmail()">Skip</a> to download links directly.';
 @Component({
   selector: 'dl-lib',
   templateUrl: './sp-datalist.component.html',
@@ -42,8 +42,10 @@ export class DataListComponent implements OnInit {
     stage: null,
     category: null
   };
-  @Input() ids: []
+  @Input() ids: [];
   @Output() rData = new EventEmitter<any>();
+  
+  
 
   
 
@@ -53,7 +55,6 @@ export class DataListComponent implements OnInit {
   selectedArray = [];
   selectedData = [];
   form: FormGroup;
-  showTyC:Boolean;
   isVisible = false;
   tcText = tcText;
 
@@ -68,14 +69,6 @@ export class DataListComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  //Activate Terms and conditions
-  
-  activateTyC():void {
-    this.showTyC = true;
-  }
-
-  //finish active
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name

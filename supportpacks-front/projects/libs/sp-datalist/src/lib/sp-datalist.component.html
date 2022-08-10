@@ -7,12 +7,12 @@
     <div id="step1" class="">
         <h3 class="blockTitle">Documents recomended</h3>
         <i class="messageResult">
-            <b class="nDocuments">{{recomendedDocs.length}} </b> Documents found for a <b>{{data.role.name}}</b> at
-            <b>{{data.stage.name}}</b>
+            <b class="nDocuments">{{recomendedDocs.length}} </b> Documents found for a <b>{{data.role}}</b> at
+            <b>{{data.stage}}</b>
             stage
         </i>
         <div class="docResults">
-            <h5>{{data.category.name}}</h5>
+            <h5>{{data.category}}</h5>
             <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
 
                 <div *ngFor="let doc of recomendedDocs; let i=index">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="input-group-prepend-txt d-flex col ">
-                            <i class="guideline-icon icon-type-{{isYoutube(doc.source)}}">
+                            <i class="guideline-icon type-{{isYoutube(doc.source)}}">
 
                             </i>
                             <label for="doc-{{doc.id}}">
@@ -43,7 +43,7 @@
                 <button class="btn btn-secondary" type='button' (click)="restartData()" style="margin-right: 1em;"> New
                     search</button>
                     <input id="filtered-type" [disabled]="this.form.controls['docsArray'].errors?.required"
-                    class="download 1 btn btn-primary" type="submit" value="Download chosen documents" (click)="activateTyC()">
+                    class="download 1 btn btn-primary" type="submit" value="Download chosen documents">
                 <ngx-spinner></ngx-spinner>
             </form>
         </div>
@@ -51,5 +51,5 @@
 </div>
 
 
-<tc-module [tcText]="tcText" [docsArray]="selectedArray" [selectedGuidiline]="selectedData" class="container" *ngIf="showTyC"
+<tc-module [tcText]="tcText" [docsArray]="selectedArray" [selectedGuidiline]="selectedData" class="container" *ngIf="isVisible"
     (goBack)="onBack($event)"></tc-module>
