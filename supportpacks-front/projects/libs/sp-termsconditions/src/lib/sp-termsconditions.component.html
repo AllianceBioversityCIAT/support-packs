@@ -4,8 +4,7 @@
     <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
         <h3 class="headTitle">Terms and conditions</h3>
         <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
-            <p> {{this.tcText}}
-            </p>
+            <p (click)="onSetEmail()" [innerHTML]= "this.tcText"></p>
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
                 <div class="row col form-group">
@@ -15,6 +14,7 @@
                 </div>
                 <br>
                 <div class="d-flex col justify-content-between">
+                    <!-- <div id="elemnt"></div> -->
                     <div class="col-4 row justify-content-between">
                         <a (click)="goBackBtn()" class="download 4 btn btn-primary">
                             Go Back
@@ -129,17 +129,21 @@
 
         <div class="d-flex justify-content-between">
             <div class="col-6 row justify-content-between">
-                <button type="submit" class="download 2 btn btn-primary" (click)="downloadFiles()">
+                <button type="submit" class="download 2 btn btn-primary" (click)="downloadAll()" as Zip>
                     Download [<span class="nfiles">{{selectedGuidiline.length}}</span>] Files
                 </button>
-
             </div>
             <button class="download col-2 btn btn-info" (click)="goBackBtn()">
                 Go back
             </button>
+            <!-- <br>
+            <div *ngFor="let file of selectedGuidiline">
+                <p>{{file.source}}</p>
+            </div> -->
         </div>
         <ngx-spinner></ngx-spinner>
     </div>
+    
 
     <!-- error message -->
     <div class="row align-items-center" style="height: 300px;">
