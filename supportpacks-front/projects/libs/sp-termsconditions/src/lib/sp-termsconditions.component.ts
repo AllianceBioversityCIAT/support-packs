@@ -46,6 +46,7 @@ export class SPTermsconditionsComponent implements OnInit {
   @Input() tcText: any;
   @Input() docsArray: any;
   @Input() selectedGuidiline: any;
+  @Input() app_id: any;
   @Output() goBack = new EventEmitter<boolean>();
   isVisible = false;
 
@@ -156,6 +157,7 @@ export class SPTermsconditionsComponent implements OnInit {
       this.spinner.show();
       this.step4 = false
       let params = this.tc_Form.value;
+      params['app_id']  = this.app_id; 
       params['user_id'] = this.selectedUser ? this.selectedUser['id'] : undefined;
       params['email'] = this.selectedUser ? this.selectedUser['email'] : this.emailForm.value['email'];
       params['guide_selected'] = this.selectedGuidiline.map(g => g.id);
@@ -167,7 +169,7 @@ export class SPTermsconditionsComponent implements OnInit {
             // console.log('onSetTC', res);
           },
           error => {
-            this.step5 = false;
+            this.step5 = true;
             this.spinner.hide();
             this.error = error.statusText
             console.error(error)
@@ -207,11 +209,11 @@ export class SPTermsconditionsComponent implements OnInit {
   }
 
   /*******************************************************Download steps*******************************************************/
-
-
   downloadAll() {
+    this.printGuidelinesToDownload();
   // This is the function where I get the access links of all the uploaded files, which can weigh more than 11GB in total.
   // But here I only get an array of links
+  // const prefix = 'https://cgiar.sharepoint.com/:f:/s/CCAFS-KDS/EsgrIFazoKZIsmTBARLd5DEBk1KAw8E4ixTJ7z5C8dLhXA?e=GTzBRs'
   const url = this.selectedGuidiline.map(u => u.source);
   console.log(url);
   // const urls = this.PROJECT.resources.map(u => u.link); 
@@ -266,6 +268,7 @@ downloadCallback(metaData) {
     //   });
   }
 
+
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
       window.open(result, "_blank");
@@ -299,4 +302,10 @@ downloadCallback(metaData) {
     return (url.match(p)) ? '1' : '0';
   }
 }
+
+function zipFiles() {
+  
+}
 /*****************FUNCTIONS*******************/
+const filesToZip = []
+

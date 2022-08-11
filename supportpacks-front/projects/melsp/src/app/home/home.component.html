@@ -96,7 +96,7 @@
     </div>
 
     <!-- data list -->
-    <dl-lib class="row" [data]="filterData" [ids]="filterDataId" (rData)="onrData($event)"></dl-lib>
+    <dl-lib class="row" [app_id]="this.sppServices.getAppId()" [data]="filterData" [ids]="filterDataId" (rData)="onrData($event)"></dl-lib>
  
 </div>
 <ngx-spinner></ngx-spinner>

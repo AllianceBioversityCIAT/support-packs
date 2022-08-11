@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SppServices } from '../services/spp-services.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
@@ -7,6 +7,7 @@ import { faList, faPaperPlane, faUserCircle, faSignOutAlt } from '@fortawesome/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
+import { appendFile } from 'fs';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,8 @@ import { AuthService, User } from '../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+  
+  app_id = "";
   SProles = [];
   roles: any = [];
   categories: any;
@@ -75,7 +78,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private sppServices: SppServices, private router: Router, private spinner: NgxSpinnerService, private modalService: NgbModal, private authenticationService: AuthService) {
+  constructor(public sppServices: SppServices, private router: Router, private spinner: NgxSpinnerService, private modalService: NgbModal, private authenticationService: AuthService) {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
@@ -86,6 +89,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // if (e instanceof NavigationEnd) {
+
   }
 
   init() {

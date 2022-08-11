@@ -37,6 +37,7 @@ const tcText = 'To continue downloading your files, please first fill in your em
 
 export class DataListComponent implements OnInit {
 
+  @Input() app_id; 
   @Input() data: any = {
     role: null,
     stage: null,

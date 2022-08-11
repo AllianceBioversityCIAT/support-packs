@@ -11,6 +11,8 @@ const app_id = environment.app_id;
 })
 export class SppServices {
 
+  app_id = app_id;
+
   constructor(private http: HttpClient) { }
   /**
    *  Get roles by app_id
@@ -59,4 +61,16 @@ export class SppServices {
   updateImportanceLevel(params) {
     return this.http.patch<any>(`${API}/sp/importance-level`, params).pipe();
   }
+
+  setDownload(params: any) {
+    // let app_id = environment.app_id;
+    params.app_id = environment.app_id;
+    console.log(params);
+    return this.http.post<any>(`${API}/sp/download`, params).pipe();
+  }
+
+  getAppId(){
+    return this.app_id;
+  }
+
 }
