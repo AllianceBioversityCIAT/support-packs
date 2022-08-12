@@ -46,10 +46,12 @@ export class SPTermsconditionsComponent implements OnInit {
   @Input() tcText: any;
   @Input() docsArray: any;
   @Input() selectedGuidiline: any;
+  @Input() total: any
   @Input() app_id: any;
   @Output() goBack = new EventEmitter<boolean>();
   isVisible = false;
 
+  
   step3 = true;
   step4 = false;
   step5 = false;
@@ -67,18 +69,25 @@ export class SPTermsconditionsComponent implements OnInit {
     name: null,
     source: null
   };
+  
  
   filePath = null;
 
   constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
-    console.log('T&C Component');
+    console.log('T&C Component');}
 
-  }
+    // public array: string[] = this.selectedGuidiline.type;
 
   ngOnInit() {
 
     this.filePath = this.tcService.getFilesPath();
     this.getRegions();
+
+    
+    const url = this.selectedGuidiline.map(u => u.type);
+    // console.log(url);
+    this.total = url.filter((x) => x.valueOf() == '0').length;
+    // console.log(this.total);
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
@@ -208,12 +217,10 @@ export class SPTermsconditionsComponent implements OnInit {
 
   /*******************************************************Download steps*******************************************************/
   downloadAll() {
-  console.log(this.selectedGuidiline);
-  // This is the function where I get the access links of all the uploaded files, which can weigh more than 11GB in total.
-  // But here I only get an array of links
-  // const prefix = 'https://cgiar.sharepoint.com/:f:/s/CCAFS-KDS/EsgrIFazoKZIsmTBARLd5DEBk1KAw8E4ixTJ7z5C8dLhXA?e=GTzBRs'
-  const url = this.selectedGuidiline.map(u => u.source);
-  console.log(url);
+  const url = this.selectedGuidiline.map(u => u.type);
+  // console.log(url);
+  // this.total = url.filter((x) => x.valueOf() == '0').length;
+  // console.log(this.total);
   // const urls = this.PROJECT.resources.map(u => u.link); 
   this.tcService.downloadAll(url, this.downloadCallback); // my download service
 }
@@ -300,6 +307,8 @@ downloadCallback(metaData) {
     return (url.match(p)) ? '2' : '0';
   }
 }
+
+
 
 function zipFiles() {
   

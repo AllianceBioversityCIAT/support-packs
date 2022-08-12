@@ -2,32 +2,37 @@
     font-weight: lighter;
     color: #969696;
 }
+
 b,
 strong {
     font-weight: 700;
 }
+
 .docResults {
     .input-group-text {
         position: relative;
         color: none;
         border: none;
         background: none;
+
         @media (max-width:991px) {
             margin-top: 12px;
         }
-        label{
+
+        label {
             display: block;
             margin: inline-block;
         }
-                
+
     }
-    .input-group-prepend{
+
+    .input-group-prepend {
         padding: 0px;
-        
-    }     
+
+    }
 
     .docRow {
-        margin: 0.25em 0 !important;
+        margin: 0.65em 0 !important;
         background-color: #f1f1f1;
         border: 1px solid #efefef;
         border-radius: 2px;
@@ -36,38 +41,71 @@ strong {
         list-style: none;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         overflow: hidden;
+
         @media (max-width:991px) {
             height: 60px;
         }
+
         label {
             margin-bottom: 0;
         }
     }
+
     .download {
         margin: 10px 0;
     }
+
     .input-group-prepend-txt {
         padding-right: 125px;
-        color: #7dc35c;
+        color: #000000;
         margin-left: 25px !important;
         position: absolute;
+
         .importanceLevel {
-            border-radius: 6px;
+
+            // display: inline-flex;
+            align-items: center;
+            column-gap: 15px;
+            position:absolute;
             padding: 0px 10px;
-            font-size: 12px;
-            text-align: center;
+            right: 35px;
             width: 100px;
             margin: 3px;
-            position: absolute;
-            right: 30px;
-            top: 2px;
+            font-size: 12px;
+            text-align: center;
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-            color: #fff;
+            background-image: 
+            conic-gradient(
+                from 36deg at 25% 50%,
+                #A100FFFF 30% 25%
+                #119cfdff 0%
+            );
+            cursor: default;
+            overflow: hidden;
+            
+
+            // content: "";
+            // background: currentColor;
+            // width: 20px;
+            // clip-path: polygon(0 10px, calc(100% - 15px) 10px, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, calc(100% - 15px) calc(100% - 10px), 0 calc(100% - 10px));
+            // animation: a1 1.5s infinite linear;
+
+            // // border-radius: 6px;
+            // padding: 0px 10px;
+            // font-size: 12px;
+            // text-align: center;
+            // width: 100px;
+            // margin: 3px;
+            // position: absolute;
+            // right: 30px;
+            // top: 2px;
+            // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+            // color: #fff;
         }
     }
 }
 
-input{
+input {
     padding: 0;
 }
 
@@ -90,23 +128,26 @@ input{
 
 .very-important,
 .level-4 {
-    background-color: #c0504d !important;
-    color: #fff;
+    // background-color: #c0504d !important;
+    // color: #fff;
 }
+
 .important,
 .level-3 {
-    background-color: #da9694 !important;
-    color: #fff;
+    // background-color: #da9694 !important;
+    // color: #fff;
 }
+
 .useful,
 .level-2 {
-    background-color: #e6b8b7 !important;
-    color: #fff;
+    // background-color: #e6b8b7 !important;
+    // color: #fff;
 }
+
 .optional,
 .level-1 {
-    background-color: #fff !important;
-    color: #222 !important;
+    // background-color: #fff !important;
+    // color: #222 !important;
 }
 
 /***
@@ -116,12 +157,15 @@ input{
     width: 20px;
     margin-right: .5em;
 }
+
 .guideline-icon.type-0 {
     background: url("./assets/type-0.png") no-repeat;
+
     @media (max-width:991px) {
         margin-top: 12px;
     }
 }
+
 .guideline-icon.type-2 {
     background: url("./assets/type-2.png") no-repeat;
 }

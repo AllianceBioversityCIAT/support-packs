@@ -81,7 +81,6 @@ export class SPTermsconditionsService {
       const var_sub = filename.substring((this.filename - 4),4)
       // I think that this function where the binary content of a file is obtained through a link is what causes the download to be so slow and to consume a lot of resources
       console.log("Nombre del archivo ="  + filename);
-      console.log(var_sub);
       JSZipUtils.getBinaryContent(u, (err, data) => {
         if (err) { throw err;  }
         zip.file(filename, data, { binary: true });

@@ -126,11 +126,13 @@
                 </ul>
             </div>
         </div>
+        <!-- ngFor="let itemType of selectedGuidiline.type == 0" -->
+        <!-- *ngFor="let itemType of selectedGuidiline.type" {{selectedGuidiline.type}} -->
 
         <div class="d-flex justify-content-between">
             <div class="col-6 row justify-content-between">
                 <button type="submit" class="download 2 btn btn-primary" (click)="downloadAll()" as Zip>
-                    Download [<span class="nfiles">{{selectedGuidiline.length}}</span>] Files
+                    Download [<span class="nfiles">{{total}}</span>] Files
                 </button>
             </div>
             <button class="download col-2 btn btn-info" (click)="goBackBtn()">
