@@ -67,9 +67,7 @@ export class SPTermsconditionsComponent implements OnInit {
     name: null,
     source: null
   };
-  // selectGuidelines = {
-  //   na
-  // }
+ 
   filePath = null;
 
   constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
@@ -210,7 +208,7 @@ export class SPTermsconditionsComponent implements OnInit {
 
   /*******************************************************Download steps*******************************************************/
   downloadAll() {
-    this.printGuidelinesToDownload();
+  console.log(this.selectedGuidiline);
   // This is the function where I get the access links of all the uploaded files, which can weigh more than 11GB in total.
   // But here I only get an array of links
   // const prefix = 'https://cgiar.sharepoint.com/:f:/s/CCAFS-KDS/EsgrIFazoKZIsmTBARLd5DEBk1KAw8E4ixTJ7z5C8dLhXA?e=GTzBRs'
@@ -299,7 +297,7 @@ downloadCallback(metaData) {
   }
   isYoutube(url) {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-    return (url.match(p)) ? '1' : '0';
+    return (url.match(p)) ? '2' : '0';
   }
 }
 

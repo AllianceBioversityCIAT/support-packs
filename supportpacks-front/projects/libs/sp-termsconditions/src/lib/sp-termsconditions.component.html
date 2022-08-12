@@ -115,7 +115,7 @@
         <div id="result">
             <div id="guidelines">
                 <ul *ngFor="let guide of selectedGuidiline">
-                    <li class="guideline type-{{isYoutube(guide.source)}} ">
+                    <li class="guideline type-{{guide.type}} ">
                         <p (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer;">
                             <!-- <p (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer;"> -->
                             <b>
