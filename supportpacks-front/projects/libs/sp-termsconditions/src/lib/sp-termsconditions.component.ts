@@ -7,6 +7,7 @@ import * as JSZip from 'jszip';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SPTermsconditionsService } from './sp-termsconditions.service';
 import { FileSaver } from 'FileSaver';
+import { format } from 'util';
 // import * as JSZip from 'jszip';
 // import { file } from 'jszip';
 
@@ -57,6 +58,7 @@ export class SPTermsconditionsComponent implements OnInit {
   step5 = false;
   error = false;
 
+  hostWebUrl;
   regions = [];
 
   emailForm = new FormGroup({
@@ -217,14 +219,10 @@ export class SPTermsconditionsComponent implements OnInit {
 
   /*******************************************************Download steps*******************************************************/
   downloadAll() {
-  const url = this.selectedGuidiline.map(u => u.type);
-  // console.log(url);
-  // this.total = url.filter((x) => x.valueOf() == '0').length;
-  // console.log(this.total);
-  // const urls = this.PROJECT.resources.map(u => u.link); 
+  const url = this.selectedGuidiline.map(u => u.source);
   this.tcService.downloadAll(url, this.downloadCallback); // my download service
-}
 
+}
 
 // this is my callback function that I send to the service
 downloadCallback(metaData) {
@@ -238,41 +236,8 @@ downloadCallback(metaData) {
 }
 
   downloadFiles() {
-    // let zip = new JSZip();
-    // zip.file("readme.txt", "Files required");
-    // let txtFile = zip.folder("txt");
-    // this.selectedItems?.forEach((items) => {
-    //   this.downloadService.downloadFile(items.name)
-    //     .subscribe((response) => {
-    //       let base64 = response.output.split(",");
-    //       txtFile.file(items.name, base64[1], { base64: true });
-    //       zip.generateAsync({ type: "blob" })
-    //         .then((content) => {
-    //           // see FileSaver.js
-    //           FileSaver.saveAs(content, this.fileZipName);
-    //         });
-    //     });
-    // });
-
-
-    // let zip = new JSZip();
-    // zip.file("readme.txt", "Files required");
-    // let txtFile = zip.folder("txt");
-    // this.selectedItems?.forEach((this.selectedFile.name) => {
-    //   this.downloadService
-    //     .downloadFile(this.selectedFile.name)
-    //     .subscribe((response) => {
-    //       let base64 = response.output.split(",");
-    //       txtFile.file(this.selectedFile.name, base64[1], { base64: true });
-    //     });
-    // });
-    // zip.generateAsync({ type: "blob" })
-    //   .then((content) => {
-    //     // see FileSaver.js
-    //     FileSaver.saveAs(content, this.fileZipName);
-    //   });
   }
-
+  
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
@@ -308,11 +273,4 @@ downloadCallback(metaData) {
   }
 }
 
-
-
-function zipFiles() {
-  
-}
 /*****************FUNCTIONS*******************/
-const filesToZip = []
-
