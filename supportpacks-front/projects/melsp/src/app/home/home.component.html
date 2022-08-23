@@ -31,7 +31,7 @@
         <button class="btn btn-danger align-self-center col justify-content-between d-flex"
             [class.select-active]="filterData.role !== 'Choose a Role...'" id="filter-role" ngbDropdownToggle>
             <img src="./assets/images/icon-1.png" alt=""><span
-                class="optionText">{{filterData.role == null ? 'Choose a Role...':filterData.role}}</span>
+                class="optionText">{{filterData.role == null ? 'Choose a Role...':filterData.role.name}}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="filter-role">
             <button *ngFor="let role of roles" ngbDropdownItem [class.active]="role.name == filterData.role"
@@ -45,7 +45,7 @@
         <button class="btn btn-danger align-self-center col justify-content-between d-flex"
             [class.select-active]="filterData.stage == null" id="filter-stage" ngbDropdownToggle>
             <img src="./assets/images/icon-2.png" alt=""><span
-                class="optionText">{{filterData.stage  === null ? 'Choose when...':filterData.stage}}</span>
+                class="optionText">{{filterData.stage  === null ? 'Choose when...':filterData.stage.name}}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="filter-stage">
             <button *ngFor="let stage of stages" ngbDropdownItem [class.active]="stage.name == filterData.stage"
@@ -59,7 +59,7 @@
         <button class="btn btn-danger align-self-center col justify-content-between d-flex"
             [class.select-active]="filterData.category !== 'Choose what...'" id="filter-category" ngbDropdownToggle>
             <img src="./assets/images/icon-3.png" alt=""><span
-                class="optionText">{{filterData.category  == null ? 'Choose what...':filterData.category}}</span>
+                class="optionText">{{filterData.category  == null ? 'Choose what...':filterData.category.name}}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="filter-category">
             <button *ngFor="let category of categories" ngbDropdownItem
@@ -74,13 +74,13 @@
 <div class="resultsBlock form-group">
     <div class="col removeFilters">
         <button *ngIf="filterData.role" class="btn btn-outline-danger col-sm-2"
-            (click)="selectFilter('role',{name:null, id: null})">{{filterData.role}} <span
+            (click)="selectFilter('role',{name:null, id: null})">{{filterData.role.name}} <span
                 aria-hidden="true">&times;</span></button>
         <button *ngIf="filterData.stage" class="btn btn-outline-danger col-sm-2"
-            (click)="selectFilter('stage',{name:null, id: null})">{{filterData.stage}} <span
+            (click)="selectFilter('stage',{name:null, id: null})">{{filterData.stage.name}} <span
                 aria-hidden="true">&times;</span></button>
         <button *ngIf="filterData.category" class="btn btn-outline-danger col-sm-2"
-            (click)="selectFilter('category',{name:null, id: null})">{{filterData.category}} <span
+            (click)="selectFilter('category',{name:null, id: null})">{{filterData.category.name}} <span
                 aria-hidden="true">&times;</span></button>
     </div>
     <div class="results-selection" [@inOutAnimation] *ngIf="!validateFilterData()">

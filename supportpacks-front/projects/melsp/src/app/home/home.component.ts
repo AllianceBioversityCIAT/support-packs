@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectFilter(type: string, data: any) {
-    this.filterData[type] = data.name;
+    this.filterData[type] = data;
     this.filterDataId[type] = data.id;
     this.filterDataId = Object.assign({}, this.filterDataId);
     this.filterData = Object.assign({}, this.filterData);
@@ -121,6 +121,7 @@ export class HomeComponent implements OnInit {
 
   validateFilterData() {
     return this.filterData.role !== null && this.filterData.stage !== null && this.filterData.category !== null;
+  
   }
 
   clearFilter(prop?, val?) {
@@ -176,6 +177,4 @@ export class HomeComponent implements OnInit {
   onrData(data: any) {
     this.filterData = data;
   }
-
-
 }

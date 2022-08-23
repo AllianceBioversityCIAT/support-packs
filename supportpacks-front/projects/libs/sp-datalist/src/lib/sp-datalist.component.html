@@ -7,12 +7,13 @@
         <h3 class="blockTitle">Documents recomended</h3>
         <i class="messageResult">
             <b class="nDocuments">{{ recomendedDocs.length }} </b> Documents found for
-            a <b>{{ data.role }}</b> at
-            <b>{{ data.stage }}</b>
+            a <b>{{ data.role.name }}</b> at
+            <b>{{ data.stage.name }}</b>
             stage
         </i>
+        <button (click)="prueba()">clic</button>
         <div class="docResults">
-            <h5>{{ data.category }}</h5>
+            <h5>{{ data.category.name }}</h5>
             <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
                 <div *ngFor="let doc of recomendedDocs; let i = index">
                     <div class="input-group row docRow">

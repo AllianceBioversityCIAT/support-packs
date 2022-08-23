@@ -92,6 +92,7 @@ export class HomeComponent implements OnInit {
 
   selectFilter(prop_: string, data: any) {
     this.filterData[prop_] = data;
+    this.filterData = Object.assign({}, this.filterData);
     this.validateData();
   }
 
@@ -113,7 +114,4 @@ export class HomeComponent implements OnInit {
   onrData(data:any){
     this.filterData = data;
   }
-
-
-
 }
