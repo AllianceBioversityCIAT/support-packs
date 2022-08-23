@@ -3,13 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@a
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as JSZip from 'jszip';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SPTermsconditionsService } from './sp-termsconditions.service';
-import { FileSaver } from 'FileSaver';
-import { format } from 'util';
-// import * as JSZip from 'jszip';
-// import { file } from 'jszip';
 
 @Component({
   selector: 'tc-module',

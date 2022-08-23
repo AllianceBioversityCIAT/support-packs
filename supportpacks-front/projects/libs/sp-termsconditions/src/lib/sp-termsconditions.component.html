@@ -4,7 +4,7 @@
     <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
         <h3 class="headTitle">Terms and conditions</h3>
         <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
-            <p (click)="onSetEmail()" [innerHTML]= "this.tcText"></p>
+            <p> <span [innerHTML]= "this.tcText.txt1"></span> <span (click)="onSetEmail()" [innerHTML]="this.tcText.txt2"></span> <span [innerHTML]= "this.tcText.txt3"></span></p>
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
                 <div class="row col form-group">
