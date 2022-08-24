@@ -72,31 +72,4 @@ export class SPTermsconditionsService {
   getFilesPath(){
     return `${this.env['api_name']}/public/data/`
   }
-
-  downloadAll(urls: string[], callback?: any) {
-    let count = 0;
-    const zip = new JSZip();
-    urls.forEach(u => {
-      const filename = u.split('/')[u.split('/').length - 1];
-      // I think that this function where the binary content of a file is obtained through a link is what causes the download to be so slow and to consume a lot of resources
-      console.log("Nombre del archivo = "  + filename);
-      JSZipUtils.getBinaryContent(u, (err, data) => {
-        if (err) { throw err;  }
-        zip.file(filename, data, { binary: true });
-        count++;
-        if (count === urls.length) {
-          // This function works relatively normal and reports progress as expected.
-          zip.generateAsync({ type: 'blob' }, (value) => callback(value)).then((content) => {
-            const objectUrl: string = URL.createObjectURL(content);
-            const link: any = document.createElement('a');
-            console.log(link);
-            link.download = 'resources.zip';
-            link.href = objectUrl;
-            link.click();
-          });
-        }
-      });
-    });
-  }
-
 }

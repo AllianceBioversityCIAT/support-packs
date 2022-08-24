@@ -53,7 +53,7 @@ export class SPTermsconditionsComponent implements OnInit {
   step5 = false;
   error = false;
 
-  hostWebUrl;
+  
   regions = [];
 
   emailForm = new FormGroup({
@@ -213,26 +213,6 @@ export class SPTermsconditionsComponent implements OnInit {
   }
 
   /*******************************************************Download steps*******************************************************/
-  downloadAll() {
-  const url = this.selectedGuidiline.map(u => u.source);
-  this.tcService.downloadAll(url, this.downloadCallback); // my download service
-
-}
-
-// this is my callback function that I send to the service
-downloadCallback(metaData) {
-  const percent = metaData.percent;
-  setTimeout(() => {
-    console.log(percent);
-    if (percent >= 100) { 
-      console.log('Zip Downloaded'); 
-    }
-  }, 10);
-}
-
-  downloadFiles() {
-  }
-  
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
