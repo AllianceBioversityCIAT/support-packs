@@ -5,11 +5,13 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DataListService } from './sp-datalist.service';
 
-const tcText ={
-  txt1 : 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously.However, you may click on ',
-  txt2: '<a class="skip 2" (Click)="onSetEmail()">Skip</a> ',
-  txt3: 'to download links directly.'
-} 
+// const tcText ={
+//   txt1 : 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously.However, you may click on ',
+//   txt2: '<a class="skip 2" (Click)="onSetEmail()">Skip</a> ',
+//   txt3: 'to download links directly.'
+// } 
+
+const txText  = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously.However, you may click on <a class="skip 2" (Click)="onSetEmail()">Skip</a> to download links directly.'
 @Component({
   selector: 'dl-lib',
   templateUrl: './sp-datalist.component.html',
@@ -40,7 +42,7 @@ const tcText ={
 
 export class DataListComponent implements OnInit {
 
-  @Input() app_id; 
+  @Input() app_id: any; 
   @Input() data: any = {
     role: null,
     stage: null,
