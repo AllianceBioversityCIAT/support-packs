@@ -92,13 +92,15 @@ export class SPTermsconditionsComponent implements OnInit {
     const log: string[] = [];
     for (const propName in changes) {
       const changedProp = changes[propName];
-      // console.log(changedProp.currentValue.length)
-      if (changedProp.currentValue.length > 0) {
-        this.isVisible = true;
-      } else {
-        // console.log(changedProp, propName);
-        this.isVisible = false;
-      }
+      // console.log(changedProp.currentValue)
+      if (changedProp.currentValue !== undefined) {
+        if (changedProp.currentValue.length > 0) { 
+          this.isVisible = true;
+        } else {
+          // console.log(changedProp, propName);
+          this.isVisible = false;
+        }
+      }      
     }
   }
 
