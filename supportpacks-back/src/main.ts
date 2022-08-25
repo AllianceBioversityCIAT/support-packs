@@ -41,6 +41,8 @@ async function bootstrap() {
 
 
   app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp/'));
+  app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/melsp/'));
+  app.useStaticAssets(join(process.cwd(), '../', '/supportpacks-front/dist/dmsp/'));
 
   await app.listen(PORT, `${HOST}`, () => {
     console.log(`Current parent directory: ${parentDir} `);
