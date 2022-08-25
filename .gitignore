@@ -4,3 +4,4 @@
 /no-upload.txt
 /SupportPacks-back/nodemon.json
 data/General_Guidance_on_Developing_Indicators (5).docx
+supportpacks-front/projects/dmsp/src/environments/environment.prod.ts
