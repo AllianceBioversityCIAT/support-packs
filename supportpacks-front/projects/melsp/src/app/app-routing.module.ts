@@ -7,7 +7,9 @@ import { ResourcesComponent } from './resources/resources.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, runGuardsAndResolvers: 'always' },
   { path: 'resources', component: ResourcesComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+
 ];
 
 @NgModule({
