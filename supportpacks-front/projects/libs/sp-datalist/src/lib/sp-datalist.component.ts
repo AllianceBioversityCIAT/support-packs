@@ -40,7 +40,7 @@ const tcText ={
 
 export class DataListComponent implements OnInit {
 
-  @Input() app_id; 
+  @Input() app_id: any; 
   @Input() data: any = {
     role: null,
     stage: null,
@@ -156,9 +156,5 @@ export class DataListComponent implements OnInit {
   isYoutube(url) {
     let p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
     return (url.match(p)) ? '1' : '0';
-  }
-
-  prueba(){
-    console.log(this.data)
   }
 }
