@@ -4,7 +4,7 @@
     <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
         <h3 class="headTitle">Terms and conditions</h3>
         <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
-            <p> <span [innerHTML]= "this.tcText.txt1"></span> <span (click)="onSetEmail()" [innerHTML]="this.tcText.txt2"></span> <span [innerHTML]= "this.tcText.txt3"></span></p>
+            <p> <span [innerHTML]= "this.tcText.txt1"></span> <span (click)="onSetEmail()" [innerHTML]="this.tcText.txt2" style="cursor: pointer;"></span> <span [innerHTML]= "this.tcText.txt3"></span></p>
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
                 <div class="row col form-group">
@@ -131,17 +131,13 @@
 
         <div class="d-flex justify-content-between">
             <div class="col-6 row justify-content-between">
-                <button type="submit" class="download 2 btn btn-primary" (click)="downloadAll()" as Zip>
+                 <button type="submit" class="download 2 btn btn-primary"  as Zip>  <!-- (click)="downloadAll()" -->
                     Download [<span class="nfiles">{{total}}</span>] Files
                 </button>
             </div>
             <button class="download col-2 btn btn-info" (click)="goBackBtn()">
                 Go back
             </button>
-            <!-- <br>
-            <div *ngFor="let file of selectedGuidiline">
-                <p>{{file.source}}</p>
-            </div> -->
         </div>
         <ngx-spinner></ngx-spinner>
     </div>
@@ -170,6 +166,7 @@
         <form>
             <!-- {{safeURL(selectedFile.source) }} -->
             <!-- {{safeURL(selectedFile.source).changingThisBreaksApplicationSecurity }} -->
+            <!-- <iframe src="localhost:3000/{{selectedFile.source}}" widthwidthframeborder="0"></iframe> -->
             <!-- <iframe src='{{safeURL(selectedFile.source)}}' frameborder="0" allowfullscreen></iframe> -->
             <!-- <iframe *ngIf="isYoutube(selectedFile.source)" [src]='safeURL(selectedFile.source)' frameborder="0" allowfullscreen></iframe> -->
             <!-- [viewerUrl]="https://docs.google.com/gview?url=%URL%&embedded=true" -->
@@ -184,6 +181,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button>
+        <!-- <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button> -->
+        <a *ngIf="selectedFile.type === '1'" href="{{selectedFile.source}}" type="button" class="btn btn-outline-primary" target="_blank">Go to Resource</a>
+        <a *ngIf="selectedFile.type === '0'" href="http://localhost:3000/{{selectedFile.source}}" type="button" class="btn btn-outline-primary" download="{{selectedFile.source}}" >Download Resource</a>
     </div>
 </ng-template>
