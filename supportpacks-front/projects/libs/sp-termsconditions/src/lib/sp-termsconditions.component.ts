@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { type } from 'os';
 import { SPTermsconditionsService } from './sp-termsconditions.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class SPTermsconditionsComponent implements OnInit {
   @Input() app_id: any;
   @Output() goBack = new EventEmitter<boolean>();
   isVisible = false;
+  imageSrc: string;
 
   
   step3 = true;
@@ -64,7 +66,8 @@ export class SPTermsconditionsComponent implements OnInit {
   selectedUser = {};
   selectedFile = {
     name: null,
-    source: null
+    source: null,
+    type: null
   };
   
  
@@ -221,12 +224,14 @@ export class SPTermsconditionsComponent implements OnInit {
       window.open(result, "_blank");
       this.selectedFile = {
         name: null,
-        source: null
+        source: null,
+        type: null
       };
     }, (reason) => {
       this.selectedFile = {
         name: null,
-        source: null
+        source: null,
+        type: null
       };
     });
   }
