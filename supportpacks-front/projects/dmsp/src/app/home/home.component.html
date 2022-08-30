@@ -113,7 +113,7 @@
                         [class.inactive]="filterData.category && filterData.category.id !== category.id ? true:false"
                         [@flipInX]="filterData.category && filterData.category.id === category.id?'active':'inactive'"
                         *ngFor="let category of categories">
-                        <span class="index">{{ category.id }}</span>
+                        <span class="index">{{ category.id -12 }}</span>
                         <span class="name">{{ category.name }}</span> <br>
                         <span class="description"> {{ category.description }}</span>
                         <input ngbButton type="radio" [value]="category" (change)="validateData()">
