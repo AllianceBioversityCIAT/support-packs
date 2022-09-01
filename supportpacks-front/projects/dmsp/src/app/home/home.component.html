@@ -1,10 +1,10 @@
 <div id="block-system-main" class="row">
     <!-- <div class="loading" style="display:none"></div> -->
-    <div class="col col-8 container">
+    <div class="col col-8 container no-padding">
         <div class="row">
-            <div class="col col-6">
+            <div class="col-x col-5 no-padding">
                 <h2 class="headTitle">Who are you?</h2>
-                <div class="componentsBlock grayBox">
+                <div class="componentsBlock1 grayBox">
 
                     <div *ngIf="filterData.role" ngbDropdown class="d-inline-block col text-center selectionBlock"
                         #roleDrop="ngbDropdown" (mouseenter)="$event.stopPropagation(); roleDrop.open();"
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="col col-6">
+            <div class="col-x col-7 no-padding">
                 <h2 class="headTitle">Where are you?</h2>
                 <div class="componentsBlock grayBox">
 
