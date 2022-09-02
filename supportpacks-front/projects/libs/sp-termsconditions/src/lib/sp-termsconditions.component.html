@@ -4,7 +4,8 @@
     <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
         <h3 class="headTitle">Terms and conditions</h3>
         <div id="step3-form" class="grayBox" style="   background: #f1f1f1; padding: 2em; color: #444;">
-            <p> <span [innerHTML]= "this.tcText.txt1"></span> <span (click)="onSetEmail()" [innerHTML]="this.tcText.txt2" style="cursor: pointer;"></span> <span [innerHTML]= "this.tcText.txt3"></span></p>
+            <p style="text-align: justify;"> <span [innerHTML]="this.tcText.txt1"></span> <span (click)="onSetEmail()" [innerHTML]="this.tcText.txt2"
+                    style="cursor: pointer;"></span> <span [innerHTML]="this.tcText.txt3"></span></p>
             <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
 
                 <div class="row col form-group">
@@ -15,11 +16,11 @@
                 <br>
                 <div class="d-flex col justify-content-between">
                     <!-- <div id="elemnt"></div> -->
-                    <div class="col-4 row justify-content-between">
+                    <div class=" row justify-content-between">
                         <a (click)="goBackBtn()" class="download 4 btn btn-primary">
                             Go Back
                         </a>
-                        <button type="submit" class="download 2 btn btn-primary" [disabled]="!emailForm.valid">
+                        <button type="submit" class="download 2 btn btn-primary local-btn" [disabled]="!emailForm.valid">
                             Next
                         </button>
                     </div>
@@ -131,9 +132,11 @@
 
         <div class="d-flex justify-content-between">
             <div class="col-6 row justify-content-between">
-                 <button type="submit" class="download 2 btn btn-primary"  as Zip>  <!-- (click)="downloadAll()" -->
-                    Download [<span class="nfiles">{{total}}</span>] Files
-                </button>
+                <!-- Zip files Comming soon -->
+                <!-- <button type="submit" class="download 2 btn btn-primary" as Zip> -->
+                    <!-- (click)="downloadAll()" -->
+                    <!-- Download [<span class="nfiles">{{total}}</span>] Files -->
+                <!-- </button> -->
             </div>
             <button class="download col-2 btn btn-info" (click)="goBackBtn()">
                 Go back
@@ -141,7 +144,7 @@
         </div>
         <ngx-spinner></ngx-spinner>
     </div>
-    
+
 
     <!-- error message -->
     <div class="row align-items-center" style="height: 300px;">
@@ -164,13 +167,46 @@
     </div>
     <div class="modal-body">
         <form>
-            <!-- {{safeURL(selectedFile.source) }} -->
+            <ngx-doc-viewer 
+            [url]="'http://localhost:3000/'+selectedFile.source+'&embedded=true'"            
+            viewer="google"
+            style="width:100%;height:50vh;">
+            </ngx-doc-viewer>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button> -->
+        <a *ngIf="selectedFile.type === '1'" href="{{selectedFile.source}}" type="button"
+            class="btn btn-outline-primary" target="_blank">Go to Resource</a>
+        <!-- {{selectedFile.source}} -->
+        <a *ngIf="selectedFile.type === '0'" href="http://localhost:3000/{{selectedFile.source}}" type="button"
+            class="btn btn-outline-primary" download="{{selectedFile.source}}">Download Resource</a>
+            <!-- <h1>http://localhost:3000/{{selectedFile.source}}</h1> -->
+
+    </div>
+</ng-template>
+
+<!-- [url]="'https://dmsp.ccafs.cgiar.org/data/3_Budgeting_Planning/2018-03-07_ToRs_Data_Management_Roles.docx'" -->
+<!-- [url]="'http://localhost:3000/'+selectedFile.source" -->
+
+
+<!-- {{safeURL(selectedFile.source) }} -->
             <!-- {{safeURL(selectedFile.source).changingThisBreaksApplicationSecurity }} -->
-            <!-- <iframe src="localhost:3000/{{selectedFile.source}}" widthwidthframeborder="0"></iframe> -->
+            <!-- Next iframe display correctly pdf-->
+            <!-- <iframe [src]="gluyftf()" widthwidthframeborder="0" style="width: 100%; height: 100%;"></iframe> -->
+            <!-- <iframe src="" widthwidthframeborder="0" style="width: 100%; height: 100%;"></iframe> -->
+            <!-- <iframe *ngIf="selectedFile.type === '0'" src="http://localhost:3000/{{selectedFile.source}}" widthwidthframeborder="0" style="width: 100%; height: 100%;"></iframe> -->
+            <!-- <iframe *ngIf="selectedFile.type === '1'" src="" widthwidthframeborder="0" style="width: 100%; height: 100%;"></iframe> -->
             <!-- <iframe src='{{safeURL(selectedFile.source)}}' frameborder="0" allowfullscreen></iframe> -->
             <!-- <iframe *ngIf="isYoutube(selectedFile.source)" [src]='safeURL(selectedFile.source)' frameborder="0" allowfullscreen></iframe> -->
             <!-- [viewerUrl]="https://docs.google.com/gview?url=%URL%&embedded=true" -->
-            <!-- <iframe src="https://docs.google.com/gview?url=https://dmsp.ccafs.cgiar.org/data/1_Policy_Documents/2015-06_CCAFS_Data_Management_Strategy.pdf"></iframe> -->
+            <!-- <iframe src="https://docs.google.com/gview?url=http://dmsp.ccafs.cgiar.org/data/1_Policy_Documents/2015-06_CCAFS_Data_Management_Strategy.pdf"></iframe> -->
+            <!-- <iframe
+                src="https://docs.google.com/gview?url=https://www.adobe.com/support/ovation/ts/docs/ovation_test_show.ppt&embedded=true"
+                style="width: 90%; 
+                    height: 1000px">
+                <p>Your browser does not support iframes.</p>
+            </iframe> -->
             <!-- <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=https://dmsp.ccafs.cgiar.org/data/1_Policy_Documents/2015-06_CCAFS_Data_Management_Strategy.pdf'
                 width='1366px' height='623px' frameborder='0'>This is an embedded <a target='_blank'
                     href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank'
@@ -178,11 +214,3 @@
             <!-- <ngx-doc-viewer 
                 [url]="safeURL(selectedFile.source)" viewer="url" style="width:100%;height:50vh;">
             </ngx-doc-viewer> -->
-        </form>
-    </div>
-    <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button> -->
-        <a *ngIf="selectedFile.type === '1'" href="{{selectedFile.source}}" type="button" class="btn btn-outline-primary" target="_blank">Go to Resource</a>
-        <a *ngIf="selectedFile.type === '0'" href="http://localhost:3000/{{selectedFile.source}}" type="button" class="btn btn-outline-primary" download="{{selectedFile.source}}" >Download Resource</a>
-    </div>
-</ng-template>

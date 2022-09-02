@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { type } from 'os';
@@ -72,8 +72,9 @@ export class SPTermsconditionsComponent implements OnInit {
   
  
   filePath = null;
+  pdfScr = null;
 
-  constructor(private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer,private tcService: SPTermsconditionsService, private spinner: NgxSpinnerService, private modalService: NgbModal, private _sanitizer: DomSanitizer) {
     console.log('T&C Component');}
 
     // public array: string[] = this.selectedGuidiline.type;
@@ -89,6 +90,7 @@ export class SPTermsconditionsComponent implements OnInit {
     this.total = url.filter((x) => x.valueOf() == '0').length;
     // console.log(this.total);
   }
+
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
@@ -106,6 +108,9 @@ export class SPTermsconditionsComponent implements OnInit {
       }      
     }
   }
+
+
+
 
 
 

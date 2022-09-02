@@ -1,10 +1,22 @@
 // @import '../styles/core.scss';
 // @import "~bootstrap/scss/bootstrap";
 
+.container{
+    width: 100%;
+}
+
 .graybox {
     background: #f1f1f1;
     padding: 2em;
     color: #444;
+}
+
+.local-btn{
+    margin-left: 20px;
+}
+
+.form-group{
+    left: 0px;
 }
 
 .btn-primary,
