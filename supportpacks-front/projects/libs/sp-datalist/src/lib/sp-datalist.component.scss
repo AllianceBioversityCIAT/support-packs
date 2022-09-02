@@ -1,178 +1,186 @@
 .messageResult {
-    font-weight: lighter;
-    color: #969696;
+  font-weight: lighter;
+  color: #969696;
 }
 
 b,
 strong {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .docResults {
-    // position: absolute;
+  // position: absolute;
+  flex-direction: row;
+  display: grid;
+  .input-group-text {
+    position: relative;
+    color: none;
+    border: none;
+    background: none;
+    // display: inline-block;
     display: grid;
-    .input-group-text {
-        position: relative;
-        color: none;
-        border: none;
-        background: none;
-        // display: inline-block;
-        display: grid;
-        grid-template-columns: auto auto 1fr;
-        grid-gap: 5px;
+    grid-template-columns: auto auto 1fr;
+    grid-gap: 5px;
+  }
 
-        @media (max-width: 991px) {
-            margin-top: 12px;
-        }
+  .input-group-prepend-txt {
+    position: revert;
+    padding-right: 125px;
+    padding: 0;
+    align-items: center;
+    margin-right: 60px;
 
+    .accordion-right {
+      // justify-content: flex-end;
+      display: flex;
+      width: 170px;
+      justify-content: flex-end;
+      background-color: #f1f1f1;
+      align-items: center;
+      margin: auto;
+      right: 0;
+      top: 0;
+      border-radius: 0;
+      position: absolute;
+      height: 100%;
+      // right: 373px;
+      // float: inline-end;
+      // position: absolute;
+      // flex: 1
+
+      .importancelevel {
+        text-align: center;
+        flex: 1;
+      }
+
+      .importance-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        //   justify-self: flex-end;
+        margin-left: 7px;
+        margin-right: 7px;
+      }
+
+      .very-important {
+        background-color: #c0504d;
+      }
+
+      .important {
+        background-color: #da9694;
+      }
+
+      .useful {
+        background-color: #e6b8b7;
+      }
+
+      .optional {
+        background-color: #f2f2f2;
+      }
     }
+  }
+//   .selectionBlock.form-group.row {
+//     padding-top: 5px;
+//     padding-bottom: 5px;
+//   }
+  .col-sm-4{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
-    .input-group-prepend-txt {
-        position: revert;
-        padding-right: 125px;
-        padding: 0;
+  .input-group-prepend {
+    padding: 0px;
+    margin-right: 115px;
+  }
 
-        .accordion-right {
-            // justify-content: flex-end;
-            display: flex;
-            width: 170px;
-            justify-content: flex-end;
-            background-color: #f1f1f1;
-            align-items: center;
-            margin: auto;
-            right: 0;
-            top: 0;
-            border-radius: 0;
-            position: absolute;
-            height: 100%;
-            // right: 373px;
-            // float: inline-end;
-            // position: absolute;
-            // flex: 1
+  .docRow {
+    margin: 0.65em 0 !important;
+    background-color: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    display: flex;
+    padding: 6px 0px 6px 0px;
+    // margin-bottom: 4px;
+    list-style: none;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    // overflow: hidden;
 
-            .importancelevel {
-                text-align: center;
-                flex: 1;
-            }
-
-            .importance-color {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                //   justify-self: flex-end;
-                margin-left: 7px;
-                margin-right: 7px;
-            }
-
-            .very-important {
-                background-color: #c0504d;
-            }
-
-            .important {
-                background-color: #da9694
-            }
-
-            .useful {
-                background-color: #e6b8b7;
-            }
-
-            .optional {
-                background-color: #f2f2f2;
-            }
-        }
-
+    label {
+      margin-bottom: 0;
     }
+  }
 
-    .input-group-prepend {
-        padding: 0px;
-    }
-
-    .docRow {
-        margin: 0.65em 0 !important;
-        background-color: #ffffff;
-        border: 1px solid #efefef;
-        border-radius: 2px;
-        display: flex;
-        padding: 6px 0px 6px 0px;
-        // margin-bottom: 4px;
-        list-style: none;
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-        // overflow: hidden;
-
-        label {
-            margin-bottom: 0;
-        }
-    }
-
-    .download {
-        margin: 10px 0;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+  .download {
+    margin: 10px 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 input {
-    padding-right: 30px;
-    
+  padding-right: 30px;
 }
 
 .btn-primary,
 .btn-primary.disabled,
 .btn-primary:disabled {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
 }
 
 .btn-primary.active,
 .btn-primary:active,
 .btn-primary:hover,
 .btn-primary:focus {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
 }
 
 .very-important,
 .level-4 {
-    // background-color: #c0504d !important;
-    // color: #fff;
+  // background-color: #c0504d !important;
+  // color: #fff;
 }
 
 .important,
 .level-3 {
-    // background-color: #da9694 !important;
-    // color: #fff;
+  // background-color: #da9694 !important;
+  // color: #fff;
 }
 
 .useful,
 .level-2 {
-    // background-color: #e6b8b7 !important;
-    // color: #fff;
+  // background-color: #e6b8b7 !important;
+  // color: #fff;
 }
 
 .optional,
 .level-1 {
-     background-color: #a7a7a75c !important;
-    // color: #222 !important;
+  background-color: #a7a7a75c !important;
+  // color: #222 !important;
 }
 
 /***
 
 **/
 .guideline-icon {
-    width: 20px;
-    margin-right: 0.5em;
+  width: 20px;
+  height: 17px;
+  margin-right: 0.5em;
+  margin-top: 3px;
+  text-align: center;
 }
 
 .guideline-icon.type-0 {
-    background: url("./assets/type-0.png") no-repeat;
+  background: url("./assets/type-0.png") no-repeat;
 }
 
 .guideline-icon.type-1 {
-    background: url("./assets/type-1.png") no-repeat;
+  background: url("./assets/type-1.png") no-repeat;
 }
 
 .guideline-icon.type-2 {
-    background: url("./assets/type-2.png") no-repeat;
+  background: url("./assets/type-2.png") no-repeat;
 }
