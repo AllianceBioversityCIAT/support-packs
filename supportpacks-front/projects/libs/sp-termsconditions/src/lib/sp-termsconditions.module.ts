@@ -20,19 +20,18 @@ import { SPTermsconditionsComponent } from './sp-termsconditions.component';
     BrowserAnimationsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [SPTermsconditionsComponent]
+  exports: [SPTermsconditionsComponent],
 })
 export class SPTermsconditionsModule {
   public static forRoot(environment: any): ModuleWithProviders {
-
     return {
       ngModule: SPTermsconditionsModule,
       providers: [
         {
           provide: 'env', // you can also use InjectionToken
-          useValue: environment
-        }
-      ]
+          useValue: environment,
+        },
+      ],
     };
   }
 }

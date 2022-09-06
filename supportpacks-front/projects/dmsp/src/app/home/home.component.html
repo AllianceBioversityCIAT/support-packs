@@ -102,12 +102,12 @@
     </div>
 
 
-    <div class="col col-4">
+    <div class="col col-4"> 
         <h2 class="headTitle">What</h2>
         <div class="componentsBlock">
             <ul class="grayBox">
 
-                <div class="btn-group btn-group-vertical btn-group-toggle" style="display: block;" ngbRadioGroup
+                <div class="btn-group btn-group-vertical btn-group-toggle" style="display: flex;" ngbRadioGroup
                     name="radioBasic" [(ngModel)]="filterData.category">
                     <label ngbButtonLabel class="btn type-category id-{{ category.id }} selectionComponent text-left"
                         [class.inactive]="filterData.category && filterData.category.id !== category.id ? true:false"

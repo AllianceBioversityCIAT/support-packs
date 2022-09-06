@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,13 +25,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ResourcesComponent,
-    LoginComponent,
-    SortPipe
-  ],
+  declarations: [AppComponent, HomeComponent, ResourcesComponent, LoginComponent, SortPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,15 +36,15 @@ import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
     FormsModule,
     BrowserAnimationsModule,
     DataListModule.forRoot(environment),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    SortPipe
+    SortPipe,
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

@@ -8,10 +8,9 @@ import { environment } from '../../environments/environment';
 const API = environment['api'];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -25,13 +24,14 @@ export class AuthService {
   }
 
   login(email, password) {
-    return this.http.post<any>(`${API}/auth/login`, { email, password })
-      .pipe(map(user => {
+    return this.http.post<any>(`${API}/auth/login`, { email, password }).pipe(
+      map((user) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
-      }));
+      })
+    );
   }
 
   logout() {
@@ -50,6 +50,5 @@ export class User {
     first_name: string;
     last_name: string;
     readonly registeredAt: Date;
-
   };
 }

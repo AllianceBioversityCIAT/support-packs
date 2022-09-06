@@ -9,15 +9,12 @@ import { SppServices } from '../services/spp-services.service';
 import { AuthService, User } from '../services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-resources',
   templateUrl: './resources.component.html',
-  styleUrls: ['./resources.component.scss']
+  styleUrls: ['./resources.component.scss'],
 })
-
 export class ResourcesComponent implements OnInit {
-
   filter = new FormControl('');
   guidelines$: Observable<any[]>;
   allGuides = [];
@@ -32,7 +29,13 @@ export class ResourcesComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private fb: FormBuilder, private sppServices: SppServices, private router: Router, private spinner: NgxSpinnerService, private authenticationService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private sppServices: SppServices,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private authenticationService: AuthService
+  ) {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
@@ -41,8 +44,7 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   init() {
     this.spinner.show();
     this.currentUser = this.authenticationService.currentUserValue;
@@ -58,96 +60,87 @@ export class ResourcesComponent implements OnInit {
 
   parseRolByStage(guide: any, role: any, stage: any) {
     if (guide.stages[stage.name]) {
-      return guide.stages[stage.name].find(r => r.role == role.name).importance_level
+      return guide.stages[stage.name].find((r) => r.role === role.name).importance_level;
     } else {
-      return 1
+      return 1;
     }
   }
 
   getGuideRolByStage(guide: any, role: string, stage: string) {
     if (Object.keys(guide.stages).length !== 0 && guide.stages.constructor === Object) {
-      let gStage = guide.stages[stage];
+      const gStage = guide.stages[stage];
       // console.log(guide, stage)
-      let impLvl = gStage.find(stg => stg.role == role).importance_level;
+      const impLvl = gStage.find((stg) => stg.role === role).importance_level;
       return impLvl;
     }
-    return 1
+    return 1;
   }
-
 
   getAllGuidelines() {
     this.spinner.show();
-    let id = this.currentUser ? this.currentUser.user.id : undefined
-    this.sppServices.getAllGuidelines(id)
-      .subscribe(
-        res => {
-          // console.log(res);
-          this.allGuides = res;
-          this.guidelines$ = this.filter.valueChanges.pipe(
-            startWith(''),
-            map(text => this.search(text))
-          );
-          this.spinner.hide()
-
-        },
-        error => {
-          this.spinner.hide()
-          console.error(error)
-        }
-      )
+    const id = this.currentUser ? this.currentUser.user.id : undefined;
+    this.sppServices.getAllGuidelines(id).subscribe(
+      (res) => {
+        // console.log(res);
+        this.allGuides = res;
+        this.guidelines$ = this.filter.valueChanges.pipe(
+          startWith(''),
+          map((text) => this.search(text))
+        );
+        this.spinner.hide();
+      },
+      (error) => {
+        this.spinner.hide();
+        console.error(error);
+      }
+    );
   }
 
   getRoles() {
-    this.sppServices.getSPRoles()
-      .subscribe(
-        res => {
-          // console.log(res);
-          this.roles = res;
-        },
-        error => {
-          console.error(error)
-        }
-      )
+    this.sppServices.getSPRoles().subscribe(
+      (res) => {
+        // console.log(res);
+        this.roles = res;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
   getStages() {
-    this.sppServices.getSPStages()
-      .subscribe(
-        res => {
-          // console.log(res);
-          this.stages = res;
-        },
-        error => {
-          console.error(error)
-        }
-      )
+    this.sppServices.getSPStages().subscribe(
+      (res) => {
+        // console.log(res);
+        this.stages = res;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   search(text: string, pipe?: PipeTransform): any[] {
-    return this.allGuides.filter(guide => {
+    return this.allGuides.filter((guide) => {
       const term = text.toLowerCase();
-      return guide.name.toLowerCase().includes(term)
-        || guide.id == parseInt(term)
+      return guide.name.toLowerCase().includes(term) || guide.id === parseInt(term, 10);
       // || pipe.transform(country.population).includes(term);
     });
   }
 
-
   updateImportance(guide: any, role: any, stage: any, implvl: any) {
     if (guide.stages[stage.name]) {
-      let iL = guide.stages[stage.name].find(r => r.role == role.name);
+      const iL = guide.stages[stage.name].find((r) => r.role === role.name);
       iL.importance_level = implvl.value;
-      console.log(iL)
-      this.sppServices.updateImportanceLevel({ id: iL.id, importanceL: iL })
-        .subscribe(
-          res => {
-            console.log(res);
-            this.stages = res;
-          },
-          error => {
-            console.error(error)
-          }
-        )
+      console.log(iL);
+      this.sppServices.updateImportanceLevel({ id: iL.id, importanceL: iL }).subscribe(
+        (res) => {
+          console.log(res);
+          this.stages = res;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
   }
-
 }

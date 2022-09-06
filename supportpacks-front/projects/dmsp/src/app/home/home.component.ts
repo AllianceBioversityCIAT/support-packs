@@ -6,13 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService, User } from '../services/auth.service';
 import { DmspServices } from '../services/dmsp-services.service';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Input } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 
@@ -22,19 +16,24 @@ import { SimpleChanges } from '@angular/core';
   styleUrls: ['./home.component.scss'],
   animations: [
     trigger('flipInX', [
-      state('active', style({
-        transform: 'rotateX(360deg)'
-      })),
-      state('inactive', style({
-        transform: 'rotateX(0)'
-      })),
+      state(
+        'active',
+        style({
+          transform: 'rotateX(360deg)',
+        })
+      ),
+      state(
+        'inactive',
+        style({
+          transform: 'rotateX(0)',
+        })
+      ),
       transition('active => inactive', animate('500ms ease-out')),
-      transition('inactive => active', animate('500ms ease-in'))
-    ])
-  ]
+      transition('inactive => active', animate('500ms ease-in')),
+    ]),
+  ],
 })
 export class HomeComponent implements OnInit {
-
   selectedRole;
   selectedStage;
   selectedCategory;
@@ -42,13 +41,13 @@ export class HomeComponent implements OnInit {
   filterData = {
     role: null,
     stage: null,
-    category: null
-  }
+    category: null,
+  };
   filterDataIds = {
     role: null,
     stage: null,
-    category: null
-  }
+    category: null,
+  };
 
   SProles = [];
   roles: any = [];
@@ -56,7 +55,14 @@ export class HomeComponent implements OnInit {
   stages: any;
   currentUser: User;
 
-  constructor(private dmspServices: DmspServices, private router: Router, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private modalService: NgbModal, private authenticationService: AuthService) {
+  constructor(
+    private dmspServices: DmspServices,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private modalService: NgbModal,
+    private authenticationService: AuthService
+  ) {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
@@ -65,25 +71,26 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   init() {
-    this.spinner.show()
+    this.spinner.show();
     this.getFilters();
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
-
   getFilters() {
-    Promise.all([this.dmspServices.getSPRoles().toPromise(), this.dmspServices.getSPCategories().toPromise(), this.dmspServices.getSPStages().toPromise()])
+    Promise.all([
+      this.dmspServices.getSPRoles().toPromise(),
+      this.dmspServices.getSPCategories().toPromise(),
+      this.dmspServices.getSPStages().toPromise(),
+    ])
       .then(([roles, categories, stages]) => {
         this.roles = roles;
         this.categories = categories;
         this.stages = stages;
-        this.spinner.hide()
+        this.spinner.hide();
       })
-      .catch(error => this.spinner.hide());
-
+      .catch((error) => this.spinner.hide());
   }
 
   parseName(role) {
@@ -103,15 +110,15 @@ export class HomeComponent implements OnInit {
         role: this.filterData.role.id,
         stage: this.filterData.stage.id,
         category: this.filterData.category.id,
-      }
+      };
     }
   }
 
   /**
-   * 
-   * 
+   *
+   *
    */
-  onrData(data:any){
+  onrData(data: any) {
     this.filterData = data;
   }
 }

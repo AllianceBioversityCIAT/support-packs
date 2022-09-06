@@ -7,13 +7,12 @@ const API = environment['api'];
 const app_id = environment.app_id;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SppServices {
-
   app_id = app_id;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   /**
    *  Get roles by app_id
    */
@@ -45,17 +44,15 @@ export class SppServices {
   }
 
   /**
-   * 
-   * @params 
-   * @param role
-   * @param stage
-   * @param category
+   * @params
+   * @param role contains roles information
+   * @param stage contains stages information
+   * @param category contains categories information
    */
   getRSC(params) {
     return this.http.post<any>(`${API}/sp/guidelines/byRSC`, params).pipe();
   }
   /**
-   * 
    * @params importance_level
    */
   updateImportanceLevel(params) {
@@ -69,8 +66,7 @@ export class SppServices {
     return this.http.post<any>(`${API}/sp/download`, params).pipe();
   }
 
-  getAppId(){
+  getAppId() {
     return this.app_id;
   }
-
 }

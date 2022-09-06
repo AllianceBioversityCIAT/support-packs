@@ -7,11 +7,10 @@ const API = environment['api'];
 const app_id = environment['app_id'];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DmspServices {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   /**
    *  Get roles by app_id
    */
@@ -43,14 +42,13 @@ export class DmspServices {
   }
 
   /**
-  * 
-  * @params 
-  * @param role
-  * @param stage
-  * @param category
-  */
+   *
+   * @params
+   * @param role
+   * @param stage
+   * @param category
+   */
   getRSC(params) {
     return this.http.post<any>(`${API}/sp/guidelines/byRSC`, params).pipe();
   }
-
 }
