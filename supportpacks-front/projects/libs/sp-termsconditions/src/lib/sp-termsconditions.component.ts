@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ import { SPTermsconditionsService } from './sp-termsconditions.service';
     ]),
   ],
 })
-export class SPTermsconditionsComponent implements OnInit {
+export class SPTermsconditionsComponent implements OnInit, OnChanges {
   [x: string]: any;
 
   @Input() tcText: any;

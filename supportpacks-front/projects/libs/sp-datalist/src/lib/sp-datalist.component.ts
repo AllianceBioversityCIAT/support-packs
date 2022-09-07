@@ -4,6 +4,7 @@ import {
   Input,
   KeyValueDiffer,
   KeyValueDiffers,
+  OnChanges,
   Output,
   SimpleChange,
   SimpleChanges,
@@ -47,7 +48,7 @@ const tcText = {
     ]),
   ],
 })
-export class DataListComponent implements OnInit {
+export class DataListComponent implements OnInit, OnChanges {
   @Input() app_id: any;
   @Input() data: any = {
     role: null,
