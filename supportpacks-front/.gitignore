@@ -46,3 +46,7 @@ testem.log
 Thumbs.db
 /proxy.conf.json
 v2_20200904_sp_database.sql
+
+# 
+/projects/dmsp/src/environments
+/projects/melsp/src/environments
