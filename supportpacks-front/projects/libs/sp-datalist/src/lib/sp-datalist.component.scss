@@ -31,7 +31,6 @@ strong {
     margin-right: 60px;
 
     .accordion-right {
-      // justify-content: flex-end;
       display: flex;
       width: 170px;
       justify-content: flex-end;
@@ -43,10 +42,6 @@ strong {
       border-radius: 0;
       position: absolute;
       height: 100%;
-      // right: 373px;
-      // float: inline-end;
-      // position: absolute;
-      // flex: 1
 
       .importancelevel {
         text-align: center;
@@ -128,24 +123,6 @@ input {
   color: #fff;
   background-color: #286090;
   border-color: #204d74;
-}
-
-.very-important,
-.level-4 {
-  // background-color: #c0504d !important;
-  // color: #fff;
-}
-
-.important,
-.level-3 {
-  // background-color: #da9694 !important;
-  // color: #fff;
-}
-
-.useful,
-.level-2 {
-  // background-color: #e6b8b7 !important;
-  // color: #fff;
 }
 
 .optional,
