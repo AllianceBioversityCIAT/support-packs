@@ -192,13 +192,13 @@ export class SPTermsconditionsComponent implements OnInit, OnChanges {
     }
   }
 
-  safeURL(url) {
+  safeURL(url: string) {
     url = url.replace('watch?v=', 'embed/');
     if (!this.isYoutube(url)) {
       url = this.filePath + url;
     }
-    return url;
-    // return this._sanitizer.bypassSecurityTrustResourceUrl(url) ;
+    // return url;
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   openFile(file, content) {
     this.selectedFile = file;

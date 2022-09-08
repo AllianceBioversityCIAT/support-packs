@@ -157,7 +157,7 @@
       {{ this.error }}
       <p>
         Please contact the support pack team at
-        <a href="mailto:f.elvira@cgiar.org">f.elvira@cgiar.org</a>
+        <!-- <a href="mailto:f.elvira@cgiar.org">f.elvira@cgiar.org</a> -->
       </p>
     </div>
   </div>
@@ -169,16 +169,27 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" style="height: 500px">
     <form>
       <ngx-doc-viewer
+        *ngIf="selectedFile.type === '2 || 0 '"
         [url]="'http://localhost:3000/data/KASP_Scenarios_Honduras_workshop.doc'"
         viewer="google"
         style="width: 100%; height: 50vh"
       >
       </ngx-doc-viewer>
+      <iframe
+        *ngIf="selectedFile.type === '1'"
+        width="100%"
+        height="450"
+        [src]="this.safeURL(selectedFile.source)"
+        frameborder="0"
+        allowfullscreen
+        >Go to resource</iframe
+      >
     </form>
   </div>
+
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button> -->
     <a
@@ -189,6 +200,16 @@
       target="_blank"
       >Go to Resource</a
     >
+
+    <a
+      *ngIf="selectedFile.type === '1'"
+      href="{{ selectedFile.source }}"
+      type="button"
+      class="btn btn-outline-primary"
+      target="_blank"
+      >Go to Resource</a
+    >
+
     <a
       *ngIf="selectedFile.type === '0'"
       href="http://localhost:3000/{{ selectedFile.source }}"
@@ -202,3 +223,13 @@
 
 <!-- [url]="'http://localhost:3000/'+selectedFile.source+'&embedded=true'" -->
 <!-- [url]="'http://localhost:3000/'+selectedFile.source" -->
+<!-- 
+<iframe
+  width="1237"
+  height="696"
+  src="https://www.youtube.com/embed/braJCJhfwQU"
+  title="Google Analytics Tutorial for Beginners  (Detailed) - Use & Install"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe> -->
