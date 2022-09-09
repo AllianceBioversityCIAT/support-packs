@@ -125,11 +125,18 @@
       <div id="guidelines">
         <ul *ngFor="let guide of selectedGuidiline">
           <li class="guideline type-{{ guide.type }} ">
-            <p (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer">
+            <p *ngIf="guide.type !== '2'" (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer">
               <!-- <p (click)="openFile(guide, content)" style="margin-bottom: 0; cursor: pointer;"> -->
               <b>
                 {{ guide.name }}
               </b>
+            </p>
+            <p *ngIf="guide.type === '2'" style="margin-bottom: 0; cursor: pointer">
+              <a href="{{ guide.source }}" class="" target="_blank"
+                ><b>
+                  {{ guide.name }}
+                </b></a
+              >
             </p>
           </li>
         </ul>
@@ -173,7 +180,7 @@
     <form>
       <ngx-doc-viewer
         *ngIf="selectedFile.type === '2 || 0 '"
-        [url]="'http://localhost:3000/data/KASP_Scenarios_Honduras_workshop.doc'"
+        url="http://localhost:4410/{{ selectedFile.source }}"
         viewer="google"
         style="width: 100%; height: 50vh"
       >
@@ -192,7 +199,15 @@
 
   <div class="modal-footer">
     <a
-      *ngIf="selectedFile.type === '1 || 2'"
+      *ngIf="selectedFile.type === '1'"
+      href="{{ selectedFile.source }}"
+      type="button"
+      class="btn btn-outline-primary"
+      target="_blank"
+      >Go to Resource</a
+    >
+    <a
+      *ngIf="selectedFile.type === '2'"
       href="{{ selectedFile.source }}"
       type="button"
       class="btn btn-outline-primary"
@@ -200,18 +215,9 @@
       >Go to Resource</a
     >
 
-    <!-- <a
-      *ngIf="selectedFile.type === '1'"
-      href="{{ selectedFile.source }}"
-      type="button"
-      class="btn btn-outline-primary"
-      target="_blank"
-      >Go to Resource</a
-    > -->
-
     <a
       *ngIf="selectedFile.type === '0'"
-      href="http://localhost:3000/{{ selectedFile.source }}"
+      href="http://localhost:4410/{{ selectedFile.source }}"
       type="button"
       class="btn btn-outline-primary"
       download="{{ selectedFile.source }}"
@@ -219,6 +225,3 @@
     >
   </div>
 </ng-template>
-
-<!-- [url]="'http://localhost:3000/'+selectedFile.source+'&embedded=true'" -->
-<!-- [url]="'http://localhost:3000/'+selectedFile.source" -->

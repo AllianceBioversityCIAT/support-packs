@@ -45,8 +45,8 @@ require('dotenv').config();
         exclude: ['/api*'],
       },
       {
-        rootPath: join(process.cwd(), '../', '/public/'),
-        serveRoot: '/public',
+        rootPath: join(process.cwd(), '../', '/data/'),
+        serveRoot: '/data',
         renderPath: '',
       },
     ),
