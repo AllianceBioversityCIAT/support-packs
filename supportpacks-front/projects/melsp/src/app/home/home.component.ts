@@ -7,7 +7,6 @@ import { faList, faPaperPlane, faUserCircle, faSignOutAlt } from '@fortawesome/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
-import { appendFile } from 'fs';
 
 @Component({
   selector: 'app-home',

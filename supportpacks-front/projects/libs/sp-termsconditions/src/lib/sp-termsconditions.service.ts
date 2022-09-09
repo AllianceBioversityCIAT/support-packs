@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { environment } from 'projects/melsp/src/environments/environment.prod';
 import { Observable, Subject } from 'rxjs';
-import { FileSaver } from 'FileSaver';
-import JSZipUtils from 'jszip-utils';
-import * as JSZip from 'jszip';
 
 @Injectable({
   providedIn: 'root',

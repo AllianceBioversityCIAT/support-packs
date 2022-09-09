@@ -32,10 +32,10 @@ import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
     DataListModule.forRoot(environment),
     // sp-termsconditionsModule.forRoot(environment),
     FontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}
