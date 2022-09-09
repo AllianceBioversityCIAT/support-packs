@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { SupportPacksModule } from './support-packs/support-packs.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
+import { ServeStaticModule } from '@nestjs/serve-static/';
 import { join } from 'path';
 import { FrontendMiddleware } from './frontend.middleware';
 
@@ -20,23 +20,36 @@ require('dotenv').config();
       database: process.env.DB,
       models: [],
       autoLoadModels: true,
-      synchronize: false
+      synchronize: false,
     }),
     SupportPacksModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/melsp/'),
-      serveRoot: '/melsp',
-      exclude: ['/api*'],
-    }, {
-      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/dmsp/'),
-      serveRoot: '/dmsp',
-      exclude: ['/api*'],
-    },{
-      rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/aiccrasp'),
-      // renderPath:'index.html',
-      serveRoot: '/aiccrasp',
-      exclude: ['/api*'],
-    }),
+    ServeStaticModule.forRoot(
+      {
+        rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/melsp/'),
+        serveRoot: '/melsp',
+        exclude: ['/api*'],
+      },
+      {
+        rootPath: join(process.cwd(), '../', '/supportpacks-front/dist/dmsp/'),
+        serveRoot: '/dmsp',
+        exclude: ['/api*'],
+      },
+      {
+        rootPath: join(
+          process.cwd(),
+          '../',
+          '/supportpacks-front/dist/aiccrasp',
+        ),
+        // renderPath:'index.html',
+        serveRoot: '/aiccrasp',
+        exclude: ['/api*'],
+      },
+      {
+        rootPath: join(process.cwd(), '../', '/public/'),
+        serveRoot: '/public',
+        renderPath: '',
+      },
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
