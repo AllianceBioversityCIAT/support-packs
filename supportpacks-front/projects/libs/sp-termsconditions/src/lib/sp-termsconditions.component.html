@@ -191,9 +191,8 @@
   </div>
 
   <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-outline-warning" (click)="modal.close(selectedFile.source)">Source</button> -->
     <a
-      *ngIf="selectedFile.type === '2'"
+      *ngIf="selectedFile.type === '1 || 2'"
       href="{{ selectedFile.source }}"
       type="button"
       class="btn btn-outline-primary"
@@ -201,14 +200,14 @@
       >Go to Resource</a
     >
 
-    <a
+    <!-- <a
       *ngIf="selectedFile.type === '1'"
       href="{{ selectedFile.source }}"
       type="button"
       class="btn btn-outline-primary"
       target="_blank"
       >Go to Resource</a
-    >
+    > -->
 
     <a
       *ngIf="selectedFile.type === '0'"
@@ -223,13 +222,3 @@
 
 <!-- [url]="'http://localhost:3000/'+selectedFile.source+'&embedded=true'" -->
 <!-- [url]="'http://localhost:3000/'+selectedFile.source" -->
-<!-- 
-<iframe
-  width="1237"
-  height="696"
-  src="https://www.youtube.com/embed/braJCJhfwQU"
-  title="Google Analytics Tutorial for Beginners  (Detailed) - Use & Install"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-></iframe> -->
