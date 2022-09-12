@@ -121,6 +121,7 @@
   <!--Download step-->
   <div id="step5" class="col-12" [@inOutAnimation] *ngIf="step5">
     <h3 class="headTitle">Download</h3>
+    <button (click)="pruebapta()">PROBAR</button>
     <div id="result">
       <div id="guidelines">
         <ul *ngFor="let guide of selectedGuidiline">
@@ -132,7 +133,7 @@
               </b>
             </p>
             <p *ngIf="guide.type === '2'" style="margin-bottom: 0; cursor: pointer">
-              <a href="{{ guide.source }}" class="" target="_blank"
+              <a href="{{ guide.source }}" class="local-a" target="_blank"
                 ><b>
                   {{ guide.name }}
                 </b></a
