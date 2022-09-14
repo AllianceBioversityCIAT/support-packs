@@ -122,11 +122,16 @@ export class DataListComponent implements OnInit, OnChanges {
   loadComponent(params: any) {
     this.isVisible = false;
     this.recomendedDocs = [];
+
+    this.form.get('docsArray').reset();
     this.listServices.getRSC(params).subscribe(
       (res) => {
         this.spinner.hide();
+        this.selectedData = [];
+        this.selectedArray = [];
         this.recomendedDocs = res;
-        // console.log('res', this.recomendedDocs)
+        this.selectedData = [];
+        console.log('res', this.recomendedDocs);
       },
       (error) => {
         this.spinner.hide();
@@ -141,7 +146,7 @@ export class DataListComponent implements OnInit, OnChanges {
 
   onCheckboxChange(e: Event) {
     const docsArray: FormArray = this.form.get('docsArray') as FormArray;
-    console.log(e);
+    // console.log(e);
     if ((e.target as HTMLInputElement).checked) {
       docsArray.push(new FormControl((e.target as HTMLInputElement).value));
       this.selectedData.push(this.recomendedDocs.find((doc) => +(e.target as HTMLInputElement).value === doc.id));
