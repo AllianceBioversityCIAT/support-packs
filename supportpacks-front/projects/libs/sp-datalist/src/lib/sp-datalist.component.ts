@@ -120,10 +120,8 @@ export class DataListComponent implements OnInit, OnChanges {
   }
 
   loadComponent(params: any) {
-    this.isVisible = false;
+    // this.isVisible = false;
     this.recomendedDocs = [];
-
-    this.form.get('docsArray').reset();
     this.listServices.getRSC(params).subscribe(
       (res) => {
         this.spinner.hide();

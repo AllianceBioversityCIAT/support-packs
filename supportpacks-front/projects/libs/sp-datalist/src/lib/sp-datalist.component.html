@@ -44,11 +44,11 @@
         <button class="btn btn-secondary" type="button" (click)="restartData()" style="margin-right: 1em">
           New search
         </button>
+
         <input
-          *ngIf="recomendedDocs.length > 0"
-          id="filtered-type"
           this.form.controls
-          [disabled]="this.form.controls['docsArray'].errors?.required"
+          id="filtered-type"
+          [disabled]="this.selectedData.length == 0 && this.selectedArray.length == 0"
           class="download 1 btn btn-primary"
           type="submit"
           value="Download chosen documents"
@@ -59,6 +59,7 @@
     </div>
   </div>
 </div>
+<!-- [disabled]="this.form.controls['docsArray'].errors?.required" -->
 
 <tc-module
   [app_id]="app_id"
