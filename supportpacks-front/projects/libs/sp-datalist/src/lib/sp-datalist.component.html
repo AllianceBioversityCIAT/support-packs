@@ -45,7 +45,9 @@
           New search
         </button>
         <input
+          *ngIf="recomendedDocs.length > 0"
           id="filtered-type"
+          this.form.controls
           [disabled]="this.form.controls['docsArray'].errors?.required"
           class="download 1 btn btn-primary"
           type="submit"
