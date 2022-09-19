@@ -93,8 +93,6 @@ export class DataListComponent implements OnInit, OnChanges {
       if (this.listServices.hasNull(changedProp.currentValue) && propName === 'ids') {
         this.spinner.show();
         this.loadComponent(changedProp.currentValue);
-      } else if (propName == 'data') {
-        this.spinner.show();
       } else {
         this.resetData();
       }
