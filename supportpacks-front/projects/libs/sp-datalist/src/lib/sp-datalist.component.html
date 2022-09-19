@@ -48,7 +48,7 @@
         <input
           this.form.controls
           id="filtered-type"
-          [disabled]="this.selectedData.length == 0 && this.selectedArray.length == 0"
+          [disabled]="this.form.controls['docsArray'].errors?.required"
           class="download 1 btn btn-primary"
           type="submit"
           value="Download chosen documents"
@@ -60,6 +60,7 @@
   </div>
 </div>
 <!-- [disabled]="this.form.controls['docsArray'].errors?.required" -->
+<!-- this.selectedData.length == 0 && this.selectedArray.length == 0 -->
 
 <tc-module
   [app_id]="app_id"

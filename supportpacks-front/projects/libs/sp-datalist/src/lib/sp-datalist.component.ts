@@ -84,7 +84,9 @@ export class DataListComponent implements OnInit, OnChanges {
   ngOnInit() {}
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
-
+    this.form = this.fb.group({
+      docsArray: this.fb.array([], [Validators.required]),
+    });
     for (const propName of Object.keys(changes)) {
       const changedProp = changes[propName];
       if (this.listServices.hasNull(changedProp.currentValue) && propName === 'ids') {
@@ -122,14 +124,16 @@ export class DataListComponent implements OnInit, OnChanges {
   loadComponent(params: any) {
     // this.isVisible = false;
     this.recomendedDocs = [];
+    this.form.reset();
     this.listServices.getRSC(params).subscribe(
       (res) => {
         this.spinner.hide();
         this.selectedData = [];
         this.selectedArray = [];
         this.recomendedDocs = res;
-        this.selectedData = [];
-        console.log('res', this.recomendedDocs);
+        console.log(this.form);
+
+        // console.log('res', this.recomendedDocs);
       },
       (error) => {
         this.spinner.hide();
