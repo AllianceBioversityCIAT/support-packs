@@ -6,50 +6,54 @@ import { DataListService } from 'projects/libs/sp-datalist/src/public-api';
 import { AiccraToolsService } from '../../services/aiccra-tools.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import * as html2pdf from 'html2pdf.js'
+import * as html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
-  animations: [trigger('slideInOut', [
-    state('in', style({
-      overflow: 'hidden',
-      height: '*',
-      width: '*'
-    })),
-    state('out', style({
-      opacity: '0',
-      overflow: 'hidden',
-      height: '0px',
-      width: '0px'
-    })),
-    transition('in => out', animate('400ms ease-in-out')),
-    transition('out => in', animate('400ms ease-in-out'))
-  ]),
-  trigger(
-    'inOutAnimation',
-    [
+  animations: [
+    trigger('slideInOut', [
+      state(
+        'in',
+        style({
+          overflow: 'hidden',
+          height: '*',
+          width: '*',
+        })
+      ),
+      state(
+        'out',
+        style({
+          opacity: '0',
+          overflow: 'hidden',
+          height: '0px',
+          width: '0px',
+        })
+      ),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out')),
+    ]),
+    trigger('inOutAnimation', [
       transition(':enter', [
-
         // css styles at start of transition
         style({ opacity: 0 }),
 
         // animation and styles at end of transition
-        animate('.3s', style({ opacity: 1 }))
+        animate('.3s', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         // css styles at start of transition
         style({ opacity: 1 }),
 
         // animation and styles at end of transition
-        animate('.3s', style({ opacity: 0 }))
-      ])
-    ]
-  )
-  ]
+        animate('.3s', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class ResultsComponent implements OnInit {
-  tcAICCRA = 'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
+  tcAICCRA =
+    'To continue downloading your files, please first fill in your email and then some basic information.This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes.Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a class="skip 2" (click)="onSetEmail()">Skip</a> to download links directly.';
 
   faUserCircle = faUserCircle;
   faClock = faClock;
@@ -67,22 +71,23 @@ export class ResultsComponent implements OnInit {
   showSelectedTools: boolean = false;
 
   title = 'AICCRA Tools';
-  
-  @ViewChild('pdfSection', null) pdfTable: ElementRef;
 
+  @ViewChild('pdfSection', null) pdfTable: ElementRef;
 
   foundByName = false;
 
-  constructor(private aiccraToolsService: AiccraToolsService, private fb: FormBuilder, private spinner: NgxSpinnerService) { }
+  constructor(
+    private aiccraToolsService: AiccraToolsService,
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService
+  ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
     this.form = this.fb.group({
-      toolsArray: this.fb.array([], [Validators.required])
+      toolsArray: this.fb.array([], [Validators.required]),
     });
     for (const propName in changes) {
       const changedProp = changes[propName];
@@ -90,13 +95,13 @@ export class ResultsComponent implements OnInit {
         this.spinner.show();
         console.log(changedProp);
 
-        this.loadComponent(changedProp.currentValue)
+        this.loadComponent(changedProp.currentValue);
       } else if (propName == 'toolFound') {
         // this.resetData();
         this.spinner.show();
 
         console.log({ changedProp });
-        this.loadTool(changedProp.currentValue)
+        this.loadTool(changedProp.currentValue);
       } else {
         // this.resetData();
       }
@@ -106,9 +111,9 @@ export class ResultsComponent implements OnInit {
   loadComponent(params: any) {
     // this.isVisible = false;
 
-    this.recommendedTools = []
+    this.recommendedTools = [];
     this.aiccraToolsService.getRSC(params).subscribe(
-      res => {
+      (res) => {
         console.log(res);
 
         this.recommendedTools = res;
@@ -116,14 +121,15 @@ export class ResultsComponent implements OnInit {
         this.showSelectedTools = false;
         this.foundByName = false;
         this.spinner.hide();
+        console.log(this.form);
 
         // console.log('res', this.recomendedDocs)
       },
-      error => {
+      (error) => {
         this.spinner.hide();
-        console.error(error)
+        console.error(error);
       }
-    )
+    );
   }
 
   loadTool(tool) {
@@ -148,7 +154,7 @@ export class ResultsComponent implements OnInit {
 
     if (e.target.checked) {
       toolsArray.push(new FormControl(e.target.value));
-      this.selectedTools.push(this.recommendedTools.find(doc => e.target.value == doc.id))
+      this.selectedTools.push(this.recommendedTools.find((doc) => e.target.value == doc.id));
     } else {
       let i: number = 0;
       toolsArray.controls.forEach((item: FormControl) => {
@@ -169,7 +175,6 @@ export class ResultsComponent implements OnInit {
     this.showSelectedTools = true;
     this.tcIsVisible = true;
     console.log(this.tcIsVisible);
-
   }
 
   backToResults(ev?) {
@@ -182,17 +187,15 @@ export class ResultsComponent implements OnInit {
     this.tcIsVisible = false;
   }
 
-
   public downloadAsPDF() {
     const opt = {
-      margin:       1,
-      filename:     'AICCRA-Tools.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 1 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      margin: 1,
+      filename: 'AICCRA-Tools.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 1 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
     let element = document.getElementById('pdfSection');
     html2pdf().from(element).set(opt).save();
   }
-
 }
