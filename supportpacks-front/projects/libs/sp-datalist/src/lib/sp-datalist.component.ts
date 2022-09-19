@@ -84,6 +84,7 @@ export class DataListComponent implements OnInit, OnChanges {
   ngOnInit() {}
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
+    this.isVisible = false;
     this.form = this.fb.group({
       docsArray: this.fb.array([], [Validators.required]),
     });
@@ -92,6 +93,8 @@ export class DataListComponent implements OnInit, OnChanges {
       if (this.listServices.hasNull(changedProp.currentValue) && propName === 'ids') {
         this.spinner.show();
         this.loadComponent(changedProp.currentValue);
+      } else if (propName == 'data') {
+        this.spinner.show();
       } else {
         this.resetData();
       }
