@@ -3,7 +3,11 @@
   <div id="step3" class="col-12" [@inOutAnimation] *ngIf="step3">
     <h3 class="headTitle">Terms and conditions</h3>
     <div id="step3-form" class="grayBox" style="background: #f1f1f1; padding: 2em; color: #444">
-      <p [innerHtml]="this.tcText"></p>
+      <p class="terms">
+        <span [innerHtml]="this.tcText.txt1"></span>
+        <span style="cursor: pointer" (click)="onSetEmail()" [innerHtml]="this.tcText.txt2"></span>
+        <span [innerHtml]="this.tcText.txt3"></span>
+      </p>
       <form [formGroup]="emailForm" (ngSubmit)="onSetEmail()">
         <div class="row col form-group">
           <label for="email"><b>Email:</b></label>
