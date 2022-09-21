@@ -122,7 +122,13 @@
     </div>
 
     <!-- data list -->
-    <dl-lib class="row" [data]="filterData" [ids]="filterDataIds" (rData)="onrData($event)"></dl-lib>
+    <dl-lib
+      class="row"
+      [app_id]="this.dmspServices.getAppId()"
+      [data]="filterData"
+      [ids]="filterDataIds"
+      (rData)="onrData($event)"
+    ></dl-lib>
   </div>
 
   <div class="col col-4">
