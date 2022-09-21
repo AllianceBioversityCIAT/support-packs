@@ -17,11 +17,10 @@ import { DownloadDto } from './dto/download.dto';
 import { ImportanceLevel } from './entities/importance-level.entity';
 import { ResourcesGuidelines } from './entities/resources-guidelines.entity';
 
-const stages = { design: 9, implementation: 10, me: 11 }
+const stages = { design: 9, implementation: 10, me: 11 };
 @Injectable()
 export class SupportPacksService {
-
-  constructor(private sequelize: Sequelize) { }
+  constructor(private sequelize: Sequelize) {}
 
   create(createSupportPackDto: CreateSupportPackDto) {
     return 'This action adds a new supportPack';
@@ -29,9 +28,15 @@ export class SupportPacksService {
 
   async requestTool(app_id: string, body) {
     try {
-
       // 1. Create guideline
-      const newGuideline: any = await this.createGuideline(body.toolName, body.link, app_id, false, body.fullname, body.email);
+      const newGuideline: any = await this.createGuideline(
+        body.toolName,
+        body.link,
+        app_id,
+        false,
+        body.fullname,
+        body.email,
+      );
       const {
         description,
         estimated_time,
@@ -45,7 +50,7 @@ export class SupportPacksService {
         strengths,
         expected_outputs,
         human_resources,
-        key_references
+        key_references,
       } = body;
 
       // 2. Create Guideline Metadata
@@ -63,41 +68,88 @@ export class SupportPacksService {
         strengths,
         expected_outputs,
         human_resources,
-        key_references
+        key_references,
       });
 
       //3. Insert Importance Levels
       const importanceLevels = [];
       for (const stage in body.importanceResearcher) {
-        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 7, stage_id: stages[stage], importance_level: body.importanceResearcher[stage] });
+        importanceLevels.push({
+          guideline_id: newGuideline.id,
+          category_id: body.thematicArea,
+          role_id: 7,
+          stage_id: stages[stage],
+          importance_level: body.importanceResearcher[stage],
+        });
       }
       for (const stage in body.importanceTechnical) {
-        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 8, stage_id: stages[stage], importance_level: body.importanceTechnical[stage] });
+        importanceLevels.push({
+          guideline_id: newGuideline.id,
+          category_id: body.thematicArea,
+          role_id: 8,
+          stage_id: stages[stage],
+          importance_level: body.importanceTechnical[stage],
+        });
       }
       for (const stage in body.importanceAcademia) {
-        importanceLevels.push({ guideline_id: newGuideline.id, category_id: body.thematicArea, role_id: 9, stage_id: stages[stage], importance_level: body.importanceAcademia[stage] });
+        importanceLevels.push({
+          guideline_id: newGuideline.id,
+          category_id: body.thematicArea,
+          role_id: 9,
+          stage_id: stages[stage],
+          importance_level: body.importanceAcademia[stage],
+        });
       }
 
-      const newImportanceLevels = await ImportanceLevel.bulkCreate(importanceLevels);
-
+      const newImportanceLevels = await ImportanceLevel.bulkCreate(
+        importanceLevels,
+      );
 
       // 4. Create related resources
       const newResources = [];
       for (const resource of body.resources) {
-        newResources.push({ guideline_id: newGuideline.id, name: resource.resourceName, source: resource.resourceLink, type: resource.resourceCategory, active: true })
+        newResources.push({
+          guideline_id: newGuideline.id,
+          name: resource.resourceName,
+          source: resource.resourceLink,
+          type: resource.resourceCategory,
+          active: true,
+        });
       }
 
       const resourcesSaved = await ResourcesGuidelines.bulkCreate(newResources);
 
-      return {msg: 'Your tool has been submitted.', newGuideline, newGuidelineMetadata, newImportanceLevels,resourcesSaved };
+      return {
+        msg: 'Your tool has been submitted.',
+        newGuideline,
+        newGuidelineMetadata,
+        newImportanceLevels,
+        resourcesSaved,
+      };
     } catch (error) {
       console.log(error);
       return error;
     }
   }
 
-  async createGuideline(name: string, source: string, app_id: string, active: boolean, registered_by: string, contact: string) {
-    const newGuideline = { is_active: 0, name, source, type: 1, app_id, active, registered_by,contact }
+  async createGuideline(
+    name: string,
+    source: string,
+    app_id: string,
+    active: boolean,
+    registered_by: string,
+    contact: string,
+  ) {
+    const newGuideline = {
+      is_active: 0,
+      name,
+      source,
+      type: 1,
+      app_id,
+      active,
+      registered_by,
+      contact,
+    };
     return await Guideline.create(newGuideline);
   }
 
@@ -110,15 +162,12 @@ export class SupportPacksService {
           model: Guideline,
           replacements: { app_id },
           // type: QueryTypes.SELECT
-        }
+        },
       );
       return guidelines;
-
     } catch (error) {
       return error;
     }
-
-
   }
   async findGuidelineById(guideline_id: string) {
     try {
@@ -154,35 +203,27 @@ export class SupportPacksService {
           type: 'SELECT',
           replacements: { guideline_id },
           // type: QueryTypes.SELECT
-        }
+        },
       );
 
       let getResourcesByTool = `SELECT * FROM sp_resources_guidelines
         WHERE guideline_id = :guideline_id`;
 
-      const resources = await this.sequelize.query(
-        getResourcesByTool,
-        {
-
-          replacements: { guideline_id },
-          type: 'SELECT'
-        }
-      );
+      const resources = await this.sequelize.query(getResourcesByTool, {
+        replacements: { guideline_id },
+        type: 'SELECT',
+      });
 
       console.log({ resources });
-
 
       let tool = Object.assign(guideline[0]);
       tool.resources = resources;
       console.log({ tool });
 
       return tool;
-
     } catch (error) {
       return error;
     }
-
-
   }
 
   async findAllCategoriesByApp(app_id: string) {
@@ -194,15 +235,12 @@ export class SupportPacksService {
           model: Category,
           replacements: { app_id },
           // type: QueryTypes.SELECT
-        }
+        },
       );
       return categories;
-
     } catch (error) {
       return error;
     }
-
-
   }
   async findAllRolesByApp(app_id: string) {
     try {
@@ -213,15 +251,12 @@ export class SupportPacksService {
           model: Role,
           replacements: { app_id },
           // type: QueryTypes.SELECT
-        }
+        },
       );
       return roles;
-
     } catch (error) {
       return error;
     }
-
-
   }
 
   async findAllStagesByApp(app_id: string) {
@@ -233,18 +268,18 @@ export class SupportPacksService {
           model: Stage,
           replacements: { app_id },
           // type: QueryTypes.SELECT
-        }
+        },
       );
       return stages;
-
     } catch (error) {
       return error;
     }
-
-
   }
-  async getImportanceLevel(guideline_id: string, stage_id: string, role_id: string) {
-
+  async getImportanceLevel(
+    guideline_id: string,
+    stage_id: string,
+    role_id: string,
+  ) {
     let sqlQuery = `
     SELECT
         id,
@@ -269,26 +304,25 @@ export class SupportPacksService {
         stage_id = :stage_id
     AND
         role_id = :role_id
-    `
+    `;
 
     try {
-      const importanceLevel = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: { guideline_id, stage_id, role_id },
-          type: 'SELECT'
-        }
-      );
+      const importanceLevel = await this.sequelize.query(sqlQuery, {
+        replacements: { guideline_id, stage_id, role_id },
+        type: 'SELECT',
+      });
       return importanceLevel;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
-
   }
 
-  async getGuidelinesByRoleStageCategory(role: string, stage: string, category: string) {
-
+  async getGuidelinesByRoleStageCategory(
+    role: string,
+    stage: string,
+    category: string,
+  ) {
     let getGuidelinesQuery = `SELECT
     g.id,
     g.code,
@@ -333,15 +367,14 @@ export class SupportPacksService {
     ORDER BY level, code ASC
     `;
 
-
     try {
       if (role != undefined && stage != undefined && category != undefined) {
         let guidelinesByRSC: any = await this.sequelize.query(
           getGuidelinesQuery,
           {
             replacements: { role, stage, category },
-            type: 'SELECT'
-          }
+            type: 'SELECT',
+          },
         );
         console.log(guidelinesByRSC);
 
@@ -355,24 +388,25 @@ export class SupportPacksService {
           getResourcesByTool,
           {
             replacements: { guidelinesIds },
-            type: 'SELECT'
-          }
+            type: 'SELECT',
+          },
         );
 
         // Add resources to tools
         for (let i = 0; i < guidelinesByRSC.length; i++) {
           const guideline_id = guidelinesByRSC[i].id;
-          guidelinesByRSC[i].resources = resourcesByTool.filter(r => r.guideline_id == guideline_id);
+          guidelinesByRSC[i].resources = resourcesByTool.filter(
+            (r) => r.guideline_id == guideline_id,
+          );
         }
 
         console.log(guidelinesByRSC);
-
 
         return guidelinesByRSC;
       }
       return [];
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
   }
@@ -425,32 +459,30 @@ export class SupportPacksService {
                         ${user ? '' : 'WHERE g.active = 1'}
                         ORDER BY composedCode
                         `;
-      const allGuides = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: {},
-          type: 'SELECT'
-        }
-      );
-      const allGuidesStages = await this.sequelize.query(
-        sqlQuery2,
-        {
-          replacements: {},
-          type: 'SELECT'
-        }
-      );
-
+      const allGuides = await this.sequelize.query(sqlQuery, {
+        replacements: {},
+        type: 'SELECT',
+      });
+      const allGuidesStages = await this.sequelize.query(sqlQuery2, {
+        replacements: {},
+        type: 'SELECT',
+      });
 
       let response = this.formatAllGuidances(allGuides, allGuidesStages);
 
       return response;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
   }
 
-  async _createPerson(email: string, first_name: string, last_name: string, password?: string): Promise<User> {
+  async _createPerson(
+    email: string,
+    first_name: string,
+    last_name: string,
+    password?: string,
+  ): Promise<User> {
     let p = password ? password : null;
     console.log(email, first_name, last_name, p);
     let newPerson = new User({ email, first_name, last_name, p });
@@ -458,15 +490,13 @@ export class SupportPacksService {
     const errors = await validate(newPerson);
 
     if (errors.length > 0) {
-      console.log(errors)
+      console.log(errors);
       throw new Error(errors.toString());
     }
-    if (p)
-      newPerson.hashPassword();
+    if (p) newPerson.hashPassword();
     let response = await newPerson.save();
 
     return response;
-
   }
 
   async getPersonInfo(email: string) {
@@ -489,16 +519,13 @@ export class SupportPacksService {
         `;
 
     try {
-      const personInfo = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: { email },
-          type: 'SELECT'
-        }
-      );
+      const personInfo = await this.sequelize.query(sqlQuery, {
+        replacements: { email },
+        type: 'SELECT',
+      });
       return personInfo;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
@@ -512,29 +539,31 @@ export class SupportPacksService {
             VALUES (:user_id,:institute,:intended_use,:filter_type, :app_id)
         `;
 
-      const newDownload = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: { user_id, institute, intended_use, filter_type: 0, app_id },
-          type: 'INSERT'
-        }
-      );
+      const newDownload = await this.sequelize.query(sqlQuery, {
+        replacements: {
+          user_id,
+          institute,
+          intended_use,
+          filter_type: 0,
+          app_id,
+        },
+        type: 'INSERT',
+      });
       const downloadsPerson = await this.sequelize.query(
         `
             SELECT * FROM sp_download WHERE user_id = :user_id ORDER BY date DESC LIMIT 1
         `,
         {
           replacements: { user_id },
-          type: 'SELECT'
-        }
+          type: 'SELECT',
+        },
       );
 
       return downloadsPerson[0];
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw Error(error);
     }
-
   }
 
   // Set Downloaded Guideline
@@ -544,22 +573,18 @@ export class SupportPacksService {
       let sqlQuery = `
           INSERT INTO sp_download_guidelines (download_id, guideline_id)
           VALUES (:download_id, :guideline_id)
-      `
+      `;
 
-      const downloadedGuideline = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: { download_id, guideline_id },
-          type: 'INSERT'
-        }
-      );
+      const downloadedGuideline = await this.sequelize.query(sqlQuery, {
+        replacements: { download_id, guideline_id },
+        type: 'INSERT',
+      });
 
       return downloadedGuideline;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new Error(error);
     }
-
   }
 
   // Set Downloaded Region
@@ -569,37 +594,30 @@ export class SupportPacksService {
       let sqlQuery = `
               INSERT INTO sp_download_regions (download_id, region_id, region_scope)
               VALUES (:download_id, :region_id, :region_scope)
-          `
+          `;
 
-      const downloadedRegion = await this.sequelize.query(
-        sqlQuery,
-        {
-          replacements: { download_id, region_id, region_scope },
-          type: 'INSERT'
-        }
-      );
+      const downloadedRegion = await this.sequelize.query(sqlQuery, {
+        replacements: { download_id, region_id, region_scope },
+        type: 'INSERT',
+      });
 
       return downloadedRegion;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new Error(error);
     }
-
   }
 
   async getRegions(app_id: number) {
     // const { app_id } = req.params;
     try {
-      const regions = await this.sequelize.query(
-        'SELECT * FROM  sp_regions',
-        {
-          // replacements: { app_id },
-          type: 'SELECT'
-        }
-      );
+      const regions = await this.sequelize.query('SELECT * FROM  sp_regions', {
+        // replacements: { app_id },
+        type: 'SELECT',
+      });
       return regions;
     } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -610,27 +628,53 @@ export class SupportPacksService {
 
     try {
       if (user_id == '' || !user_id) {
-        let user = await this._createPerson(ga.email, ga.first_name, ga.last_name);
+        let user = await this._createPerson(
+          ga.email,
+          ga.first_name,
+          ga.last_name,
+        );
         user_id = user.id;
       }
       // else {
       // -TO-DO
       // }
-      download_id = await this.setDownload({ user_id, institute: ga.institute_name, intended_use: ga.use, app_id: ga.app_id });
+      download_id = await this.setDownload({
+        user_id,
+        institute: ga.institute_name,
+        intended_use: ga.use,
+        app_id: ga.app_id,
+      });
       if (download_id) {
         let promises: any = [];
         // Set Guidelines downloaded
         ga.guide_selected.forEach((guide: any) => {
-          console.log(guide)
-          promises.push(this.setDownloadedGuideline({ download_id: download_id['id'], guideline_id: guide }))
+          console.log(guide);
+          promises.push(
+            this.setDownloadedGuideline({
+              download_id: download_id['id'],
+              guideline_id: guide,
+            }),
+          );
         });
         // Set region(s) where your institute is located download
         ga.institute_regions.forEach((region: any) => {
-          promises.push(this.setDownloadedRegion({ download_id: download_id['id'], region_id: region, region_scope: "instituteRegion" }))
+          promises.push(
+            this.setDownloadedRegion({
+              download_id: download_id['id'],
+              region_id: region,
+              region_scope: 'instituteRegion',
+            }),
+          );
         });
         // Set region(s) of your research interest download
         ga.research_regions.forEach((research: any) => {
-          promises.push(this.setDownloadedRegion({ download_id: download_id['id'], region_id: research, region_scope: "researchRegion" }))
+          promises.push(
+            this.setDownloadedRegion({
+              download_id: download_id['id'],
+              region_id: research,
+              region_scope: 'researchRegion',
+            }),
+          );
         });
         //   // guides?.concat( researchs, institutes)
         let savedManager = await Promise.all(promises);
@@ -639,17 +683,16 @@ export class SupportPacksService {
 
       return download_id;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-
   }
 
   formatAllGuidances(guides: any[], guidesStages: any[]) {
-    let result = []
+    let result = [];
     for (let index = 0; index < guides.length; index++) {
       const element = guides[index];
-      let guideStages = guidesStages.filter(gS => gS.id == element.id);
+      let guideStages = guidesStages.filter((gS) => gS.id == element.id);
       element['stages'] = this.groupBy(guideStages, 'stage');
     }
     return guides;
@@ -660,7 +703,7 @@ export class SupportPacksService {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;
     }, {});
-  };
+  }
 
   findOne(id: number) {
     return `This action returns a #${id} supportPack`;
