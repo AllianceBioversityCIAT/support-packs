@@ -6,6 +6,7 @@ import { SupportPacksModule } from './support-packs/support-packs.module';
 import { ServeStaticModule } from '@nestjs/serve-static/';
 import { join } from 'path';
 import { FrontendMiddleware } from './frontend.middleware';
+import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();
 
@@ -50,6 +51,7 @@ require('dotenv').config();
         renderPath: '',
       },
     ),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
