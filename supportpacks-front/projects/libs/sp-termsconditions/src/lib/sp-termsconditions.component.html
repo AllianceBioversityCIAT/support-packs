@@ -178,13 +178,11 @@
   </div>
   <div class="modal-body" style="height: 500px">
     <form>
-      <ngx-doc-viewer
-        *ngIf="selectedFile.type === '2 || 0 '"
-        url="http://192.168.199.107:4410/{{ selectedFile.source }}"
-        viewer="google"
-        style="width: 100%; height: 50vh"
-      >
-      </ngx-doc-viewer>
+      <iframe
+        *ngIf="selectedFile.type === '0'"
+        [src]="joinRoute(selectedFile.source)"
+        style="height: 450px; width: 100%"
+      ></iframe>
       <iframe
         *ngIf="selectedFile.type === '1'"
         width="100%"
@@ -217,7 +215,7 @@
 
     <a
       *ngIf="selectedFile.type === '0'"
-      href="http://192.168.199.107:4410/{{ selectedFile.source }}"
+      href="https://supportpacks-test.ciat.cgiar.org/{{ selectedFile.source }}"
       type="button"
       target="_blank"
       class="btn btn-outline-primary"
@@ -226,3 +224,10 @@
     >
   </div>
 </ng-template>
+
+<!-- <ngx-doc-viewer
+        url="'https://supportpacks-test.ciat.cgiar.org/data/1_Policy_Documents/2015-06_CCAFS_Data_Management_Strategy.pdf'"
+        viewer="google"
+        style="width: 100%; height: 50vh"
+      >
+      </ngx-doc-viewer> -->
