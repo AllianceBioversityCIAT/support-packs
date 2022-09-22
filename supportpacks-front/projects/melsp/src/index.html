@@ -12,12 +12,13 @@
     <script language="javascript">
       var isIE = /*@cc_on!@*/ false || !!document.documentMode;
       if (isIE) {
-        const message = document.querySelector('body');
         const newTag = document.createElement('h1');
-        newTag.textContent =
-          'this website does not support internet Explorer, please download `<a href="https://www.google.com/intl/es-419/chrome/"> Google chrome</a>`';
+        const message2 = document.querySelector('body');
 
-        message.appendChild(newTag);
+        var textContent =
+          'This website does not support internet Explorer, please download <ul><a href="https://www.google.com/intl/es-419/chrome/">Google chrome</a></ul><ul><a href="https://www.mozilla.org/es-ES/firefox/new/">Mozila Firefox</a></ul><ul><a href="https://www.google.com/intl/es-419/chrome/">Edge</a></ul>';
+
+        message2.insertAdjacentHTML('beforeend', textContent);
       }
     </script>
   </body>

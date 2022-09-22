@@ -9,13 +9,17 @@
   </head>
 
   <body>
-    <h1 id="errormsg" style="text-align: center; margin-top: 100px"></h1>
     <app-root></app-root>
     <script language="javascript">
       var isIE = /*@cc_on!@*/ false || !!document.documentMode;
       if (isIE) {
-        document.getElementById('errormsg').innerHTML =
-          'this website does not support internet Explorer, please download <a href="https://www.google.com/intl/es-419/chrome/">Google chrome</a>';
+        const newTag = document.createElement('h1');
+        const message2 = document.querySelector('body');
+
+        var textContent =
+          'This website does not support internet Explorer, please download <ul><a href="https://www.google.com/intl/es-419/chrome/">Google chrome</a></ul><ul><a href="https://www.mozilla.org/es-ES/firefox/new/">Mozila Firefox</a></ul><ul><a href="https://www.google.com/intl/es-419/chrome/">Edge</a></ul>';
+
+        message2.insertAdjacentHTML('beforeend', textContent);
       }
     </script>
   </body>
