@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
   currentUser: User;
 
   constructor(
-    private dmspServices: DmspServices,
+    public dmspServices: DmspServices,
     private router: Router,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
