@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SppServices } from '../services/spp-services.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
@@ -74,6 +74,8 @@ export class HomeComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
   currentUser: User;
 
+  @Output() rData = new EventEmitter<any>();
+
   constructor(
     public sppServices: SppServices,
     private router: Router,
@@ -119,7 +121,7 @@ export class HomeComponent implements OnInit {
     this.filterDataId[type] = data.id;
     this.filterDataId = Object.assign({}, this.filterDataId);
     this.filterData = Object.assign({}, this.filterData);
-    // console.log(this.filterData)
+    // console.log(this.filterData);
   }
 
   validateFilterData() {
@@ -176,5 +178,14 @@ export class HomeComponent implements OnInit {
    */
   onrData(data: any) {
     this.filterData = data;
+  }
+  resetRole() {
+    this.filterData.role = null;
+  }
+  resetStage() {
+    this.filterData.stage = null;
+  }
+  resetCategory() {
+    this.filterData.category = null;
   }
 }
