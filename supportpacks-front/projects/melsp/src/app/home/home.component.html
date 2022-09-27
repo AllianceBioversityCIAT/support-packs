@@ -117,25 +117,13 @@
 <!-- Profile selection for search -->
 <div class="resultsBlock form-group">
   <div class="col removeFilters">
-    <button
-      *ngIf="filterData.role"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="resetRole('role', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.role" class="btn btn-outline-danger col-sm-2" (click)="resetRole()">
       {{ filterData.role.name }} <span aria-hidden="true">&times;</span>
     </button>
-    <button
-      *ngIf="filterData.stage"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="resetStage('stage', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.stage" class="btn btn-outline-danger col-sm-2" (click)="resetStage()">
       {{ filterData.stage.name }} <span aria-hidden="true">&times;</span>
     </button>
-    <button
-      *ngIf="filterData.category"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="resetCategory('category', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.category" class="btn btn-outline-danger col-sm-2" (click)="resetCategory()">
       {{ filterData.category.name }} <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -151,14 +139,14 @@
       />
       <img
         class="checkIcon check-stage"
-        (click)="resetStage('stage', { name: null, id: null })"
+        (click)="resetStage()"
         [style.opacity]="filterData.stage !== null ? 1 : 0.4"
         src="./assets/images/icon-2.png"
         alt=""
       />
       <img
         class="checkIcon check-category"
-        (click)="resetCategory('category', { name: null, id: null })"
+        (click)="resetCategory()"
         [style.opacity]="filterData.category !== null ? 1 : 0.4"
         src="./assets/images/icon-3.png"
         alt=""
