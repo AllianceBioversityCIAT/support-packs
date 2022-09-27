@@ -89,9 +89,14 @@ export class SPTermsconditionsComponent implements OnInit, OnChanges {
     const googleView = 'https://docs.google.com/gview?url=';
     const domain = 'https://supportpacks-test.ciat.cgiar.org/';
     const paramEbember = '&embedded=true';
-    console.log(googleView + filePath + paramEbember);
+    console.log(googleView + domain + filePath + paramEbember);
 
     return this.safeURL(googleView + domain + filePath + paramEbember);
+  }
+
+  joinRouteNgx(filePath) {
+    const domain = 'https://supportpacks-test.ciat.cgiar.org/';
+    console.log(domain + filePath);
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
