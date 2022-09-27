@@ -11,8 +11,34 @@
   margin-left: 20px;
 }
 
-.form-group {
+.form-group input:required ~ label::before {
+  content: '* ';
+  color: red;
+  font-weight: bold;
+}
+
+.form-group input:required ~ b::before {
+  content: '* ';
+  color: red;
+  font-weight: bold;
+}
+
+.email-validator {
+  color: red;
+  text-decoration: none;
+}
+
+a.email-validator .form-group {
   left: 0px;
+}
+.form-group-data-usage {
+  margin-top: 25px;
+}
+
+.form-control::after {
+  // border: 10px dashed red;
+  content: '*';
+  color: red;
 }
 
 .btn-primary,
@@ -39,6 +65,8 @@
   opacity: 0;
   left: 1em;
   z-index: 99;
+  width: 1.2em;
+  height: 1.2em;
   // position: absolute;
   // opacity: 0;
 }
@@ -107,6 +135,7 @@ ul li.guideline {
 
 li.guideline.type-0 {
   background: url('../lib/images/type-0.png') no-repeat;
+
   background-position: 36px 8px;
 }
 li.guideline.type-1 {
@@ -118,8 +147,42 @@ li.guideline.type-2 {
   background-position: 36px 8px;
 }
 
+.eye-type-0 {
+  background: url('../lib/images/eye.png') no-repeat;
+  height: 25px;
+  width: 25px;
+  border: none;
+  margin: 10px;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+.download-type-0 {
+  background: url('../lib/images/file.png') no-repeat;
+  height: 25px;
+  width: 25px;
+  border: none;
+}
+
 #error {
   background-color: coral;
+}
+.accordion-right {
+  display: flex;
+  width: 170px;
+  justify-content: flex-end;
+  background-color: #f1f1f1;
+  align-items: center;
+  margin: auto;
+  right: 8px;
+  top: 0;
+  border-radius: 0;
+  position: absolute;
+  height: 100%;
+}
+
+.preview-button {
+  outline: none;
 }
 
 .local-a {
