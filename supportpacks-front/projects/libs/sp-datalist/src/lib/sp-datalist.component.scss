@@ -8,6 +8,10 @@ strong {
   font-weight: 600;
 }
 
+.reduce_opacity {
+  opacity: 0;
+}
+
 .docResults {
   // position: absolute;
   flex-direction: row;
@@ -21,6 +25,10 @@ strong {
     display: grid;
     grid-template-columns: auto auto 1fr;
     grid-gap: 5px;
+  }
+
+  div.show-alert {
+    opacity: 0;
   }
 
   .input-group-prepend-txt {
@@ -125,6 +133,9 @@ input {
   border-color: #204d74;
 }
 
+.btn-new-search {
+  float: right;
+}
 .optional,
 .level-1 {
   background-color: #a7a7a75c !important;
