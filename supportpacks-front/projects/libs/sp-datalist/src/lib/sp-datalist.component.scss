@@ -11,6 +11,9 @@ strong {
 .reduce_opacity {
   opacity: 0;
 }
+.alert {
+  margin: 10px 0;
+}
 
 .docResults {
   // position: absolute;
@@ -135,6 +138,9 @@ input {
 
 .btn-new-search {
   float: right;
+  margin: 10px 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .optional,
 .level-1 {

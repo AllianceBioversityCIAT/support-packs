@@ -1,12 +1,9 @@
 <div class="container" [@inOutAnimation] style="margin-top: 3em" *ngIf="validateFilterData()">
   <div id="step1" class="">
     <h3 class="blockTitle">Documents recomended</h3>
-    <div class="alerttt"></div>
     <p [ngClass]="{ reduce_opacity: !this.form.controls['docsArray'].errors?.required }" class="alert alert-danger">
       Checkbox is required, select at least one value.
     </p>
-
-    <br />
     <i class="messageResult">
       <b class="nDocuments">{{ recomendedDocs.length }} </b> Documents found for a <b>{{ data.role.name }}</b> at
       <b>{{ data.stage.name }}</b>
