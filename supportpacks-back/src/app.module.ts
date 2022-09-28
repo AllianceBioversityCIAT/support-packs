@@ -7,6 +7,7 @@ import { ServeStaticModule } from '@nestjs/serve-static/';
 import { join } from 'path';
 import { FrontendMiddleware } from './frontend.middleware';
 import { AuthModule } from './auth/auth.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 require('dotenv').config();
 
@@ -23,6 +24,19 @@ require('dotenv').config();
       autoLoadModels: true,
       synchronize: false,
     }),
+
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.HOST_DB,
+      port: parseInt(process.env.DB_PORT as string, 10),
+      username: process.env.USER_DB,
+      password: process.env.PASS_DB,
+      database: process.env.DB,
+      entities: [],
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+
     SupportPacksModule,
     ServeStaticModule.forRoot(
       {
