@@ -14,11 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
+import { GoogleAnalyticsComponent } from 'projects/libs/google-analytics/google-analytics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    GoogleAnalyticsComponent,
     // DataListComponent
   ],
   imports: [
