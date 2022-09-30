@@ -48,5 +48,6 @@ Thumbs.db
 v2_20200904_sp_database.sql
 
 # 
+/projects/aiccrasp/src/environments
 /projects/dmsp/src/environments
 /projects/melsp/src/environments
