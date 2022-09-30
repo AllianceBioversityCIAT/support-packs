@@ -23,9 +23,10 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { SortPipe } from './pipes/sort.pipe';
 import { DataListModule } from 'projects/libs/sp-datalist/src/public-api';
+import { GoogleAnalyticsComponent } from 'projects/libs/google-analytics/google-analytics.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ResourcesComponent, LoginComponent, SortPipe],
+  declarations: [AppComponent, HomeComponent, ResourcesComponent, LoginComponent, SortPipe, GoogleAnalyticsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
