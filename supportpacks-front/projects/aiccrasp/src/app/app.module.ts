@@ -8,10 +8,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SPTermsconditionsModule } from 'projects/libs/sp-termsconditions/src/public-api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../environments/environment';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GoogleAnalyticsComponent } from 'projects/libs/google-analytics/google-analytics.component';
+import { environment } from '../environments/environment.prod';
 
 @NgModule({
   declarations: [AppComponent, GoogleAnalyticsComponent],
