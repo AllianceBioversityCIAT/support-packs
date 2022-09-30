@@ -4,6 +4,7 @@ declare let gtag: (property: string, value: any, configs: any) => {};
 
 @Component({
   selector: 'app-google-analytics',
+  templateUrl: './google-analytics.component.html',
 })
 export class GoogleAnalyticsComponent implements OnInit {
   @Input() googleAnalyticsId: string;
