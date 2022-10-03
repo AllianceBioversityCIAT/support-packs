@@ -7,6 +7,8 @@ import { faList, faPaperPlane, faUserCircle, faSignOutAlt } from '@fortawesome/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
+import { DataListComponent } from 'projects/libs/sp-datalist/src/public-api';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -75,6 +77,7 @@ export class HomeComponent implements OnInit {
   currentUser: User;
 
   @Output() rData = new EventEmitter<any>();
+  isvisible: boolean;
 
   constructor(
     public sppServices: SppServices,
@@ -178,14 +181,23 @@ export class HomeComponent implements OnInit {
    */
   onrData(data: any) {
     this.filterData = data;
+    console.log(this.rData);
   }
   resetRole() {
     this.filterData.role = null;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
   }
   resetStage() {
     this.filterData.stage = null;
+    this.isvisible = false;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
   }
   resetCategory() {
     this.filterData.category = null;
+    this.isvisible = false;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
   }
 }
