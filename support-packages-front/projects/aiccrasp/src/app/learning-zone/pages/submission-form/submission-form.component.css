@@ -1,0 +1,157 @@
+.form-data{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-title{ 
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.messages-info-form{
+    margin-top: 20px;
+    padding: 1em 1em;
+    margin: 2em 4em;
+    background-color: #CCE5FF;
+}
+
+.messages-info-form .line {
+    position: relative;
+    left: -35px;
+    top: -35px;
+    width: 40px;
+    height: 40px;
+   
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    background-color: #004085;
+    border-radius: 50px;
+}
+
+.icon{
+    font-size: 20px;
+    color: white;
+}
+
+.citeria-form{
+    margin: 1em 4em;
+    
+}
+
+.title-criteria{
+    padding: 1em 1em;
+    background-color: #F7F7F7;
+}
+
+.content{
+    border: 0.5px solid #E5E5E5;
+    padding: 1em 2em;
+}
+
+.confirm-criteria{
+    margin: 0.5em 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.content-form{
+    margin: 1em 4em;
+}
+
+.who-request{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.title-sub{
+    background-color: #004085;
+    width: 180px;
+    color: white;
+    border-radius: 5px 30px 5px 5px;
+    padding: 5px 5px;
+}
+
+.content-form-g{
+    width: 100%;
+    background-color: #F8F8F8;
+    margin-top: 10px;
+    padding: 1em 1em;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+
+.content-form-who{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 40%;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.basic-info{
+    
+    margin-top: 20px;
+}
+
+.inputs-basic{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.content-form-basic {
+    padding: 1em 4em;
+}	
+
+.two-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    
+}
+
+.input-two{
+    width: 50%;
+}
+
+.steps{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title-sub-user{
+    background-color: #004085;
+    width: 400px;
+    color: white;
+    border-radius: 5px 30px 5px 5px;
+    padding: 5px 5px;
+}
+
+.content-form-u{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}

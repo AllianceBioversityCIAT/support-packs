@@ -1,0 +1,32 @@
+.faq{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.title-faq{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.introduction-faq{
+
+    margin-top: 20px;
+    padding: 0 4em;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.questions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 4em;
+}
+.contente-questions{
+    margin-top: 30px;
+}

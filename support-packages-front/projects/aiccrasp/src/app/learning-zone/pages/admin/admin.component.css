@@ -1,0 +1,14 @@
+.admin-module {
+    padding: 2em 2em;
+
+}
+
+.title-admin{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bold{
+    font-weight: bold;
+}
