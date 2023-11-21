@@ -1,0 +1,7 @@
+export const environment = {
+  production: false,
+  apiUrl: 'apiUrl',
+  token: 'our-token',
+  googleAnalyticsId: 'token-google',
+  tawkToId: 'tawkto-token',
+};
