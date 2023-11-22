@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
+import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InputTextModule } from 'primeng/inputtext';
     TableModule,
     ButtonModule,
     AccordionModule,
-    InputTextModule
+    InputTextModule,
+    PdfGenerateModule
   ]
 })
 export class HomeLearningModule { }

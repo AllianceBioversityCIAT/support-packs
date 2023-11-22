@@ -6,16 +6,19 @@ import { LearningZoneComponent } from './learning-zone.component';
 
 import { ButtonModule } from 'primeng/button';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { PdfGenerateModule } from '../shared/pdf-generate/pdf-generate.module';
 
 @NgModule({
   declarations: [
     LearningZoneComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    
   ],
   imports: [
     CommonModule,
     LearningZoneRoutingModule,
-    ButtonModule
+    ButtonModule,
+    PdfGenerateModule
   ]
 })
 export class LearningZoneModule { }

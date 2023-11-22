@@ -80,8 +80,8 @@
         <div class="tools" id="pdfSection">
             <div class="title-tools">
                 <h2>Tools</h2>
-                <button pButton label="Download" class="p-button-outlined" icon="pi pi-filter-pi-download" (click)="downloadAsPDF()" *ngIf="resources == true"></button>
-            </div>
+                <app-pdf-generate [data] = 'products' *ngIf="resources == true"></app-pdf-generate>
+                </div>
 
             <div class="table-tool">
                 <div class="card">
