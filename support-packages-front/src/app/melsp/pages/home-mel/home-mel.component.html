@@ -1,0 +1,126 @@
+
+<div class="body-mel">
+    <div class="description">
+        <p>
+            The CGIAR Monitoring, Evaluation and Learning Support Pack is a guide and compilation of documents, 
+            templates, examples and experience sharing. It can be searched by user groups (program manager, 
+            project manager, Monitoring and Evaluation expert), stages along the research for development 
+            lifecycle (design, implementation, closure) or by thematic areas. The resource materials or links to
+             useful external sources are graded for each group and stage as very important, useful, optional.
+        </p>
+        <br>
+        <p>
+            The toolkit has (see at the bottom) a download functionality to access the templates and examples 
+            and an upload functionality by which we invite colleagues and partners to add any useful resource 
+            to the toolkit. The upload button triggers a brief checking process to ensure the proposed materials 
+            are relevant and of the desired quality (including given credits and taking care of branding).
+        </p>
+        <br>
+        <p>
+            Please share any feedback and improvement suggestions with us, we will try and address these as much as possible.
+        </p>
+    </div>
+
+    <div class="content">
+        <div class="filters">
+            <div class="who-are">
+                
+                <div class="card">
+                    <p-dropdown   [options]="roles" [(ngModel)]="selectRole" optionLabel="name" placeholder="Choose a role"
+                    [style]="{'width':'100%', 'background-color':'#d47979', 'color':'white'}" (onClick)="filterInformation()"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="where-are">
+               
+                <div class="card">
+                    <p-dropdown   [options]="whereAreYou" [(ngModel)]="selectWhereAreYou" optionLabel="name" placeholder="Choose a when"
+                    [style]="{'width':'100%', 'background-color':'#d47979', 'color':'white'}" (onClick)="filterInformation()"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <div class="what">
+                
+                <div class="card">
+                    <p-dropdown  [options]="what" [(ngModel)]="selectWhat" optionLabel="name" placeholder="Choose a what"
+                    [style]="{'width':'100%','max-width': '340px', 'background-color':'#d47979', 'color':'black'}" (onClick)="filterInformation()"></p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="not-filter" *ngIf="selectRole == null || selectWhat == null || selectWhereAreYou == null">
+            <h3>Please select the 3 option(s) above</h3>
+        </div>
+
+        <div class="filter-on" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false  && this._servicesVariables.continue == false">
+            
+            <h2>Documents recomended</h2>
+            <h4>{{products.length}} Documents found for a {{selectRole.name}} at {{selectWhereAreYou.name}} stage</h4>
+            <h4>{{selectWhat.name}}</h4><br><br>
+            <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+                
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        </td>
+                        
+                        <td>{{product.name}}</td>
+                        <td class="important">
+                            <div class=" color-i numOne" *ngIf="product.importance_level == 'Very important'"></div>
+                                    <div class=" color-i numTwo" *ngIf="product.importance_level == 'Important'"></div>
+                                    <div class=" color-i numTre" *ngIf="product.importance_level == 'Useful'"></div>
+                                    <div class=" color-i numFour" *ngIf="product.importance_level == 'Optional'"></div>
+                            <div>{{product.importance_level
+                            }}</div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <br>
+            <br>
+            <div class="button">
+                <button pButton label="New search" class="p-button-secondary" style="margin-right: 10px;" (click)="selectRole = undefined; selectWhat = undefined; selectWhereAreYou = undefined"> </button>
+                <button pButton label="Download chosen documents" class="p-button-outlined" icon="pi pi-filter-pi-download" (click)=" termsAndConditions()">
+                </button>
+        </div>
+
+        
+    </div>
+
+    <div *ngIf="this._servicesVariables.termsConditions == true">
+        <app-terms-conditions></app-terms-conditions>
+    </div>
+
+    <div class="dowloand-tools" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false && this._servicesVariables.continue == true">
+        <h2>Documents recomended</h2>
+            <h4>{{selectedProducts.length}} Documents found for a {{selectRole.name}} at {{selectWhereAreYou.name}} stage</h4>
+            <h4>{{selectWhat.name}}</h4><br><br>
+        <p-table [value]="selectedProducts"  dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+                
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td><a href="{{product.source}}" target="_blank">{{product.name}}</a></td>
+                    <td class="important">
+                        <div class=" color-i numOne" *ngIf="product.importance_level == 'Very important'"></div>
+                                <div class=" color-i numTwo" *ngIf="product.importance_level == 'Important'"></div>
+                                <div class=" color-i numTre" *ngIf="product.importance_level == 'Useful'"></div>
+                                <div class=" color-i numFour" *ngIf="product.importance_level == 'Optional'"></div>
+                        <div>{{product.importance_level
+                        }}</div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br>
+        <br>
+        <div class="button">
+            <app-pdf-generate [data] = 'selectedProducts' [app]="1"></app-pdf-generate>
+            <button pButton label="New search" class="p-button-secondary" style="margin-left: 10px;" (click)="newSource()"> </button>
+                
+    </div>
+    </div>
+
+    
+    </div>
+</div>

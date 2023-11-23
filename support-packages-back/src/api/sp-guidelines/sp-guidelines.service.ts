@@ -40,7 +40,7 @@ export class SpGuidelinesService {
             const guiadess:any = await this.prisma.$queryRaw(Prisma.sql`
             SELECT * from sp_guidelines sg 
 	join sp_importance_levels sil on sil.guideline_id = sg.id
-	WHERE sg.app_id = 1 and sg.active > 0
+	WHERE sg.app_id = ${app_id} and sg.active > 0
             `);
 
             return guiadess;

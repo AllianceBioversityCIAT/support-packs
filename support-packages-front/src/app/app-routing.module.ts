@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'dmsp',
         loadChildren: () => import('./dmsp/dmsp.module').then(mod => mod.DmspModule),
+      },
+      {
+        path: 'melsp',
+        loadChildren: () => import('./melsp/melsp.module').then(mod => mod.MelspModule),
       }
     ]
   }
