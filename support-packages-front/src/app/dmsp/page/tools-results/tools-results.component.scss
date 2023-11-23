@@ -1,0 +1,147 @@
+.body-dmsp{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    height: 100%;
+    width: 100%;
+    //background-color: aqua;
+}
+
+.filters{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    height: 10%;
+    width: 100%;
+    margin-bottom: 30px;
+    margin-top: 40px;
+    .who-are{
+        display: flex;
+        flex-direction: column;
+        .flex{
+            display: flex;
+            flex-direction: row;
+            align-items: center; 
+            
+        }
+    }
+
+    .where-are{
+        display: flex;
+        flex-direction: column;
+        .flex{
+            display: flex;
+            flex-direction: row;
+            align-items: center; 
+            
+        }
+    }
+
+    .what{
+        display: flex;
+        flex-direction: column;
+        .flex{
+            display: flex;
+            flex-direction: row;
+            align-items: center; 
+            
+        }
+    
+    }
+}
+
+:host ::ng-deep .where-are .p-dropdown .p-dropdown-label.p-placeholder {
+    color: white;
+}
+:host ::ng-deep .where-are .p-inputtext{
+    color: white;
+}
+:host ::ng-deep .what .p-dropdown .p-dropdown-label.p-placeholder{
+    color: white;
+}
+
+:host ::ng-deep .what .p-inputtext{
+    color: white;
+}
+
+.results{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    width: 100%;
+    height: 100%;
+    //background-color: #f1f1f1;
+    .not-filters{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .filter-on{
+        padding: 30px;
+        .important{
+            background-color: #f1f1f1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1px;
+            .color-i{
+                background-color: red;
+                width: 10px;
+                height: 10px;
+                border-radius: 100px; 
+                margin-right: 10px;
+            }
+            .numOne{
+                background-color: #c0504d;
+            }
+            
+            .numTwo{
+                background-color: #c0504d;
+            }
+            .numTre{
+                background-color: #e6b8b7;
+            }
+            
+            .numFour{
+                background-color: #d6d6d6;
+            }
+        }
+    }
+    }
+
+.dowloand-tools{
+    padding: 30px;
+    .important{
+        background-color: #f1f1f1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1px;
+        .color-i{
+            background-color: red;
+            width: 10px;
+            height: 10px;
+            border-radius: 100px; 
+            margin-right: 10px;
+        }
+        .numOne{
+            background-color: #c0504d;
+        }
+        
+        .numTwo{
+            background-color: #c0504d;
+        }
+        .numTre{
+            background-color: #e6b8b7;
+        }
+        
+        .numFour{
+            background-color: #d6d6d6;
+        }
+    }
+}

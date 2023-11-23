@@ -80,7 +80,8 @@
         <div class="tools" id="pdfSection">
             <div class="title-tools">
                 <h2>Tools</h2>
-                <app-pdf-generate [data] = 'products' *ngIf="resources == true"></app-pdf-generate>
+                <app-pdf-generate [data] = 'products' [app]="3"
+                 *ngIf="resources == true"></app-pdf-generate>
                 </div>
 
             <div class="table-tool">

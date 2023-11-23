@@ -11,6 +11,11 @@ const routes: Routes = [
           loadChildren: () => import('./learning-zone/learning-zone.module').then(mod => mod.LearningZoneModule),
           //  runGuardsAndResolvers: 'always'
       },
+
+      {
+        path: 'dmsp',
+        loadChildren: () => import('./dmsp/dmsp.module').then(mod => mod.DmspModule),
+      }
     ]
   }
 ];
