@@ -10,7 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
-
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
   declarations: [
     HomeLearningComponent
@@ -24,7 +25,9 @@ import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.modu
     ButtonModule,
     AccordionModule,
     InputTextModule,
-    PdfGenerateModule
+    PdfGenerateModule,
+    InputTextareaModule,
+    MultiSelectModule
   ]
 })
 export class HomeLearningModule { }

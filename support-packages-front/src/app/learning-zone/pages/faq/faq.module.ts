@@ -12,7 +12,7 @@ import { AccordionModule } from 'primeng/accordion';
   imports: [
     CommonModule,
     FaqRoutingModule,
-    AccordionModule
+    AccordionModule, 
   ]
 })
 export class FaqModule { }

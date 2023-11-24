@@ -21,11 +21,34 @@ export class HomeLearningComponent implements OnInit{
   terms = false;
   email = '';
   resources = false;
+  dowloadSection = false;
+  continuoClcik = false;
+  cities!: any[];
+
+  selectedCities!: any[];
+  selectedCitiesw!: any[];
+
+  forml = {
+    name: '',
+    intitution: '',
+    message: '',
+    last_name : '',
+  }
   constructor(private _servicesLearningZoneService:ServicesLearningZoneService){}
   ngOnInit() {
     this.getAllFilters();
     this.getAllTools();
     this.loading = true;
+    this.cities = [
+      {name: 'Africa', code: 'NY'},
+      {name: 'Asia', code: 'RM'},
+      {name: 'Australia and Oceania', code: 'LDN'},
+      {name: 'Central America and the Caribbean', code: 'IST'},
+      {name: 'Middle East and North Africa', code: 'PRS'},
+      {name: 'North America', code: 'RM'},
+      {name: 'South America', code: 'RM'},
+      {name: 'Europe', code: 'RM'},
+  ];
 }
 
   filterInformation(){
@@ -43,6 +66,7 @@ export class HomeLearningComponent implements OnInit{
     this.selectTargetUser = undefined;
     this.selectProjectUser = undefined;
     this.products = this.backInfo;
+    this.selectedProducts = []
   }
   getAllFilters(){
     this._servicesLearningZoneService.getSPFilters().subscribe((data)=>{
@@ -77,11 +101,15 @@ export class HomeLearningComponent implements OnInit{
     this.selectTargetUser = undefined;
     this.selectProjectUser = undefined;
     this.resources = false;
+    this.dowloadSection = false;
+    this.continuoClcik = false;
+    this.selectedProducts = []
   }
 
   saveEmail(){
     this.terms = false;
     this.resources = true;
+    this.dowloadSection = true;
     this.products = this.selectedProducts;
     this.selectedProducts.map((data)=>{data.email = this.email});
 

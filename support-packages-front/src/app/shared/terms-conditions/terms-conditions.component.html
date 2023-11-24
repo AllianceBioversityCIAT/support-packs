@@ -2,7 +2,7 @@
     <div class="term-title">
         <h2>Terms and conditions</h2>
     </div>
-    <div class="content-term">
+    <div class="content-term"  *ngIf="continuoClcik == false">
         <p>
             To continue downloading your files, please first fill in your email and then some basic information. 
             This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes. 
@@ -19,10 +19,53 @@
         <br>
 
     </div>
+    <div class="form-save-email" *ngIf="continuoClcik == true">
+        <div class="one-form">
+            <div class="colunmOne">
+                <div class="flex flex-column gap-2 inputs input-two">
+                    <label htmlFor="email" class="bold">First name:</label>
+                    <input pInputText type="text" style="width: 100%;" [(ngModel)]="forml.name"  
+                    placeholder="First name" />
+                </div>
+                <div class="flex flex-column gap-2 inputs input-two">
+                    <label htmlFor="email" class="bold">Institute name:</label>
+                    <input pInputText type="text" style="width: 100%;" [(ngModel)]="forml.intitution"  
+                    placeholder="Institute name" />
+                </div>
+                <div class="flex flex-column gap-2 inputs input-two">
+                    <label htmlFor="email" class="bold">Region(s) of your research interest:</label>
+                    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" 
+                     [style]="{'width':'100%'}" placeholder="Select Region" optionLabel="name"></p-multiSelect>
+                </div>
+            </div>
+            <div class="columnTwo">
+                <div class="flex flex-column gap-2 inputs input-two">
+                    <label htmlFor="email" class="bold">Last name:</label>
+                    <input pInputText type="text" style="width: 100%;" [(ngModel)]="forml.last_name"  
+                    placeholder="Last name" />
+                </div>
+                <div class="flex flex-column gap-2 inputs input-two">
+                    <label htmlFor="email" class="bold">Region(s) where your institute is located:</label>
+                    <p-multiSelect [options]="cities" [(ngModel)]="selectedCitiesw"   [style]="{'width':'100%'}" optionLabel="name" placeholder="Select Region"></p-multiSelect>
+                </div>
+                
+            </div>
+        </div>
+        <div class="two-form" >
+            <div class="flex flex-column gap-2 inputs input-two">
+                <label htmlFor="email" class="bold">Intended use of data:</label>
+                <textarea rows="5" style="width: 100%;" [(ngModel)]="forml.message" pInputTextarea></textarea>
+            
+            </div>
+        </div>
+        
+
+    </div>
     <div class="content-finish">
         <button pButton type="button" (click)=" back()"  label="Back" class="p-button" style="float: left;"></button>
-        <button pButton type="button"  (click)="skip()" label="Skip" class="p-button" style="float: left; margin-left: 10px;"></button>
-        <button pButton type="button"  (click)="saveEmail()" label="Continue" class="p-button" style="float: right;" [disabled]="email == ''"></button>
+        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="skip()" label="Skip" class="p-button" style="float: left; margin-left: 10px;"></button>
+        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="continuoClcik = true" label="Continue" class="p-button" style="float: right;" [disabled]="email == ''"></button>
+        <button *ngIf="continuoClcik == true" pButton type="button"  (click)="saveEmail()" label="Continue" class="p-button" style="float: right;" ></button>
         
     </div>
     

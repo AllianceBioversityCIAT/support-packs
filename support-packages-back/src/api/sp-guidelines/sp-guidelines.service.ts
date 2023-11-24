@@ -51,4 +51,46 @@ export class SpGuidelinesService {
             return error;
         }
     }
+
+    async getGuidelineById(app_id):Promise<any>{
+
+
+        try {
+            const guiades:any = await this.prisma.$queryRaw(Prisma.sql`
+            select DISTINCT(sil.category_id), sg.id,sg.name, sc.name as 'cate_name'
+                from sp_guidelines sg 
+	                join sp_importance_levels sil on sil.guideline_id = sg.id 
+	                join sp_categories sc on sc.id = sil.category_id 
+	                where sg.active > 0 and sg.app_id = ${app_id};
+            `);
+
+            if(guiades.length > 0){
+                
+                const resources_guidelines:any = await this.prisma.$queryRaw(Prisma.sql`select sr.acronym, ss.name, sil.importance_level, sil.category_id, sg.id
+                from sp_guidelines sg 
+                    join sp_importance_levels sil on sil.guideline_id = sg.id 
+                    join sp_categories sc on sc.id = sil.category_id 
+                    join sp_roles sr on sr.id = sil.role_id 
+                    join sp_stages ss on ss.id = sil.stage_id 
+                    where sg.active > 0 and sg.app_id = 3`);
+
+                    for (let i = 0; i < guiades.length; i++) {
+                        
+                        
+                        const guideline_id = guiades[i].id;
+                        const category_id = guiades[i].category_id;
+                        guiades[i].resources = resources_guidelines.filter(
+                          (r) => r.id == guideline_id && r.category_id == category_id,
+                        );
+                        //console.log(resources_guidelines);
+                        
+                        //console.log(guiades[i].resources);
+                      }
+            }
+
+            return guiades;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
