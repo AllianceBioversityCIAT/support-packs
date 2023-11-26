@@ -15,13 +15,13 @@ export class MelspComponent implements OnInit{
       {
           label: 'Home',
           icon: 'pi pi-fw pi-home',
-          url : ''
+          url : 'melsp/home'
           
       },
       {
           label: 'Overview',
           icon: 'pi pi-fw pi-file',
-          url: 'aiccra'
+          url: 'melsp/overview'
          
       },
       {

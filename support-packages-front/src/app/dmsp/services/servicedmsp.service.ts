@@ -33,4 +33,8 @@ export class ServicedmspService {
   getAllRequest(){
     return this.http.get<any>(`${this.urlApi}/support/resquest`).pipe();
   }
+
+  getToolOverview(){
+    return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/overview/1`).pipe();
+  }
 }

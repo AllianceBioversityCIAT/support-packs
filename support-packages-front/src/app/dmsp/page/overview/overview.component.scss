@@ -1,0 +1,36 @@
+
+.overview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    text-align: center;
+}
+
+
+
+.veryImportant{
+    background-color: #c0504d;
+    font-weight: bold;
+    color: white;
+}
+
+.important{
+    background-color: #da9694;
+    font-weight: bold;
+    color: white;
+}
+.useful{
+    background-color: #e6b8b7;
+    font-weight: bold;
+}
+
+.optional{
+    background-color: #d6d6d6;
+    font-weight: bold;
+}

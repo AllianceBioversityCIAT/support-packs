@@ -15,13 +15,13 @@ export class DmspComponent implements OnInit{
       {
           label: 'Home',
           icon: 'pi pi-fw pi-home',
-          url : ''
+          url : 'dmsp/home'
           
       },
       {
           label: 'Overview',
           icon: 'pi pi-fw pi-file',
-          url: 'aiccra'
+          url: 'dmsp/overview'
          
       },
       {

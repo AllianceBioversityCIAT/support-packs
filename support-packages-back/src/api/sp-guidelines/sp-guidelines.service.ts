@@ -66,13 +66,14 @@ export class SpGuidelinesService {
 
             if(guiades.length > 0){
                 
-                const resources_guidelines:any = await this.prisma.$queryRaw(Prisma.sql`select sr.acronym, ss.name, sil.importance_level, sil.category_id, sg.id
+                const resources_guidelines:any = await this.prisma.$queryRaw(Prisma.sql`select sr.acronym, 
+                ss.name, sil.importance_level, sil.category_id, sg.id, sil.role_id
                 from sp_guidelines sg 
                     join sp_importance_levels sil on sil.guideline_id = sg.id 
                     join sp_categories sc on sc.id = sil.category_id 
                     join sp_roles sr on sr.id = sil.role_id 
                     join sp_stages ss on ss.id = sil.stage_id 
-                    where sg.active > 0 and sg.app_id = 3`);
+                    where sg.active > 0 and sg.app_id = ${app_id}`);
 
                     for (let i = 0; i < guiades.length; i++) {
                         

@@ -96,3 +96,40 @@ button{
     color: #ffff;
     transition: 0.5s;
 }
+
+
+.overview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    text-align: center;
+}
+
+
+
+.veryImportant{
+    background-color: #019875;
+    font-weight: bold;
+    color: white;
+}
+
+.important{
+    background-color: #00AEAD;
+    font-weight: bold;
+    color: white;
+}
+.useful{
+    background-color: #72CC50;
+    font-weight: bold;
+}
+
+.optional{
+    background-color: #C2C2C2;
+    font-weight: bold;
+}

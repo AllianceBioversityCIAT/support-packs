@@ -7,7 +7,10 @@ import { LearningZoneComponent } from './learning-zone.component';
 import { ButtonModule } from 'primeng/button';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { PdfGenerateModule } from '../shared/pdf-generate/pdf-generate.module';
-
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [
     LearningZoneComponent,
@@ -18,7 +21,11 @@ import { PdfGenerateModule } from '../shared/pdf-generate/pdf-generate.module';
     CommonModule,
     LearningZoneRoutingModule,
     ButtonModule,
-    PdfGenerateModule
+    PdfGenerateModule,
+    DialogModule,
+    FormsModule,
+    TableModule,
+    InputTextModule
   ]
 })
 export class LearningZoneModule { }

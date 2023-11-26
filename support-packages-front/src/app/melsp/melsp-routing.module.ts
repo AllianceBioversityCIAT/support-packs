@@ -17,6 +17,10 @@ const routes: Routes = [
         pathMatch: 'full'
         //  runGuardsAndResolvers: 'always'
       },
+      {
+        path:'overview',
+        loadChildren: () => import('./pages/overview/overview.module').then(mod => mod.OverviewModule)
+      }
     ]
   }
 ];
