@@ -4,7 +4,7 @@
             <h2 style="margin-bottom: 10px;">Who are you?</h2>
             <div class="card">
                 <p-dropdown [options]="roles" [(ngModel)]="selectRole" optionLabel="name" [showClear]="true" placeholder="Select a role"
-                [style]="{'width':'100%', 'background-color':'#f1f1f1', 'color':'black'}" (onClick)="filterInformation()"> 
+                [style]="{'width':'100%', 'background-color':'#f1f1f1', 'color':'black'}" (onClick)="filterInformation()" [disabled]="this._servicesVariables.continue"> 
                     <ng-template pTemplate="selectedItem">
                         <div class="flex align-items-center gap-2" *ngIf="selectRole">
                             <img src="{{selectRole.img}}" style="width: 50px"/>
@@ -25,6 +25,7 @@
             <div class="card">
                 <p-dropdown   [options]="whereAreYou" [(ngModel)]="selectWhereAreYou" optionLabel="name" placeholder="Select a where"
                 [style]="{'width':'100%', 'background-color':'#1281aa', 'color':'white'}" (onClick)="filterInformation()"
+                [disabled]="this._servicesVariables.continue"
                 ></p-dropdown>
             </div>
         </div>
@@ -32,7 +33,9 @@
             <h2 style="margin-bottom: 10px;">What</h2>
             <div class="card">
                 <p-dropdown  [options]="what" [(ngModel)]="selectWhat" optionLabel="name" placeholder="Select a what"
-                [style]="{'width':'100%', 'background-color':'#47939c', 'color':'black'}" (onClick)="filterInformation()"></p-dropdown>
+                [style]="{'width':'100%', 'background-color':'#47939c', 'color':'black'}" (onClick)="filterInformation()"
+                [disabled]="this._servicesVariables.continue"
+                ></p-dropdown>
             </div>
         </div>
     </div>

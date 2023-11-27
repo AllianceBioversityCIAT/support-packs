@@ -37,4 +37,8 @@ export class ServicesLearningZoneService {
   getToolOverview(){
     return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/overview/${this.app_id}`).pipe();
   }
+
+  getToolsAdmin(){
+    return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/editPanel/${this.app_id}`).pipe();
+  }
 }

@@ -13,3 +13,12 @@
     height:90vh;
     padding: 30px;
 }
+
+.images{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding-left: 50px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    
+}

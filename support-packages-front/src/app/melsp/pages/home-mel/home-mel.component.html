@@ -22,12 +22,13 @@
     </div>
 
     <div class="content">
-        <div class="filters">
+        <div class="filters" *ngIf="this._servicesVariables.termsConditions == false">
             <div class="who-are">
                 
                 <div class="card">
                     <p-dropdown   [options]="roles" [(ngModel)]="selectRole" optionLabel="name" placeholder="Choose a role"
                     [style]="{'width':'100%', 'background-color':'#d47979', 'color':'white'}" (onClick)="filterInformation()"
+                    [disabled]="this._servicesVariables.continue"
                     ></p-dropdown>
                 </div>
             </div>
@@ -36,6 +37,7 @@
                 <div class="card">
                     <p-dropdown   [options]="whereAreYou" [(ngModel)]="selectWhereAreYou" optionLabel="name" placeholder="Choose a when"
                     [style]="{'width':'100%', 'background-color':'#d47979', 'color':'white'}" (onClick)="filterInformation()"
+                    [disabled]="this._servicesVariables.continue"
                     ></p-dropdown>
                 </div>
             </div>
@@ -43,7 +45,9 @@
                 
                 <div class="card">
                     <p-dropdown  [options]="what" [(ngModel)]="selectWhat" optionLabel="name" placeholder="Choose a what"
-                    [style]="{'width':'100%','max-width': '340px', 'background-color':'#d47979', 'color':'black'}" (onClick)="filterInformation()"></p-dropdown>
+                    [style]="{'width':'100%','max-width': '340px', 'background-color':'#d47979', 'color':'black'}" (onClick)="filterInformation()"
+                    [disabled]="this._servicesVariables.continue"
+                    ></p-dropdown>
                 </div>
             </div>
         </div>
