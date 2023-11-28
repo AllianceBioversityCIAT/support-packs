@@ -45,7 +45,7 @@
                 
                 <div class="card">
                     <p-dropdown  [options]="what" [(ngModel)]="selectWhat" optionLabel="name" placeholder="Choose a what"
-                    [style]="{'width':'100%','max-width': '340px', 'background-color':'#d47979', 'color':'black'}" (onClick)="filterInformation()"
+                    [style]="{'width':'100%', 'background-color':'#d47979', 'color':'black'}" (onClick)="filterInformation()"
                     [disabled]="this._servicesVariables.continue"
                     ></p-dropdown>
                 </div>
@@ -54,6 +54,11 @@
 
         <div class="not-filter" *ngIf="selectRole == null || selectWhat == null || selectWhereAreYou == null">
             <h3>Please select the 3 option(s) above</h3>
+            <div class="img">
+                <img src="../../../../assets/icon-1.png" alt="">
+                <img src="../../../../assets/icon-2.png" alt="">
+                <img src="../../../../assets/icon-3.png" alt="" >
+            </div>
         </div>
 
         <div class="filter-on" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false  && this._servicesVariables.continue == false">
