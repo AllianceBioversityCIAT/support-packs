@@ -76,7 +76,7 @@ model sp_guidelines {
 
 model sp_guidelines_metadata {
   id Int @id @default(autoincrement())
-  guideline_id Int @db.Int()
+  guideline_id Int @db.Int() @unique
   description String @db.Text()
   target_scale String @db.Text()
   integrates_gender String @db.Text()
@@ -105,7 +105,7 @@ enum requests_status {
 model sp_importance_levels {
   id Int @id @default(autoincrement())
   category_id Int @db.Int()
-  guideline_id Int @db.Int()
+  guideline_id Int @db.Int() @unique
   stage_id Int @db.Int()
   role_id Int @db.Int()
   importance_level requests_status @default(null)
@@ -185,4 +185,13 @@ model sp_request_tool{
   resouce_link  String @db.Text()
   resouce_category  String @db.Text()
   active Boolean @db.TinyInt()
+}
+
+model sp_person{
+  id Int @id @default(autoincrement())
+  first_name String @db.VarChar(255)
+  last_name String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  registeredAt DateTime @db.DateTime()
 }

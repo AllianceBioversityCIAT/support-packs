@@ -41,4 +41,8 @@ export class ServicesLearningZoneService {
   getToolsAdmin(){
     return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/editPanel/${this.app_id}`).pipe();
   }
+
+  postregisterdowload(data:any){
+    return this.http.post<any>(`${this.urlApi}/support/registerDowloadTool`,data).pipe();
+  }
 }

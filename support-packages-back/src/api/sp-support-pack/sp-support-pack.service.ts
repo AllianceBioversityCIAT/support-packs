@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma.services';
 
 
 
+
 @Injectable()
 export class SpSupportPackService {
   constructor(private prisma: PrismaService){}
@@ -113,6 +114,58 @@ export class SpSupportPackService {
         element.thematic = parseInt(element.thematic);
       })
       return result;
+    } catch (error) {
+      console.log(error);
+      
+      return error;
+    }
+  }
+
+  async registerDowloadTool(data:any):Promise<any>{
+    try {
+      const result = await this.prisma.sp_person.create({
+        data: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          password: '',
+          registeredAt : new Date(),
+        }
+      });
+      
+
+      const dowload = await this.prisma.sp_download.create({
+        data: {
+          institute: data.institute,
+          intended_use : data.intended,
+          user_id: result.id,
+          date: new Date(),
+          filter_type:true,
+          app_id: parseInt(data.app_id)
+        }
+      });
+
+      for (let index = 0; index < data.guiades.length; index++) {
+        await this.prisma.sp_download_guidelines.create({
+          data: {
+            download_id: dowload.id,
+            guideline_id: parseInt(data.guiades[index].guideline_id)
+          }
+        });
+        
+      }
+
+      for (let index = 0; index < data.region.length; index++) {
+        await this.prisma.sp_download_regions.create({
+          data: {
+            download_id: dowload.id,
+            region_id: parseInt(data.region[index].id),
+            region_scope : data.region[index].scope
+          }
+        });
+        
+      }
+      
     } catch (error) {
       console.log(error);
       

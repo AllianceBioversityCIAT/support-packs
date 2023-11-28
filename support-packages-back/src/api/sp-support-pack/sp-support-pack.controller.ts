@@ -84,4 +84,23 @@ export class SpSupportPackController {
   })
     }
   }
+
+
+  @Post('/registerDowloadTool')
+  async registerDowloadTool(@Req() request: Request, @Res() response: Response, @Body() body:any) : Promise<any>{
+    try{
+      const result = await this.spSupportPackService.registerDowloadTool(body);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, Res} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res} from '@nestjs/common';
 import { SpGuidelinesService } from './sp-guidelines.service';
 import {Request,Response} from 'express'
 @Controller('sp-guidelines')
@@ -59,6 +59,43 @@ export class SpGuidelinesController {
     }catch(err){
       console.log(err);
       
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+
+  @Post('/updateTool/:app_id/:id')
+  async updateTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.putGuideline(app_id,id,body);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+  @Post('/updateTool/:app_id/:id/:active')
+  async activeOrDesativeTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id, @Param('active') active) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.activeOrDesactiveTool(app_id,id,body, active);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
       return response.status(500).json({
         error: err,
        status: 'Ok!',

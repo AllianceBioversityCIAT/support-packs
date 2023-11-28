@@ -93,7 +93,7 @@
     </div>
 
     <div *ngIf="this._servicesVariables.termsConditions == true">
-        <app-terms-conditions></app-terms-conditions>
+        <app-terms-conditions [app_id]="2" [tools]="selectedProducts"></app-terms-conditions>
     </div>
 
     <div class="dowloand-tools" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false && this._servicesVariables.continue == true">

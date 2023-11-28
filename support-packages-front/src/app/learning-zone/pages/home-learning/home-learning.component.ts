@@ -29,10 +29,12 @@ export class HomeLearningComponent implements OnInit{
   selectedCitiesw!: any[];
 
   forml = {
-    name: '',
-    intitution: '',
-    message: '',
-    last_name : '',
+    first_name: '',
+    last_name: '',
+    institute: '',
+    intended: '',
+    app_id : '',
+    email:''
   }
   constructor(private _servicesLearningZoneService:ServicesLearningZoneService){}
   ngOnInit() {
@@ -40,14 +42,14 @@ export class HomeLearningComponent implements OnInit{
     this.getAllTools();
     this.loading = true;
     this.cities = [
-      {name: 'Africa', code: 'NY'},
-      {name: 'Asia', code: 'RM'},
-      {name: 'Australia and Oceania', code: 'LDN'},
-      {name: 'Central America and the Caribbean', code: 'IST'},
-      {name: 'Middle East and North Africa', code: 'PRS'},
-      {name: 'North America', code: 'RM'},
-      {name: 'South America', code: 'RM'},
-      {name: 'Europe', code: 'RM'},
+      {name: 'Africa', id: 1},
+      {name: 'Asia', id: 2},
+      {name: 'Australia and Oceania', id: 3},
+      {name: 'Central America and the Caribbean', id: 4},
+      {name: 'Middle East and North Africa', id: 5},
+      {name: 'North America', id: 6},
+      {name: 'South America', id: 7},
+      {name: 'Europe', id: 8},
   ];
 }
 
@@ -106,17 +108,37 @@ export class HomeLearningComponent implements OnInit{
     this.selectedProducts = []
   }
 
-  saveEmail(){
+  async saveEmail(){
     this.terms = false;
     this.resources = true;
     this.dowloadSection = true;
     this.products = this.selectedProducts;
-    this.selectedProducts.map((data)=>{data.email = this.email});
 
-    this._servicesLearningZoneService.getDownloadTool(this.selectedProducts).subscribe((data)=>{
+    this.selectedCities.map((data:any)=>{
+      data['scope'] = 'researchRegion';
+    });
+
+    this.selectedCitiesw.map((data:any)=>{
+      data['scope'] = 'instituteRegion';
+    })
+
+    console.log(this.selectedCities);
+    console.log(this.selectedCitiesw);      
+    const region = await this.selectedCities.concat(this.selectedCitiesw);
+    this.selectedProducts.map((data:any)=>{
+      data['guideline_id'] = data.id;
+    });
+    this.forml.app_id = '3';
+    this.forml['region'] = region;
+    this.forml['guiades'] = this.selectedProducts
+
+    console.log(this.forml);
+    
+
+    this._servicesLearningZoneService.postregisterdowload(this.forml).subscribe((data)=>{
       console.log(data);
       
-    })
+    });
   }
 
   public downloadAsPDF() {

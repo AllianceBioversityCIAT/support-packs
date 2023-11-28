@@ -13,7 +13,7 @@
         <br>
         <span class="p-input-icon-center ml-auto" style="width: 100%; display: flex; justify-content: center;">
             
-            <input pInputText type="text" style="width: 50%; color: black;" [(ngModel)]="email"  
+            <input pInputText type="text" style="width: 50%; color: black;" [(ngModel)]="forml.email"  
             placeholder="Email" />
         </span>
         <br>
@@ -24,12 +24,12 @@
             <div class="colunmOne">
                 <div class="flex flex-column gap-2 inputs input-two">
                     <label htmlFor="email" class="bold">First name:</label>
-                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.name"  
+                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.first_name"  
                     placeholder="First name" />
                 </div>
                 <div class="flex flex-column gap-2 inputs input-two">
                     <label htmlFor="email" class="bold">Institute name:</label>
-                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.intitution"  
+                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.institute"  
                     placeholder="Institute name" />
                 </div>
                 <div class="flex flex-column gap-2 inputs input-two">
@@ -54,7 +54,7 @@
         <div class="two-form" >
             <div class="flex flex-column gap-2 inputs input-two">
                 <label htmlFor="email" class="bold">Intended use of data:</label>
-                <textarea rows="5" style="width: 100%;color: black;" [(ngModel)]="forml.message" pInputTextarea></textarea>
+                <textarea rows="5" style="width: 100%;color: black;" [(ngModel)]="forml.intended" pInputTextarea></textarea>
             
             </div>
         </div>
@@ -64,7 +64,7 @@
     <div class="content-finish">
         <button pButton type="button" (click)=" back()"  label="Back" class="p-button" style="float: left;"></button>
         <button *ngIf="continuoClcik == false" pButton type="button"  (click)="skip()" label="Skip" class="p-button" style="float: left; margin-left: 10px;"></button>
-        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="continuoClcik = true" label="Continue" class="p-button" style="float: right;" [disabled]="email == ''"></button>
+        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="continuoClcik = true" label="Continue" class="p-button" style="float: right;" [disabled]="forml.email == ''"></button>
         <button *ngIf="continuoClcik == true" pButton type="button"  (click)="saveEmail()" label="Continue" class="p-button" style="float: right;" ></button>
         
     </div>
