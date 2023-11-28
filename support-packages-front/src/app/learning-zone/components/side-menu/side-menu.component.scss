@@ -97,6 +97,13 @@ button{
     transition: 0.5s;
 }
 
+.button-menu{
+    &.selected{
+        background-color: #ffff;
+        color: #F2971F;
+    }
+}
+
 
 .overview{
     display: flex;

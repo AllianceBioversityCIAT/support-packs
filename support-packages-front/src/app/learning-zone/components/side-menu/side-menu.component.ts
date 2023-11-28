@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-menu',
@@ -10,10 +11,42 @@ export class SideMenuComponent implements OnInit{
   sales:any[] = [];
   rojo = "red";
   loading = true;
-  constructor(private _servicesLearningZoneService:ServicesLearningZoneService) { }
+  menu = [
+    {
+      name: "AICCRA Learning Zone",
+      selected: false
+    },
+    {
+      name: "AICCRA Learning Zone",
+      selected: false
+    },
+    {
+      name: "AICCRA Learning Zone",
+      selected: false
+    },
+    {
+      name: "AI",
+      selected: false
+    }
+  ]
+  constructor(private _servicesLearningZoneService:ServicesLearningZoneService, private router : Router) { }
 
   ngOnInit(): void {
     this. getInformation();
+    console.log(this.router.url);
+    
+    if(this.router.url === '/aiccra/manage-tool'){
+      this.menu[3].selected = true;
+    }
+    if (this.router.url === '/aiccra/learning-zone') {
+      this.menu[0].selected = true;
+      
+    }
+    if (this.router.url === '/aiccra/FAQ') {
+      this.menu[2].selected = true;
+      
+    }
+
   }
   visible: boolean = false;
   showDialog() {
@@ -59,5 +92,12 @@ getImportants(acronym:string, propolsal:string, data:any, id:any){
     
     
   
+}
+
+onClicked(number){
+  this.menu.map((data:any)=>{
+    data.selected = false;
+  });
+  this.menu[number].selected = true;
 }
 }
