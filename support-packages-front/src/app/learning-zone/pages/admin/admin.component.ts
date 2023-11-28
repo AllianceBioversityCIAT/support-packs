@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -94,18 +95,32 @@ export class AdminComponent implements OnInit{
     },
   ];
   selectCategories: any = {};
-  constructor(private _servicesLearningZoneService:ServicesLearningZoneService) { }
+
+  loadingSave: boolean = false;
+
+  confirmDesactive: boolean = false;
+  loading : boolean = false;
+  dialogLogin: boolean = true;
+
+  loginForm:any = {
+    email: '',
+    password: ''
+  }
+  error: boolean = false;
+  constructor(private _servicesLearningZoneService:ServicesLearningZoneService, private router: Router) { }
   ngOnInit() {
     this.items = [
       
       {label: 'Edit Panel', icon: 'pi pi-fw pi-pencil', id:0},
-      {label: 'Add New', icon: 'pi pi-fw pi-plus', id:1}
+      //{label: 'Add New', icon: 'pi pi-fw pi-plus', id:1, disable: true }
       
   ];
   this.activeItem = this.items[0];
   console.log(this.activeItem);
   this.getAllTools();
-  
+  if (this.getlocalStorageToken() != null) {
+    this.dialogLogin = false;
+  }
 }
 
 onActiveItemChange(event: MenuItem) {
@@ -113,10 +128,12 @@ onActiveItemChange(event: MenuItem) {
 }
 
   getAllTools(){
+    this.loading = true
+    this.customers = [];
     this._servicesLearningZoneService.getToolsAdmin().subscribe((data)=>{
       this.customers = data.result;
       console.log(data);
-      
+      this.loading = false;
     })
 
     this._servicesLearningZoneService.getSPFilters().subscribe((data)=>{
@@ -142,9 +159,67 @@ onActiveItemChange(event: MenuItem) {
   }
 
   postTool(){
+    this.loadingSave = true;
      this.informationEdit.category_id = this.selectCategory[0].id;
       this.informationEdit.category_name = this.selectCategory[0].name;
       console.log(this.informationEdit);
+      this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data)=>{
+        console.log(data);
+        this.loadingSave = false;
+        this.visible = false;
+      });
+  }
+
+
+  desactive(){
+    this.loadingSave = true;
+    this._servicesLearningZoneService.activeOrDesactive(this.informationEdit, 0).subscribe((data)=>{
+      console.log(data);
+      this.getAllTools();
+      this.confirmDesactive = false;
+      this.loadingSave = false;
+    });
+  }
+
+  showDialogDesactive(customer:any){
+    this.confirmDesactive = true;
+    this.informationEdit = customer;
+  }
+
+  redirecto(){
+    this.router.navigate(['aiccra/learning-zone']);
+    
+    localStorage.clear();
+  }
+
+  login(){
+
+    try {
       
+      this._servicesLearningZoneService.login(this.loginForm).subscribe((data)=>{
+        if (data.result == 'user not found' || data.result == 'Invalid password') {
+          this.error = true;
+        }else{
+          this.localStorageToken(data.result.token);
+          this.dialogLogin = false;
+          console.log(data);
+          this.error = false;
+        }
+        
+      });
+      
+    } catch (error) {
+        console.log('daw');
+        
+    }
+    
+  }
+
+  localStorageToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getlocalStorageToken() {
+    return localStorage.getItem('token');
   }
 }

@@ -78,6 +78,8 @@ export class SpGuidelinesController {
         result: result
    })
     }catch(err){
+      console.log(err);
+      
       return response.status(500).json({
         error: err,
        status: 'Ok!',
@@ -86,7 +88,7 @@ export class SpGuidelinesController {
     }
   }
 
-  @Post('/updateTool/:app_id/:id/:active')
+  @Post('/activeOrDesactive/:app_id/:id/:active')
   async activeOrDesativeTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id, @Param('active') active) : Promise<any>{
     try{
       const result = await this.spGuidelinesService.activeOrDesactiveTool(app_id,id,body, active);
@@ -96,6 +98,7 @@ export class SpGuidelinesController {
         result: result
    })
     }catch(err){
+      console.log(err);
       return response.status(500).json({
         error: err,
        status: 'Ok!',

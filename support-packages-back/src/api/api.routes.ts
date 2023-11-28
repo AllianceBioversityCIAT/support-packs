@@ -5,6 +5,7 @@ import { SpAppsModule } from "./sp-apps/sp-apps.module";
 import { SpSupportPackModule } from "./sp-support-pack/sp-support-pack.module";
 import { SpCategoriesModule } from "./sp-categories/sp-categories.module";
 import { SpGuidelinesModule } from "./sp-guidelines/sp-guidelines.module";
+import { AuthModule } from "./authentication/auth.module";
 
 export const ModulesRoutes: Routes = [
     {
@@ -33,5 +34,9 @@ export const ModulesRoutes: Routes = [
     {
       path: 'guidelines',
       module: SpGuidelinesModule,
+    },
+    {
+      path: 'auth',
+      module: AuthModule,
     }
 ]

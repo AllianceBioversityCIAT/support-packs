@@ -45,4 +45,16 @@ export class ServicesLearningZoneService {
   postregisterdowload(data:any){
     return this.http.post<any>(`${this.urlApi}/support/registerDowloadTool`,data).pipe();
   }
+
+  putTool(data:any){
+    return this.http.post<any>(`${this.urlApi}/guidelines/sp-guidelines/updateTool/${this.app_id}/${data.id}`,data).pipe();
+  }
+
+  activeOrDesactive(data:any, active:any){
+    return this.http.post<any>(`${this.urlApi}/guidelines/sp-guidelines/activeOrDesactive/${this.app_id}/${data.id}/${active}`,data).pipe();
+  }
+
+  login(data:any){
+    return this.http.post<any>(`${this.urlApi}/auth/auth/login`,data).pipe();
+  }
 }

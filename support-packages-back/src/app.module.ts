@@ -7,6 +7,7 @@ import { SpAppsModule } from './api/sp-apps/sp-apps.module';
 import { SpCategoriesModule } from './api/sp-categories/sp-categories.module';
 import { SpSupportPackModule } from './api/sp-support-pack/sp-support-pack.module';
 import { SpGuidelinesModule } from './api/sp-guidelines/sp-guidelines.module';
+import { AuthModule } from './api/authentication/auth.module';
 
 
 @Module({
@@ -15,7 +16,7 @@ import { SpGuidelinesModule } from './api/sp-guidelines/sp-guidelines.module';
     SpRolesModule, 
     SpAppsModule, 
     SpCategoriesModule, 
-    SpSupportPackModule, SpGuidelinesModule],
+    SpSupportPackModule, SpGuidelinesModule, AuthModule],
   controllers: [],
   providers: [],
 })

@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
   declarations: [
     AdminComponent
@@ -28,7 +29,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputTextModule,
     ButtonModule,
     InputTextareaModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ConfirmDialogModule
   ]
 })
 export class AdminModule { }

@@ -178,8 +178,8 @@ export class SpGuidelinesService {
                 //edit guideline
                 await this.prisma.sp_guidelines.update({
                     where:{
-                        id: id,
-                        app_id: app_id
+                        id: parseInt(id),
+                        app_id: parseInt(app_id)
                     },
                     data:{
                         name: body?.name,
@@ -350,15 +350,23 @@ export class SpGuidelinesService {
     async activeOrDesactiveTool(app_id, id, body, active):Promise<any>{
         try {
             if(app_id != null && id != null && body != null && active != null){
+                console.log(active);
+                let activeF = false;
+                if(active == 1){
+                    activeF = true;
+                }
+                
                 await this.prisma.sp_guidelines.update({
                     where:{
-                        id: id,
-                        app_id: app_id
+                        id: parseInt(id),
+                        app_id: parseInt(app_id)
                     },
                     data:{
-                        active: Boolean(active)
+                        active: activeF
                     }
                 });
+                console.log(Boolean(active));
+                
             }
             return {message: "Guideline updated successfully"};
         } catch (error) {

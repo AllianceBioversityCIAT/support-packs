@@ -62,14 +62,14 @@ model sp_guidelines {
   id Int @id @default(autoincrement())
   name String @db.VarChar(255)
   app_id Int @db.Int()
-  active Boolean @db.TinyInt()
-  code String @db.VarChar(255)
+  active Boolean? @db.TinyInt()
+  code String? @db.VarChar(255)
   source String @db.Text()
-  type String @db.VarChar(255)
-  registered_by String @db.VarChar(255)
-  contact String @db.VarChar(255)
-  createdAt DateTime @db.DateTime()
-  updatedAt DateTime @db.DateTime()
+  type String? @db.VarChar(255)
+  registered_by  String? @db.VarChar(255)
+  contact String? @db.VarChar(255)
+  createdAt DateTime? @db.DateTime()
+  updatedAt DateTime? @db.DateTime()
   metadata sp_guidelines_metadata[]
   resources sp_resources_guidelines[]
 }
@@ -108,7 +108,7 @@ model sp_importance_levels {
   guideline_id Int @db.Int() @unique
   stage_id Int @db.Int()
   role_id Int @db.Int()
-  importance_level requests_status @default(null)
+  importance_level String @db.VarChar(255)
   }
 
 model sp_regions{
