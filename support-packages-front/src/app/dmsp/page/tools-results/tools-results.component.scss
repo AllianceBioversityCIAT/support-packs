@@ -15,7 +15,7 @@
     height: 10%;
     width: 100%;
     margin-bottom: 30px;
-    margin-top: 40px;
+    //margin-top: 40px;
     .who-are{
         display: flex;
         flex-direction: column;
@@ -142,6 +142,159 @@
         
         .numFour{
             background-color: #d6d6d6;
+        }
+    }
+}
+
+
+.dmsp-old{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    padding:40px;
+    height: 100%;
+    gap: 20px;
+    .colOne{
+        
+        display: flex;
+        flex-direction: column;
+        .filters{
+            
+            display: grid;
+            height: auto;
+            grid-template-columns: 45% 55%;
+            gap: 10px;
+            .roles{
+                
+                .buttons-rol{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    background-color: #f1f1f1;
+                    border: none;
+                    width: 100%;
+                    font-size: 15px;
+                    &:hover{
+                        background-color: #e6e6e6;
+                        font-weight: bold;
+
+                        cursor: pointer;
+                    }
+                    .imagen-rol{
+                        width: 32%;
+                        margin-right: 20px;
+                    }
+                    .active{
+                        background-color: #e6e6e6;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .stages{
+                
+                .stage-buttons{
+                    width: 98%;
+                    height: 90%;
+                    background-color: #f1f1f1;
+                    padding: 20px;
+                }.button-stage{
+                    width: 100%;
+                    margin-bottom: 10px;
+                    .buttons-stage{
+                        width: 100%;
+                        padding: 0;
+                        border: 0;
+                        &:hover{
+                           
+                            font-weight: bold;
+    
+                            cursor: pointer;
+                        }
+                        .sub-section-button{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: left;
+                            .seccionOne{
+                                width: 50px;
+                                height: auto;
+                                background-color: #10759a;
+                                color: white;
+                                font-weight: bold;
+                            }
+                            .sectionTwo{
+                                width: 100%;
+                                height: auto;
+                                background-color: #1281aa;
+                                padding: 10px;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: left;
+                                align-items: left;
+                                color: white;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .colTwo{
+        display: flex;
+        flex-direction: column;
+        .what{
+                
+            .what-buttons{
+                width: 98%;
+                height: 90%;
+                background-color: #f1f1f1;
+                padding: 20px;
+            }.button-what{
+                width: 100%;
+                margin-bottom: 10px;
+                opacity: 0.7 ;
+                &.selected{ 
+                    font-weight: bold;
+                    opacity: 1 !important;
+                }
+                .buttons-what{
+                    width: 100%;
+                    padding: 0;
+                    border: 0;
+                    
+                    &:hover{
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                    &:visited{
+                        font-weight: bold;
+                    }
+                    .sub-section-button{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: left;
+                        .seccionOne{
+                            width: 50px;
+                            height: auto;
+                            background-color: #3e8087;
+                            color: white;
+                            font-weight: bold;
+                        }
+                        .sectionTwo{
+                            width: 100%;
+                            height: auto;
+                            background-color: #47939c;
+                            padding: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: left;
+                            align-items: left;
+                            color: white;
+                            
+                        }
+                    }
+                }
+            }
         }
     }
 }

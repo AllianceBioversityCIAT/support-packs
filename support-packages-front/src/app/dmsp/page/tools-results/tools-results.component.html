@@ -1,3 +1,5 @@
+<!--
+
 <div class="body-dmsp">
     <div class="filters">
         <div class="who-are">
@@ -113,5 +115,161 @@
                 
     </div>
     </div>
+    </div>
+</div> -->
+
+
+<div class="dmsp-old">
+    <div class="colOne">
+        <div class="filters">
+            <div class="roles" >
+                <h2 style="margin-bottom: 10px;">Who are you?</h2>
+                <div class="buttonsRoles" *ngIf="selectRole == undefined">
+                    <div *ngFor="let item of this.roles">
+                        <button class="buttons-rol" (click)="selectRole = item;  filterInformation()">
+                            <img src="{{item.img}}" alt="" class="imagen-rol" /><span class="optionText">{{item.name}}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="who-are">
+                <div class="card" *ngIf="selectRole != undefined">
+                    <p-dropdown [options]="roles" [(ngModel)]="selectRole" optionLabel="name" [showClear]="true" placeholder="Select a role"
+                    [style]="{'width':'100%', 'background-color':'#f1f1f1', 'color':'black'}" (onClick)="filterInformation()" [disabled]="this._servicesVariables.continue"> 
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectRole">
+                                <img src="{{selectRole.img}}" style="width: 15px"/>
+                                <div style="margin-left: 5px;">{{ selectRole.name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-roles pTemplate="item">
+                            <div class="flex">
+                                <img src="{{roles.img}}"  style="width: 50px"/>
+                                <div style="margin-left: 5px;">{{ roles.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                </div>
+            </div>
+            <div class="stages">
+                <h2 style="margin-bottom: 10px;">Where are you?</h2>
+                <div class="stage-buttons" *ngIf="selectWhereAreYou == undefined">
+                    <div class="button-stage"  *ngFor="let item of this.whereAreYou; let i =index">
+                        <button class="buttons-stage" (click)="selectWhereAreYou = item;  filterInformation()">
+                            <div class="sub-section-button">
+                                <div class="seccionOne">
+                                    {{i}}.
+                                </div>
+                                <div class="sectionTwo">
+                                    <span style="color: white; font-weight: bold;">{{item.name}}</span> <p>{{item.description}}</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="where-are" *ngIf="selectWhereAreYou != undefined">
+                <div class="card">
+                    <p-dropdown   [options]="whereAreYou" [(ngModel)]="selectWhereAreYou" optionLabel="name" placeholder="Select a where"
+                    [style]="{'width':'100%', 'background-color':'#1281aa', 'color':'white'}" (onClick)="filterInformation()"
+                    [disabled]="this._servicesVariables.continue"
+                    ></p-dropdown>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="results">
+        
+            <div class="not-filters" *ngIf="selectRole == null || selectWhat == null || selectWhereAreYou == null">
+                <h2>Please select the 3 option(s) above</h2>
+               
+            </div>
+    
+            <div class="filter-on" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false  && this._servicesVariables.continue == false">
+                
+                <h2>Documents recomended</h2>
+                <h4>{{products.length}} Documents found for a {{selectRole.name}} at {{selectWhereAreYou.name}} stage</h4>
+                <h4>{{selectWhat.name}}</h4><br><br>
+                <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '40rem'}">
+                    
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                            </td>
+                            
+                            <td>{{product.name}}</td>
+                            <td class="important">
+                                <div class=" color-i numOne" *ngIf="product.importance_level == 'Very important'"></div>
+                                        <div class=" color-i numTwo" *ngIf="product.importance_level == 'Important'"></div>
+                                        <div class=" color-i numTre" *ngIf="product.importance_level == 'Useful'"></div>
+                                        <div class=" color-i numFour" *ngIf="product.importance_level == 'Optional'"></div>
+                                <div>{{product.importance_level
+                                }}</div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <br>
+                <br>
+                <div class="button">
+                    <button pButton label="New search" class="p-button-secondary" style="margin-right: 10px;" (click)="selectRole = undefined; selectWhat = undefined; selectWhereAreYou = undefined"> </button>
+                    <button pButton label="Download chosen documents" class="p-button-outlined" icon="pi pi-filter-pi-download" (click)=" termsAndConditions()">
+                    </button>
+            </div>
+    
+            
+        </div>
+        <div *ngIf="this._servicesVariables.termsConditions == true">
+            <app-terms-conditions [app_id]="1" [tools]="selectedProducts"></app-terms-conditions>
+        </div>
+    
+        <div class="dowloand-tools" *ngIf="this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined && this._servicesVariables.termsConditions == false && this._servicesVariables.continue == true">
+            <h2>Documents recomended</h2>
+                <h4>{{selectedProducts.length}} Documents found for a {{selectRole.name}} at {{selectWhereAreYou.name}} stage</h4>
+                <h4>{{selectWhat.name}}</h4><br><br>
+            <p-table [value]="selectedProducts"  dataKey="code" [tableStyle]="{'min-width': '40rem'}">
+                    
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td><a href="{{product.source}}" target="_blank">{{product.name}}</a></td>
+                        <td class="important">
+                            <div class=" color-i numOne" *ngIf="product.importance_level == 'Very important'"></div>
+                                    <div class=" color-i numTwo" *ngIf="product.importance_level == 'Important'"></div>
+                                    <div class=" color-i numTre" *ngIf="product.importance_level == 'Useful'"></div>
+                                    <div class=" color-i numFour" *ngIf="product.importance_level == 'Optional'"></div>
+                            <div>{{product.importance_level
+                            }}</div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <br>
+            <br>
+            <div class="button">
+                <app-pdf-generate [data] = 'selectedProducts' [app]="1"></app-pdf-generate>
+                <button pButton label="New search" class="p-button-secondary" style="margin-left: 10px;" (click)="newSource()"> </button>
+                    
+        </div>
+        </div>
+        </div>
+    </div>
+    <div class="colTwo">
+        <div class="what">
+            <h2 style="margin-bottom: 10px;">What</h2>
+                <div class="what-buttons">
+                    <div class="button-what" [ngClass]="{'selected': item?.selected}" *ngFor="let item of this.what; let i =index">
+                        <button class="buttons-what" (click)="selectWhat = item;  filterInformation(); changesItemStus(item);" [disabled]="this._servicesVariables.continue">
+                            <div class="sub-section-button">
+                                <div class="seccionOne">
+                                    {{i}}.
+                                </div>
+                                <div class="sectionTwo">
+                                    <span style="color: white; ">{{item.name}}</span> 
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+        </div>
     </div>
 </div>

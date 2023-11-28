@@ -24,6 +24,8 @@ export class ToolsResultsComponent implements OnInit{
   what: any[] | undefined;
   selectWhat: any | undefined;
 
+  rol = null;
+
   constructor(private _servicesDmspService:ServicedmspService, public _servicesVariables : ServicesTermsService) { }
 
   ngOnInit(): void {
@@ -42,6 +44,9 @@ export class ToolsResultsComponent implements OnInit{
       this.roles.map((data:any)=>{
         data.img = '../../../../assets/roles/'+data.id+'.png';
       });
+      this.what.map((data:any)=>{
+        data.selected = true;
+      })
     });
   }
 
@@ -74,5 +79,12 @@ export class ToolsResultsComponent implements OnInit{
     this._servicesVariables.termsConditions = false;
     this.selectRole = undefined; this.selectWhat = undefined; this.selectWhereAreYou = undefined;
     this.selectedProducts = []
+  }
+
+  changesItemStus(item){
+    this.what.map((data)=>{
+      data.selected = false;
+    })
+    item.selected = true;
   }
 }
