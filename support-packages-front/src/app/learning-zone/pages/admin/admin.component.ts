@@ -111,9 +111,9 @@ export class AdminComponent implements OnInit{
   ngOnInit() {
     this.items = [
       
-      {label: 'Tools Active', icon: 'pi pi-fw pi-file-edit', id:0},
-      {label: 'Tools Inactive', icon: 'pi pi-fw pi-file', id:1 },
-      {label: 'Tools Request', icon: 'pi pi-fw pi-share-alt', id:2 },
+      {label: 'Active Tools', icon: 'pi pi-fw pi-file-edit', id:0},
+      {label: 'Archived Tools', icon: 'pi pi-fw pi-file', id:1 },
+      {label: 'Request', icon: 'pi pi-fw pi-share-alt', id:2 },
       
   ];
   this.activeItem = this.items[0];
