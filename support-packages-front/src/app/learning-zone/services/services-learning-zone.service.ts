@@ -57,4 +57,8 @@ export class ServicesLearningZoneService {
   login(data:any){
     return this.http.post<any>(`${this.urlApi}/auth/auth/login`,data).pipe();
   }
+
+  createRequestNewTool(data:any){
+    return this.http.post<any>(`${this.urlApi}/support/createToolNewRequest/${this.app_id}`,data).pipe();
+  }
 }

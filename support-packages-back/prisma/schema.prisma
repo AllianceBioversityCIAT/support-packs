@@ -74,6 +74,38 @@ model sp_guidelines {
   resources sp_resources_guidelines[]
 }
 
+model sp_guidelines_request {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  app_id Int @db.Int()
+  active Boolean? @db.TinyInt()
+  code String? @db.VarChar(255)
+  source String @db.Text()
+  type String? @db.VarChar(255)
+  registered_by  String? @db.VarChar(255)
+  contact String? @db.VarChar(255)
+  createdAt DateTime? @db.DateTime()
+  updatedAt DateTime? @db.DateTime()
+}
+
+model sp_guidelines_metadata_request {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int() @unique
+  description String @db.Text()
+  target_scale String @db.Text()
+  integrates_gender String @db.Text()
+  participants String @db.Text()
+  methods String @db.Text()
+  input_types String @db.Text()
+  expected_outputs String @db.Text()
+  human_resources String @db.Text()
+  estimated_time String @db.Text()
+  strengths String @db.Text()
+  limitations String @db.Text()
+  is_tested_online String @db.Text()
+  key_references String @db.Text()
+}
+
 model sp_guidelines_metadata {
   id Int @id @default(autoincrement())
   guideline_id Int @db.Int() @unique
@@ -111,6 +143,15 @@ model sp_importance_levels {
   importance_level String @db.VarChar(255)
   }
 
+model sp_importance_levels_request {
+  id Int @id @default(autoincrement())
+  category_id Int @db.Int()
+  guideline_id Int @db.Int() @unique
+  stage_id Int @db.Int()
+  role_id Int @db.Int()
+  importance_level String @db.VarChar(255)
+  }
+
 model sp_regions{
   id Int @id @default(autoincrement())
   name String @db.VarChar(255)
@@ -126,6 +167,16 @@ model sp_resources_guidelines {
   source String @db.VarChar(255)
   type String @db.VarChar(255)
   guideline sp_guidelines? @relation(fields: [guideline_id], references: [id])
+}
+
+model sp_resources_guidelines_request {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int()
+  active Boolean @db.TinyInt()
+  name String @db.VarChar(255)
+  code String @db.VarChar(255)
+  source String @db.VarChar(255)
+  type String @db.VarChar(255)
 }
 
 model sp_roles{

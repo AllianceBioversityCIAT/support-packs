@@ -25,6 +25,11 @@ const routes: Routes = [
       {
         path:'manage-tool',
         loadChildren: () => import('./pages/admin/admin.module').then(mod => mod.AdminModule)
+      },
+
+      {
+        path:'form-request',
+        loadChildren: () => import('./pages/form-request/form-request.module').then(mod => mod.FormRequestModule)
       }
   ]
     

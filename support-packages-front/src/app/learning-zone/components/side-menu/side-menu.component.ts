@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import {  Router } from '@angular/router';
 
@@ -51,6 +51,11 @@ export class SideMenuComponent implements OnInit{
   visible: boolean = false;
   showDialog() {
     this.visible = true;
+}
+ngOnChanges(changes: SimpleChanges) {
+  console.log(changes);
+  
+  // changes.prop contains the old and the new value...
 }
 
 getInformation(){

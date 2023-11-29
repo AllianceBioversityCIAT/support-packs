@@ -103,4 +103,22 @@ export class SpSupportPackController {
   })
     }
   }
+
+  @Post('/createToolNewRequest/:app_id')
+  async createToolNewRequest(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id,) : Promise<any>{
+    try{
+      const result = await this.spSupportPackService.createRequestToolNew(app_id,body);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
 }
