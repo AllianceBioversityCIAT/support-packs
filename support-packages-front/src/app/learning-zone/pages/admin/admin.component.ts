@@ -224,4 +224,11 @@ onActiveItemChange(event: MenuItem) {
   getlocalStorageToken() {
     return localStorage.getItem('token');
   }
+
+  setlocalStorageToken() {
+    localStorage.removeItem('token');
+    this.dialogLogin = true;
+    this.loginForm.email = '';
+    this.loginForm.password = '';
+  }
 }

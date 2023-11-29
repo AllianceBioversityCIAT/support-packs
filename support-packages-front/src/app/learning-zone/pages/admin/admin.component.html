@@ -30,6 +30,10 @@ style="
 
 
 <div class="admin" *ngIf="dialogLogin == false">
+    <div class="quit">
+        <button  pButton pRipple type="button" icon="pi pi-sign-out"  label="Sign out" class="p-button-rounded p-button-text" (click)="setlocalStorageToken() "></button>
+                
+    </div>
     <div class="title-admin">
         <h1>Manage Tool</h1>
     </div>
