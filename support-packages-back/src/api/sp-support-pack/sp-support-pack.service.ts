@@ -210,41 +210,106 @@ export class SpSupportPackService {
 
 
 
-        data?.A.forEach(async element => {
-          await this.prisma.sp_importance_levels_request.create({
-            data: {
-              guideline_id : requestNew.id,
-              category_id : parseInt(data.category_id),
-              role_id : 9,
-              stage_id : parseInt(element.stage_id),
-              importance_level : element.name
-            }
-          })
-        });
-
-        data?.R.forEach(async element => {
-          await this.prisma.sp_importance_levels_request.create({
-            data: {
-              guideline_id : requestNew.id,
-              category_id : parseInt(data.category_id),
-              role_id : 7,
-              stage_id : parseInt(element.stage_id),
-              importance_level : element.name
-            }
-          })
-        });
-
-        data?.TS.forEach(async element => {
-          await this.prisma.sp_importance_levels_request.create({
-            data: {
-              guideline_id : requestNew.id,
-              category_id : parseInt(data.category_id),
-              role_id : 8,
-              stage_id : parseInt(element.stage_id),
-              importance_level : element.name
-            }
-          })
-        });
+        for (const item in data.A) {
+          if (item == "desigh") {
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                      guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 9,
+                      stage_id: 9,
+                      importance_level: data?.A[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 7,
+                      stage_id: 9,
+                      importance_level: data?.R[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 8,
+                      stage_id: 9,
+                      importance_level: data?.TS[item].name
+                  }
+              });
+          }
+          if(item == "implementation"){
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 9,
+                      stage_id: 10,
+                      importance_level: data?.A[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 7,
+                      stage_id: 10,
+                      importance_level: data?.R[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 8,
+                      stage_id: 10,
+                      importance_level: data?.TS[item].name
+                  }
+              });
+          }
+          if (item == "monitoring") {
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 9,
+                      stage_id: 11,
+                      importance_level: data?.A[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 7,
+                      stage_id: 11,
+                      importance_level: data?.R[item].name
+                  }
+              });
+              await this.prisma.sp_importance_levels_request.create({
+                  
+                  data:{
+                    guideline_id: requestNew?.id,
+                      category_id: parseInt(data?.category_id),
+                      role_id: 8,
+                      stage_id: 11,
+                      importance_level: data?.TS[item].name
+                  }
+              });
+          }
+          
+          
+      }
         
         data?.resource.forEach(async element => {
           await this.prisma.sp_resources_guidelines_request.create({
@@ -267,5 +332,278 @@ export class SpSupportPackService {
     }
 
 
+  }
+
+
+  async getAllRequestTools(app_id):Promise<any>{
+    try {
+      const roles:any = await this.prisma.$queryRaw(Prisma.sql`SELECT * from sp_roles sr where sr.app_id = ${app_id};`);
+      const stages:any = await this.prisma.$queryRaw(Prisma.sql`SELECT * from sp_stages ss WHERE ss.app_id = ${app_id};`);
+      const guiades:any = await this.prisma.$queryRaw(Prisma.sql`
+      select DISTINCT(sil.category_id), sg.id, sg.name, sgm.description, sg.source,
+              sgm.estimated_time, 
+              sgm.integrates_gender, sgm.is_tested_online,
+              sgm.target_scale, sgm.participants, sgm.methods, sgm.input_types,
+              sgm.limitations, sgm.strengths, sgm.expected_outputs, sgm.human_resources,
+              sgm.key_references,
+              sc.name as 'category_name',
+              sgm.id as 'id_metadata'
+          from sp_guidelines_request sg 
+            join sp_guidelines_metadata_request sgm ON sgm.guideline_id = sg.id 
+            join sp_importance_levels_request sil on sil.guideline_id = sg.id 
+            join sp_categories sc on sc.id = sil.category_id 
+            where sg.active > 0 and sg.app_id = ${app_id};
+
+      `);
+
+      if(guiades.length > 0){
+              const guidelinesIds = guiades.map((g: any) => g.id);
+              const resources_guidelines_all:any = await this.prisma.$queryRaw(Prisma.sql`SELECT * FROM sp_resources_guidelines_request
+                    WHERE guideline_id IN (${guidelinesIds.join(', ')})`);
+              const resources_guidelines:any = await this.prisma.$queryRaw(Prisma.sql`
+              select sr.name as 'name_role',sr.acronym,
+              ss.name,sil.stage_id, sil.importance_level, sil.category_id, sg.id, sil.role_id,
+              (case 
+                  when sil.importance_level = 'Very important' then 4
+                  when sil.importance_level = 'Important' then 3
+                  when sil.importance_level = 'Useful' then 2
+                  when sil.importance_level = 'Optional' then 1
+                  else 0
+                  end) as 'id_important_level'
+              from sp_guidelines_request sg 
+                  join sp_importance_levels_request sil on sil.guideline_id = sg.id 
+                  join sp_categories sc on sc.id = sil.category_id 
+                  join sp_roles sr on sr.id = sil.role_id 
+                  join sp_stages ss on ss.id = sil.stage_id 
+                  where sg.active > 0 and sg.app_id = ${app_id} `);
+
+              for (let i = 0; i < guiades.length; i++) {
+                      const guideline_id = guiades[i].id;
+                      const category_id = guiades[i].category_id;
+
+                      roles.forEach((role) => {
+                          guiades[i][role.acronym] = new Object();
+                          stages.forEach((stage) => {
+                              const importans = resources_guidelines.filter((r) => r.id == guideline_id && r.category_id == category_id && r.role_id == role.id);
+                              const filterStages = importans.filter((i) => i.stage_id == stage.id);
+                              if (filterStages.length > 0) {
+                                  const name = stage.name.replace(/\s/g, '');
+                                  guiades[i][role.acronym][name] = {
+                                      id: parseInt(filterStages[0].id_important_level),
+                                      name: filterStages[0].importance_level,
+                                  };
+                                  }
+                              });
+                              
+                          
+                          });
+                          guiades[i].resources = resources_guidelines_all.filter(
+                              (r) => r.guideline_id == guideline_id,
+                            );
+                      }
+              }
+              return guiades;
+      }
+   catch (error) {
+      throw error;
+  }
+  }
+
+
+  async putGuidelineRequest(app_id, id, body):Promise<any>{
+    try {
+        
+        if(app_id != null && id != null && body != null){
+            
+            //edit guideline
+            await this.prisma.sp_guidelines_request.update({
+                where:{
+                    id: parseInt(id),
+                    app_id: parseInt(app_id)
+                },
+                data:{
+                    name: body?.name,
+                    source: body?.source,
+                }
+            });
+
+            //edit guideline metadata
+
+            await this.prisma.sp_guidelines_metadata_request.update({
+                where:{
+                    guideline_id: parseInt(body?.id),
+                    id: parseInt(body?.id_metadata)
+                },
+                data:{
+                    description : body?.description,
+                    estimated_time : body?.estimated_time,
+                    expected_outputs : body?.expected_outputs,
+                    human_resources : body?.human_resources,
+                    input_types : body?.input_types,
+                    integrates_gender : body?.integrates_gender,
+                    is_tested_online : body?.is_tested_online,
+                    key_references : body?.key_references,
+                    limitations : body?.limitations,
+                    methods : body?.methods,
+                    participants : body?.participants,
+                    strengths : body?.strengths,
+                    target_scale : body?.target_scale
+                }
+                }
+            );
+
+            //edit importance level
+
+            for (const item in body.A) {
+                if (item == "Design") {
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 9,
+                            stage_id: 9
+                        },
+                        data:{
+                            importance_level: body?.A[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 7,
+                            stage_id: 9
+                        },
+                        data:{
+                            importance_level: body?.R[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 8,
+                            stage_id: 9
+                        },
+                        data:{
+                            importance_level: body?.TS[item].name
+                        }
+                    });
+                }
+                if(item == "Implementation"){
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 9,
+                            stage_id: 10
+                        },
+                        data:{
+                            importance_level: body?.A[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 7,
+                            stage_id: 10
+                        },
+                        data:{
+                            importance_level: body?.R[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 8,
+                            stage_id: 10
+                        },
+                        data:{
+                            importance_level: body?.TS[item].name
+                        }
+                    });
+                }
+                if (item == "MonitoringandEvaluation") {
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 9,
+                            stage_id: 11
+                        },
+                        data:{
+                            importance_level: body?.A[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 7,
+                            stage_id: 11
+                        },
+                        data:{
+                            importance_level: body?.R[item].name
+                        }
+                    });
+                    await this.prisma.sp_importance_levels_request.update({
+                        where:{
+                            guideline_id: parseInt(body?.id),
+                            category_id: parseInt(body?.category_id),
+                            role_id: 8,
+                            stage_id: 11
+                        },
+                        data:{
+                            importance_level: body?.TS[item].name
+                        }
+                    });
+                }
+                
+                
+            }
+
+            //edit resources
+            for(let i = 0; i < body.resources.length; i++){
+                await this.prisma.sp_resources_guidelines_request.update({
+                    where:{
+                        id: parseInt(body.resources[i].id),
+                        guideline_id: parseInt(body.resources[i].guideline_id)
+                    },
+                    data:{
+                        name: body.resources[i].name,
+                        source: body.resources[i].link,
+                        type: body.resources[i].type.name
+                    }
+                });
+            }
+        }
+
+        return {message: "Guideline updated successfully"};
+    } catch (error) {
+        throw error;
+    }
+}
+
+  async deleteGuidelineRequest(app_id, id):Promise<any>{
+    try {
+      if(app_id != null && id != null){
+          
+          
+          await this.prisma.sp_guidelines_request.update({
+              where:{
+                  id: parseInt(id),
+                  app_id: parseInt(app_id)
+              },
+              data:{
+                  active: false
+              }
+          });
+      }
+      return {message: "Guideline updated successfully"};
+  } catch (error) {
+      throw error;
+  }
   }
 }

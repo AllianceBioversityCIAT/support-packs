@@ -87,9 +87,9 @@ export class FormRequestComponent implements OnInit{
     is_tested_online :  '',
     key_references : '',
     category_id : '',
-    A : [],
-    R : [],
-    TS : [],
+    A : {},
+    R : {},
+    TS : {},
     resource : [
       {
       name : '',
@@ -128,26 +128,30 @@ export class FormRequestComponent implements OnInit{
     });
   }
 
-  postRequestTool(){
-    this.loadingSave = true;
-    this.selectRecharseDesing.stage_id = 9;
-    this.selectRecharseImplementation.stage_id = 10;
-    this.selectRecharseMonitoring.stage_id = 11;
-    this.selectacaidesing.stage_id = 9;
-    this.selectacaiimplementation.stage_id = 10;
-    this.selectacaimonitoring.stage_id = 11;
-    this.selecttsdesing.stage_id = 9;
-    this.selecttsimplementation.stage_id = 10;
-    this.selecttsmonitoring.stage_id = 11;
-    this.requestToolNew.R.push(this.selectRecharseDesing, this.selectRecharseImplementation, this.selectRecharseMonitoring);
-    this.requestToolNew.A.push(this.selectacaidesing, this.selectacaiimplementation, this.selectacaimonitoring);
-    this.requestToolNew.TS.push(this.selecttsdesing, this.selecttsimplementation, this.selecttsmonitoring);
+  async postRequestTool(){
+    this.loadingSave = true;    
+    
     this.requestToolNew.resource.map((data:any)=>{
       data.type = data.type.name;
     })
     this.requestToolNew.category_id = this.selectCategory.id;
-    console.log(this.requestToolNew);
+    
+    this.requestToolNew.R['desigh'] = this.selectRecharseDesing;
+    this.requestToolNew.R['implementation'] = this.selectRecharseImplementation;
+    this.requestToolNew.R['monitoring'] = this.selectRecharseMonitoring;
 
+    this.requestToolNew.A['desigh'] = this.selectacaidesing;
+    this.requestToolNew.A['implementation'] = this.selectacaiimplementation;
+    this.requestToolNew.A['monitoring'] = this.selectacaimonitoring;
+
+    this.requestToolNew.TS['desigh'] = this.selecttsdesing;
+    this.requestToolNew.TS['implementation'] = this.selecttsimplementation;
+    this.requestToolNew.TS['monitoring'] = this.selecttsmonitoring;
+  
+    console.log(this.requestToolNew);
+    
+
+    
     this._servicesLearningZoneService.createRequestNewTool(this.requestToolNew).subscribe((data)=>{
       console.log(data);
       
@@ -196,5 +200,9 @@ export class FormRequestComponent implements OnInit{
     this.step2 = false;
     this.loadingSave = false;
     });
+  }
+
+  organizeData(){
+
   }
 }

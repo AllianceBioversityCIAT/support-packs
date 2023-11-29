@@ -106,4 +106,44 @@ export class SpGuidelinesController {
   })
     }
   }
+
+  @Get('/editPanelDesactive/:app_id')
+  async getAllToolsEditPanelDesactive(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.getGuidelineByAppDesactive(app_id);
+      
+      
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+  @Post('/createToolNew/:app_id')
+  async createToolNew(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id,) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.createToolNew(app_id,body);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
 }

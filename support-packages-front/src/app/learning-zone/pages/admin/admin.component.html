@@ -41,9 +41,7 @@ style="
         </div>
 
         <div class="edit-tool" *ngIf="activeItem.id == 0">
-            <div class="title-edit">
-                <h2>Edit Tool</h2>
-            </div>
+            
             <div class="body-edit">
                 <p-table
         [value]="customers"
@@ -78,7 +76,11 @@ style="
         </div>
 
         <div class="request-tool" *ngIf="activeItem.id == 1">
-            <p>awdw</p>
+            <app-tool-inactive></app-tool-inactive>
+        </div>
+
+        <div class="request-new-tool" *ngIf="activeItem.id == 2">
+            <app-request-tool></app-request-tool>
         </div>
     </div>
 </div>

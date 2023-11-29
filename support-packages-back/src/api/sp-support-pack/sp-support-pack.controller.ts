@@ -121,4 +121,67 @@ export class SpSupportPackController {
   })
     }
   }
+
+  @Get('/editRequest/:app_id')
+  async getAllToolsEditPanel(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spSupportPackService.getAllRequestTools(app_id);
+      
+      
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+
+  @Post('/updateToolRequest/:app_id/:id')
+  async updateTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id) : Promise<any>{
+    try{
+      const result = await this.spSupportPackService.putGuidelineRequest(app_id,id,body);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+  @Post('/denyToolRequest/:app_id/:id')
+  async denyTool(@Req() request: Request, @Res() response: Response, @Param('app_id') app_id, @Param('id') id) : Promise<any>{
+    try{
+      const result = await this.spSupportPackService.deleteGuidelineRequest(app_id,id);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
 }

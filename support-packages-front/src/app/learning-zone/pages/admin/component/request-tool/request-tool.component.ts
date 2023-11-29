@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ServicesLearningZoneService } from 'src/app/learning-zone/services/services-learning-zone.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  selector: 'app-request-tool',
+  templateUrl: './request-tool.component.html',
+  styleUrls: ['./request-tool.component.scss']
 })
-export class AdminComponent implements OnInit{
+export class RequestToolComponent {
   items: any[] | undefined;
 
   activeItem: any | undefined;
@@ -107,32 +105,19 @@ export class AdminComponent implements OnInit{
     password: ''
   }
   error: boolean = false;
-  constructor(private _servicesLearningZoneService:ServicesLearningZoneService, private router: Router) { }
+  showDailogAcepted : boolean = false;
+  showDailogdeny : boolean = false;
+  constructor(private _servicesLearningZoneService:ServicesLearningZoneService) { }
   ngOnInit() {
-    this.items = [
-      
-      {label: 'Tools Active', icon: 'pi pi-fw pi-file-edit', id:0},
-      {label: 'Tools Inactive', icon: 'pi pi-fw pi-file', id:1 },
-      {label: 'Tools Request', icon: 'pi pi-fw pi-share-alt', id:2 },
-      
-  ];
-  this.activeItem = this.items[0];
-  console.log(this.activeItem);
+    
   this.getAllTools();
-  if (this.getlocalStorageToken() != null) {
-    this.dialogLogin = false;
-  }
 }
 
-onActiveItemChange(event: MenuItem) {
-  this.activeItem = event;
-  this.getAllTools();
-}
 
   getAllTools(){
     this.loading = true
     this.customers = [];
-    this._servicesLearningZoneService.getToolsAdmin().subscribe((data)=>{
+    this._servicesLearningZoneService.getToolsAdminRquest().subscribe((data)=>{
       this.customers = data.result;
       console.log(data);
       this.loading = false;
@@ -165,63 +150,43 @@ onActiveItemChange(event: MenuItem) {
      this.informationEdit.category_id = this.selectCategory[0].id;
       this.informationEdit.category_name = this.selectCategory[0].name;
       console.log(this.informationEdit);
-      this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data)=>{
-        console.log(data);
+      this._servicesLearningZoneService.putToolRequest(this.informationEdit).subscribe((data)=>{
+        this.getAllTools();
         this.loadingSave = false;
         this.visible = false;
+        this.step1 = true;
+        this.step2 = false;
       });
   }
 
+  showDialogAcepted(customer:any){
+    this.showDailogAcepted = true;
+    this.informationEdit = customer;
+  }
 
-  desactive(){
+
+  aceptedRequest(){
     this.loadingSave = true;
-    this._servicesLearningZoneService.activeOrDesactive(this.informationEdit, 0).subscribe((data)=>{
+    this._servicesLearningZoneService.aceptedRequest(this.informationEdit).subscribe((data)=>{
       console.log(data);
       this.getAllTools();
-      this.confirmDesactive = false;
+      this.showDailogAcepted = false;
       this.loadingSave = false;
     });
   }
 
-  showDialogDesactive(customer:any){
-    this.confirmDesactive = true;
+  showDenyRequest(customer:any){
+    this.showDailogdeny = true;
     this.informationEdit = customer;
   }
 
-  redirecto(){
-    this.router.navigate(['aiccra/learning-zone']);
-    
-    localStorage.clear();
-  }
-
-  login(){
-
-    try {
-      
-      this._servicesLearningZoneService.login(this.loginForm).subscribe((data)=>{
-        if (data.result == 'user not found' || data.result == 'Invalid password') {
-          this.error = true;
-        }else{
-          this.localStorageToken(data.result.token);
-          this.dialogLogin = false;
-          console.log(data);
-          this.error = false;
-        }
-        
-      });
-      
-    } catch (error) {
-        console.log('daw');
-        
-    }
-    
-  }
-
-  localStorageToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getlocalStorageToken() {
-    return localStorage.getItem('token');
+  denyRequest(){
+    this.loadingSave = true;
+    this._servicesLearningZoneService.denyToolRequest(this.informationEdit).subscribe((data)=>{
+      console.log(data);
+      this.getAllTools();
+      this.showDailogdeny = false;
+      this.loadingSave = false;
+    });
   }
 }

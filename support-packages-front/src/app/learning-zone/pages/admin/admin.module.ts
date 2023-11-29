@@ -13,9 +13,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToolInactiveComponent } from './component/tool-inactive/tool-inactive.component';
+import { RequestToolComponent } from './component/request-tool/request-tool.component';
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    ToolInactiveComponent,
+    RequestToolComponent
   ],
   imports: [
     CommonModule,

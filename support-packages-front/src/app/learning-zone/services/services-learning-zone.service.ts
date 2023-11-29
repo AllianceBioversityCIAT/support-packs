@@ -42,12 +42,24 @@ export class ServicesLearningZoneService {
     return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/editPanel/${this.app_id}`).pipe();
   }
 
+  getToolsAdminRquest(){
+    return this.http.get<any>(`${this.urlApi}/support/editRequest/${this.app_id}`).pipe();
+  }
+
+  getToolsAdminDesactive(){
+    return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/editPanelDesactive/${this.app_id}`).pipe();
+  }
+
   postregisterdowload(data:any){
     return this.http.post<any>(`${this.urlApi}/support/registerDowloadTool`,data).pipe();
   }
 
   putTool(data:any){
     return this.http.post<any>(`${this.urlApi}/guidelines/sp-guidelines/updateTool/${this.app_id}/${data.id}`,data).pipe();
+  }
+
+  putToolRequest(data:any){
+    return this.http.post<any>(`${this.urlApi}/support/updateToolRequest/${this.app_id}/${data.id}`,data).pipe();
   }
 
   activeOrDesactive(data:any, active:any){
@@ -60,5 +72,13 @@ export class ServicesLearningZoneService {
 
   createRequestNewTool(data:any){
     return this.http.post<any>(`${this.urlApi}/support/createToolNewRequest/${this.app_id}`,data).pipe();
+  }
+
+  aceptedRequest(data:any){
+    return this.http.post<any>(`${this.urlApi}/guidelines/sp-guidelines/createToolNew/${this.app_id}`,data).pipe();
+  }
+
+  denyToolRequest(data:any){
+    return this.http.post<any>(`${this.urlApi}/support/denyToolRequest/${this.app_id}/${data.id}`,data).pipe();
   }
 }
