@@ -1,14 +1,13 @@
 <div class="melsp">
-    <div class="menu-melsp">
-        <p-menubar [model]="items"></p-menubar>
+  <div class="menu-melsp">
+    <p-menubar [model]="items"></p-menubar>
+  </div>
+
+  <div class="melsp__content">
+    <div class="melsp__images">
+      <img src="../../assets/cgiar-mel.png" alt="" class="melsp__images--logo" />
     </div>
-    <div class="images">
-        <img src="../../assets/cgiar_logo.png" alt="" style="width: 120px; height: 140px;">
-        <div style="display: flex; align-items: center; justify-content: center;">
-            <img src="../../assets/MEL_COP_Logo.png" alt="" style="width: 320px; height: 140px; ">
-        </div>
-    </div>
-    <div class="results-container">
-        <router-outlet></router-outlet>
-    </div>
+
+    <router-outlet></router-outlet>
+  </div>
 </div>

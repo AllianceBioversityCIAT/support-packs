@@ -74,7 +74,6 @@ export class ToolsResultsComponent implements OnInit{
   }
 
   newSource(){
-    this._servicesVariables.back = false;
     this._servicesVariables.continue = false;
     this._servicesVariables.termsConditions = false;
     this.selectRole = undefined; this.selectWhat = undefined; this.selectWhereAreYou = undefined;

@@ -11,18 +11,16 @@ import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.modu
 import { HomeMelComponent } from './home-mel.component';
 
 @NgModule({
-  declarations: [
-    HomeMelComponent
-  ],
+  declarations: [HomeMelComponent],
   imports: [
     CommonModule,
     HomeMelRoutingModule,
-    DropdownModule, 
+    DropdownModule,
     FormsModule,
     TableModule,
-    ButtonModule, 
+    ButtonModule,
     TermsConditionsModule,
-    PdfGenerateModule
-  ]
+    PdfGenerateModule,
+  ],
 })
-export class HomeMelModule { }
+export class HomeMelModule {}

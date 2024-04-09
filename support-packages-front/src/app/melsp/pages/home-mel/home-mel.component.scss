@@ -1,155 +1,114 @@
-.body-mel{
-    
-    width: 100%;
-    height: 100%;
-    padding-left:40px;
-    padding-right: 40px;
+.home {
+  &__description {
     display: flex;
     flex-direction: column;
-}
+    gap: 1.25rem;
+    text-wrap: pretty;
+  }
 
-.content{
-    margin-top: 20px;
+  &__filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
     width: 100%;
-    height: 100%;
-   
+    margin-bottom: 30px;
+    margin-top: 40px;
+
+    &--dropdown {
+      width: 100%;
+      background-color: #d47979;
+      color: white;
+    }
+  }
+
+  &__notFilter {
     display: flex;
     flex-direction: column;
-    .filters{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 40px;
-        height: 10%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 350px;
+    text-align: center;
+    padding: 1rem;
+    background-color: #f1f1f1;
+
+    &--images {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    &--title {
+      font-size: 1.5rem;
+    }
+
+    &--subtitle {
+      font-size: 1rem;
+      font-style: italic;
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    &--description {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__table {
+    &__info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      &--point {
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        margin-right: 10px;
+      }
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+
+      @media (max-width: 425px) {
+        flex-direction: column-reverse;
         width: 100%;
-        margin-bottom: 30px;
-        margin-top: 40px;
-        .who-are{
-            display: flex;
-            flex-direction: column;
-            .flex{
-                display: flex;
-                flex-direction: row;
-                align-items: center; 
-                
-            }
-        }
-    
-        .where-are{
-            display: flex;
-            flex-direction: column;
-            .flex{
-                display: flex;
-                flex-direction: row;
-                align-items: center; 
-                
-            }
-        }
-    
-        .what{
-            display: flex;
-            flex-direction: column;
-            .flex{
-                display: flex;
-                flex-direction: row;
-                align-items: center; 
-                
-            }
-        
-        }
+        gap: 1rem;
+      }
     }
-
-    .not-filter{
-        width: 100%;
-        min-height: 350px;
-        background-color: #f1f1f1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .img{
-            opacity: 0.5; 
-            margin-top: 10px; 
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            
-        }
-    }
-    .filter-on{
-        padding: 30px;
-        
-        .important{
-            background-color: #f1f1f1;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            margin-top: 1px;
-            .color-i{
-                background-color: red;
-                width: 10px;
-                height: 10px;
-                border-radius: 100px; 
-                margin-right: 10px;
-            }
-            .numOne{
-                background-color: #c0504d;
-            }
-            
-            .numTwo{
-                background-color: #c0504d;
-            }
-            .numTre{
-                background-color: #e6b8b7;
-            }
-            
-            .numFour{
-                background-color: #d6d6d6;
-            }
-        }
-    }
+  }
 }
 
-:host ::ng-deep .p-dropdown-items-wrapper{
- max-width: 340px;
+:host ::ng-deep .p-dropdown .p-dropdown-label.p-placeholder {
+  color: white;
 }
 
-:host ::ng-deep  .p-dropdown .p-dropdown-label.p-placeholder{
-    color: white;
+:host ::ng-deep .p-dropdown-trigger {
+  color: white;
 }
 
-:host ::ng-deep  .p-inputtext{
-    color: white;
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus {
+  border-color: white;
 }
 
-.dowloand-tools{
-    padding: 30px;
-    .important{
-        background-color: #f1f1f1;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1px;
-        .color-i{
-            background-color: red;
-            width: 10px;
-            height: 10px;
-            border-radius: 100px; 
-            margin-right: 10px;
-        }
-        .numOne{
-            background-color: #c0504d;
-        }
-        
-        .numTwo{
-            background-color: #c0504d;
-        }
-        .numTre{
-            background-color: #e6b8b7;
-        }
-        
-        .numFour{
-            background-color: #d6d6d6;
-        }
-    }
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus .p-dropdown-trigger {
+  color: white;
 }

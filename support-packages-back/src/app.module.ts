@@ -8,15 +8,20 @@ import { SpCategoriesModule } from './api/sp-categories/sp-categories.module';
 import { SpSupportPackModule } from './api/sp-support-pack/sp-support-pack.module';
 import { SpGuidelinesModule } from './api/sp-guidelines/sp-guidelines.module';
 import { AuthModule } from './api/authentication/auth.module';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [RouterModule.register(MainRoutes),
-    SpUsersModule, 
-    SpRolesModule, 
-    SpAppsModule, 
-    SpCategoriesModule, 
-    SpSupportPackModule, SpGuidelinesModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot(),
+    RouterModule.register(MainRoutes),
+    SpUsersModule,
+    SpRolesModule,
+    SpAppsModule,
+    SpCategoriesModule,
+    SpSupportPackModule,
+    SpGuidelinesModule,
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })

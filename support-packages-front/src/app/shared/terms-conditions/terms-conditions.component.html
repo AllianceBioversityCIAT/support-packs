@@ -1,72 +1,136 @@
-<div class="term-condition">
-    <div class="term-title">
-        <h2>Terms and conditions</h2>
-    </div>
-    <div class="content-term"  *ngIf="continuoClcik == false">
-        <p>
-            To continue downloading your files, please first fill in your email and then some basic information. 
-            This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes. 
-            Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data 
-            to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. 
-            However, you may click on Skip to download links directly.
+<div class="terms">
+  <h2 class="terms--title">Terms and conditions</h2>
+
+  <p class="terms--description">
+    To continue downloading your files, please first fill in your email and then some basic
+    information. This information will be used by AICCRA solely for impact assessment and CGIAR and
+    Center level reporting purposes. Filling it in will greatly help us to track the use of the
+    portal and keep improving it. This portal provides data to a very large community of users and
+    improving its usability and efficiency is a key aspect we work on continuously. However, you may
+    click on <span class="terms--skip" (click)="skipSection()">Skip</span> to download links
+    directly.
+  </p>
+
+  <div class="terms__input">
+    <input
+      pInputText
+      type="email"
+      [(ngModel)]="email"
+      placeholder="Email"
+      [ngStyle]="{ 'border-color': emailError ? 'red' : '' }"
+      [email]="true"
+      [disabled]="_servicesVariables.continue" />
+
+    <p *ngIf="emailError" style="color: red">Please enter a valid email address</p>
+  </div>
+
+  <form class="terms__form" *ngIf="_servicesVariables.continue" [formGroup]="formData">
+    <div class="terms__form--row">
+      <div class="terms__form--item">
+        <p>First name:</p>
+
+        <input pInputText type="text" formControlName="first_name" placeholder="First name" />
+
+        <p *ngIf="isValidRequired('first_name')" style="color: red; font-size: 14px">
+          First name is required
         </p>
-        <br>
-        <span class="p-input-icon-center ml-auto" style="width: 100%; display: flex; justify-content: center;">
-            
-            <input pInputText type="text" style="width: 50%; color: black;" [(ngModel)]="forml.email"  
-            placeholder="Email" />
-        </span>
-        <br>
+        <p *ngIf="isValidLength('first_name')" style="color: red; font-size: 14px">
+          First name must be at least 3 characters long
+        </p>
+      </div>
 
-    </div>
-    <div class="form-save-email" *ngIf="continuoClcik == true">
-        <div class="one-form">
-            <div class="colunmOne">
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">First name:</label>
-                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.first_name"  
-                    placeholder="First name" />
-                </div>
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">Institute name:</label>
-                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.institute"  
-                    placeholder="Institute name" />
-                </div>
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">Region(s) of your research interest:</label>
-                    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" 
-                     [style]="{'width':'100%'}" placeholder="Select Region" optionLabel="name"></p-multiSelect>
-                </div>
-            </div>
-            <div class="columnTwo">
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">Last name:</label>
-                    <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.last_name"  
-                    placeholder="Last name" />
-                </div>
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">Region(s) where your institute is located:</label>
-                    <p-multiSelect [options]="cities" [(ngModel)]="selectedCitiesw"   [style]="{'width':'100%'}" optionLabel="name" placeholder="Select Region"></p-multiSelect>
-                </div>
-                
-            </div>
-        </div>
-        <div class="two-form" >
-            <div class="flex flex-column gap-2 inputs input-two">
-                <label htmlFor="email" class="bold">Intended use of data:</label>
-                <textarea rows="5" style="width: 100%;color: black;" [(ngModel)]="forml.intended" pInputTextarea></textarea>
-            
-            </div>
-        </div>
-        
+      <div class="terms__form--item">
+        <p>Last name:</p>
 
+        <input pInputText type="text" formControlName="last_name" placeholder="Last name" />
+
+        <p *ngIf="isValidRequired('last_name')" style="color: red; font-size: 14px">
+          Last name is required
+        </p>
+        <p *ngIf="isValidLength('last_name')" style="color: red; font-size: 14px">
+          Last name must be at least 3 characters long
+        </p>
+      </div>
     </div>
-    <div class="content-finish">
-        <button pButton type="button" (click)=" back()"  label="Back" class="p-button" style="float: left;"></button>
-        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="skip()" label="Skip" class="p-button" style="float: left; margin-left: 10px;"></button>
-        <button *ngIf="continuoClcik == false" pButton type="button"  (click)="continuoClcik = true" label="Continue" class="p-button" style="float: right;" [disabled]="forml.email == ''"></button>
-        <button *ngIf="continuoClcik == true" pButton type="button"  (click)="saveEmail()" label="Continue" class="p-button" style="float: right;" ></button>
-        
+
+    <div class="terms__form--item">
+      <p>Institute name:</p>
+
+      <input pInputText type="text" formControlName="institute" placeholder="Institute name" />
+
+      <p *ngIf="isValidRequired('institute')" style="color: red; font-size: 14px">
+        Institute name is required
+      </p>
+      <p *ngIf="isValidLength('institute')" style="color: red; font-size: 14px">
+        Institute name must be at least 3 characters long
+      </p>
     </div>
-    
+
+    <div class="terms__form--row">
+      <div class="terms__form--item">
+        <p>Region(s) of your research interest:</p>
+
+        <p-multiSelect
+          [options]="cities"
+          formControlName="interestRegions"
+          [style]="{ width: '100%' }"
+          placeholder="Select Region"
+          optionLabel="name"></p-multiSelect>
+
+        <p *ngIf="isValidRequired('interestRegions')" style="color: red; font-size: 14px">
+          Region(s) of your research interest is required
+        </p>
+      </div>
+
+      <div class="terms__form--item">
+        <p>Region(s) where your institute is located:</p>
+
+        <p-multiSelect
+          [options]="cities"
+          formControlName="instituteRegions"
+          [style]="{ width: '100%' }"
+          optionLabel="name"
+          placeholder="Select Region"></p-multiSelect>
+
+        <p *ngIf="isValidRequired('instituteRegions')" style="color: red; font-size: 14px">
+          Region(s) where your institute is located is required
+        </p>
+      </div>
+    </div>
+
+    <div class="terms__form--item">
+      <p>Intended use of data:</p>
+
+      <textarea rows="5" formControlName="intended" pInputTextarea></textarea>
+
+      <p *ngIf="isValidRequired('intended')" style="color: red; font-size: 14px">
+        Intended use of data is required
+      </p>
+      <p *ngIf="isValidLength('intended')" style="color: red; font-size: 14px">
+        Intended use of data must be at least 3 characters long
+      </p>
+    </div>
+  </form>
+
+  <div class="terms__buttons">
+    <div class="terms__buttons__back">
+      <button pButton type="button" (click)="goBack()" label="Back" [disabled]="isLoading"></button>
+
+      <p-button
+        *ngIf="!_servicesVariables.continue"
+        severity="secondary"
+        type="button"
+        (click)="skipSection()"
+        label="Skip"></p-button>
+    </div>
+
+    <button
+      pButton
+      type="submit"
+      [icon]="setButtonIcon()"
+      iconPos="right"
+      (click)="nextStep()"
+      [disabled]="isLoading"
+      [label]="isLoading ? 'Loading' : 'Continue'"></button>
+  </div>
 </div>
