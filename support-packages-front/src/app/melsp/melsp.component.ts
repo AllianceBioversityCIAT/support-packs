@@ -1,34 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-melsp',
   templateUrl: './melsp.component.html',
-  styleUrls: ['./melsp.component.scss']
+  styleUrls: ['./melsp.component.scss'],
 })
-export class MelspComponent implements OnInit{
-
-  items:any;
-  constructor() { }
+export class MelspComponent implements OnInit {
+  items: MenuItem[] | undefined;
 
   ngOnInit(): void {
     this.items = [
       {
-          label: 'Home',
-          icon: 'pi pi-fw pi-home',
-          url : 'melsp/home'
-          
+        label: 'Home',
+        icon: PrimeIcons.HOME,
+        routerLink: ['/melsp/home'],
+        routerLinkActiveOptions: {
+          exact: true,
+        },
       },
       {
-          label: 'Overview',
-          icon: 'pi pi-fw pi-file',
-          url: 'melsp/overview'
-         
+        label: 'All resources',
+        icon: PrimeIcons.LIST,
+        routerLink: ['/melsp/overview'],
+        routerLinkActiveOptions: {
+          exact: true,
+        },
       },
       {
-          label: 'Login',
-          icon: 'pi pi-fw pi-user',
-          
-      }
-  ];
+        label: 'Request to upload a resource',
+        icon: PrimeIcons.SEND,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform',
+      },
+    ];
   }
 }
