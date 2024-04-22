@@ -1,36 +1,43 @@
+.overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  overflow: auto;
+  min-height: 400px;
 
-.overview{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    
-}
-
-:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
-    text-align: center;
-}
-
-
-
-.veryImportant{
-    background-color: #c0504d;
+  &__title {
+    font-size: 24px;
     font-weight: bold;
-    color: white;
+    margin-bottom: 20px;
+  }
+
+  &__table {
+    width: 100% !important;
+  }
 }
 
-.important{
-    background-color: #da9694;
-    font-weight: bold;
-    color: white;
-}
-.useful{
-    background-color: #e6b8b7;
-    font-weight: bold;
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
 }
 
-.optional{
-    background-color: #d6d6d6;
-    font-weight: bold;
+.veryImportant {
+  background-color: #c0504d;
+  font-weight: bold;
+  color: white;
+}
+
+.important {
+  background-color: #da9694;
+  font-weight: bold;
+  color: white;
+}
+.useful {
+  background-color: #e6b8b7;
+  font-weight: bold;
+}
+
+.optional {
+  background-color: #d6d6d6;
+  font-weight: bold;
 }
