@@ -2,88 +2,182 @@ import { Component, OnInit } from '@angular/core';
 import { ServicedmspService } from '../../services/servicedmsp.service';
 import { ServicesTermsService } from 'src/app/shared/services/services-terms.service';
 
+interface IRole {
+  id: number;
+  name: string;
+  acronym: string;
+  app_id: number;
+  img: string;
+  selected: boolean;
+}
+
+interface IWhen {
+  id: number;
+  name: string;
+  app_id: number;
+  description: string;
+  selected: boolean;
+}
+
+interface IWhat {
+  id: number;
+  name: string;
+  app_id: number;
+  selected: boolean;
+}
+
+interface IProduct {
+  active: number;
+  app_id: number;
+  category_id: number;
+  code: string;
+  contact: string;
+  createdAt: string;
+  guideline_id: number;
+  id: number;
+  importance_level: string;
+  name: string;
+  registered_by: string;
+  role_id: number;
+  source: string;
+  stage_id: number;
+  type: string;
+  updatedAt: string;
+}
+
 @Component({
   selector: 'app-tools-results',
   templateUrl: './tools-results.component.html',
-  styleUrls: ['./tools-results.component.scss']
+  styleUrls: ['./tools-results.component.scss'],
 })
-export class ToolsResultsComponent implements OnInit{
-
-  products!: any[];
+export class ToolsResultsComponent implements OnInit {
+  productsData: IProduct[] = [];
 
   selectedProducts!: any;
 
-  backInfo!: any[];
+  backInfo: any[] | null = [];
 
-  roles: any[] | undefined;
-  selectRole: any | undefined;
+  rolesData: IRole[] = [];
+  selectedRole: IRole | null = null;
 
-  whereAreYou: any[] | undefined;
-  selectWhereAreYou: any | undefined;
+  whenData: IWhen[] = [];
+  selectedWhen: IWhen | null = null;
 
-  what: any[] | undefined;
-  selectWhat: any | undefined;
+  whatData: IWhat[] = [];
+  selectedWhat: IWhat | null = null;
 
-  rol = null;
-
-  constructor(private _servicesDmspService:ServicedmspService, public _servicesVariables : ServicesTermsService) { }
+  constructor(
+    private _servicesDmspService: ServicedmspService,
+    public _servicesVariables: ServicesTermsService,
+  ) {}
 
   ngOnInit(): void {
     this.getFilters();
     this.getTools();
   }
 
-  getFilters(){
-    this._servicesDmspService.getSPFilters().subscribe((data)=>{
+  getFilters() {
+    this._servicesDmspService.getSPFilters().subscribe((data) => {
       console.log(data);
 
-      this.what = data.result.categories;
-      this.roles = data.result.roles;
-      this.whereAreYou = data.result.stage;
+      this.whatData = data.result.categories;
+      this.rolesData = data.result.roles;
+      this.whenData = data.result.stage;
 
-      this.roles.map((data:any)=>{
-        data.img = '../../../../assets/roles/'+data.id+'.png';
-      });
-      this.what.map((data:any)=>{
+      this.rolesData.forEach((data: any) => {
+        data.img = `../../../../assets/roles/${data.id}.png`;
         data.selected = true;
-      })
+      });
+
+      this.whatData.forEach((data: any) => {
+        data.selected = true;
+      });
+
+      this.whenData.forEach((data: any) => {
+        data.selected = true;
+      });
     });
   }
 
-  getTools(){
-    this._servicesDmspService.getAllTools().subscribe((data)=>{
+  getTools() {
+    this._servicesDmspService.getAllTools().subscribe((data) => {
       console.log('DD', data);
-      this.products = data.result;
+      this.productsData = data.result;
       this.backInfo = data.result;
-      
     });
   }
-  filterInformation(){
-    this.products = this.backInfo;
-    if(this.selectRole != undefined && this.selectWhereAreYou != undefined && this.selectWhat != undefined){
-      this.products = this.products.filter((data)=>{
-        return data.category_id == this.selectWhat.id && data.role_id == this.selectRole.id && data.stage_id == this.selectWhereAreYou.id ;
+
+  filterInformation() {
+    this.productsData = this.backInfo;
+
+    if (this.selectedRole && this.selectedWhen && this.selectedWhat) {
+      this.productsData = this.productsData.filter((data) => {
+        return (
+          data.category_id === this.selectedWhat.id &&
+          data.role_id === this.selectedRole.id &&
+          data.stage_id === this.selectedWhen.id
+        );
       });
     }
-    console.log(this.products);
-    
   }
 
-  termsAndConditions(){
+  getImportanceLevelColor(importance: string) {
+    switch (importance) {
+      case 'Very important':
+        return '#c0504d';
+      case 'Important':
+        return '#cc7876';
+      case 'Useful':
+        return '#e6b8b7';
+      case 'Optional':
+        return '#d6d6d6';
+      default:
+        return 'Low';
+    }
+  }
+
+  termsAndConditions() {
     this._servicesVariables.termsConditions = true;
   }
 
-  newSource(){
+  initNewSearch() {
     this._servicesVariables.continue = false;
     this._servicesVariables.termsConditions = false;
-    this.selectRole = undefined; this.selectWhat = undefined; this.selectWhereAreYou = undefined;
-    this.selectedProducts = []
+    this.selectedRole = null;
+    this.selectedWhat = null;
+    this.selectedWhen = null;
+    this.selectedProducts = [];
+    this.whatData.forEach((data: any) => {
+      data.selected = true;
+    });
+    this.whenData.forEach((data: any) => {
+      data.selected = true;
+    });
+    this.rolesData.forEach((data: any) => {
+      data.selected = true;
+    });
+    window.scrollTo(0, 0);
   }
 
-  changesItemStus(item){
-    this.what.map((data)=>{
-      data.selected = false;
-    })
+  changesItemStatus(item, type) {
+    if (type === 'role') {
+      this.rolesData.map((data) => {
+        data.selected = false;
+      });
+    }
+
+    if (type === 'when') {
+      this.whenData.map((data) => {
+        data.selected = false;
+      });
+    }
+
+    if (type === 'what') {
+      this.whatData.map((data) => {
+        data.selected = false;
+      });
+    }
+
     item.selected = true;
   }
 }
