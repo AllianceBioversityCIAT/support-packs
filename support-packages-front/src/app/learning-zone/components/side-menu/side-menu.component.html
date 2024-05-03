@@ -1,93 +1,129 @@
-<div class="menu-side">
-    <div class="top">
-        <div class="logo-container">
-            <!-- <img src="./../../../assets/images/AICCRA-logo.png" alt=""> -->
-            <i class="icon-searching-files"></i>
-        </div>
-    </div>
-    
-    <div class="actions">
-        <div class="aiccra-learning-zone">
-            <button pButton (click)="onClicked(0)"  label="AICCRA Learning Zone" icon="pi pi-home" class="button-menu" [ngClass]="{'selected':menu[0]?.selected}" [routerLink]="['/aiccra/learning-zone']"></button>
-            
-        </div>
-        <div class="submission-form">
-            <button pButton (click)="onClicked(1)"  label="Submission Form" icon="pi pi-file" class="button-menu" [ngClass]="{'selected':menu[1]?.selected}" [routerLink]="['/aiccra/form-request']" ></button>
-                </div>
-        <div class="faq">
-            <button pButton  (click)="onClicked(2)" label="FAQ" icon="pi pi-question-circle" class="button-menu" [ngClass]="{'selected':menu[2]?.selected}"  [routerLink]="['/aiccra/FAQ']"></button>
-            
-        </div>
-        <div class="manage">
-            <button pButton (click)="onClicked(3)" label="Manage Tool" icon="pi pi-user-edit" class="button-menu" [ngClass]="{'selected':menu[3]?.selected}" [routerLink]="['/aiccra/manage-tool']" ></button>
-        </div>
+<div class="sideMenu">
+  <div class="sideMenu__imgContainer">
+    <img src="../../../../assets/svg/file_searching.svg" alt="SP Logo" width="65%" />
+  </div>
 
-        <div class="manage">
-            <button pButton  label="Overview" icon="pi pi-table" class="button-menu"   (click)="showDialog()" ></button>
-        </div>
-    </div>
-   
-    
+  <div class="sideMenu__buttons">
+    <button
+      pButton
+      *ngFor="let sideLink of this.sidebarLinks"
+      [label]="sideLink.name"
+      [routerLink]="[sideLink.url]"
+      routerLinkActive="selected"
+      [icon]="sideLink.icon"
+      class="sideMenu__buttons--item"
+      (click)="this._servicesVariables.resetValues()"></button>
+
+    <button
+      pButton
+      label="Overview"
+      icon="pi pi-table"
+      class="sideMenu__buttons--item"
+      (click)="showDialog()"></button>
+  </div>
 </div>
 
+<p-menubar [model]="menuItems" class="topMenu" [style]="{ width: '100%' }"></p-menubar>
 
-<p-dialog header="Overview" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
-    <div class="overview">
-       
-        <div class="overviewBody">
-            <p-table #dt2 [value]="sales" [tableStyle]="{'min-width': '50rem'}" [loading]="loading"  [globalFilterFields]="['name','cate_name']">
-                <ng-template pTemplate="caption" >
-                    <div class="flex">
-                        
-                        <span class="p-input-icon-left ml-auto">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" 
-                            placeholder="Search Tool" />
-                        </span>
-                    </div>
-                    
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th colspan="3" style="border: 1px solid black; border-width: 0 1px 0 1px;">Tools</th>
-                        <th colspan="3" style="border: 1px solid black; border-width: 0 0px 0 0px;">Design</th>
-                        <th colspan="3" style="border: 1px solid black; border-width: 0 1px 0 1px;">Implementation</th>
-                        <th colspan="3" style="border: 1px solid black; border-width: 0 1px 0 0px;">Monitoring and Evaluation</th>
-                        </tr>
-                    <tr>
-                        <th style="border: 1px solid black; border-width: 0 0px 0 1px;">ID</th>
-                        <th>Name</th>
-                        <th style="border: 1px solid black; border-width: 0 1px 0 0px;">Category</th>
-                        <th>R</th>
-                        <th>TS</th>
-                        <th style="border: 1px solid black; border-width: 0 1px 0 0px;">A</th>
-                        <th>R</th>
-                        <th>TS</th>
-                        <th style="border: 1px solid black; border-width: 0 1px 0 0px;">A</th>
-                        <th>R</th>
-                        <th>TS</th>
-                        <th style="border: 1px solid black; border-width: 0 1px 0 0px;">A</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-sale let-cc>
-                    <tr>
-                        <td>{{sale.id}}</td>
-                        <td>{{sale.name}}</td>
-                        <td>{{sale.cate_name}}</td>
-                        <td class="{{getImportants('R', 'Design', sale.resources, sale.id).styleColor}}">{{getImportants('R', 'Design', sale.resources, sale.id).important}}</td>
-                        <td  class="{{getImportants('TS', 'Design', sale.resources, sale.id).styleColor}}">{{getImportants('TS', 'Design', sale.resources, sale.id).important }}</td>
-                        <td class="{{getImportants('A', 'Design', sale.resources, sale.id).styleColor}}">{{getImportants('A', 'Design', sale.resources, sale.id).important }}</td>
-                        <td  class="{{getImportants('R', 'Implementation', sale.resources, sale.id).styleColor}}">{{getImportants('R', 'Implementation', sale.resources, sale.id).important }}</td>
-                        <td class="{{getImportants('TS', 'Implementation', sale.resources, sale.id).styleColor}}">{{getImportants('TS', 'Implementation', sale.resources, sale.id).important }}</td>
-                        <td class="{{getImportants('A', 'Implementation', sale.resources, sale.id).styleColor}}">{{getImportants('A', 'Implementation', sale.resources, sale.id).important }}</td>
-                        <td  class="{{getImportants('R', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor}}">{{getImportants('R', "Monitoring and Evaluation", sale.resources, sale.id).important }}</td>
-                        <td class="{{getImportants('TS', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor}}">{{getImportants('TS', "Monitoring and Evaluation", sale.resources, sale.id).important }}</td>
-                        <td class="{{getImportants('A', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor}}">{{getImportants('A', "Monitoring and Evaluation", sale.resources, sale.id).important }}</td>
-                        
-                    </tr>
-                </ng-template>
-                
-            </p-table>
-        </div>
+<p-dialog
+  header="Overview"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '70vw' }"
+  [draggable]="false"
+  [resizable]="false">
+  <div class="overview">
+    <div class="overviewBody">
+      <p-table
+        #dt2
+        [value]="toolsData"
+        styleClass="p-datatable-sm overview__table p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '65vw' }"
+        [loading]="loading"
+        [globalFilterFields]="['id', 'name', 'cate_name']">
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                placeholder="Search Tool" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="2" id="empty__space"></th>
+            <th colspan="3" *ngFor="let header of overviewFirstRow" [id]="header.id">
+              {{ header.name }}
+            </th>
+          </tr>
+          <tr>
+            <th *ngFor="let header of overviewSecondRow" [id]="header.id">
+              {{ header.name }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale let-cc>
+          <tr>
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.name }}</td>
+            <td class="{{ getImportants('R', 'Design', sale.resources, sale.id).styleColor }}">
+              {{ getImportants('R', 'Design', sale.resources, sale.id).important }}
+            </td>
+            <td class="{{ getImportants('TS', 'Design', sale.resources, sale.id).styleColor }}">
+              {{ getImportants('TS', 'Design', sale.resources, sale.id).important }}
+            </td>
+            <td class="{{ getImportants('A', 'Design', sale.resources, sale.id).styleColor }}">
+              {{ getImportants('A', 'Design', sale.resources, sale.id).important }}
+            </td>
+            <td
+              class="{{
+                getImportants('R', 'Implementation', sale.resources, sale.id).styleColor
+              }}">
+              {{ getImportants('R', 'Implementation', sale.resources, sale.id).important }}
+            </td>
+            <td
+              class="{{
+                getImportants('TS', 'Implementation', sale.resources, sale.id).styleColor
+              }}">
+              {{ getImportants('TS', 'Implementation', sale.resources, sale.id).important }}
+            </td>
+            <td
+              class="{{
+                getImportants('A', 'Implementation', sale.resources, sale.id).styleColor
+              }}">
+              {{ getImportants('A', 'Implementation', sale.resources, sale.id).important }}
+            </td>
+            <td
+              class="{{
+                getImportants('R', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
+              }}">
+              {{
+                getImportants('R', 'Monitoring and Evaluation', sale.resources, sale.id).important
+              }}
+            </td>
+            <td
+              class="{{
+                getImportants('TS', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
+              }}">
+              {{
+                getImportants('TS', 'Monitoring and Evaluation', sale.resources, sale.id).important
+              }}
+            </td>
+            <td
+              class="{{
+                getImportants('A', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
+              }}">
+              {{
+                getImportants('A', 'Monitoring and Evaluation', sale.resources, sale.id).important
+              }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+  </div>
 </p-dialog>

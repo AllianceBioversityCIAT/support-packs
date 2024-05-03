@@ -5,14 +5,14 @@
         <h2 class="filters__item--title">Who are you?</h2>
 
         <ng-container *ngIf="!selectedRole || !selectedWhat || !selectedWhen">
-          <div
+          <button
             *ngFor="let item of this.rolesData"
             class="filters__item--button"
             [ngClass]="{ selected: item?.selected }"
             (click)="selectedRole = item; filterInformation(); changesItemStatus(item, 'role')">
             <img [src]="item.img" [alt]="item.name" class="filters__item--button--image" />
             <p>{{ item.name }}</p>
-          </div>
+          </button>
         </ng-container>
 
         <p-dropdown
@@ -46,7 +46,7 @@
         <div
           class="filters__item--stageButtons"
           *ngIf="!selectedRole || !selectedWhat || !selectedWhen">
-          <div
+          <button
             *ngFor="let item of this.whenData; let i = index"
             class="filters__item--stageButtons--item"
             [ngClass]="{ selected: item?.selected }"
@@ -67,7 +67,7 @@
                 </p>
               </div>
             </div>
-          </div>
+          </button>
         </div>
 
         <div class="where-are" *ngIf="selectedRole && selectedWhat && selectedWhen">

@@ -12,10 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-conditions.module';
 @NgModule({
-  declarations: [
-    HomeLearningComponent
-  ],
+  declarations: [HomeLearningComponent],
   imports: [
     CommonModule,
     HomeLearningRoutingModule,
@@ -27,7 +26,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     InputTextModule,
     PdfGenerateModule,
     InputTextareaModule,
-    MultiSelectModule
-  ]
+    MultiSelectModule,
+    TermsConditionsModule,
+  ],
 })
-export class HomeLearningModule { }
+export class HomeLearningModule {}

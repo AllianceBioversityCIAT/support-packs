@@ -11,12 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { MenubarModule } from 'primeng/menubar';
 @NgModule({
-  declarations: [
-    LearningZoneComponent,
-    SideMenuComponent,
-    
-  ],
+  declarations: [LearningZoneComponent, SideMenuComponent],
   imports: [
     CommonModule,
     LearningZoneRoutingModule,
@@ -25,7 +22,8 @@ import { InputTextModule } from 'primeng/inputtext';
     DialogModule,
     FormsModule,
     TableModule,
-    InputTextModule
-  ]
+    InputTextModule,
+    MenubarModule,
+  ],
 })
-export class LearningZoneModule { }
+export class LearningZoneModule {}

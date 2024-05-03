@@ -98,6 +98,7 @@
         font-size: 1rem;
         font-weight: 400;
         padding: 0 0.7rem;
+        border: none;
         opacity: 0.75;
         gap: 15px;
 
@@ -136,6 +137,9 @@
           margin-bottom: 10px;
           background-color: #1281aa;
           opacity: 0.75;
+          border: none;
+          padding: 0;
+          text-align: start;
           transition: background-color 0.2s;
 
           &.selected {
@@ -252,10 +256,6 @@
     display: none;
   }
 }
-
-// :host ::ng-deep .where-are .p-dropdown .p-dropdown-label.p-placeholder {
-//   color: white;
-// }
 
 :host ::ng-deep .where-are .p-inputtext {
   color: white;

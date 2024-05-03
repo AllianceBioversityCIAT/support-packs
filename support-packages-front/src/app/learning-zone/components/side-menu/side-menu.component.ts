@@ -1,108 +1,200 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import {  Router } from '@angular/router';
+import { MenuItem, PrimeIcons } from 'primeng/api';
+import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+
+interface IResource {
+  id: number;
+  active: number;
+  name: string;
+  code: string;
+  source: string;
+  type: string;
+  guideline_id: number;
+}
+
+interface ITools {
+  id: number;
+  name: string;
+  source: string;
+  contact: string;
+  description: string;
+  target_scale: string;
+  participants: string;
+  methods: string;
+  input_types: string;
+  expected_outputs: string;
+  human_resources: string;
+  estimated_time: string;
+  strengths: string;
+  limitations: string;
+  key_references: string;
+  importance_level: string;
+  role_name: string;
+  cate_name: string;
+  staga_name: string;
+  code: string;
+  id_cat: number;
+  id_rol: number;
+  id_stage: number;
+  resources: IResource[];
+}
 
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.scss']
+  styleUrls: ['./side-menu.component.scss'],
 })
-export class SideMenuComponent implements OnInit{
-  sales:any[] = [];
-  rojo = "red";
+export class SideMenuComponent implements OnInit {
+  toolsData: ITools[] = [];
   loading = true;
-  menu = [
+  visible: boolean = false;
+  menuItems: MenuItem[] | undefined;
+  overviewFirstRow = [
     {
-      name: "AICCRA Learning Zone",
-      selected: false
+      id: 'Design',
+      name: 'Design',
     },
     {
-      name: "AICCRA Learning Zone",
-      selected: false
+      id: 'Implementation',
+      name: 'Implementation',
     },
     {
-      name: "AICCRA Learning Zone",
-      selected: false
+      id: 'Monitoring and Evaluation',
+      name: 'Monitoring and Evaluation',
+    },
+  ];
+  overviewSecondRow = [
+    {
+      id: 'id',
+      name: 'ID',
     },
     {
-      name: "AI",
-      selected: false
-    }
-  ]
-  constructor(private _servicesLearningZoneService:ServicesLearningZoneService, private router : Router) { }
+      id: 'name',
+      name: 'Name',
+    },
+    {
+      id: 'R1',
+      name: 'R',
+    },
+    {
+      id: 'target_scale1',
+      name: 'TS',
+    },
+    {
+      id: 'acronym1',
+      name: 'A',
+    },
+    {
+      id: 'R2',
+      name: 'R',
+    },
+    {
+      id: 'target_scale2',
+      name: 'TS',
+    },
+    {
+      id: 'acronym2',
+      name: 'A',
+    },
+    {
+      id: 'R3',
+      name: 'R',
+    },
+    {
+      id: 'target_scale3',
+      name: 'TS',
+    },
+    {
+      id: 'acronym3',
+      name: 'A',
+    },
+  ];
+  sidebarLinks = [
+    {
+      name: 'AICCRA Learning Zone',
+      url: '/aiccra/learning-zone',
+      icon: PrimeIcons.HOME,
+    },
+    {
+      name: 'Submission Form',
+      url: '/aiccra/form-request',
+      icon: PrimeIcons.FILE,
+    },
+    {
+      name: 'AICCRA Learning Zone',
+      url: '/aiccra/FAQ',
+      icon: PrimeIcons.QUESTION_CIRCLE,
+    },
+    {
+      name: 'Manage Tool',
+      url: '/aiccra/manage-tool',
+      icon: PrimeIcons.USER_EDIT,
+    },
+  ];
+
+  constructor(
+    private _servicesLearningZoneService: ServicesLearningZoneService,
+    public _servicesVariables: ServicesTermsService,
+  ) {}
 
   ngOnInit(): void {
-    this. getInformation();
-    console.log(this.router.url);
-    
-    if(this.router.url === '/aiccra/manage-tool'){
-      this.menu[3].selected = true;
-    }
-    if (this.router.url === '/aiccra/learning-zone') {
-      this.menu[0].selected = true;
-      
-    }
-    if (this.router.url === '/aiccra/FAQ') {
-      this.menu[2].selected = true;
-      
-    }
-
+    this.getInformation();
+    this.menuItems = [
+      {
+        label: 'AICCRA Learning Zone',
+        icon: PrimeIcons.HOME,
+        routerLink: ['/aiccra/learning-zone'],
+      },
+      {
+        label: 'Submission Form',
+        icon: PrimeIcons.FILE,
+        routerLink: ['/aiccra/form-request'],
+      },
+      {
+        label: 'AICCRA Learning Zone',
+        icon: PrimeIcons.QUESTION_CIRCLE,
+        routerLink: ['/aiccra/FAQ'],
+      },
+      {
+        label: 'Manage Tool',
+        icon: PrimeIcons.USER_EDIT,
+        routerLink: ['/aiccra/manage-tool'],
+      },
+    ];
   }
-  visible: boolean = false;
+
   showDialog() {
     this.visible = true;
-}
-ngOnChanges(changes: SimpleChanges) {
-  console.log(changes);
-  
-  // changes.prop contains the old and the new value...
-}
+  }
 
-getInformation(){
-  this._servicesLearningZoneService.getToolOverview().subscribe((data)=>{
-    console.log(data);
-    this.sales = data.result;
-    this.loading = false;
-  });
-}
+  getInformation() {
+    this._servicesLearningZoneService.getToolOverview().subscribe((data) => {
+      this.toolsData = data.result;
+      this.loading = false;
+    });
+  }
 
-getImportants(acronym:string, propolsal:string, data:any, id:any){
- let important = 0; 
- let styleColor = "";
-  let data2 = data.filter((data:any)=>{
-    return data.acronym == acronym && data.name == propolsal ;
-  });
-  if (data2.length > 0) {
-    
-    if (data2[0].importance_level === "Very important") {
-      important = 4;
-      styleColor = 'veryImportant'
-  }
-  if (data2[0].importance_level === "Important") {
-    important =  3
-    styleColor = 'important'
-  }
-  if (data2[0].importance_level == "Useful") {
-    important =  2
-    styleColor = 'useful'
-  }
-  if (data2[0].importance_level == "Optional") {
-    important =  1
-    styleColor = 'optional'
-  }
-  }
-  
+  getImportants(acronym: string, proposal: string, data: any, id: any) {
+    const importanceLevels = {
+      'Very important': { level: 4, style: 'veryImportant' },
+      Important: { level: 3, style: 'important' },
+      Useful: { level: 2, style: 'useful' },
+      Optional: { level: 1, style: 'optional' },
+    };
 
-  return {important, styleColor};
-    
-    
-  
-}
+    const filteredData = data.filter(
+      (item: any) => item.acronym === acronym && item.name === proposal,
+    );
 
-onClicked(number){
-  this.menu.map((data:any)=>{
-    data.selected = false;
-  });
-  this.menu[number].selected = true;
-}
+    if (filteredData.length > 0) {
+      const importanceLevel = filteredData[0].importance_level;
+      if (importanceLevels.hasOwnProperty(importanceLevel)) {
+        const { level, style } = importanceLevels[importanceLevel];
+        return { important: level, styleColor: style };
+      }
+    }
+
+    return { important: 0, styleColor: '' };
+  }
 }

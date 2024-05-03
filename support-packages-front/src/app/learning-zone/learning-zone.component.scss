@@ -1,12 +1,21 @@
-.learning-zone{
-    max-width: 1320px; 
-    display: grid;
-    grid-template-columns: 380px auto;
-    grid-template-rows: 99.7vh;
-    margin: 0 auto;
-    border: 1px solid black;
-}
+.learning-zone {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  min-height: 100vh;
 
-.results-container{
-    overflow-y: scroll;
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__content {
+    padding: 1rem 2rem;
+    overflow-y: auto;
+    max-height: 100vh;
+
+    @media (max-width: 450px) {
+      padding: 1rem;
+    }
+  }
 }

@@ -12,6 +12,15 @@ export class ServicesTermsService {
   continue: boolean = false;
   termsConditions: boolean = false;
 
+  termsAndConditions() {
+    this.termsConditions = true;
+  }
+
+  resetValues() {
+    this.termsConditions = false;
+    this.continue = false;
+  }
+
   postregisterdowload(data: any) {
     return this.http.post<any>(`${this.urlApi}/support/registerDowloadTool`, data).pipe();
   }

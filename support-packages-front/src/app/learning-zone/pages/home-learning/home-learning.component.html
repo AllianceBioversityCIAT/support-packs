@@ -1,277 +1,285 @@
-<div class="home-learn">
-    <div class="title-home-learn">
-        <h1>The AICCRA Learning Zone</h1>
+<div class="homeLearn">
+  <h1 class="homeLearn__title">The AICCRA Learning Zone</h1>
+
+  <div class="homeLearn__description">
+    <p style="font-weight: bold; font-style: italic">
+      Resources that help put climate-smart agriculture into practice in Africa
+    </p>
+    <p>
+      The <b>AICCRA Learning Zone is a convenient one-stop shop for</b> analytical resources - case
+      studies, training guides, articles and videos - that empower farmers, policymakers and
+      communities to make informed decisions in agriculture that work for people, nature and planet.
+    </p>
+    <p>
+      These open-access resources are compiled to promote the broader and deeper adoption of climate
+      information services and climate-smart technologies and practices across Africa. It is a
+      curated database inspired by the approach used successfully by the CGIAR Research Program on
+      Climate Change, Agriculture and Food Security (CCAFS). Visit the
+      <a
+        class="homeLearn__link"
+        href="https://ccafs.cgiar.org/data-management-support-pack"
+        target="_blank"
+        rel="noopener noreferrer">
+        CCAFS Data Management Support Pack.
+      </a>
+    </p>
+    <p>
+      The learning zone aims to help select the resource that is most appropriate to your needs
+      using a step-by-step filter in an easily accessible, single location for your convenience.
+    </p>
+    <p>
+      Collaboration across AICCRA teams means the tailored selection of readily available resources
+      is gathered to meet the needs of AICCRA partners in all the six AICCRA focus countries and
+      across the two regions where we work.
+    </p>
+  </div>
+
+  <div
+    class="homeLearn__content"
+    *ngIf="!this._servicesVariables.termsConditions && !this._servicesVariables.continue">
+    <div class="homeLearn__content__search">
+      <div class="homeLearn__content__search--filters">
+        <div class="homeLearn__content__search--filters--item">
+          <h4>Thematic area</h4>
+
+          <p-dropdown
+            [options]="thematicAreasData"
+            [(ngModel)]="selectedThematicAreas"
+            optionLabel="name"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            filterBy="name"
+            placeholder="Select a Thematic area"
+            (ngModelChange)="filterInformation()">
+          </p-dropdown>
+        </div>
+
+        <div class="homeLearn__content__search--filters--item">
+          <h4>Target user</h4>
+
+          <p-dropdown
+            [options]="targetUserData"
+            [(ngModel)]="selectedTargetUser"
+            optionLabel="name"
+            [style]="{ width: '100%' }"
+            (ngModelChange)="filterInformation()"
+            filterBy="name"
+            placeholder="Select a Target user">
+          </p-dropdown>
+        </div>
+
+        <div class="homeLearn__content__search--filters--item">
+          <h4>Project phase</h4>
+
+          <p-dropdown
+            [options]="projectPhaseData"
+            [(ngModel)]="selectedProjectUser"
+            [style]="{ width: '100%' }"
+            optionLabel="name"
+            filterBy="name"
+            (ngModelChange)="filterInformation()"
+            placeholder="Select a Project phase">
+          </p-dropdown>
+        </div>
+      </div>
     </div>
 
-    <div class="introduction-learn">
-        <p class="bold">Resources that help put climate-smart agriculture into practice in Africa</p>
-        <br>
-        <p>The <span class="bold">AICCRA Learning Zone</span> is a convenient one-stop shop for analytical resources - case studies, 
-            training guides, articles and videos - that empower farmers, policymakers and communities to make 
-            informed decisions in agriculture that work for people, nature and planet.</p>
-        <br>
-        <p>
-            These open-access resources are compiled to promote the broader and deeper adoption of climate 
-            information services and climate-smart technologies and practices across Africa. It is a curated database 
-            inspired by the approach used successfully by the CGIAR Research Program on Climate Change, 
-            Agriculture and Food Security (CCAFS). Visit the <a href="https://ccafs.cgiar.org/data-management-support-pack" target="_blank">CCAFS Data Management Support Pack</a>.
-        </p>
-        <br>
-        <p>
-            The learning zone aims to help select the resource that is most appropriate to your needs using 
-            a step-by-step filter in an easily accessible, single location for your convenience.
-        </p>
-        <br>
-        <p>
-            Collaboration across AICCRA teams means the tailored selection of readily available resources is 
-            gathered to meet the needs of AICCRA partners in all the six AICCRA focus countries and across 
-            the two regions where we work.
-        </p>
+    <div style="padding: 0 2rem">
+      <div
+        class="homeLearn__content__notFilter"
+        *ngIf="!selectedThematicAreas || !selectedTargetUser || !selectedProjectUser">
+        <h3>Please select the 3 option(s) above</h3>
+        <div class="homeLearn__content__notFilter--images">
+          <img
+            src="../../../../assets/icon-1.png"
+            alt="Person icon"
+            [ngStyle]="{ opacity: selectedThematicAreas ? '1' : '0.5' }" />
+          <img
+            src="../../../../assets/icon-2.png"
+            alt="Clock icon"
+            class="checkIcon"
+            [ngStyle]="{ opacity: selectedTargetUser ? '1' : '0.5' }" />
+          <img
+            src="../../../../assets/icon-3.png"
+            alt="Interrogation symbol icon"
+            class="checkIcon"
+            [ngStyle]="{ opacity: selectedProjectUser ? '1' : '0.5' }" />
+        </div>
+      </div>
+
+      <ng-container
+        *ngIf="this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser">
+        <!-- && !this._servicesVariables.continue -->
+        <div class="homeLearn__content__header">
+          <h2 class="homeLearn__content__header--title">Recommended tools</h2>
+          <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
+        </div>
+
+        <p-table [value]="productsData" [(selection)]="selectedProducts" dataKey="code">
+          <ng-template pTemplate="body" let-product let-expanded="expanded">
+            <tr>
+              <td style="width: 80px; height: 80px">
+                <button
+                  type="button"
+                  pButton
+                  pRipple
+                  [pRowToggler]="product"
+                  class="p-button-text p-button-rounded p-button-plain"
+                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+              </td>
+
+              <td>
+                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+              </td>
+
+              <td style="max-width: 455px; min-width: 450px">{{ product.name }}</td>
+
+              <td style="background-color: #f1f1f1; min-width: 180px">
+                <div class="homeLearn__content__table__info">
+                  <div
+                    class="homeLearn__content__table__info--point numOne"
+                    [ngStyle]="{
+                      'background-color': getImportanceLevelColor(product.importance_level)
+                    }"></div>
+
+                  <div>{{ product.importance_level }}</div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+              <td colspan="4">
+                <p class="mb-2">{{ product.description }}</p>
+                <p class="mb-2"><b>Time: </b>{{ product.estimated_time }}</p>
+                <p class="mb-2"><b>Strengths: </b>{{ product.strengths }}</p>
+                <p class="mb-2"><b>Limitations: </b>{{ product.limitations }}</p>
+                <p class="mb-2"><b>Target scale: </b>{{ product.target_scale }}</p>
+                <p class="mb-2"><b>Participants: </b>{{ product.participants }}</p>
+                <p class="mb-2"><b>Methods used: </b>{{ product.methods }}</p>
+                <p class="mb-2">
+                  <b>Types of input data/information: </b>{{ product.input_types }}
+                </p>
+                <p class="mb-2"><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+                <p class="mb-2"><b>Human resources: </b>{{ product.human_resources }}</p>
+                <p class="mb-2"><b>Key reference person: </b>{{ product.key_references }}</p>
+
+                <h2
+                  class="homeLearn__download__content--header--subtitle"
+                  style="margin-top: 1rem; margin-bottom: 0.5rem"
+                  *ngIf="product.resources.length > 0">
+                  Recommended resources
+                </h2>
+
+                <div class="resources-list" *ngIf="product.resources.length > 0">
+                  <div *ngFor="let resource of product.resources" class="resource">
+                    <div class="resource-name">
+                      <i class="pi pi-link"></i>
+                      <a
+                        href="{{ resource.source }}"
+                        target="_blank"
+                        class="d-flex align-items-center">
+                        {{ resource.name }}
+                      </a>
+                    </div>
+                    <div class="resource-type">{{ resource.type }}</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="4">No tools found</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="homeLearn__content__table__buttons">
+          <button
+            pButton
+            label="New search"
+            class="p-button-secondary"
+            (click)="initNewSearch()"
+            width="100%"></button>
+
+          <button
+            pButton
+            *ngIf="selectedProducts?.length > 0"
+            label="Download chosen documents"
+            class="p-button-outlined"
+            icon="pi pi-filter-pi-download"
+            (click)="this._servicesVariables.termsAndConditions()"></button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <app-terms-conditions
+    *ngIf="this._servicesVariables.termsConditions"
+    [app_id]="3"
+    [tools]="selectedProducts"></app-terms-conditions>
+
+  <div
+    *ngIf="!this._servicesVariables.termsConditions && this._servicesVariables.continue"
+    class="homeLearn__download">
+    <div class="homeLearn__download__buttons">
+      <p-button type="button" (onClick)="goBackToTable()" label="Back" size="small"></p-button>
+      <app-pdf-generate
+        [data]="productsData"
+        [app]="3"
+        buttonSize="small"
+        *ngIf="this._servicesVariables.continue"></app-pdf-generate>
     </div>
 
-    <div class="search-support" *ngIf="terms == false ">
-        <div class="filters-packs" *ngIf="resources == false">
-            <div class="filter-title">
-                <h2>Filters:</h2>
-            </div>
-            <div class="filters">
-                <div class="card flex justify-content-center">
-                    <h4>Thematic area</h4>
-                    <p-dropdown [options]="thematicAreas" [(ngModel)]="selectThematicAreas" 
-                        [style]="{'width':'200px'}" [virtualScroll]="true" [virtualScrollItemSize]="38"
-                            optionLabel="name" [filter]="true" filterBy="name"
-                                placeholder="Select a Thematic area" (onClick)="filterInformation()">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectThematicAreas" >
-                                <div>{{ selectThematicAreas.name }}</div>
-                            </div>
-                        </ng-template>
-                       
-                    </p-dropdown>
-                </div>
-                <div class="card flex justify-content-center">
-                    <h4>Target user</h4>
-                    <p-dropdown [options]="targetUser" [(ngModel)]="selectTargetUser" [style]="{'width':'200px'}"
-                     [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="name" (onClick)="filterInformation()" [filter]="true" filterBy="name" 
-                      placeholder="Select a Target user">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectTargetUser">
-                                <div>{{ selectTargetUser.name }}</div>
-                            </div>
-                        </ng-template>
-                       
-                    </p-dropdown>
-                </div>
-                <div class="card flex justify-content-center">
-                    <h4>Project phase</h4>
-                    <p-dropdown [options]="projectPhase" [(ngModel)]="selectProjectUser" [virtualScroll]="true" [virtualScrollItemSize]="38" 
-                    [style]="{'width':'200px'}"  optionLabel="name" [filter]="true" filterBy="name"  (onClick)="filterInformation()"
-                    placeholder="Select a Project phase">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectProjectUser">
-                                <div>{{ selectProjectUser.name }}</div>
-                            </div>
-                        </ng-template>
-                       
-                    </p-dropdown>
-                </div>
-            </div>
+    <div class="homeLearn__download__content">
+      <h2 style="margin-bottom: 0.5rem">Tools selected & related resources</h2>
+
+      <div *ngFor="let product of selectedProducts" class="homeLearn__download__content--item">
+        <div class="homeLearn__download__content--header">
+          <i class="pi pi-wrench" style="font-size: 1rem; transform: rotate(-90deg)"></i>
+          <a
+            [href]="product.source"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="homeLearn__download__content--header--title">
+            {{ product.name }}
+          </a>
         </div>
-        <div class="tools" id="pdfSection">
-            <div class="title-tools">
-                <h2>Tools</h2>
-                <app-pdf-generate [data] = 'products' [app]="3"
-                 *ngIf="resources == true"></app-pdf-generate>
-                </div>
+        <p>{{ product.description }}</p>
+        <p><b>Time: </b>{{ product.estimated_time }}</p>
+        <p><b>Strengths: </b>{{ product.strengths }}</p>
+        <p><b>Limitations: </b>{{ product.limitations }}</p>
+        <p><b>Does the tool integrate gender?: </b>{{ product.integrates_gender }}</p>
+        <p><b>Target scale: </b>{{ product.target_scale }}</p>
+        <p><b>Participants: </b>{{ product.participants }}</p>
+        <p><b>Methods used: </b>{{ product.methods }}</p>
+        <p><b>Types of input data/information: </b>{{ product.input_types }}</p>
+        <p><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+        <p><b>Human resources: </b>{{ product.human_resources }}</p>
+        <p><b>Key reference person: </b>{{ product.key_references }}</p>
 
-            <div class="table-tool">
-                <div class="card">
-                    <p-table [value]="products" 
-                    #dt2
-                    [paginator]="true"
-                    [rows]="5"
-                    [loading]="loading"
-                    [(selection)]="selectedProducts" 
-                    [showCurrentPageReport]="true"
-                    [rowsPerPageOptions]="[5, 10, 20]"
-                    dataKey="code" 
-                    [globalFilterFields]="['name','cate_name','role_name','staga_name','importance_level']"
-                    [tableStyle]="{'min-width': '40rem', 'max-heigth': '40rem'}"
-                    [scrollable]="true"
-                    
-                    >
+        <h2
+          class="homeLearn__download__content--header--subtitle"
+          style="margin-top: 0.5rem"
+          *ngIf="product.resources.length > 0">
+          Recommended resources
+        </h2>
 
-                    <ng-template pTemplate="caption" *ngIf="resources == false">
-                        <div class="flex">
-                            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearFilters()" ></button>
-                            <span class="p-input-icon-left ml-auto" style="float: right;">
-                                <i class="pi pi-search"></i>
-                                <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" 
-                                placeholder="Search Tool" />
-                            </span>
-                        </div>
-                        
-                    </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: 4rem" *ngIf="dowloadSection == false">
-                                    <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
-                                </th>
-                                <th>Name support packages</th>
-                                <th>Thematic</th>
-                                <th>Target user</th>    
-                                <th>Project phase</th>
-                                <th>Relevance</th>
-                                
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-product let-expanded="expanded"  id="pdfSection">
-                            
-                            <tr>
-                                
-                                <td *ngIf="dowloadSection == false">
-                                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                                </td>
-                                
-                                <td>
-                                    <button style="font-size: 14px;" type="button" pButton pRipple [pRowToggler]="product" label="{{product.name}}" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                                    
-                                </td>
-                                <td>
-                                    {{product.cate_name}}
-                                </td>
-                                <td>
-                                    {{product.role_name}}
-                                </td>
-                                <td>
-                                    {{product.staga_name}}
-                                </td>
-                                <td >
-                                  <div class="import"  id="pdfSection">
-                                    <div> {{product.importance_level}} </div>
-                                    <div class="important numOne" *ngIf="product.importance_level == 'Very important'"></div>
-                                    <div class="important numTwo" *ngIf="product.importance_level == 'Important'"></div>
-                                    <div class="important numTre" *ngIf="product.importance_level == 'Useful'"></div>
-                                    <div class="important numFour" *ngIf="product.importance_level == 'Optional'"></div>
-                                  </div>
-                                </td>
-                            </tr>
-                            
-                        
-                        </ng-template>
-                        <ng-template pTemplate="rowexpansion" let-product  id="pdfSection">
-                            <tr>
-                                <td colspan="6">
-                                    <p>{{product.description}}</p>
-                                    <p><span class="bold">Time: </span>{{product.estimated_time}}</p>
-                                    <p><span class="bold">Strengths: </span>{{product.strengths}}</p>
-                                    <p><span class="bold">Limitations: </span>{{product.limitations}}</p>
-                                    <p><span class="bold">Target scale: </span>{{product.target_scale}}</p>
-                                    <p><span class="bold">Participants: </span>{{product.participants}}</p>
-                                    <p><span class="bold">Methods used: </span>{{product.methods}}</p>
-                                    <p><span class="bold">Types of input data/information: </span>{{product.input_types}}</p>
-                                    <p><span class="bold">Expected outputs: </span>{{product.expected_outputs}}</p>
-                                    <p><span class="bold">Human resources: </span>{{product.human_resources}}</p>
-                                    <p><span class="bold">Key reference person: </span>{{product.key_references}}</p>
-
-                                    <div class="resources-list" *ngIf="resources == true">
-                                        <div *ngFor="let resource of product.resources" class="resource">
-                                            <div class="resource-name">
-                                                <i class="pi pi-link"></i>
-                                                <a href="{{resource.source}}" target="_blank" class="d-flex align-items-center">
-                                                    {{resource.name}}
-                                                </a>
-                                            </div>
-                                            <div class="resource-type">{{resource.type}}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
+        <div class="resources-list" *ngIf="product.resources.length > 0">
+          <div *ngFor="let resource of product.resources" class="resource">
+            <div class="resource-name">
+              <i class="pi pi-link"></i>
+              <a [href]="resource.source" target="_blank" rel="noopener noreferrer">
+                {{ resource.name }}
+              </a>
             </div>
-
-            
+            <div class="resource-type">{{ resource.type }}</div>
+          </div>
         </div>
-        <div class="finish-tool" >
-            <button pButton type="button" (click)="viewSelected()" *ngIf="resources == false" label="Access to related resources" class="p-button-warning" [disabled]="this.selectedProducts.length == 0"></button>
-            <button pButton type="button" (click)="back()"  label="Back" class="p-button-warning" *ngIf="resources == true"></button>
-        </div>
+      </div>
     </div>
-
-    <div class="term-condition" *ngIf="terms">
-        <div class="term-title">
-            <h2>Terms and conditions</h2>
-        </div>
-        <div class="content-term"  *ngIf="continuoClcik == false">
-            <p>
-                To continue downloading your files, please first fill in your email and then some basic information. 
-                This information will be used by AICCRA solely for impact assessment and CGIAR and Center level reporting purposes. 
-                Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data 
-                to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. 
-                However, you may click on Skip to download links directly.
-            </p>
-            <br>
-            <span class="p-input-icon-center ml-auto" style="width: 100%; display: flex; justify-content: center;">
-                
-                <input pInputText type="text" style="width: 50%; color: black;" [(ngModel)]="forml.email"  
-                placeholder="Email" />
-            </span>
-            <br>
-    
-        </div>
-        <div class="form-save-email" *ngIf="continuoClcik == true">
-            <div class="one-form">
-                <div class="colunmOne">
-                    <div class="flex flex-column gap-2 inputs input-two">
-                        <label htmlFor="email" class="bold">First name:</label>
-                        <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.first_name"  
-                        placeholder="First name" />
-                    </div>
-                    <div class="flex flex-column gap-2 inputs input-two">
-                        <label htmlFor="email" class="bold">Institute name:</label>
-                        <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.institute"  
-                        placeholder="Institute name" />
-                    </div>
-                    <div class="flex flex-column gap-2 inputs input-two">
-                        <label htmlFor="email" class="bold">Region(s) of your research interest:</label>
-                        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" 
-                         [style]="{'width':'100%'}" placeholder="Select Region" optionLabel="name"></p-multiSelect>
-                    </div>
-                </div>
-                <div class="columnTwo">
-                    <div class="flex flex-column gap-2 inputs input-two">
-                        <label htmlFor="email" class="bold">Last name:</label>
-                        <input pInputText type="text" style="width: 100%;color: black;" [(ngModel)]="forml.last_name"  
-                        placeholder="Last name" />
-                    </div>
-                    <div class="flex flex-column gap-2 inputs input-two">
-                        <label htmlFor="email" class="bold">Region(s) where your institute is located:</label>
-                        <p-multiSelect [options]="cities" [(ngModel)]="selectedCitiesw"   [style]="{'width':'100%'}" optionLabel="name" placeholder="Select Region"></p-multiSelect>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="two-form" >
-                <div class="flex flex-column gap-2 inputs input-two">
-                    <label htmlFor="email" class="bold">Intended use of data:</label>
-                    <textarea rows="5" style="width: 100%;color: black;" [(ngModel)]="forml.intended" pInputTextarea></textarea>
-                
-                </div>
-            </div>
-            
-    
-        </div>
-        <div class="content-finish">
-            <button pButton type="button" (click)=" back()"  label="Back" class="p-button" style="float: left;"></button>
-            <button *ngIf="continuoClcik == false" pButton type="button"  (click)="this.terms = false;this.resources = true; dowloadSection = true;" label="Skip" class="p-button" style="float: left; margin-left: 10px;"></button>
-            <button *ngIf="continuoClcik == false" pButton type="button"  (click)="continuoClcik = true" label="Continue" class="p-button" style="float: right;" [disabled]="forml.email == ''"></button>
-            <button *ngIf="continuoClcik == true" pButton type="button"  (click)="saveEmail()" label="Continue" class="p-button" style="float: right;" ></button>
-            
-        </div>
-        
-    </div>
-   
-
+  </div>
 </div>
