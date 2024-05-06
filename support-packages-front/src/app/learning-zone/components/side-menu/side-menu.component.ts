@@ -122,7 +122,7 @@ export class SideMenuComponent implements OnInit {
       icon: PrimeIcons.FILE,
     },
     {
-      name: 'AICCRA Learning Zone',
+      name: 'FAQ',
       url: '/aiccra/FAQ',
       icon: PrimeIcons.QUESTION_CIRCLE,
     },
@@ -152,7 +152,7 @@ export class SideMenuComponent implements OnInit {
         routerLink: ['/aiccra/form-request'],
       },
       {
-        label: 'AICCRA Learning Zone',
+        label: 'FAQ',
         icon: PrimeIcons.QUESTION_CIRCLE,
         routerLink: ['/aiccra/FAQ'],
       },

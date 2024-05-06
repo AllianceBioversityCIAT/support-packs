@@ -52,8 +52,17 @@ export class HomeLearningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllFilters();
     this.getAllTools();
+    this.getAllFilters();
+  }
+
+  disableButton() {
+    return (
+      this.thematicAreasData.length === 0 ||
+      this.targetUserData.length === 0 ||
+      this.projectPhaseData.length === 0 ||
+      this.productsData.length === 0
+    );
   }
 
   filterInformation() {

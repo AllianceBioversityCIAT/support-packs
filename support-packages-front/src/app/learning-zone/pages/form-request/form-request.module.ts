@@ -12,9 +12,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
-  declarations: [
-    FormRequestComponent
-  ],
+  declarations: [FormRequestComponent],
   imports: [
     CommonModule,
     FormRequestRoutingModule,
@@ -24,8 +22,8 @@ import { DialogModule } from 'primeng/dialog';
     FormsModule,
     DropdownModule,
     InputTextareaModule,
-    ReactiveFormsModule   ,
-    DialogModule, 
-  ]
+    ReactiveFormsModule,
+    DialogModule,
+  ],
 })
-export class FormRequestModule { }
+export class FormRequestModule {}

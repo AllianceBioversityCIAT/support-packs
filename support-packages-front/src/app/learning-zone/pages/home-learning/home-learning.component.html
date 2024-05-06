@@ -43,11 +43,12 @@
           <h4>Thematic area</h4>
 
           <p-dropdown
+            [disabled]="disableButton()"
             [options]="thematicAreasData"
             [(ngModel)]="selectedThematicAreas"
             optionLabel="name"
             [filter]="true"
-            [style]="{ width: '100%' }"
+            [style]="{ width: '100%', cursor: disableButton() ? 'not-allowed' : 'pointer' }"
             filterBy="name"
             placeholder="Select a Thematic area"
             (ngModelChange)="filterInformation()">
@@ -58,6 +59,7 @@
           <h4>Target user</h4>
 
           <p-dropdown
+            [disabled]="disableButton()"
             [options]="targetUserData"
             [(ngModel)]="selectedTargetUser"
             optionLabel="name"
@@ -72,6 +74,7 @@
           <h4>Project phase</h4>
 
           <p-dropdown
+            [disabled]="disableButton()"
             [options]="projectPhaseData"
             [(ngModel)]="selectedProjectUser"
             [style]="{ width: '100%' }"

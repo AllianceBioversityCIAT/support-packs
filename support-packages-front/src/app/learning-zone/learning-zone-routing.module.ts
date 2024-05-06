@@ -4,40 +4,43 @@ import { LearningZoneComponent } from './learning-zone.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:LearningZoneComponent,
-    children:[
+    path: '',
+    component: LearningZoneComponent,
+    title: 'Learning Zone - AICCRA',
+    children: [
       {
-        path:'learning-zone',
-        loadChildren: () => import('./pages/home-learning/home-learning.module').then(mod => mod.HomeLearningModule)
+        path: 'learning-zone',
+        loadChildren: () =>
+          import('./pages/home-learning/home-learning.module').then(
+            (mod) => mod.HomeLearningModule,
+          ),
       },
-      { 
+      {
         path: '',
         redirectTo: 'learning-zone',
-        pathMatch: 'full'
-        //  runGuardsAndResolvers: 'always'
+        pathMatch: 'full',
       },
       {
-        path:'FAQ',
-        loadChildren: () => import('./pages/faq/faq.module').then(mod => mod.FaqModule)
-      },
-
-      {
-        path:'manage-tool',
-        loadChildren: () => import('./pages/admin/admin.module').then(mod => mod.AdminModule)
+        path: 'FAQ',
+        loadChildren: () => import('./pages/faq/faq.module').then((mod) => mod.FaqModule),
       },
 
       {
-        path:'form-request',
-        loadChildren: () => import('./pages/form-request/form-request.module').then(mod => mod.FormRequestModule)
-      }
-  ]
-    
-  }
+        path: 'manage-tool',
+        loadChildren: () => import('./pages/admin/admin.module').then((mod) => mod.AdminModule),
+      },
+
+      {
+        path: 'form-request',
+        loadChildren: () =>
+          import('./pages/form-request/form-request.module').then((mod) => mod.FormRequestModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LearningZoneRoutingModule { }
+export class LearningZoneRoutingModule {}
