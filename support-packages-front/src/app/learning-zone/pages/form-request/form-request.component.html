@@ -44,19 +44,21 @@
     <h3 class="formRequest__mainForm--title">Who is requests?</h3>
 
     <div class="formRequest__mainForm__content">
-      <div class="formRequest__mainForm__content--input">
-        <b>Full Name</b>
-        <input pInputText id="full_name" aria-describedby="username-help" />
-      </div>
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Full Name</b>
+          <input pInputText id="full_name" aria-describedby="username-help" />
+        </div>
 
-      <div class="formRequest__mainForm__content--input">
-        <b>Email</b>
-        <input
-          pInputText
-          id="email"
-          autocomplete="off"
-          aria-describedby="username-help"
-          [(ngModel)]="requestToolNew.email" />
+        <div class="formRequest__mainForm__content--input">
+          <b>Email</b>
+          <input
+            pInputText
+            id="email"
+            autocomplete="off"
+            aria-describedby="username-help"
+            [(ngModel)]="requestToolNew.email" />
+        </div>
       </div>
     </div>
 
@@ -280,8 +282,8 @@
       </div>
 
       <div
-        class="formRequest__mainForm__content"
-        style="background-color: none; border: none; padding: 0">
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
         <div class="formRequest__mainForm__content--input">
           <h4>Design</h4>
 
@@ -326,7 +328,7 @@
       </div>
 
       <div
-        class="formRequest__mainForm__content"
+        class="formRequest__mainForm__content--threeColumns"
         style="background-color: none; border: none; padding: 0">
         <div class="formRequest__mainForm__content--input">
           <h4>Design</h4>
@@ -371,7 +373,7 @@
       </div>
 
       <div
-        class="formRequest__mainForm__content"
+        class="formRequest__mainForm__content--threeColumns"
         style="background-color: none; border: none; padding: 0">
         <div class="formRequest__mainForm__content--input">
           <h4>Design</h4>
