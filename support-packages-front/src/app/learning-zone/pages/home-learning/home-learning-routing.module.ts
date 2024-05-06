@@ -4,13 +4,14 @@ import { HomeLearningComponent } from './home-learning.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:HomeLearningComponent
-  }
+    path: '',
+    title: 'Learning Zone - Home',
+    component: HomeLearningComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeLearningRoutingModule { }
+export class HomeLearningRoutingModule {}

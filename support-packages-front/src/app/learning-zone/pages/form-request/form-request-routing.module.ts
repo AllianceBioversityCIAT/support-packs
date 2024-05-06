@@ -5,12 +5,13 @@ import { FormRequestComponent } from './form-request.component';
 const routes: Routes = [
   {
     path: '',
-    component : FormRequestComponent
-  }
+    title: 'Learning Zone - Submission Form',
+    component: FormRequestComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FormRequestRoutingModule { }
+export class FormRequestRoutingModule {}

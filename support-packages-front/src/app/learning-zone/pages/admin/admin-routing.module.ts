@@ -5,12 +5,13 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent
-  }
+    title: 'Learning Zone - Manage Tools',
+    component: AdminComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

@@ -1,69 +1,95 @@
 <div class="faq">
-    <div class="title-faq">
-        <h1>Frequently Asked Questions</h1>
+  <h1 class="faq--title">Frequently Asked Questions</h1>
+
+  <div class="faq--description">
+    <p>
+      Welcome to <b>The AICCRA Learning Zone FAQ</b> (Frequently Asked Questions) Here, you will
+      find answers to the most common questions our users typically ask. We have compiled this
+      information to provide you with the best possible experience and to address any questions you
+      may have.
+    </p>
+    <p>
+      In this FAQ, we will address a wide range of topics related to our products/services,
+      policies, procedures, and more. Our intention is to provide you with clear and concise
+      information so that you can make the most of your experience with us.
+    </p>
+    <p>
+      If you can't find the answer you're looking for in this section, please don't hesitate to
+      contact our support team. We are here to assist you and address any questions or concerns you
+      may have.
+    </p>
+  </div>
+
+  <div class="faq__content">
+    <h2 class="faq__content--title">Questions:</h2>
+
+    <div class="faq__content__questions">
+      <p-accordion>
+        <p-accordionTab header="How does the tools support pack integrate gender?">
+          <p>
+            The AICCRA Gender and Social Inclusion (GSI) team provide gender-responsive CSA tools,
+            which are incorporated in the learning zone.
+          </p>
+          <br />
+          <p>
+            Furthermore, it is indicated in learning zone metadata if a resource integrates gender.
+          </p>
+        </p-accordionTab>
+
+        <p-accordionTab header="What will I find in the tools support pack?">
+          <ul>
+            <li>A concise description of the resource and online access to it.</li>
+            <li>
+              The scale to which the resource is relevant e.g. policy, farm, individual or program.
+            </li>
+            <li>
+              Key participants in the application of the resource e.g. farmer, decision maker and
+              social or climate change researcher.
+            </li>
+            <li>
+              The type of method described in the resource e.g. field assessment, focus group
+              discussion, participatory analysis or a cost-benefit assessment.
+            </li>
+            <li>
+              The types of input data or information needed to use the resource e.g. biophysical,
+              crop yields, greenhouse gas (GHG) emission data, meteorological or spatial.
+            </li>
+            <li>
+              The expected outputs e.g. characterization of farm households, gender empowerment
+              index or GHG emission inventory.
+            </li>
+            <li>
+              The human resources needed to implement the resource e.g. a stakeholder engagement
+              specialist or technical staff trained in climate modelling and data interpretation.
+            </li>
+            <li>An estimate of the implementation time, excluding time needed for training.</li>
+            <li>The strengths and limitations of the resources.</li>
+            <li>An indication of whether the tool can be tested online.</li>
+            <li>Contact details for the appropriate AICCRA team member.</li>
+            <li>
+              Links to relevant case studies, with brief descriptions of how the resources were
+              applied in practice.
+            </li>
+            <li>
+              Links to training materials such as guides and manuals, as well as supporting
+              materials like blogs, videos, project websites and reports.
+            </li>
+          </ul>
+        </p-accordionTab>
+
+        <p-accordionTab header="Can I add resources to the learning zone?">
+          <p>
+            The learning zone is a living database that allows users to upload content themselves,
+            so that AICCRA colleagues can further add to the rich library of supporting materials
+            for our partners and beneficiaries.
+          </p>
+          <br />
+          <p>
+            Uploaded content is reviewed by the AICCRA team to ensure proposed materials are
+            relevant and meet the highest standards of quality.
+          </p>
+        </p-accordionTab>
+      </p-accordion>
     </div>
-    <div class="introduction-faq">
-        <p>
-            Welcome to <span class="bold">The AICCRA Learning Zone FAQ</span> (Frequently Asked Questions) Here, you will find 
-            answers to the most common questions our users typically ask. We have compiled 
-            this information to provide you with the best possible experience and to address any questions 
-            you may have.
-        </p>
-        <br>
-        <p>
-            In this FAQ, we will address a wide range of topics related to our products/services, policies, procedures, and more. 
-            Our intention is to provide you with clear and concise information so that you can make the most of your experience with us.
-        </p>
-        <br>
-        <p>
-            If you can't find the answer you're looking for in this section, please don't hesitate to contact our support team. 
-            We are here to assist you and address any questions or concerns you may have.
-        </p>
-    </div>
-
-    <div class="questions">
-        <div class="questions-title">
-            <h2>Questions:</h2>
-        </div>
-
-        <div class="contente-questions">
-            <p-accordion [activeIndex]="0">
-                <p-accordionTab header="How does the tools support pack integrate gender?" styleClass="{'background':'white'}">
-                <p>
-                    The AICCRA Gender and Social Inclusion (GSI) team provide gender-responsive CSA tools, which are incorporated in the learning zone.
-                    <br>
-                    Furthermore, it is indicated in learning zone metadata if a resource integrates gender.
-                </p></p-accordionTab>
-                <p-accordionTab header="What will I find in the tools support pack?" styleClass="{'background':'white'}">
-                    
-                        <ul>
-
-                        
-                        <li> A concise description of the resource and online access to it.</li>
-                        <li> The scale to which the resource is relevant e.g. policy, farm, individual or program.</li>
-                        <li> Key participants in the application of the resource e.g. farmer, decision maker and social or climate change researcher.</li>
-                        <li> The type of method described in the resource e.g. field assessment, focus group discussion, participatory analysis or a cost-benefit assessment.</li>
-                        <li> The types of input data or information needed to use the resource e.g. biophysical, crop yields, greenhouse gas (GHG) emission data, meteorological or spatial.</li>
-                        <li> The expected outputs e.g. characterization of farm households, gender empowerment index or GHG emission inventory.</li>
-                        <li> The human resources needed to implement the resource e.g. a stakeholder engagement specialist or technical staff trained in climate modelling and data interpretation.</li>
-                        <li> An estimate of the implementation time, excluding time needed for training.</li>
-                        <li> The strengths and limitations of the resources.</li>
-                        <li> An indication of whether the tool can be tested online.</li>
-                        <li> Contact details for the appropriate AICCRA team member.</li>
-                        <li> Links to relevant case studies, with brief descriptions of how the resources were applied in practice.</li>
-                        <li> Links to training materials such as guides and manuals, as well as supporting materials like blogs, videos, project websites and reports.</li>
-                    </ul>
-                    
-                </p-accordionTab>
-                    <p-accordionTab header="Can I add resources to the learning zone?" styleClass="{'background':'white'}">
-                        <p>
-                            The learning zone is a living database that allows users to upload content themselves, so that AICCRA colleagues can further add to the rich library of supporting materials for our partners and beneficiaries.
-                            <br>
-                            Uploaded content is reviewed by the AICCRA team to ensure proposed materials are relevant and meet the highest standards of quality.
-                        </p>
-                
-            </p-accordionTab></p-accordion>
-        </div>
-    </div>
-
+  </div>
 </div>
