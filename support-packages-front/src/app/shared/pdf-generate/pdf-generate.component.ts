@@ -11,6 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class PdfGenerateComponent {
   @Input() data: any;
   @Input() app: number;
+  @Input() inlineStyle: { [klass: string]: any } = {};
   @Input() buttonSize: 'small' | 'large' | undefined = undefined;
 
   constructor() {}

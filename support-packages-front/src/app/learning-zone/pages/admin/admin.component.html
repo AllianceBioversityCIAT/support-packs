@@ -1,130 +1,102 @@
-<p-dialog
-  header="Login"
-  [(visible)]="dialogLogin"
-  [modal]="true"
-  [style]="{ width: '40vw' }"
-  [draggable]="false"
-  [closable]="false"
-  [resizable]="false">
-  <div
-    style="
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    ">
-    <div>
-      <div class="flex flex-column gap-2 inputs inputs-basic">
-        <label htmlFor="name" class="bold">Email</label>
-        <input
-          pInputText
-          id="email"
-          aria-describedby="username-help"
-          [(ngModel)]="loginForm.email" />
-      </div>
-      <div class="flex flex-column gap-2 inputs inputs-basic">
-        <label htmlFor="email" class="bold">Password</label>
-        <input
-          pInputText
-          id="password"
-          type="password"
-          aria-describedby="username-help"
-          [(ngModel)]="loginForm.password" />
-      </div>
-    </div>
-    <div style="margin-top: 20px">
-      <button
-        pButton
-        label="Login"
-        (click)="login()"
-        severity="success"
-        style="background-color: rgb(0, 180, 120); margin-right: 10px"></button>
-      <button
-        pButton
-        label="Cancel"
-        (click)="redirecto()"
-        severity="danger"
-        style="background-color: red"></button>
-    </div>
+<div class="admin__login" *ngIf="dialogLogin">
+  <div class="admin__login__header">
+    <h1 class="admin__login__header--title">Login</h1>
+    <p class="admin__login__header--subtitle">
+      Please enter your email and password to login to the admin panel.
+    </p>
   </div>
-</p-dialog>
 
-<div class="admin" *ngIf="dialogLogin == false">
-  <div class="quit">
+  <div class="admin__login--input">
+    <label htmlFor="email" class="bold">Email</label>
+    <input pInputText id="email" [(ngModel)]="loginForm.email" />
+  </div>
+
+  <div class="admin__login--input">
+    <label htmlFor="email" class="bold">Password</label>
+    <input pInputText id="password" type="password" [(ngModel)]="loginForm.password" />
+  </div>
+
+  <div class="admin__login--button">
+    <button
+      pButton
+      label="Login"
+      (click)="handleLogin()"
+      class="admin__login--button--item"></button>
+  </div>
+</div>
+
+<div class="admin__content" *ngIf="!dialogLogin">
+  <div class="admin__content__logOut">
+    <h1 class="admin__content__logOut--title">Manage Tool</h1>
+
     <button
       pButton
       pRipple
       type="button"
       icon="pi pi-sign-out"
       label="Sign out"
-      class="p-button-rounded p-button-text"
+      class="p-button-rounded p-button-text admin__content__logOut--button"
       (click)="setlocalStorageToken()"></button>
   </div>
-  <div class="title-admin">
-    <h1>Manage Tool</h1>
-  </div>
 
-  <div class="body-admin">
-    <div class="card" style="margin-top: 30px">
-      <p-tabMenu
-        [model]="items"
-        [activeItem]="activeItem"
-        (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
-    </div>
+  <div style="width: 100%">
+    <p-tabMenu
+      [model]="items"
+      [activeItem]="activeItem"
+      (activeItemChange)="onActiveItemChange($event)"
+      [style]="{ 'margin-bottom': '20px' }"></p-tabMenu>
 
-    <div class="edit-tool" *ngIf="activeItem.id == 0">
-      <div class="body-edit">
-        <p-table
-          [value]="customers"
-          [paginator]="true"
-          [rows]="10"
-          [showCurrentPageReport]="true"
-          [tableStyle]="{ 'min-width': '40rem' }"
-          [rowsPerPageOptions]="[10, 25, 50]"
-          [loading]="loading">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Actions</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-customer>
-            <tr>
-              <td>{{ customer.id }}</td>
-              <td>{{ customer.name }}</td>
-              <td>{{ customer.category_name }}</td>
-              <td style="display: flex; flex-direction: row">
-                <button
-                  pButton
-                  pRipple
-                  type="button"
-                  icon="pi pi-pencil"
-                  class="p-button-rounded p-button-text"
-                  (click)="showDialog(customer)"></button>
-                <button
-                  pButton
-                  pRipple
-                  type="button"
-                  icon="pi pi-trash"
-                  class="p-button-rounded p-button-text"
-                  (click)="showDialogDesactive(customer)"></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
+    <ng-container *ngIf="activeItem.id === 0">
+      <p-table
+        [value]="activeToolsData"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '40rem' }"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading">
+        <ng-template pTemplate="header">
+          <tr>
+            <th id="id">ID</th>
+            <th id="name">Name</th>
+            <th id="category">Category</th>
+            <th id="actions">Actions</th>
+          </tr>
+        </ng-template>
 
-    <div class="request-tool" *ngIf="activeItem.id == 1">
+        <ng-template pTemplate="body" let-tool>
+          <tr>
+            <td>{{ tool.id }}</td>
+            <td>{{ tool.name }}</td>
+            <td>{{ tool.category_name }}</td>
+            <td style="display: flex; flex-direction: row; align-items: center">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-text"
+                (click)="showEditDialog(tool)"></button>
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-text"
+                (click)="showDialogDesactive(tool)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-container>
+
+    <ng-container *ngIf="activeItem.id === 1">
       <app-tool-inactive></app-tool-inactive>
-    </div>
+    </ng-container>
 
-    <div class="request-new-tool" *ngIf="activeItem.id == 2">
+    <ng-container *ngIf="activeItem.id === 2">
       <app-request-tool></app-request-tool>
-    </div>
+    </ng-container>
   </div>
 </div>
 
@@ -132,485 +104,499 @@
   header="Edit Tool"
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '60vw' }"
   [draggable]="false"
-  [resizable]="false">
-  <div class="body-dialog">
-    <div class="content-form" *ngIf="step1 == true && visible == true">
-      <div class="basic-info">
-        <div class="title-sub">
-          <h3>Basic Information</h3>
+  [breakpoints]="{ '1200px': '75vw', '575px': '90vw' }"
+  [resizable]="false"
+  (onHide)="onCloseEditModal()">
+  <div class="formRequest__mainForm" *ngIf="step1 && visible">
+    <h3 class="formRequest__mainForm--title">Basic Information</h3>
+
+    <div class="formRequest__mainForm__content" style="flex-direction: column">
+      <div class="formRequest__mainForm__content--input">
+        <b>Tool name</b>
+        <input
+          pInputText
+          id="tool_name"
+          aria-describedby="username-help"
+          [(ngModel)]="informationEdit.name" />
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <b>Description</b>
+        <textarea
+          style="resize: none"
+          id="description"
+          rows="5"
+          pInputTextarea
+          [(ngModel)]="informationEdit.description"></textarea>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Link</b>
+          <input
+            pInputText
+            id="link"
+            aria-describedby="username-help"
+            [(ngModel)]="informationEdit.source" />
         </div>
-        <div class="content-form-basic content-form-g">
-          <div class="flex flex-column gap-2 inputs inputs-basic">
-            <label htmlFor="name" class="bold">Tool name</label>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Estimated time to implement (excl. training)</b>
+          <input
+            pInputText
+            id="eti"
+            aria-describedby="username-help"
+            [(ngModel)]="informationEdit.estimated_time" />
+        </div>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Does the tool integrate gender?</b>
+
+          <div class="formRequest__mainForm__content--radioContainer">
+            <div class="formRequest__mainForm__content--radio">
+              <p-radioButton
+                name="Yes"
+                value="Yes"
+                [(ngModel)]="informationEdit.integrates_gender"
+                inputId="integratedGenderYes"></p-radioButton>
+              <label for="integratedGenderYes">Yes</label>
+            </div>
+
+            <div class="formRequest__mainForm__content--radio">
+              <p-radioButton
+                name="No"
+                value="No"
+                [(ngModel)]="informationEdit.integrates_gender"
+                inputId="integratedGenderNo"></p-radioButton>
+              <label for="integratedGenderNo">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Can this tool be tested online?</b>
+
+          <div class="formRequest__mainForm__content--radioContainer">
+            <div class="formRequest__mainForm__content--radio">
+              <p-radioButton
+                name="Yess"
+                value="Yes"
+                [(ngModel)]="informationEdit.is_tested_online"
+                inputId="integratedTestedOnlineYes"></p-radioButton>
+              <label for="integratedTestedOnlineYes">Yes</label>
+            </div>
+
+            <div class="formRequest__mainForm__content--radio">
+              <p-radioButton
+                name="Noo"
+                value="No"
+                [(ngModel)]="informationEdit.is_tested_online"
+                inputId="integratedTestedOnlineNo"></p-radioButton>
+              <label for="integratedTestedOnlineNo">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Target Scale</b>
+          <textarea
+            style="resize: none"
+            id="target_scale"
+            rows="5"
+            pInputTextarea
+            [(ngModel)]="informationEdit.target_scale"></textarea>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Who participates?</b>
+          <textarea
+            style="resize: none"
+            id="who_participates"
+            rows="5"
+            pInputTextarea
+            [(ngModel)]="informationEdit.participants"></textarea>
+        </div>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Methods used</b>
+          <textarea
+            style="resize: none"
+            id="methods"
+            rows="5"
+            pInputTextarea
+            [(ngModel)]="informationEdit.methods"></textarea>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Types of input data/information</b>
+          <textarea
+            style="resize: none"
+            id="input_types"
+            rows="5"
+            pInputTextarea
+            [(ngModel)]="informationEdit.input_types"></textarea>
+        </div>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <b>Limitations</b>
+        <textarea
+          style="resize: none"
+          id="limitations"
+          rows="5"
+          pInputTextarea
+          [(ngModel)]="informationEdit.limitations"></textarea>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <b>Strengths</b>
+        <textarea
+          style="resize: none"
+          id="strengths"
+          rows="5"
+          pInputTextarea
+          [(ngModel)]="informationEdit.strengths"></textarea>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Expected output(s)</b>
+          <textarea
+            style="resize: none"
+            id="expected_outputs"
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [(ngModel)]="informationEdit.expected_outputs"></textarea>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Required human resources</b>
+          <textarea
+            id="required_human_resources"
+            style="resize: none"
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [(ngModel)]="informationEdit.human_resources"></textarea>
+        </div>
+      </div>
+
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Key reference person(s)</b>
+          <textarea
+            id="key_references"
+            style="resize: none"
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [(ngModel)]="informationEdit.key_references"></textarea>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <b>Thematic area</b>
+          <p-dropdown
+            [options]="thematicAreas"
+            [(ngModel)]="informationEdit.category_id"
+            [style]="{ width: '100%' }"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select a Thematic area">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formRequest__mainForm" *ngIf="step2 && visible">
+    <h3 class="formRequest__mainForm--title">User Profile and Project Phase relevance</h3>
+
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>Researcher</h4>
+      </div>
+
+      <div
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Design</h4>
+
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.R.Design"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.R.Design">
+                <div>{{ informationEdit.R.Design.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.R.Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.R.Implementation">
+                <div>{{ informationEdit.R.Implementation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Monitoring and evaluations</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.R.MonitoringandEvaluation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div
+                class="flex align-items-center gap-2"
+                *ngIf="informationEdit.R.MonitoringandEvaluation">
+                <div>{{ informationEdit.R.MonitoringandEvaluation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>Technical staff</h4>
+      </div>
+
+      <div
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Design</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.TS.Design"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.TS.Design">
+                <div>{{ informationEdit.TS.Design.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.TS.Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.TS.Implementation">
+                <div>{{ informationEdit.TS.Implementation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Monitoring and evaluations</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.TS.MonitoringandEvaluation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div
+                class="flex align-items-center gap-2"
+                *ngIf="informationEdit.TS.MonitoringandEvaluation">
+                <div>{{ informationEdit.TS.MonitoringandEvaluation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>Academia</h4>
+      </div>
+
+      <div
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Design</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.A.Design"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.A.Design">
+                <div>{{ informationEdit.A.Design.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.A.Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="informationEdit.A.Implementation">
+                <div>{{ informationEdit.A.Implementation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+
+        <div class="formRequest__mainForm__content--input">
+          <h4>Monitoring and evaluations</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            [(ngModel)]="informationEdit.A.MonitoringandEvaluation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select a Thematic area">
+            <ng-template pTemplate="selectedItem">
+              <div
+                class="flex align-items-center gap-2"
+                *ngIf="informationEdit.A.MonitoringandEvaluation">
+                <div>{{ informationEdit.A.MonitoringandEvaluation.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="informationEdit?.resources.length > 0"
+      class="formRequest__mainForm__content"
+      style="
+        flex-direction: column;
+        align-items: flex-start;
+        background: none;
+        border: none;
+        padding: 0;
+      ">
+      <h3 class="formRequest__mainForm--title">Resources</h3>
+
+      <div
+        class="formRequest__mainForm__content"
+        style="flex-direction: column; position: relative"
+        *ngFor="let item of informationEdit.resources; let i = index">
+        <div class="formRequest__mainForm__content--input">
+          <b>Resource title</b>
+          <input
+            pInputText
+            id="resource_title"
+            autocomplete="off"
+            aria-describedby="username-help"
+            [(ngModel)]="item.name" />
+        </div>
+
+        <div class="formRequest__mainForm__content--twoColumns" style="margin-top: 1rem">
+          <div class="formRequest__mainForm__content--input">
+            <b>Link</b>
             <input
               pInputText
-              id="tool-name"
+              id="link2"
               aria-describedby="username-help"
-              [(ngModel)]="informationEdit.name" />
-          </div>
-          <div class="flex flex-column gap-2 inputs inputs-basic">
-            <label htmlFor="email" class="bold">Description</label>
-            <textarea rows="5" pInputTextarea [(ngModel)]="informationEdit.description"></textarea>
+              [(ngModel)]="item.source" />
           </div>
 
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Link</label>
-              <input
-                pInputText
-                id="link"
-                aria-describedby="username-help"
-                [(ngModel)]="informationEdit.source" />
-            </div>
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="email" class="bold"
-                >Estimated time to implement (excl. training)</label
-              >
-              <input
-                pInputText
-                id="estimated-time"
-                aria-describedby="username-help"
-                [(ngModel)]="informationEdit.estimated_time" />
-            </div>
-          </div>
-          <div class="two-content">
-            <div style="width: 50%">
-              <div><label htmlFor="ask" class="bold">Does the tool integrate gender?</label></div>
-              <div class="flex flex-wrap gap-3">
-                <div class="flex align-items-center">
-                  <p-radioButton
-                    name="Yes"
-                    value="Yes"
-                    [(ngModel)]="informationEdit.integrates_gender"
-                    inputId="Yes"></p-radioButton>
-                  <label for="ingredient1" class="ml-2">Yes</label>
-                </div>
-
-                <div class="flex align-items-center">
-                  <p-radioButton
-                    name="No"
-                    value="No"
-                    [(ngModel)]="informationEdit.integrates_gender"
-                    inputId="No"></p-radioButton>
-                  <label for="ingredient2" class="ml-2">No</label>
-                </div>
-              </div>
-            </div>
-            <div style="width: 50%">
-              <div><label htmlFor="ask" class="bold">Can this tool be tested online?</label></div>
-              <div class="flex flex-wrap gap-3">
-                <div class="flex align-items-center">
-                  <p-radioButton
-                    name="Yess"
-                    value="Yes"
-                    [(ngModel)]="informationEdit.is_tested_online"
-                    inputId="Yess"></p-radioButton>
-                  <label for="ingredient3" class="ml-2">Yes</label>
-                </div>
-
-                <div class="flex align-items-center">
-                  <p-radioButton
-                    name="Noo"
-                    value="No"
-                    [(ngModel)]="informationEdit.is_tested_online"
-                    inputId="Noo"></p-radioButton>
-                  <label for="ingredient4" class="ml-2">No</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Target Scale</label>
-              <textarea
-                rows="5"
-                pInputTextarea
-                [(ngModel)]="informationEdit.target_scale"></textarea>
-            </div>
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="email" class="bold">Who participates?</label>
-              <textarea
-                rows="5"
-                pInputTextarea
-                [(ngModel)]="informationEdit.participants"></textarea>
-            </div>
-          </div>
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Methods used</label>
-              <textarea rows="5" pInputTextarea [(ngModel)]="informationEdit.methods"></textarea>
-            </div>
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="email" class="bold">Types of input data/information</label>
-              <textarea
-                rows="5"
-                pInputTextarea
-                [(ngModel)]="informationEdit.input_types"></textarea>
-            </div>
-          </div>
-          <div class="flex flex-column gap-2 inputs inputs-basic">
-            <label htmlFor="name" class="bold">Limitations</label>
-            <textarea rows="5" pInputTextarea [(ngModel)]="informationEdit.limitations"></textarea>
-          </div>
-          <div class="flex flex-column gap-2 inputs inputs-basic">
-            <label htmlFor="name" class="bold">Strengths</label>
-            <textarea rows="5" pInputTextarea [(ngModel)]="informationEdit.strengths"></textarea>
-          </div>
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Expected output(s)</label>
-              <textarea
-                rows="5"
-                cols="30"
-                pInputTextarea
-                [(ngModel)]="informationEdit.expected_outputs"></textarea>
-            </div>
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="email" class="bold">Required human resources</label>
-              <textarea
-                rows="5"
-                cols="30"
-                pInputTextarea
-                [(ngModel)]="informationEdit.human_resources"></textarea>
-            </div>
-          </div>
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Key reference person(s)</label>
-              <textarea
-                rows="5"
-                cols="30"
-                pInputTextarea
-                [(ngModel)]="informationEdit.key_references"></textarea>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Thematic area</h4>
-              <p-dropdown
-                [options]="thematicAreas"
-                [(ngModel)]="selectCategory[0]"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div class="flex align-items-center gap-2" *ngIf="selectCategory[0]">
-                    <div>{{ selectCategory[0].name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Category</h4>
+            <p-dropdown
+              [options]="categories"
+              [(ngModel)]="item.type"
+              [style]="{ width: '100%' }"
+              [virtualScroll]="true"
+              [virtualScrollItemSize]="38"
+              optionValue="name"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              placeholder="Select a Thematic area">
+            </p-dropdown>
           </div>
         </div>
       </div>
     </div>
-    <div class="content-form" *ngIf="step2 && visible == true">
-      <div class="who-request">
-        <div class="title-sub-user">
-          <h3>User Profile and Project Phase relevance</h3>
-        </div>
-        <div class="content-form-user content-form-g">
-          <div class="title-user-con">
-            <h4>Researcher</h4>
-          </div>
-          <div class="content-form-u">
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Design</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.R.Design"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div class="flex align-items-center gap-2" *ngIf="informationEdit.R.Design">
-                    <div>{{ informationEdit.R.Design.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
+  </div>
 
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Implementation</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.R.Implementation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.R.Implementation">
-                    <div>{{ informationEdit.R.Implementation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Monitoring and evaluations</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.R.MonitoringandEvaluation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.R.MonitoringandEvaluation">
-                    <div>{{ informationEdit.R.MonitoringandEvaluation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-          </div>
-        </div>
-        <div class="content-form-user content-form-g">
-          <div class="title-user-con">
-            <h4>Technical staff</h4>
-          </div>
-          <div class="content-form-u">
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Design</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.TS.Design"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div class="flex align-items-center gap-2" *ngIf="informationEdit.TS.Design">
-                    <div>{{ informationEdit.TS.Design.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Implementation</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.TS.Implementation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.TS.Implementation">
-                    <div>{{ informationEdit.TS.Implementation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Monitoring and evaluations</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.TS.MonitoringandEvaluation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.TS.MonitoringandEvaluation">
-                    <div>{{ informationEdit.TS.MonitoringandEvaluation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-          </div>
-        </div>
-        <div class="content-form-user content-form-g">
-          <div class="title-user-con">
-            <h4>Academia</h4>
-          </div>
-          <div class="content-form-u">
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Design</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.A.Design"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div class="flex align-items-center gap-2" *ngIf="informationEdit.A.Design">
-                    <div>{{ informationEdit.A.Design.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Implementation</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.A.Implementation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.A.Implementation">
-                    <div>{{ informationEdit.A.Implementation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Monitoring and evaluations</h4>
-              <p-dropdown
-                [options]="optionsImportance"
-                [(ngModel)]="informationEdit.A.MonitoringandEvaluation"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div
-                    class="flex align-items-center gap-2"
-                    *ngIf="informationEdit.A.MonitoringandEvaluation">
-                    <div>{{ informationEdit.A.MonitoringandEvaluation.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="formRequest__mainForm__steps" *ngIf="visible">
+    <button
+      pButton
+      label="1"
+      rounded="true"
+      class="formRequest__mainForm__steps--button"
+      [ngStyle]="{ 'background-color': step1 ? '#f2971f' : '#ffebd2' }"
+      (click)="button1Validations()"></button>
 
-      <div class="basic-info" *ngIf="informationEdit.resources.length > 0">
-        <div class="title-sub">
-          <h3>Resources</h3>
-        </div>
-        <div
-          class="content-form-user content-form-g"
-          *ngFor="let item of informationEdit.resources">
-          <div class="flex flex-column gap-2 inputs inputs-basic">
-            <label htmlFor="name" class="bold">Resource title</label>
-            <input
-              pInputText
-              id="resource-title"
-              aria-describedby="username-help"
-              [(ngModel)]="item.name" />
-          </div>
-          <div class="two-content">
-            <div class="flex flex-column gap-2 inputs input-two">
-              <label htmlFor="name" class="bold">Link</label>
-              <input
-                pInputText
-                id="link2"
-                aria-describedby="username-help"
-                [(ngModel)]="item.source" />
-            </div>
-            <div class="card flex justify-content-center inputs input-two">
-              <h4>Category</h4>
-              <p-dropdown
-                [options]="categories"
-                [(ngModel)]="item.type"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                optionLabel="name"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Select a Thematic area">
-                <ng-template pTemplate="selectedItem">
-                  <div class="flex align-items-center gap-2" *ngIf="item.type">
-                    <div>{{ item.type.name }}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button
+      pButton
+      label="2"
+      rounded="true"
+      class="formRequest__mainForm__steps--button"
+      [ngStyle]="{ 'background-color': step2 ? '#f2971f' : '#ffebd2' }"
+      (click)="button2Validations()"></button>
 
-    <div class="steps">
-      <div class="step-1">
-        <button
-          pButton
-          label="1"
-          rounded="true"
-          style="background-color: #f2971f; border-radius: 30px"
-          *ngIf="step1 == true"></button>
-        <button
-          pButton
-          label="1"
-          rounded="true"
-          style="background-color: #ffebd2; border-radius: 30px; color: black"
-          *ngIf="step1 == false"
-          (click)="step2 = false; step1 = true"></button>
-      </div>
-      <div class="step-2">
-        <button
-          pButton
-          label="2"
-          rounded="true"
-          style="background-color: #ffebd2; border-radius: 30px; color: black"
-          *ngIf="step2 == false"
-          (click)="step2 = true; step1 = false"></button>
-        <button
-          pButton
-          label="2"
-          rounded="true"
-          style="background-color: #f2971f; border-radius: 30px"
-          *ngIf="step2 == true"
-          (click)="step2 = true; step1 = false"></button>
-      </div>
-    </div>
-
-    <div *ngIf="step2" style="display: flex; align-items: center; justify-content: center">
-      <button
-        pButton
-        type="button"
-        label="Edit tool"
-        style="background-color: #f2971f; border-radius: 30px; width: 50%; margin: 20px"
-        (click)="postTool()"></button>
-    </div>
+    <button
+      pButton
+      type="button"
+      label="Edit tool"
+      class="formRequest__mainForm__steps--button"
+      style="background-color: #f2971f"
+      (click)="postTool()"></button>
   </div>
 </p-dialog>
 
@@ -622,7 +608,7 @@
   [closable]="false"
   [resizable]="false">
   <div style="width: 100%; display: flex; align-items: center; justify-content: center">
-    <img src="../../../../assets/loading.gif" style="width: 50px; height: 50px" />
+    <img src="../../../../assets/loading.gif" alt="loading" style="width: 50px; height: 50px" />
   </div>
 </p-dialog>
 
@@ -662,12 +648,13 @@
 </p-dialog>
 
 <p-dialog
-  [(visible)]="error"
+  [(visible)]="error.status"
   [modal]="true"
-  [style]="{ width: '20vw' }"
   [draggable]="false"
-  [resizable]="false">
-  <div style="width: 100%; display: flex; align-items: center; justify-content: center">
-    <h3>Error, Incorrect email or password</h3>
+  [resizable]="false"
+  (onHide)="error.status = false">
+  <div class="errorDialog">
+    <i class="pi pi-times-circle" style="font-size: 2.5rem; color: red"></i>
+    <h3>{{ error.message }}</h3>
   </div>
 </p-dialog>

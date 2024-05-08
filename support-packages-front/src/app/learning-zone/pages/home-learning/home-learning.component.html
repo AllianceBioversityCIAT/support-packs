@@ -112,9 +112,11 @@
 
       <ng-container
         *ngIf="this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser">
-        <!-- && !this._servicesVariables.continue -->
         <div class="homeLearn__content__header">
-          <h2 class="homeLearn__content__header--title">Recommended tools</h2>
+          <div class="homeLearn__content__header--titleContainer">
+            <i class="pi pi-wrench"></i>
+            <h2 class="homeLearn__content__header--title">Recommended tools</h2>
+          </div>
           <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
         </div>
 
@@ -229,11 +231,22 @@
     *ngIf="!this._servicesVariables.termsConditions && this._servicesVariables.continue"
     class="homeLearn__download">
     <div class="homeLearn__download__buttons">
-      <p-button type="button" (onClick)="goBackToTable()" label="Back" size="small"></p-button>
+      <p-button
+        type="button"
+        (onClick)="goBackToTable()"
+        label="Back"
+        size="small"
+        [style]="{
+          background: '#F29719',
+          color: 'white',
+          border: 'none',
+          boxShadow: 'none'
+        }"></p-button>
       <app-pdf-generate
         [data]="productsData"
         [app]="3"
         buttonSize="small"
+        [inlineStyle]="{ background: '#049899', color: 'white', border: 'none', boxShadow: 'none' }"
         *ngIf="this._servicesVariables.continue"></app-pdf-generate>
     </div>
 

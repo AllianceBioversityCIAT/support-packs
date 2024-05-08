@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { Router } from '@angular/router';
+import { RequestNewTool } from '../form-request/models/requestNewTool';
 
 @Component({
   selector: 'app-admin',
@@ -9,45 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  items: any[] | undefined;
+  activeToolsData = [];
+  items = [];
 
-  activeItem: any | undefined;
-  customers!: any[];
-  visible: boolean = false;
+  activeItem: any;
   informationEdit: any = null;
-  requestTool: any = {
-    name: '',
-    email: '',
-    toolName: '',
-    description: '',
-    link: '',
-    estimatedTime: '',
-    gender: '',
-    test: '',
-    scale: '',
-    participates: '',
-    method: '',
-    types: '',
-    limitations: '',
-    strngths: '',
-    expected: '',
-    required: '',
-    keyPerson: '',
-    thematic: '',
-    researcher_desing: '',
-    researcher_implementation: '',
-    researcher_monitoring: '',
-    technical_desing: '',
-    technical_implementation: '',
-    technical_monitoring: '',
-    academia_desing: '',
-    academia_implementation: '',
-    academia_monitoring: '',
-    resouce_title: '',
-    resouce_link: '',
-    resouce_category: '',
-  };
-  optionsImportance: any[] = [
+  optionsImportance = [
     {
       id: 4,
       name: 'Very important',
@@ -69,12 +37,12 @@ export class AdminComponent implements OnInit {
       name: 'N/A',
     },
   ];
-  thematicAreas: any[] = [];
+  thematicAreas = [];
+  visible: boolean = false;
   step1: boolean = true;
   step2: boolean = false;
-  selectCategory: any = {};
 
-  categories: any[] = [
+  categories = [
     {
       name: 'Articles and books',
     },
@@ -94,23 +62,27 @@ export class AdminComponent implements OnInit {
       name: 'Outreach products',
     },
   ];
-  selectCategories: any = {};
 
   loadingSave: boolean = false;
 
   confirmDesactive: boolean = false;
   loading: boolean = false;
-  dialogLogin: boolean = true;
 
-  loginForm: any = {
+  loginForm = {
     email: '',
     password: '',
   };
-  error: boolean = false;
+  dialogLogin: boolean = true;
+  error = {
+    status: false,
+    message: '',
+  };
+
   constructor(
     private _servicesLearningZoneService: ServicesLearningZoneService,
     private router: Router,
   ) {}
+
   ngOnInit() {
     this.items = [
       { label: 'Active Tools', icon: 'pi pi-fw pi-file-edit', id: 0 },
@@ -118,9 +90,9 @@ export class AdminComponent implements OnInit {
       { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: 2 },
     ];
     this.activeItem = this.items[0];
-    console.log(this.activeItem);
     this.getAllTools();
-    if (this.getlocalStorageToken() != null) {
+
+    if (this.getlocalStorageToken() !== null) {
       this.dialogLogin = false;
     }
   }
@@ -132,38 +104,40 @@ export class AdminComponent implements OnInit {
 
   getAllTools() {
     this.loading = true;
-    this.customers = [];
     this._servicesLearningZoneService.getToolsAdmin().subscribe((data) => {
-      this.customers = data.result;
-      console.log(data);
+      this.activeToolsData = data.result;
       this.loading = false;
     });
 
     this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
-      console.log(data);
-
       this.thematicAreas = data.result.categories;
     });
   }
 
-  showDialog(customer: any) {
-    this.visible = true;
-    this.informationEdit = customer;
+  button1Validations() {
+    this.step1 = true;
+    this.step2 = false;
+  }
 
-    this.selectCategory = this.thematicAreas.filter((data: any) => {
-      return data.id == customer.category_id;
-    });
-    for (let index = 0; index < customer.resources.length; index++) {
-      customer.resources[index].type = {
-        name: customer.resources[index].type,
-      };
-    }
+  button2Validations() {
+    this.step1 = false;
+    this.step2 = true;
+  }
+
+  showEditDialog(tool) {
+    this.visible = true;
+    this.informationEdit = tool;
+  }
+
+  onCloseEditModal() {
+    this.visible = false;
+    this.step1 = true;
+    this.step2 = false;
   }
 
   postTool() {
     this.loadingSave = true;
-    this.informationEdit.category_id = this.selectCategory[0].id;
-    this.informationEdit.category_name = this.selectCategory[0].name;
+    // this.informationEdit.category_name = this.selectCategory[0].name;
     console.log(this.informationEdit);
     this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data) => {
       console.log(data);
@@ -189,26 +163,26 @@ export class AdminComponent implements OnInit {
     this.informationEdit = customer;
   }
 
-  redirecto() {
-    this.router.navigate(['aiccra/learning-zone']);
-
-    localStorage.clear();
-  }
-
-  login() {
+  handleLogin() {
     try {
       this._servicesLearningZoneService.login(this.loginForm).subscribe((data) => {
-        if (data.result == 'user not found' || data.result == 'Invalid password') {
-          this.error = true;
-        } else {
-          this.localStorageToken(data.result.token);
-          this.dialogLogin = false;
-          console.log(data);
-          this.error = false;
+        if (data.result === 'user not found' || data.result === 'Invalid password') {
+          this.error = {
+            status: true,
+            message: 'User not found or invalid password',
+          };
+          return;
         }
+
+        this.localStorageToken(data.result.token);
+        this.dialogLogin = false;
       });
     } catch (error) {
-      console.log('daw');
+      console.log(error);
+      this.error = {
+        status: true,
+        message: 'Server error, try again later',
+      };
     }
   }
 
