@@ -78,8 +78,6 @@ export class ToolsResultsComponent implements OnInit {
 
   getFilters() {
     this._servicesDmspService.getSPFilters().subscribe((data) => {
-      console.log(data);
-
       this.whatData = data.result.categories;
       this.rolesData = data.result.roles;
       this.whenData = data.result.stage;
@@ -101,7 +99,6 @@ export class ToolsResultsComponent implements OnInit {
 
   getTools() {
     this._servicesDmspService.getAllTools().subscribe((data) => {
-      console.log('DD', data);
       this.productsData = data.result;
       this.backInfo = data.result;
     });
@@ -116,6 +113,13 @@ export class ToolsResultsComponent implements OnInit {
           data.category_id === this.selectedWhat.id &&
           data.role_id === this.selectedRole.id &&
           data.stage_id === this.selectedWhen.id
+        );
+      });
+
+      this.productsData.sort((a, b) => {
+        const importanceOrder = ['Very important', 'Important', 'Useful', 'Optional'];
+        return (
+          importanceOrder.indexOf(a.importance_level) - importanceOrder.indexOf(b.importance_level)
         );
       });
     }

@@ -60,8 +60,7 @@ export class HomeLearningComponent implements OnInit {
     return (
       this.thematicAreasData.length === 0 ||
       this.targetUserData.length === 0 ||
-      this.projectPhaseData.length === 0 ||
-      this.productsData.length === 0
+      this.projectPhaseData.length === 0
     );
   }
 
@@ -74,6 +73,13 @@ export class HomeLearningComponent implements OnInit {
           data.id_cat === this.selectedThematicAreas.id &&
           data.id_rol === this.selectedTargetUser.id &&
           data.id_stage === this.selectedProjectUser.id
+        );
+      });
+
+      this.productsData.sort((a, b) => {
+        const importanceOrder = ['Very important', 'Important', 'Useful', 'Optional'];
+        return (
+          importanceOrder.indexOf(a.importance_level) - importanceOrder.indexOf(b.importance_level)
         );
       });
     }

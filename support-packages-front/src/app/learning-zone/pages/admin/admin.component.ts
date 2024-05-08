@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { Router } from '@angular/router';
-import { RequestNewTool } from '../form-request/models/requestNewTool';
 
 @Component({
   selector: 'app-admin',

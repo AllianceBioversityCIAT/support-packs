@@ -98,9 +98,16 @@ export class HomeMelComponent implements OnInit {
     if (this.selectedRole && this.selectedWhen && this.selectedWhat) {
       this.productsData = this.productsData.filter((data) => {
         return (
-          data.category_id == this.selectedWhat.id &&
-          data.role_id == this.selectedRole.id &&
-          data.stage_id == this.selectedWhen.id
+          data.category_id === this.selectedWhat.id &&
+          data.role_id === this.selectedRole.id &&
+          data.stage_id === this.selectedWhen.id
+        );
+      });
+
+      this.productsData.sort((a, b) => {
+        const importanceOrder = ['Very important', 'Important', 'Useful', 'Optional'];
+        return (
+          importanceOrder.indexOf(a.importance_level) - importanceOrder.indexOf(b.importance_level)
         );
       });
     }
