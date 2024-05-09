@@ -27,8 +27,7 @@
     (ngModelChange)="filterInformation()"
     optionLabel="name"
     placeholder="Choose a role"
-    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }"
-    [disabled]="this._servicesVariables.continue">
+    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -48,8 +47,7 @@
     (ngModelChange)="filterInformation()"
     optionLabel="name"
     placeholder="Choose a when"
-    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }"
-    [disabled]="this._servicesVariables.continue">
+    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -71,8 +69,7 @@
     placeholder="Choose a what"
     autoWidth="false"
     [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }"
-    appendTo="body"
-    [disabled]="this._servicesVariables.continue">
+    appendTo="body">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -137,7 +134,10 @@
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
 
-        <td>{{ product.name }}</td>
+        <td>
+          <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
+          {{ product.name }}
+        </td>
 
         <td style="background-color: #f1f1f1">
           <div class="home__table__info">
@@ -199,7 +199,12 @@
     <ng-template pTemplate="body" let-product>
       <tr>
         <td>
-          <a [href]="product.source" target="_blank" rel="noopener noreferrer">
+          <a
+            [href]="product.source"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="home__table--link">
+            <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
             {{ product.name }}
           </a>
         </td>
@@ -220,7 +225,13 @@
   </p-table>
 
   <div class="home__table__buttons">
-    <app-pdf-generate [data]="selectedProducts" [app]="1"></app-pdf-generate>
+    <app-pdf-generate
+      *ngIf="validateShowPdfButton().showPdfButton"
+      [data]="selectedProducts"
+      [app]="1"
+      buttonText="Download PDF [{{
+        validateShowPdfButton().numberOfProductsType0
+      }}]"></app-pdf-generate>
 
     <button
       pButton

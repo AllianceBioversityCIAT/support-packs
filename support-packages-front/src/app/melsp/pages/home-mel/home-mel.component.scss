@@ -81,6 +81,17 @@
       }
     }
 
+    &--link {
+      color: #337ab7;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+        color: #23527c;
+      }
+    }
+
     &__buttons {
       display: flex;
       justify-content: flex-start;

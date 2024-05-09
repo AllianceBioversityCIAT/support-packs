@@ -22,8 +22,7 @@
           optionLabel="name"
           placeholder="Select a role"
           [style]="{ width: '100%', 'background-color': '#e3d34f', color: 'white' }"
-          (ngModelChange)="filterInformation()"
-          [disabled]="this._servicesVariables.continue">
+          (ngModelChange)="filterInformation()">
           <ng-template pTemplate="selectedItem">
             <div class="filters__item--dropdown--content">
               <img [src]="selectedRole.img" [alt]="selectedRole.name" style="width: 15px" />
@@ -77,8 +76,7 @@
             optionLabel="name"
             placeholder="Select a where"
             [style]="{ width: '100%', 'background-color': '#1281aa' }"
-            (ngModelChange)="filterInformation()"
-            [disabled]="this._servicesVariables.continue"></p-dropdown>
+            (ngModelChange)="filterInformation()"></p-dropdown>
         </div>
       </div>
 
@@ -90,7 +88,6 @@
             class="secondColumn__buttons--item"
             [ngClass]="{ selected: item?.selected }"
             (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')"
-            [disabled]="this._servicesVariables.continue"
             *ngFor="let item of this.whatData; let i = index">
             <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
 
@@ -105,8 +102,7 @@
             optionLabel="name"
             placeholder="Select a where"
             [style]="{ width: '100%', 'background-color': '#47939c' }"
-            (ngModelChange)="filterInformation()"
-            [disabled]="this._servicesVariables.continue"></p-dropdown>
+            (ngModelChange)="filterInformation()"></p-dropdown>
         </div>
       </div>
     </div>
@@ -143,7 +139,10 @@
                 <p-tableCheckbox [value]="product"></p-tableCheckbox>
               </td>
 
-              <td>{{ product.name }}</td>
+              <td>
+                <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
+                {{ product.name }}
+              </td>
 
               <td style="background-color: #f1f1f1">
                 <div class="dmsp-home__table__info">
@@ -207,7 +206,12 @@
           <ng-template pTemplate="body" let-product>
             <tr>
               <td>
-                <a [href]="product.source" target="_blank" rel="noopener noreferrer">
+                <a
+                  [href]="product.source"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="dmsp-home__table--link">
+                  <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
                   {{ product.name }}
                 </a>
               </td>
@@ -228,7 +232,13 @@
         </p-table>
 
         <div class="dmsp-home__table__buttons">
-          <app-pdf-generate [data]="selectedProducts" [app]="1"></app-pdf-generate>
+          <app-pdf-generate
+            *ngIf="validateShowPdfButton().showPdfButton"
+            [data]="selectedProducts"
+            [app]="1"
+            buttonText="Download PDF [{{
+              validateShowPdfButton().numberOfProductsType0
+            }}]"></app-pdf-generate>
 
           <button
             pButton
@@ -248,7 +258,6 @@
         class="secondColumn__buttons--item"
         [ngClass]="{ selected: item?.selected }"
         (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')"
-        [disabled]="this._servicesVariables.continue"
         *ngFor="let item of this.whatData; let i = index">
         <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
 

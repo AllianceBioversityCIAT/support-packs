@@ -13,6 +13,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class PdfGenerateComponent implements OnInit {
   @Input() data: any;
   @Input() app: number;
+  @Input() buttonText: string = 'Download PDF';
   @Input() inlineStyle: { [klass: string]: any } = {};
   @Input() buttonSize: 'small' | 'large' | undefined = undefined;
 

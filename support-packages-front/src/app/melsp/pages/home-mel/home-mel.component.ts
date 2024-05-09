@@ -73,6 +73,26 @@ export class HomeMelComponent implements OnInit {
     this.getTools();
   }
 
+  getIconByType(type: string) {
+    switch (type) {
+      case '0':
+        return 'pi pi-file';
+      case '1':
+        return 'pi pi-youtube';
+      case '2':
+        return 'pi pi-paperclip';
+      default:
+        return '';
+    }
+  }
+
+  validateShowPdfButton() {
+    return {
+      showPdfButton: this.selectedProducts.some((product) => product.type === '0'),
+      numberOfProductsType0: this.selectedProducts.filter((product) => product.type === '0').length,
+    };
+  }
+
   getFilters() {
     this._servicesMelspService.getSPFilters().subscribe((data) => {
       this.whatData = data.result.categories;
@@ -94,6 +114,9 @@ export class HomeMelComponent implements OnInit {
 
   filterInformation() {
     this.productsData = this.backInfo;
+    this._servicesVariables.termsConditions = false;
+    this._servicesVariables.continue = false;
+    this.selectedProducts = [];
 
     if (this.selectedRole && this.selectedWhen && this.selectedWhat) {
       this.productsData = this.productsData.filter((data) => {

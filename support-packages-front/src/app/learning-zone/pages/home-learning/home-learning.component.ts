@@ -119,6 +119,7 @@ export class HomeLearningComponent implements OnInit {
 
   filterInformation() {
     this.productsData = this.backInfo;
+    this.selectedProducts = [];
 
     if (this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser) {
       this.productsData = this.productsData.filter((data) => {
@@ -141,13 +142,13 @@ export class HomeLearningComponent implements OnInit {
   getImportanceLevelColor(importance: string) {
     switch (importance) {
       case 'Very important':
-        return '#c0504d';
+        return '#009875';
       case 'Important':
-        return '#c0504d';
+        return '#06AEAD';
       case 'Useful':
-        return '#e6b8b7';
+        return '#72CC50';
       case 'Optional':
-        return '#d6d6d6';
+        return '#C2C2C2';
       default:
         return 'Low';
     }
