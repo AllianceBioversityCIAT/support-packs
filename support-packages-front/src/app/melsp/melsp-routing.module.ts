@@ -10,6 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
+        title: 'MELSP - Home',
         loadChildren: () =>
           import('./pages/home-mel/home-mel.module').then((mod) => mod.HomeMelModule),
       },
@@ -20,6 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'overview',
+        title: 'MELSP - Overview',
         loadChildren: () =>
           import('./pages/overview/overview.module').then((mod) => mod.OverviewModule),
       },

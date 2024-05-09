@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IBDGoogleAnalytics } from 'ibdevkit';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { environment } from 'src/environments/environment';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -8,7 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './pdf-generate.component.html',
   styleUrls: ['./pdf-generate.component.scss'],
 })
-export class PdfGenerateComponent {
+export class PdfGenerateComponent implements OnInit {
   @Input() data: any;
   @Input() app: number;
   @Input() inlineStyle: { [klass: string]: any } = {};
@@ -16,8 +18,40 @@ export class PdfGenerateComponent {
 
   constructor() {}
 
+  ngOnInit() {
+    // IBDGoogleAnalytics().initialize(this.getGAIDByAppId());
+  }
+
+  getAppNameByAppId() {
+    switch (this.app) {
+      case 1:
+        return 'DMSP';
+      case 2:
+        return 'MELSP';
+      case 3:
+        return 'Learning zone';
+      default:
+        return '';
+    }
+  }
+
+  getGAIDByAppId() {
+    switch (this.app) {
+      case 1:
+        return '';
+      case 2:
+        return '';
+      case 3:
+        return environment.GAIDLearningZone;
+      default:
+        return '';
+    }
+  }
+
   generatePdf() {
     console.log(this.data);
+
+    IBDGoogleAnalytics().trackEvent('PDF Download', this.getAppNameByAppId());
 
     let documentationPdf = {
       content: [],

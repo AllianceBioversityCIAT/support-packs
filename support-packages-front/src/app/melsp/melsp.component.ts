@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
+import { environment } from '../../environments/environment';
+import { IBDGoogleAnalytics } from 'ibdevkit';
 
 @Component({
   selector: 'app-melsp',
@@ -10,6 +12,8 @@ export class MelspComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   ngOnInit(): void {
+    IBDGoogleAnalytics().initialize(environment.GAIDMELSP);
+
     this.items = [
       {
         label: 'Home',
