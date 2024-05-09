@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -10,77 +9,24 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   activeToolsData = [];
+  requestedToolsData = [];
+  desactiveToolsData = [];
   items = [];
-
   activeItem: any;
-  informationEdit: any = null;
-  optionsImportance = [
-    {
-      id: 4,
-      name: 'Very important',
-    },
-    {
-      id: 3,
-      name: 'Important',
-    },
-    {
-      id: 2,
-      name: 'Useful',
-    },
-    {
-      id: 1,
-      name: 'Optional',
-    },
-    {
-      id: 0,
-      name: 'N/A',
-    },
-  ];
-  thematicAreas = [];
-  visible: boolean = false;
-  step1: boolean = true;
-  step2: boolean = false;
-
-  categories = [
-    {
-      name: 'Articles and books',
-    },
-    {
-      name: 'Training materials',
-    },
-    {
-      name: 'Reports and other publications',
-    },
-    {
-      name: 'Data, models and tools',
-    },
-    {
-      name: 'Governanace administation and management',
-    },
-    {
-      name: 'Outreach products',
-    },
-  ];
-
-  loadingSave: boolean = false;
-
-  confirmDesactive: boolean = false;
   loading: boolean = false;
+  dialogLogin: boolean = true;
 
   loginForm = {
     email: '',
     password: '',
   };
-  dialogLogin: boolean = true;
+
   error = {
     status: false,
     message: '',
   };
 
-  constructor(
-    private _servicesLearningZoneService: ServicesLearningZoneService,
-    private router: Router,
-  ) {}
+  constructor(private _servicesLearningZoneService: ServicesLearningZoneService) {}
 
   ngOnInit() {
     this.items = [
@@ -89,7 +35,7 @@ export class AdminComponent implements OnInit {
       { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: 2 },
     ];
     this.activeItem = this.items[0];
-    this.getAllTools();
+    this.getActiveTools();
 
     if (this.getlocalStorageToken() !== null) {
       this.dialogLogin = false;
@@ -98,68 +44,44 @@ export class AdminComponent implements OnInit {
 
   onActiveItemChange(event: MenuItem) {
     this.activeItem = event;
-    this.getAllTools();
+
+    switch (this.activeItem.id) {
+      case 0:
+        this.getActiveTools();
+        break;
+      case 1:
+        this.getDesactiveTools();
+        break;
+      case 2:
+        this.getRequestedTools();
+        break;
+      default:
+        break;
+    }
   }
 
-  getAllTools() {
+  getActiveTools() {
     this.loading = true;
     this._servicesLearningZoneService.getToolsAdmin().subscribe((data) => {
       this.activeToolsData = data.result;
       this.loading = false;
     });
+  }
 
-    this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
-      this.thematicAreas = data.result.categories;
+  getRequestedTools() {
+    this.loading = true;
+    this._servicesLearningZoneService.getToolsAdminRquest().subscribe((data) => {
+      this.requestedToolsData = data.result;
+      this.loading = false;
     });
   }
 
-  button1Validations() {
-    this.step1 = true;
-    this.step2 = false;
-  }
-
-  button2Validations() {
-    this.step1 = false;
-    this.step2 = true;
-  }
-
-  showEditDialog(tool) {
-    this.visible = true;
-    this.informationEdit = tool;
-  }
-
-  onCloseEditModal() {
-    this.visible = false;
-    this.step1 = true;
-    this.step2 = false;
-  }
-
-  postTool() {
-    this.loadingSave = true;
-    // this.informationEdit.category_name = this.selectCategory[0].name;
-    console.log(this.informationEdit);
-    this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data) => {
-      console.log(data);
-      this.loadingSave = false;
-      this.visible = false;
+  getDesactiveTools() {
+    this.loading = true;
+    this._servicesLearningZoneService.getToolsAdminDesactive().subscribe((data) => {
+      this.desactiveToolsData = data.result;
+      this.loading = false;
     });
-  }
-
-  desactive() {
-    this.loadingSave = true;
-    this._servicesLearningZoneService
-      .activeOrDesactive(this.informationEdit, 0)
-      .subscribe((data) => {
-        console.log(data);
-        this.getAllTools();
-        this.confirmDesactive = false;
-        this.loadingSave = false;
-      });
-  }
-
-  showDialogDesactive(customer: any) {
-    this.confirmDesactive = true;
-    this.informationEdit = customer;
   }
 
   handleLogin() {

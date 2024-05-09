@@ -211,7 +211,7 @@ export class SpSupportPackService {
 
 
         for (const item in data.A) {
-          if (item == "desigh") {
+          if (item == "design") {
               await this.prisma.sp_importance_levels_request.create({
                   
                   data:{

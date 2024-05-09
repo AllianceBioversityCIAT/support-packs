@@ -22,6 +22,44 @@ interface IProjectPhase {
   description: string;
 }
 
+interface IProduct {
+  id: number;
+  name: string;
+  source: string;
+  contact: null;
+  description: string;
+  target_scale: string;
+  integrates_gender: string;
+  participants: string;
+  methods: string;
+  input_types: string;
+  expected_outputs: string;
+  human_resources: string;
+  estimated_time: string;
+  strengths: string;
+  limitations: string;
+  key_references: string;
+  importance_level: string;
+  role_name: string;
+  cate_name: string;
+  staga_name: string;
+  code: string;
+  id_cat: number;
+  id_rol: number;
+  id_stage: number;
+  resources: Resource[];
+}
+
+interface Resource {
+  id: number;
+  active: number;
+  name: string;
+  code: string;
+  source: string;
+  type: string;
+  guideline_id: number;
+}
+
 @Component({
   selector: 'app-home-learning',
   templateUrl: './home-learning.component.html',
@@ -37,9 +75,9 @@ export class HomeLearningComponent implements OnInit {
   projectPhaseData: IProjectPhase[] = [];
   selectedProjectUser: IProjectPhase;
 
-  productsData: any[] = [];
-  selectedProducts: any[] = [];
-  backInfo: any[] = [];
+  productsData: IProduct[] = [];
+  selectedProducts: IProduct[] = [];
+  backInfo: IProduct[] = [];
 
   constructor(
     private _servicesLearningZoneService: ServicesLearningZoneService,
@@ -54,6 +92,21 @@ export class HomeLearningComponent implements OnInit {
   ngOnInit() {
     this.getAllTools();
     this.getAllFilters();
+  }
+
+  getAllFilters() {
+    this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
+      this.thematicAreasData = data.result.categories;
+      this.targetUserData = data.result.roles;
+      this.projectPhaseData = data.result.stage;
+    });
+  }
+
+  getAllTools() {
+    this._servicesLearningZoneService.getAllTools().subscribe((data) => {
+      this.productsData = data.result;
+      this.backInfo = data.result;
+    });
   }
 
   disableButton() {
@@ -108,18 +161,7 @@ export class HomeLearningComponent implements OnInit {
     this.selectedProducts = [];
   }
 
-  getAllFilters() {
-    this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
-      this.thematicAreasData = data.result.categories;
-      this.targetUserData = data.result.roles;
-      this.projectPhaseData = data.result.stage;
-    });
-  }
-
-  getAllTools() {
-    this._servicesLearningZoneService.getAllTools().subscribe((data) => {
-      this.productsData = data.result;
-      this.backInfo = data.result;
-    });
+  ngOnDestroy() {
+    this._servicesVariables.resetValues();
   }
 }

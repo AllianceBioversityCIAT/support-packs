@@ -13,14 +13,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToolInactiveComponent } from './component/tool-inactive/tool-inactive.component';
-import { RequestToolComponent } from './component/request-tool/request-tool.component';
+import { ResultsTableComponent } from './component/results-table/results-table.component';
 @NgModule({
-  declarations: [
-    AdminComponent,
-    ToolInactiveComponent,
-    RequestToolComponent
-  ],
+  declarations: [AdminComponent, ResultsTableComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -34,7 +29,7 @@ import { RequestToolComponent } from './component/request-tool/request-tool.comp
     ButtonModule,
     InputTextareaModule,
     RadioButtonModule,
-    ConfirmDialogModule
-  ]
+    ConfirmDialogModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

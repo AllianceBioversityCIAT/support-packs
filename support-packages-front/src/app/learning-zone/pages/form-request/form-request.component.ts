@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { RequestNewTool } from './models/requestNewTool';
 
+interface IThematicAreas {
+  id: number;
+  name: string;
+  app_id: number;
+}
 @Component({
   selector: 'app-form-request',
   templateUrl: './form-request.component.html',
@@ -13,7 +18,7 @@ export class FormRequestComponent implements OnInit {
   loadingSave: boolean = false;
   dialogConfirmation: boolean = false;
 
-  thematicAreasData: any[] = [];
+  thematicAreasData: IThematicAreas[] = [];
 
   optionsImportance = [];
   categories = [];

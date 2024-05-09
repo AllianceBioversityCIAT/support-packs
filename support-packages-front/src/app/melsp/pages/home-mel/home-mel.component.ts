@@ -50,9 +50,9 @@ interface IProduct {
 export class HomeMelComponent implements OnInit {
   productsData: IProduct[];
 
-  selectedProducts!: any;
+  selectedProducts: IProduct[] = [];
 
-  backInfo!: any[];
+  backInfo: IProduct[];
 
   rolesData: IRole[] = [];
   selectedRole: IRole | null = null;
@@ -126,10 +126,6 @@ export class HomeMelComponent implements OnInit {
       default:
         return 'Low';
     }
-  }
-
-  termsAndConditions() {
-    this._servicesVariables.termsConditions = true;
   }
 
   initNewSearch() {

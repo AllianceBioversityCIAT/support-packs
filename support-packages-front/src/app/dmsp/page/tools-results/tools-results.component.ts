@@ -140,10 +140,6 @@ export class ToolsResultsComponent implements OnInit {
     }
   }
 
-  termsAndConditions() {
-    this._servicesVariables.termsConditions = true;
-  }
-
   initNewSearch() {
     this._servicesVariables.continue = false;
     this._servicesVariables.termsConditions = false;
