@@ -114,7 +114,11 @@
         *ngIf="this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser">
         <div class="homeLearn__content__header">
           <div class="homeLearn__content__header--titleContainer">
-            <span class="material-symbols-rounded"> build_circle </span>
+            <lucide-icon
+              name="bolt"
+              class="bolt"
+              [size]="20"
+              style="display: flex; align-items: center; justify-content: center"></lucide-icon>
             <h2 class="homeLearn__content__header--title">Recommended tools</h2>
           </div>
           <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
@@ -180,7 +184,15 @@
                 <div class="resources-list" *ngIf="product.resources.length > 0">
                   <div *ngFor="let resource of product.resources" class="resource">
                     <div class="resource-name">
-                      <span class="material-symbols-rounded"> link </span>
+                      <lucide-icon
+                        name="link2"
+                        class="link2"
+                        [size]="16"
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        "></lucide-icon>
                       <a
                         href="{{ resource.source }}"
                         target="_blank"
@@ -262,7 +274,11 @@
 
       <div *ngFor="let product of selectedProducts" class="homeLearn__download__content--item">
         <div class="homeLearn__download__content--header">
-          <span class="material-symbols-rounded"> build_circle </span>
+          <lucide-icon
+            name="bolt"
+            class="bolt"
+            [size]="20"
+            style="display: flex; align-items: center; justify-content: center"></lucide-icon>
           <a
             [href]="product.source"
             target="_blank"
@@ -294,7 +310,11 @@
         <div class="resources-list" *ngIf="product.resources.length > 0">
           <div *ngFor="let resource of product.resources" class="resource">
             <div class="resource-name">
-              <span class="material-symbols-rounded"> link </span>
+              <lucide-icon
+                name="link2"
+                class="link2"
+                [size]="16"
+                style="display: flex; align-items: center; justify-content: center"></lucide-icon>
               <a [href]="resource.source" target="_blank" rel="noopener noreferrer">
                 {{ resource.name }}
               </a>

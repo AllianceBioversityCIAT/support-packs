@@ -13,6 +13,8 @@ import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.modu
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-conditions.module';
+import { Bolt, Link2, LucideAngularModule } from 'lucide-angular';
+
 @NgModule({
   declarations: [HomeLearningComponent],
   imports: [
@@ -28,6 +30,7 @@ import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-co
     InputTextareaModule,
     MultiSelectModule,
     TermsConditionsModule,
+    LucideAngularModule.pick({ Bolt, Link2 }),
   ],
 })
 export class HomeLearningModule {}
