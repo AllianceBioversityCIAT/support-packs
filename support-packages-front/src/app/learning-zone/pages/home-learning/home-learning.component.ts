@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 
+import * as html2pdf from 'html-to-pdf-js';
+
 interface IThematicAreas {
   id: number;
   name: string;
@@ -84,14 +86,26 @@ export class HomeLearningComponent implements OnInit {
     public _servicesVariables: ServicesTermsService,
   ) {}
 
+  ngOnInit() {
+    this.getAllTools();
+    this.getAllFilters();
+  }
+
   goBackToTable() {
     this._servicesVariables.termsConditions = false;
     this._servicesVariables.continue = false;
   }
 
-  ngOnInit() {
-    this.getAllTools();
-    this.getAllFilters();
+  downloadPDF() {
+    const opt = {
+      margin: 0.5,
+      filename: 'AICCRA-Tools.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 1 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+    let element = document.getElementById('pdfSection');
+    html2pdf().from(element).set(opt).save();
   }
 
   getAllFilters() {

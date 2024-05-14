@@ -114,7 +114,7 @@
         *ngIf="this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser">
         <div class="homeLearn__content__header">
           <div class="homeLearn__content__header--titleContainer">
-            <i class="pi pi-wrench"></i>
+            <span class="material-symbols-rounded"> build_circle </span>
             <h2 class="homeLearn__content__header--title">Recommended tools</h2>
           </div>
           <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
@@ -180,7 +180,7 @@
                 <div class="resources-list" *ngIf="product.resources.length > 0">
                   <div *ngFor="let resource of product.resources" class="resource">
                     <div class="resource-name">
-                      <i class="pi pi-link"></i>
+                      <span class="material-symbols-rounded"> link </span>
                       <a
                         href="{{ resource.source }}"
                         target="_blank"
@@ -242,20 +242,27 @@
           border: 'none',
           boxShadow: 'none'
         }"></p-button>
-      <app-pdf-generate
-        [data]="productsData"
-        [app]="3"
-        buttonSize="small"
-        [inlineStyle]="{ background: '#049899', color: 'white', border: 'none', boxShadow: 'none' }"
-        *ngIf="this._servicesVariables.continue"></app-pdf-generate>
+
+      <p-button
+        *ngIf="this._servicesVariables.continue"
+        label="Download"
+        (onClick)="downloadPDF()"
+        size="small"
+        [style]="{
+          background: '#049899',
+          color: 'white',
+          border: 'none',
+          boxShadow: 'none'
+        }"
+        [icon]="'pi pi-download'"></p-button>
     </div>
 
-    <div class="homeLearn__download__content">
+    <div class="homeLearn__download__content" #pdfSection id="pdfSection">
       <h2 style="margin-bottom: 0.5rem">Tools selected & related resources</h2>
 
       <div *ngFor="let product of selectedProducts" class="homeLearn__download__content--item">
         <div class="homeLearn__download__content--header">
-          <i class="pi pi-wrench" style="font-size: 1rem; transform: rotate(-90deg)"></i>
+          <span class="material-symbols-rounded"> build_circle </span>
           <a
             [href]="product.source"
             target="_blank"
@@ -287,7 +294,7 @@
         <div class="resources-list" *ngIf="product.resources.length > 0">
           <div *ngFor="let resource of product.resources" class="resource">
             <div class="resource-name">
-              <i class="pi pi-link"></i>
+              <span class="material-symbols-rounded"> link </span>
               <a [href]="resource.source" target="_blank" rel="noopener noreferrer">
                 {{ resource.name }}
               </a>
