@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { RequestNewTool } from './models/requestNewTool';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 interface IThematicAreas {
   id: number;
@@ -23,9 +23,56 @@ export class FormRequestComponent implements OnInit {
   optionsImportance = [];
   categories = [];
 
-  requestToolNew = new RequestNewTool();
+  requestToolNewForm = this.fb.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    source: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    target_scale: ['', [Validators.required]],
+    integrates_gender: ['', [Validators.required]],
+    participants: ['', [Validators.required]],
+    methods: ['', [Validators.required]],
+    input_types: ['', [Validators.required]],
+    expected_outputs: ['', [Validators.required]],
+    human_resources: ['', [Validators.required]],
+    estimated_time: ['', [Validators.required]],
+    strengths: ['', [Validators.required]],
+    limitations: ['', [Validators.required]],
+    is_tested_online: ['', [Validators.required]],
+    key_references: ['', [Validators.required]],
+    category_id: ['', [Validators.required]],
+    A: this.fb.group({
+      design: ['', [Validators.required]],
+      implementation: ['', [Validators.required]],
+      monitoring: ['', [Validators.required]],
+    }),
+    R: this.fb.group({
+      design: ['', [Validators.required]],
+      implementation: ['', [Validators.required]],
+      monitoring: ['', [Validators.required]],
+    }),
+    TS: this.fb.group({
+      design: ['', [Validators.required]],
+      implementation: ['', [Validators.required]],
+      monitoring: ['', [Validators.required]],
+    }),
+    resource: this.fb.array([
+      this.fb.group({
+        name: ['', [Validators.required]],
+        source: ['', [Validators.required]],
+        type: ['', [Validators.required]],
+      }),
+    ]),
+  });
 
-  constructor(private _servicesLearningZoneService: ServicesLearningZoneService) {}
+  constructor(
+    private _servicesLearningZoneService: ServicesLearningZoneService,
+    private fb: FormBuilder,
+  ) {}
+
+  get resources() {
+    return this.requestToolNewForm.get('resource') as FormArray;
+  }
 
   ngOnInit() {
     this.getAllFilters();
@@ -65,6 +112,13 @@ export class FormRequestComponent implements OnInit {
     ];
   }
 
+  isValidRequired(field: string) {
+    return (
+      this.requestToolNewForm.controls[field].getError('required') &&
+      this.requestToolNewForm.controls[field].touched
+    );
+  }
+
   getAllFilters() {
     this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
       this.thematicAreasData = data.result.categories;
@@ -82,29 +136,42 @@ export class FormRequestComponent implements OnInit {
   }
 
   aditionalResource() {
-    this.requestToolNew.resource.push({
-      name: '',
-      source: '',
-      type: { name: '' },
-    });
+    this.resources.push(
+      this.fb.group({
+        name: ['', [Validators.required]],
+        source: ['', [Validators.required]],
+        type: this.fb.group({
+          name: ['', [Validators.required]],
+        }),
+      }),
+    );
   }
 
   deleteResource(index: number) {
-    this.requestToolNew.resource.splice(index, 1);
+    this.resources.removeAt(index);
   }
 
   async postRequestTool() {
+    if (this.requestToolNewForm.invalid) {
+      return;
+    }
+
     this.loadingSave = true;
 
     this._servicesLearningZoneService
-      .createRequestNewTool(this.requestToolNew)
-      .subscribe((data) => {
-        console.log(data);
-
-        this.requestToolNew = new RequestNewTool();
-        this.step1 = true;
-        this.step2 = false;
-        this.loadingSave = false;
+      .createRequestNewTool(this.requestToolNewForm.getRawValue())
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.requestToolNewForm.reset();
+          this.step1 = true;
+          this.step2 = false;
+          this.loadingSave = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this.loadingSave = false;
+        },
       });
   }
 }
