@@ -1,11 +1,24 @@
 <p-table
+  #dt2
   [value]="tableData"
   [paginator]="true"
   [rows]="10"
   [showCurrentPageReport]="true"
   [tableStyle]="{ 'min-width': '40rem' }"
   [rowsPerPageOptions]="[10, 25, 50]"
-  [loading]="tableDataLoading">
+  [loading]="tableDataLoading"
+  [globalFilterFields]="['id', 'name', 'category_name']">
+  <ng-template pTemplate="caption">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+        placeholder="Search Tool" />
+    </span>
+  </ng-template>
+
   <ng-template pTemplate="header">
     <tr>
       <th id="id">ID</th>
