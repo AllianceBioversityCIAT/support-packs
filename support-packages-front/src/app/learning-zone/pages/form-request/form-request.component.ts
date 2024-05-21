@@ -140,9 +140,7 @@ export class FormRequestComponent implements OnInit {
       this.fb.group({
         name: ['', [Validators.required]],
         source: ['', [Validators.required]],
-        type: this.fb.group({
-          name: ['', [Validators.required]],
-        }),
+        type: ['', [Validators.required]],
       }),
     );
   }
