@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesMelService } from '../../services/services-mel.service';
 
-interface Sale {
+interface Tool {
   category_id: number;
   id: number;
   name: string;
   cate_name: string;
   resources: Resource[];
+  source: string;
+  type: string;
 }
 
 interface Resource {
@@ -29,7 +31,7 @@ interface Importance {
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
-  sales: Sale[] = [];
+  overviewTools: Tool[] = [];
   loading: boolean = true;
 
   constructor(private _servicesMelspService: ServicesMelService) {}
@@ -38,9 +40,36 @@ export class OverviewComponent implements OnInit {
     this.getInformation();
   }
 
+  getIconByType(type: string) {
+    switch (type) {
+      case '0':
+        return 'pi pi-file';
+      case '1':
+        return 'pi pi-youtube';
+      case '2':
+        return 'pi pi-paperclip';
+      default:
+        return '';
+    }
+  }
+
+  getIconByTypeDownload(type: string) {
+    switch (type) {
+      case '0':
+        return 'pi pi-download';
+      case '1':
+        return 'pi pi-link';
+      case '2':
+        return 'pi pi-link';
+      default:
+        return '';
+    }
+  }
+
   getInformation(): void {
-    this._servicesMelspService.getToolOverview().subscribe((data: { result: Sale[] }) => {
-      this.sales = data.result;
+    this._servicesMelspService.getToolOverview().subscribe((data: { result: Tool[] }) => {
+      this.overviewTools = data.result;
+      console.log(data.result);
       this.loading = false;
     });
   }

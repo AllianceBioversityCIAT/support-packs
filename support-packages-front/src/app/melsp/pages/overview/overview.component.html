@@ -5,7 +5,7 @@
     #dt2
     [loading]="loading"
     styleClass="p-datatable-sm overview__table p-datatable-gridlines"
-    [value]="sales"
+    [value]="overviewTools"
     [tableStyle]="{ 'min-width': '50rem' }"
     [globalFilterFields]="['id', 'name', 'cate_name']">
     <ng-template pTemplate="caption">
@@ -44,12 +44,28 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-sale>
+    <ng-template pTemplate="body" let-item>
       <tr>
-        <td>{{ sale.id }}</td>
-        <td>{{ sale.name }}</td>
+        <td>{{ item.id }}</td>
+        <td>
+          <div class="overview__table__item">
+            <div class="overview__table__item--name">
+              <i [class]="getIconByType(item.type)"></i>
+              {{ item.name }}
+            </div>
 
-        <td *ngFor="let resource of sale.resources" [class]="getImportants(resource).styleColor">
+            <a
+              *ngIf="item.source"
+              [href]="item.source"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="overview__table__item--link">
+              <i [class]="getIconByTypeDownload(item.type)" style="font-size: 18px"></i>
+            </a>
+          </div>
+        </td>
+
+        <td *ngFor="let resource of item.resources" [class]="getImportants(resource).styleColor">
           {{ getImportants(resource).importanceLevel }}
         </td>
       </tr>

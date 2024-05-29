@@ -14,6 +14,31 @@
 
   &__table {
     width: 100% !important;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+
+      &--name {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      &--link {
+        color: #3379b7;
+        cursor: pointer;
+        padding: 4px 0.5rem;
+
+        &:hover {
+          text-decoration: underline;
+          color: #23527c;
+        }
+      }
+    }
   }
 }
 

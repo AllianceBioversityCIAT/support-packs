@@ -57,7 +57,7 @@ export class SpGuidelinesService {
 
         try {
             const guiades:any = await this.prisma.$queryRaw(Prisma.sql`
-            select DISTINCT(sil.category_id), sg.id,sg.name, sc.name as 'cate_name'
+            select DISTINCT(sil.category_id), sg.id,sg.name, sc.name as 'cate_name', sg.type, sg.source
                 from sp_guidelines sg 
 	                join sp_importance_levels sil on sil.guideline_id = sg.id 
 	                join sp_categories sc on sc.id = sil.category_id 
