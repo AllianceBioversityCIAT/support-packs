@@ -18,18 +18,12 @@ export class MelspComponent implements OnInit {
       {
         label: 'Home',
         icon: PrimeIcons.HOME,
-        routerLink: ['/melsp/home'],
-        routerLinkActiveOptions: {
-          exact: true,
-        },
+        route: '/melsp/home',
       },
       {
         label: 'All resources',
         icon: PrimeIcons.LIST,
-        routerLink: ['/melsp/overview'],
-        routerLinkActiveOptions: {
-          exact: true,
-        },
+        route: '/melsp/overview',
       },
       {
         label: 'Request to upload a resource',

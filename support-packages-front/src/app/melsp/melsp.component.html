@@ -1,6 +1,21 @@
 <div class="melsp">
   <div class="menu-melsp">
-    <p-menubar [model]="items"></p-menubar>
+    <p-menubar [model]="items">
+      <ng-template pTemplate="item" let-item>
+        <ng-container *ngIf="item.route; else urlRef">
+          <a [routerLink]="item.route" class="p-menuitem-link" routerLinkActive="selected">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </ng-container>
+        <ng-template #urlRef>
+          <a *ngIf="item.url" [href]="item.url" class="p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </ng-template>
+      </ng-template>
+    </p-menubar>
   </div>
 
   <div class="melsp__content">
