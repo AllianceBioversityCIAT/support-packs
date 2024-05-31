@@ -91,23 +91,30 @@
       <div
         class="homeLearn__content__notFilter"
         *ngIf="!selectedThematicAreas || !selectedTargetUser || !selectedProjectUser">
-        <h3>Please select the 3 option(s) above</h3>
+        <h3>Please use the three filters above to identify useful tools</h3>
         <div class="homeLearn__content__notFilter--images">
           <img
-            src="../../../../assets/icon-1.png"
+            src="../../../../assets/svg/icon-person-2.svg"
             alt="Person icon"
-            [ngStyle]="{ opacity: selectedThematicAreas ? '1' : '0.5' }" />
+            [ngStyle]="{ opacity: selectedThematicAreas ? '1' : '0.6' }" />
           <img
-            src="../../../../assets/icon-2.png"
+            src="../../../../assets/svg/icon-clock-2.svg"
             alt="Clock icon"
             class="checkIcon"
-            [ngStyle]="{ opacity: selectedTargetUser ? '1' : '0.5' }" />
+            [ngStyle]="{ opacity: selectedTargetUser ? '1' : '0.6' }" />
           <img
-            src="../../../../assets/icon-3.png"
+            src="../../../../assets/svg/icon-bookmark-2.svg"
             alt="Interrogation symbol icon"
             class="checkIcon"
-            [ngStyle]="{ opacity: selectedProjectUser ? '1' : '0.5' }" />
+            [ngStyle]="{ opacity: selectedProjectUser ? '1' : '0.6' }" />
         </div>
+        <p class="homeLearn__content__notFilter--note">
+          <b> NOTE: </b>
+          We welcome the submission of AICCRA tools to be included in this Tools Support Pack.
+          <a routerLink="/aiccra/form-request" class="homeLearn__content__notFilter--note--link">
+            Go to submission form.
+          </a>
+        </p>
       </div>
 
       <ng-container
@@ -225,9 +232,9 @@
           <button
             pButton
             *ngIf="selectedProducts?.length > 0"
-            label="Download chosen documents"
-            class="p-button-outlined"
+            label="Access to related resources"
             icon="pi pi-filter-pi-download"
+            class="homeLearn__content__table__buttons--item"
             (click)="this._servicesVariables.termsAndConditions()"></button>
         </div>
       </ng-container>
@@ -243,30 +250,28 @@
     *ngIf="!this._servicesVariables.termsConditions && this._servicesVariables.continue"
     class="homeLearn__download">
     <div class="homeLearn__download__buttons">
-      <p-button
+      <button
+        pButton
         type="button"
-        (onClick)="goBackToTable()"
+        (click)="goBackToTable()"
         label="Back"
-        size="small"
+        class="homeLearn__download__buttons--item"
         [style]="{
-          background: '#F29719',
-          color: 'white',
-          border: 'none',
-          boxShadow: 'none'
-        }"></p-button>
+          'font-size': '0.875rem',
+          padding: '0.65625rem 1.09375rem'
+        }"></button>
 
-      <p-button
+      <button
+        pButton
         *ngIf="this._servicesVariables.continue"
         label="Download"
-        (onClick)="downloadPDF()"
-        size="small"
+        (click)="downloadPDF()"
+        icon="pi pi-download"
+        class="homeLearn__download__buttons--download"
         [style]="{
-          background: '#049899',
-          color: 'white',
-          border: 'none',
-          boxShadow: 'none'
-        }"
-        [icon]="'pi pi-download'"></p-button>
+          'font-size': '0.875rem',
+          padding: '0.65625rem 1.09375rem'
+        }"></button>
     </div>
 
     <div class="homeLearn__download__content" #pdfSection id="pdfSection">
