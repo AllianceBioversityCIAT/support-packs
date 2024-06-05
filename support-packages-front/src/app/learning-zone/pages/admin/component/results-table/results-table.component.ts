@@ -71,7 +71,7 @@ export class ResultsTableComponent {
     },
   ];
 
-  constructor(private _servicesLearningZoneService: ServicesLearningZoneService) {}
+  constructor(public _servicesLearningZoneService: ServicesLearningZoneService) {}
 
   getActiveTools(): void {
     this.onGetActiveTools.emit();

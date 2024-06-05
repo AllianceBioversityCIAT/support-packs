@@ -82,7 +82,7 @@ export class HomeLearningComponent implements OnInit {
   backInfo: IProduct[] = [];
 
   constructor(
-    private _servicesLearningZoneService: ServicesLearningZoneService,
+    public _servicesLearningZoneService: ServicesLearningZoneService,
     public _servicesVariables: ServicesTermsService,
   ) {}
 
