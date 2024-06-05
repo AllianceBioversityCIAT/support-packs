@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolsResultsComponent } from './tools-results.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ToolsResultsComponent', () => {
   let component: ToolsResultsComponent;
@@ -8,11 +9,11 @@ describe('ToolsResultsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ToolsResultsComponent]
+      declarations: [ToolsResultsComponent],
+      imports: [HttpClientTestingModule],
     });
     fixture = TestBed.createComponent(ToolsResultsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

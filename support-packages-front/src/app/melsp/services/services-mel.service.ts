@@ -1,40 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicesMelService {
-
   urlApi = environment.api;
-  
-  constructor(private http: HttpClient) { }
 
+  constructor(private http: HttpClient) {}
 
   getSPFilters() {
     console.log(this.urlApi);
-    
+
     return this.http.get<any>(`${this.urlApi}/support/all/2`).pipe();
   }
 
-  getAllTools(){
+  getAllTools() {
     return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/all/2`).pipe();
   }
 
-  getDownloadTool(data:any){
-    return this.http.post<any>(`${this.urlApi}/support/create`,data).pipe();
+  getDownloadTool(data: any) {
+    return this.http.post<any>(`${this.urlApi}/support/create`, data).pipe();
   }
 
-  postRequestTool(data:any){
-    return this.http.post<any>(`${this.urlApi}/support/createRequest`,data).pipe();
+  postRequestTool(data: any) {
+    return this.http.post<any>(`${this.urlApi}/support/createRequest`, data).pipe();
   }
 
-  getAllRequest(){
+  getAllRequest() {
     return this.http.get<any>(`${this.urlApi}/support/resquest`).pipe();
   }
 
-  getToolOverview(){
+  getToolOverview() {
     return this.http.get<any>(`${this.urlApi}/guidelines/sp-guidelines/overview/2`).pipe();
   }
 }

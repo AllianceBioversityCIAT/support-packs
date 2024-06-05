@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FaqComponent } from './faq.component';
+import { AccordionModule } from 'primeng/accordion';
 
 describe('FaqComponent', () => {
   let component: FaqComponent;
@@ -8,11 +9,11 @@ describe('FaqComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FaqComponent]
+      declarations: [FaqComponent],
+      imports: [AccordionModule],
     });
     fixture = TestBed.createComponent(FaqComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

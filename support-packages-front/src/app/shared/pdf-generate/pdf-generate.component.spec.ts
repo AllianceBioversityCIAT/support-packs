@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PdfGenerateComponent } from './pdf-generate.component';
+import { ButtonModule } from 'primeng/button';
 
 describe('PdfGenerateComponent', () => {
   let component: PdfGenerateComponent;
@@ -8,11 +9,11 @@ describe('PdfGenerateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PdfGenerateComponent]
+      declarations: [PdfGenerateComponent],
+      imports: [ButtonModule],
     });
     fixture = TestBed.createComponent(PdfGenerateComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicedmspService } from '../../services/servicedmsp.service';
-import { ServicesTermsService } from 'src/app/shared/services/services-terms.service';
+import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 
 interface IRole {
   id: number;

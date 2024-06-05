@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IBDGoogleAnalytics } from 'ibdevkit';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({

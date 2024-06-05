@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TermsConditionsComponent } from './terms-conditions.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 describe('TermsConditionsComponent', () => {
   let component: TermsConditionsComponent;
@@ -8,11 +11,11 @@ describe('TermsConditionsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TermsConditionsComponent]
+      declarations: [TermsConditionsComponent],
+      imports: [HttpClientTestingModule, FormsModule, ButtonModule],
     });
     fixture = TestBed.createComponent(TermsConditionsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

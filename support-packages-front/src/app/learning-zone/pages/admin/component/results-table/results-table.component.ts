@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ServicesLearningZoneService } from 'src/app/learning-zone/services/services-learning-zone.service';
+import { ServicesLearningZoneService } from '../../../../services/services-learning-zone.service';
 
 @Component({
   selector: 'app-results-table',
@@ -109,7 +109,7 @@ export class ResultsTableComponent {
   editTool() {
     this.isSaving = true;
 
-    if (this.activeItem.id === 0) {
+    if (this.activeItem?.id === 0) {
       this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data) => {
         this.getActiveTools();
         this.isSaving = false;
@@ -117,7 +117,7 @@ export class ResultsTableComponent {
       });
     }
 
-    if (this.activeItem.id === 2) {
+    if (this.activeItem?.id === 2) {
       this._servicesLearningZoneService.putToolRequest(this.informationEdit).subscribe((data) => {
         this.getRequestedTools();
         this.isSaving = false;
@@ -135,10 +135,10 @@ export class ResultsTableComponent {
     this.isSaving = true;
 
     this._servicesLearningZoneService
-      .activeOrDesactive(this.informationEdit, this.activeItem.id === 0 ? 0 : 1)
+      .activeOrDesactive(this.informationEdit, this.activeItem?.id === 0 ? 0 : 1)
       .subscribe(() => {
-        if (this.activeItem.id === 0) this.getActiveTools();
-        if (this.activeItem.id === 1) this.getDesactiveTools();
+        if (this.activeItem?.id === 0) this.getActiveTools();
+        if (this.activeItem?.id === 1) this.getDesactiveTools();
 
         this.desactiveModalOpen = false;
         this.isSaving = false;

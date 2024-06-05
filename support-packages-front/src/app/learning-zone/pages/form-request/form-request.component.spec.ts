@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormRequestComponent } from './form-request.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 describe('FormRequestComponent', () => {
   let component: FormRequestComponent;
@@ -8,11 +11,11 @@ describe('FormRequestComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FormRequestComponent]
+      declarations: [FormRequestComponent],
+      imports: [HttpClientTestingModule, DialogModule, ButtonModule],
     });
     fixture = TestBed.createComponent(FormRequestComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

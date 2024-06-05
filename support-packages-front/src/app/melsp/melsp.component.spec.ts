@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MelspComponent } from './melsp.component';
+import { MenubarModule } from 'primeng/menubar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('MelspComponent', () => {
   let component: MelspComponent;
@@ -8,14 +11,20 @@ describe('MelspComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MelspComponent]
+      declarations: [MelspComponent],
+      imports: [MenubarModule, RouterTestingModule, FormsModule],
     });
     fixture = TestBed.createComponent(MelspComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call NgOnInit', () => {
+    const spy = jest.spyOn(component, 'ngOnInit');
+    component.ngOnInit();
+    expect(spy).toHaveBeenCalled();
   });
 });
