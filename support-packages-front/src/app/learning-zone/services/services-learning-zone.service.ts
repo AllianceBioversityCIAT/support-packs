@@ -8,28 +8,8 @@ import { environment } from '../../../environments/environment';
 export class ServicesLearningZoneService {
   constructor(private http: HttpClient) {}
 
-  getSPFilters() {
-    return this.http.get<any>(`${environment.api}/support/all/3`).pipe();
-  }
-
-  getAllTools() {
-    return this.http.get<any>(`${environment.api}/guidelines/sp-guidelines/all/3`).pipe();
-  }
-
-  getDownloadTool(data: any) {
-    return this.http.post<any>(`${environment.api}/support/create`, data).pipe();
-  }
-
   postRequestTool(data: any) {
     return this.http.post<any>(`${environment.api}/support/createRequest`, data).pipe();
-  }
-
-  getAllRequest() {
-    return this.http.get<any>(`${environment.api}/support/resquest`).pipe();
-  }
-
-  getToolOverview() {
-    return this.http.get<any>(`${environment.api}/guidelines/sp-guidelines/overview/3`).pipe();
   }
 
   getToolsAdmin() {

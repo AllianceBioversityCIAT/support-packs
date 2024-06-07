@@ -44,9 +44,7 @@ describe('SideMenuComponent', () => {
   });
 
   it('should set loading to false after getting information', () => {
-    jest
-      .spyOn(component['_servicesLearningZoneService'], 'getToolOverview')
-      .mockReturnValue(of([]));
+    jest.spyOn(component['_sharedService'], 'getToolOverview').mockReturnValue(of([]));
 
     component.getInformation();
 

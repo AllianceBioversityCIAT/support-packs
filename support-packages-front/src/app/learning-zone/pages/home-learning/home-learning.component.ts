@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 
 import * as html2pdf from 'html-to-pdf-js';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface IThematicAreas {
   id: number;
@@ -82,8 +82,8 @@ export class HomeLearningComponent implements OnInit {
   backInfo: IProduct[] = [];
 
   constructor(
-    public _servicesLearningZoneService: ServicesLearningZoneService,
     public _servicesVariables: ServicesTermsService,
+    public _sharedService: SharedService,
   ) {}
 
   ngOnInit() {
@@ -109,7 +109,7 @@ export class HomeLearningComponent implements OnInit {
   }
 
   getAllFilters() {
-    this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
+    this._sharedService.getSPFilters(3).subscribe((data) => {
       this.thematicAreasData = data.result.categories;
       this.targetUserData = data.result.roles;
       this.projectPhaseData = data.result.stage;
@@ -117,7 +117,7 @@ export class HomeLearningComponent implements OnInit {
   }
 
   getAllTools() {
-    this._servicesLearningZoneService.getAllTools().subscribe((data) => {
+    this._sharedService.getAllTools(3).subscribe((data) => {
       this.productsData = data.result;
       this.backInfo = data.result;
     });

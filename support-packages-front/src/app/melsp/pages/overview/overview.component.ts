@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesMelService } from '../../services/services-mel.service';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface Tool {
   category_id: number;
@@ -34,7 +34,7 @@ export class OverviewComponent implements OnInit {
   overviewTools: Tool[] = [];
   loading: boolean = true;
 
-  constructor(private _servicesMelspService: ServicesMelService) {}
+  constructor(public _sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.getInformation();
@@ -67,7 +67,7 @@ export class OverviewComponent implements OnInit {
   }
 
   getInformation(): void {
-    this._servicesMelspService.getToolOverview().subscribe((data: { result: Tool[] }) => {
+    this._sharedService.getToolOverview(2).subscribe((data: { result: Tool[] }) => {
       this.overviewTools = data.result;
       console.log(data.result);
       this.loading = false;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesMelService } from '../../services/services-mel.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface IRole {
   id: number;
@@ -64,8 +64,8 @@ export class HomeMelComponent implements OnInit {
   selectedWhat: IWhat | null = null;
 
   constructor(
-    private _servicesMelspService: ServicesMelService,
     public _servicesVariables: ServicesTermsService,
+    public _sharedService: SharedService,
   ) {}
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ export class HomeMelComponent implements OnInit {
   }
 
   getFilters() {
-    this._servicesMelspService.getSPFilters().subscribe((data) => {
+    this._sharedService.getSPFilters(2).subscribe((data) => {
       this.whatData = data.result.categories;
       this.rolesData = data.result.roles;
       this.whenData = data.result.stage;
@@ -106,7 +106,7 @@ export class HomeMelComponent implements OnInit {
   }
 
   getTools() {
-    this._servicesMelspService.getAllTools().subscribe((data) => {
+    this._sharedService.getAllTools(2).subscribe((data) => {
       this.productsData = data.result;
       this.backInfo = data.result;
     });

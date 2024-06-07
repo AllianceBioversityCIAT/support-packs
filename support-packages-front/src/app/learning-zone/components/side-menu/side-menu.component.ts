@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { MenuItem, PrimeIcons } from 'primeng/api';
-import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface IResource {
   id: number;
@@ -133,10 +132,7 @@ export class SideMenuComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private _servicesLearningZoneService: ServicesLearningZoneService,
-    public _servicesVariables: ServicesTermsService,
-  ) {}
+  constructor(public _sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.getInformation();
@@ -169,7 +165,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   getInformation() {
-    this._servicesLearningZoneService.getToolOverview().subscribe((data) => {
+    this._sharedService.getToolOverview(3).subscribe((data) => {
       this.toolsData = data.result;
       this.loading = false;
     });

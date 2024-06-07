@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicedmspService } from '../../services/servicedmsp.service';
-import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { ServicesTermsService } from 'src/app/shared/services/services-terms.service';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface IRole {
   id: number;
@@ -67,7 +67,7 @@ export class ToolsResultsComponent implements OnInit {
   selectedWhat: IWhat | null = null;
 
   constructor(
-    private _servicesDmspService: ServicedmspService,
+    public _sharedService: SharedService,
     public _servicesVariables: ServicesTermsService,
   ) {}
 
@@ -97,7 +97,7 @@ export class ToolsResultsComponent implements OnInit {
   }
 
   getFilters() {
-    this._servicesDmspService.getSPFilters().subscribe((data) => {
+    this._sharedService.getSPFilters(1).subscribe((data) => {
       this.whatData = data.result.categories;
       this.rolesData = data.result.roles;
       this.whenData = data.result.stage;
@@ -118,7 +118,7 @@ export class ToolsResultsComponent implements OnInit {
   }
 
   getTools() {
-    this._servicesDmspService.getAllTools().subscribe((data) => {
+    this._sharedService.getAllTools(1).subscribe((data) => {
       this.productsData = data.result;
       this.backInfo = data.result;
     });

@@ -47,11 +47,11 @@ describe('HomeLearningComponent', () => {
   });
 
   it('should call getAllTools method on getAllTools method', () => {
-    jest.spyOn(component._servicesLearningZoneService, 'getAllTools').mockReturnValue(of({}));
+    jest.spyOn(component._sharedService, 'getAllTools').mockReturnValue(of({}));
 
     component.getAllTools();
 
-    expect(component._servicesLearningZoneService.getAllTools).toHaveBeenCalled();
+    expect(component._sharedService.getAllTools).toHaveBeenCalled();
   });
 
   it('should return true if any of the filter arrays is empty on disableButton method', () => {

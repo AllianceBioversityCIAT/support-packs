@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { SharedService } from '../../../shared/services/shared.service';
 
 interface IThematicAreas {
   id: number;
@@ -68,6 +69,7 @@ export class FormRequestComponent implements OnInit {
   constructor(
     private _servicesLearningZoneService: ServicesLearningZoneService,
     private fb: FormBuilder,
+    public _sharedService: SharedService,
   ) {}
 
   get resources() {
@@ -120,7 +122,7 @@ export class FormRequestComponent implements OnInit {
   }
 
   getAllFilters() {
-    this._servicesLearningZoneService.getSPFilters().subscribe((data) => {
+    this._sharedService.getSPFilters(3).subscribe((data) => {
       this.thematicAreasData = data.result.categories;
     });
   }

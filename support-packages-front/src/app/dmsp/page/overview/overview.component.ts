@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicedmspService } from '../../services/servicedmsp.service';
-import * as $ from 'jquery';
+import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-overview',
@@ -11,14 +10,15 @@ export class OverviewComponent implements OnInit{
   sales:any[] = [];
   rojo = "red";
   loading = true;
-  constructor(private _servicesDmspService:ServicedmspService) { }
+  
+  constructor(public _sharedService: SharedService) { }
 
   ngOnInit(): void {
     this. getInformation();
   }
 
   getInformation(){
-    this._servicesDmspService.getToolOverview().subscribe((data)=>{
+    this._sharedService.getToolOverview(1).subscribe((data) => {
       console.log(data);
       this.sales = data.result;
       this.loading = false;
