@@ -89,7 +89,11 @@ export class HomeMelComponent implements OnInit {
   validateShowPdfButton() {
     return {
       showPdfButton: this.selectedProducts.some((product) => product.type === '0'),
-      numberOfProductsType0: this.selectedProducts.filter((product) => product.type === '0').length,
+      ToolsType0: this.selectedProducts.filter((product) => product.type === '0'),
+      buttonMessage:
+        this.selectedProducts.filter((product) => product.type === '0').length > 1
+          ? `Download Files [${this.selectedProducts.filter((product) => product.type === '0').length}]`
+          : 'Download File',
     };
   }
 

@@ -69,7 +69,6 @@ export class OverviewComponent implements OnInit {
   getInformation(): void {
     this._sharedService.getToolOverview(2).subscribe((data: { result: Tool[] }) => {
       this.overviewTools = data.result;
-      console.log(data.result);
       this.loading = false;
     });
   }

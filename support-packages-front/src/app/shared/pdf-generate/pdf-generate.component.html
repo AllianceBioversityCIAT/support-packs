@@ -1,6 +1,8 @@
 <p-button
   [label]="buttonText"
   [size]="buttonSize"
-  icon="pi pi-download"
+  [icon]="isGenerating ? 'pi pi-spin pi-spinner' : 'pi pi-download'"
+  [disabled]="isGenerating"
   [style]="inlineStyle"
   (onClick)="generatePdf()"></p-button>
+<p-toast position="bottom-right" key="br" [life]="2000" />

@@ -9,6 +9,7 @@ import { SpSupportPackModule } from './api/sp-support-pack/sp-support-pack.modul
 import { SpGuidelinesModule } from './api/sp-guidelines/sp-guidelines.module';
 import { AuthModule } from './api/authentication/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { FileManagementModule } from './api/file-management/file-management.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     SpCategoriesModule,
     SpSupportPackModule,
     SpGuidelinesModule,
+    FileManagementModule,
     AuthModule,
   ],
   controllers: [],

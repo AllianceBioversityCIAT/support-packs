@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { env } from 'process';
+import { PassThrough } from 'stream';
+import { pipeline } from 'stream/promises';
 
 @Injectable()
 export class FileManagementService {
@@ -14,6 +20,22 @@ export class FileManagementService {
         secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
       },
     });
+  }
+
+  async getFileStream(key: string): Promise<NodeJS.ReadableStream> {
+    const command = new GetObjectCommand({
+      Bucket: env.AWS_BUCKET_NAME,
+      Key: key,
+    });
+
+    const { Body } = await this.s3Client.send(command);
+    if (Body instanceof ReadableStream) {
+      const passThrough = new PassThrough();
+      await pipeline(Body as any, passThrough);
+      return passThrough;
+    }
+
+    return Body as NodeJS.ReadableStream;
   }
 
   async uploadFile(file: Express.Multer.File) {

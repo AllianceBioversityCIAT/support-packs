@@ -33,4 +33,12 @@ export class SharedService {
       .get<any>(`${environment.api}/guidelines/sp-guidelines/overview/${app_id}`)
       .pipe();
   }
+
+  downloadFiles(keys: string[]) {
+    return this.http.post(
+      `${environment.api}/file-management/download-zip`,
+      { keys },
+      { responseType: 'blob' },
+    );
+  }
 }
