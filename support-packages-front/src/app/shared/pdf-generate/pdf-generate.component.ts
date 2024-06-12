@@ -59,8 +59,6 @@ export class PdfGenerateComponent {
       return key;
     });
 
-    console.log(dataKeys);
-
     IBDGoogleAnalytics().trackEvent('PDF Download', this.getAppNameByAppId());
 
     this._sharedService.downloadFiles(dataKeys).subscribe({

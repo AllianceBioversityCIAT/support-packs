@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 import { SharedService } from '../../../shared/services/shared.service';
 
@@ -47,7 +47,7 @@ interface IProduct {
   templateUrl: './home-mel.component.html',
   styleUrls: ['./home-mel.component.scss'],
 })
-export class HomeMelComponent implements OnInit {
+export class HomeMelComponent implements OnInit, OnDestroy {
   productsData: IProduct[];
 
   selectedProducts: IProduct[] = [];
@@ -162,5 +162,9 @@ export class HomeMelComponent implements OnInit {
     this.selectedWhat = null;
     this.selectedWhen = null;
     this.selectedProducts = [];
+  }
+
+  ngOnDestroy() {
+    this._servicesVariables.resetValues();
   }
 }
