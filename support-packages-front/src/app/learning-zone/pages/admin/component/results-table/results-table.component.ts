@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-output-on-prefix */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ServicesLearningZoneService } from '../../../../services/services-learning-zone.service';
 

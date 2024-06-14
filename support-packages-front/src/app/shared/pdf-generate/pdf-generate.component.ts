@@ -100,7 +100,7 @@ export class PdfGenerateComponent {
         this.isGenerating = false;
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.isGenerating = false;
 
         if (error.status === 404) {

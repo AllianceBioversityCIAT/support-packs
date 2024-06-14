@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 
 import * as html2pdf from 'html-to-pdf-js';
@@ -67,7 +67,7 @@ interface Resource {
   templateUrl: './home-learning.component.html',
   styleUrls: ['./home-learning.component.scss'],
 })
-export class HomeLearningComponent implements OnInit {
+export class HomeLearningComponent implements OnInit, OnDestroy {
   thematicAreasData: IThematicAreas[] = [];
   selectedThematicAreas: IThematicAreas;
 
@@ -104,7 +104,7 @@ export class HomeLearningComponent implements OnInit {
       html2canvas: { scale: 1 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
-    let element = document.getElementById('pdfSection');
+    const element = document.getElementById('pdfSection');
     html2pdf().from(element).set(opt).save();
   }
 

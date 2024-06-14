@@ -99,7 +99,7 @@ export class AdminComponent implements OnInit {
         this.dialogLogin = false;
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.error = {
         status: true,
         message: 'Server error, try again later',

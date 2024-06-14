@@ -139,7 +139,7 @@ export class TermsConditionsComponent {
           this._servicesVariables.termsConditions = false;
           this.isLoading = false;
 
-          console.log(data);
+          console.error(data);
         },
         error: (error) => {
           console.error(error);

@@ -162,14 +162,14 @@ export class FormRequestComponent implements OnInit {
       .createRequestNewTool(this.requestToolNewForm.getRawValue())
       .subscribe({
         next: (data) => {
-          console.log(data);
+          console.error(data);
           this.requestToolNewForm.reset();
           this.step1 = true;
           this.step2 = false;
           this.loadingSave = false;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.loadingSave = false;
         },
       });

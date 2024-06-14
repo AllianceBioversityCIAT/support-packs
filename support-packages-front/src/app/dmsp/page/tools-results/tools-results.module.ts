@@ -10,18 +10,16 @@ import { ButtonModule } from 'primeng/button';
 import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-conditions.module';
 import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
 @NgModule({
-  declarations: [
-    ToolsResultsComponent
-  ],
+  declarations: [ToolsResultsComponent],
   imports: [
     CommonModule,
     ToolsResultsRoutingModule,
-    DropdownModule, 
+    DropdownModule,
     FormsModule,
     TableModule,
-    ButtonModule, 
+    ButtonModule,
     TermsConditionsModule,
-    PdfGenerateModule
-  ]
+    PdfGenerateModule,
+  ],
 })
-export class ToolsResultsModule { }
+export class ToolsResultsModule {}
