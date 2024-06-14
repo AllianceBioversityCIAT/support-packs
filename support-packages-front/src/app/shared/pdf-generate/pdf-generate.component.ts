@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { IBDGoogleAnalytics } from 'ibdevkit';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { environment } from '../../../environments/environment';
 import { SharedService } from '../services/shared.service';
 import { MessageService } from 'primeng/api';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -33,19 +32,6 @@ export class PdfGenerateComponent {
         return 'MELSP';
       case 3:
         return 'Learning zone';
-      default:
-        return '';
-    }
-  }
-
-  getGAIDByAppId() {
-    switch (this.app) {
-      case 1:
-        return '';
-      case 2:
-        return '';
-      case 3:
-        return environment.GAIDLearningZone;
       default:
         return '';
     }

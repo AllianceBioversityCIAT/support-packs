@@ -8,10 +8,6 @@ import { environment } from '../../../environments/environment';
 export class ServicesLearningZoneService {
   constructor(private http: HttpClient) {}
 
-  postRequestTool(data: any) {
-    return this.http.post<any>(`${environment.api}/support/createRequest`, data).pipe();
-  }
-
   getToolsAdmin() {
     return this.http.get<any>(`${environment.api}/guidelines/sp-guidelines/editPanel/3`).pipe();
   }

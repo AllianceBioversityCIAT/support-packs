@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesTermsService } from 'src/app/shared/services/services-terms.service';
 import { SharedService } from '../../../shared/services/shared.service';
+import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 
 interface IRole {
   id: number;
@@ -92,7 +92,11 @@ export class ToolsResultsComponent implements OnInit {
   validateShowPdfButton() {
     return {
       showPdfButton: this.selectedProducts.some((product) => product.type === '0'),
-      numberOfProductsType0: this.selectedProducts.filter((product) => product.type === '0').length,
+      ToolsType0: this.selectedProducts.filter((product) => product.type === '0'),
+      buttonMessage:
+        this.selectedProducts.filter((product) => product.type === '0').length > 1
+          ? `Download Files [${this.selectedProducts.filter((product) => product.type === '0').length}]`
+          : 'Download File',
     };
   }
 

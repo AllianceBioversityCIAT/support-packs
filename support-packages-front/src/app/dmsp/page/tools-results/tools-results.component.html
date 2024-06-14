@@ -234,11 +234,9 @@
         <div class="dmsp-home__table__buttons">
           <app-pdf-generate
             *ngIf="validateShowPdfButton().showPdfButton"
-            [data]="selectedProducts"
+            [data]="validateShowPdfButton().ToolsType0"
             [app]="1"
-            buttonText="Download PDF [{{
-              validateShowPdfButton().numberOfProductsType0
-            }}]"></app-pdf-generate>
+            [buttonText]="validateShowPdfButton().buttonMessage"></app-pdf-generate>
 
           <button
             pButton
