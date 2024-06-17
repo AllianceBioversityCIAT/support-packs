@@ -20,14 +20,21 @@
   </p>
 </div>
 
-<div class="home__filters" *ngIf="!this._servicesVariables.termsConditions">
+<div class="home__filters">
+  <!-- *ngIf="!this._servicesVariables.termsConditions" -->
   <p-dropdown
     [options]="rolesData"
     [(ngModel)]="selectedRole"
     (ngModelChange)="filterInformation()"
+    styleClass="roleDropdown"
     optionLabel="name"
     placeholder="Choose a role"
-    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }">
+    [style]="{
+      width: '100%',
+      'background-color': '#d47979',
+      color: 'white',
+      'box-shadow': 'none'
+    }">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -35,7 +42,7 @@
         <img
           src="../../../../assets/icon-1.png"
           alt="Person icon"
-          style="width: 20px; height: 20px" />
+          style="width: 18px; height: 18px" />
         <div style="color: white">{{ selectedRole.name }}</div>
       </div>
     </ng-template>
@@ -47,7 +54,13 @@
     (ngModelChange)="filterInformation()"
     optionLabel="name"
     placeholder="Choose a when"
-    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }">
+    styleClass="whenDropdown"
+    [style]="{
+      width: '100%',
+      'background-color': '#d47979',
+      color: 'white',
+      'box-shadow': 'none'
+    }">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -55,7 +68,7 @@
         <img
           src="../../../../assets/icon-2.png"
           alt="Clock icon"
-          style="width: 20px; height: 20px" />
+          style="width: 18px; height: 18px" />
         <div style="color: white">{{ selectedWhen.name }}</div>
       </div>
     </ng-template>
@@ -67,9 +80,13 @@
     (ngModelChange)="filterInformation()"
     optionLabel="name"
     placeholder="Choose a what"
-    autoWidth="false"
-    [style]="{ width: '100%', 'background-color': '#d47979', color: 'white' }"
-    appendTo="body">
+    styleClass="whatDropdown"
+    [style]="{
+      width: '100%',
+      'background-color': '#d47979',
+      color: 'white',
+      'box-shadow': 'none'
+    }">
     <ng-template pTemplate="selectedItem">
       <div
         style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
@@ -77,7 +94,7 @@
         <img
           src="../../../../assets/icon-3.png"
           alt="Interrogation symbol icon"
-          style="width: 20px; height: 20px" />
+          style="width: 18px; height: 18px" />
         <div style="color: white">{{ selectedWhat.name }}</div>
       </div>
     </ng-template>
@@ -127,19 +144,20 @@
     [value]="productsData"
     [(selection)]="selectedProducts"
     dataKey="code"
-    [tableStyle]="{ 'min-width': '50rem' }">
+    styleClass="home__table"
+    [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td>
+        <td style="background-color: #f1f1f1; padding-right: 0 !important; width: 20px !important">
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
 
-        <td>
+        <td style="background-color: #f1f1f1">
           <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
           {{ product.name }}
         </td>
 
-        <td style="background-color: #f1f1f1">
+        <td style="background-color: #f1f1f1; width: 150px !important">
           <div class="home__table__info">
             <div
               class="home__table__info--point numOne"
@@ -157,17 +175,10 @@
   <div class="home__table__buttons">
     <button
       pButton
-      label="New search"
-      class="p-button-secondary"
-      (click)="initNewSearch()"
-      width="100%"></button>
-
-    <button
-      pButton
-      *ngIf="selectedProducts?.length > 0"
+      [disabled]="selectedProducts?.length === 0"
       label="Download chosen documents"
-      class="p-button-outlined"
-      icon="pi pi-filter-pi-download"
+      icon="pi pi-angle-right"
+      iconPos="right"
       (click)="this._servicesVariables.termsAndConditions()"></button>
   </div>
 </ng-container>
@@ -198,27 +209,15 @@
   <p-table [value]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td>
+        <td style="background-color: #f1f1f1; padding: 8px 12px !important">
           <a
             [href]="product.source"
             target="_blank"
             rel="noopener noreferrer"
             class="home__table--link">
             <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
-            {{ product.name }}
+            {{ product.code }} {{ product.name }}
           </a>
-        </td>
-
-        <td style="background-color: #f1f1f1">
-          <div class="home__table__info">
-            <div
-              class="home__table__info--point numOne"
-              [ngStyle]="{
-                'background-color': getImportanceLevelColor(product.importance_level)
-              }"></div>
-
-            <div>{{ product.importance_level }}</div>
-          </div>
         </td>
       </tr>
     </ng-template>
@@ -238,3 +237,25 @@
       (click)="initNewSearch()"></button>
   </div>
 </ng-container>
+
+<div class="home__line"></div>
+
+<div style="margin-bottom: 40px">
+  <p-button
+    routerLink="/melsp/overview"
+    label="View all resources"
+    severity="secondary2"
+    icon="pi pi-list"
+    [outlined]="true"
+    [style]="{ 'margin-right': '5px' }"></p-button>
+
+  <a
+    href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="p-button p-button-secondary2"
+    style="font-weight: bold; text-decoration: none">
+    <i class="pi pi-send" style="margin-right: 0.5rem"></i>
+    Request to upload a resources
+  </a>
+</div>

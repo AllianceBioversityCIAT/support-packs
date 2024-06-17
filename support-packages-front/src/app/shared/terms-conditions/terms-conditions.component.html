@@ -1,7 +1,7 @@
 <div class="terms">
   <h2 class="terms--title">Terms and conditions</h2>
 
-  <p class="terms--description">
+  <p class="terms--description" *ngIf="!_servicesVariables.continue">
     To continue downloading your files, please first fill in your email and then some basic
     information. This information will be used by AICCRA solely for impact assessment and CGIAR and
     Center level reporting purposes. Filling it in will greatly help us to track the use of the
@@ -11,12 +11,13 @@
     directly.
   </p>
 
-  <div class="terms__input">
+  <div class="terms__input" *ngIf="!_servicesVariables.continue">
+    <label for="email" style="font-weight: 600">Email:</label>
     <input
       pInputText
       type="email"
+      id="email"
       [(ngModel)]="email"
-      placeholder="Email"
       [ngStyle]="{ 'border-color': emailError ? 'red' : '' }"
       [email]="true"
       [disabled]="_servicesVariables.continue" />
@@ -26,7 +27,7 @@
 
   <form class="terms__form" *ngIf="_servicesVariables.continue" [formGroup]="formData">
     <div class="terms__form--row">
-      <div class="terms__form--item">
+      <div class="terms__form--input">
         <p>First name:</p>
 
         <input pInputText type="text" formControlName="first_name" placeholder="First name" />
@@ -39,7 +40,7 @@
         </p>
       </div>
 
-      <div class="terms__form--item">
+      <div class="terms__form--input">
         <p>Last name:</p>
 
         <input pInputText type="text" formControlName="last_name" placeholder="Last name" />
@@ -53,7 +54,7 @@
       </div>
     </div>
 
-    <div class="terms__form--item">
+    <div class="terms__form--input">
       <p>Institute name:</p>
 
       <input pInputText type="text" formControlName="institute" placeholder="Institute name" />
@@ -68,40 +69,44 @@
 
     <div class="terms__form--row">
       <div class="terms__form--item">
-        <p>Region(s) of your research interest:</p>
+        <p style="margin-bottom: 10px">Region(s) of your research interest:</p>
 
-        <p-multiSelect
-          [options]="cities"
-          formControlName="interestRegions"
-          [style]="{ width: '100%' }"
-          placeholder="Select Region"
-          optionLabel="name"></p-multiSelect>
+        <div *ngFor="let city of cities" class="field-checkbox" formArrayName="interestRegions">
+          <p-checkbox
+            (onChange)="onCheckboxChange($event, city, 'interestRegions')"
+            [label]="city.name"
+            [value]="city"
+            [disabled]="isLoading"
+            name="interestRegions" />
+        </div>
 
-        <p *ngIf="isValidRequired('interestRegions')" style="color: red; font-size: 14px">
+        <p *ngIf="errorInterestRegions" style="color: red; font-size: 14px">
           Region(s) of your research interest is required
         </p>
       </div>
 
       <div class="terms__form--item">
-        <p>Region(s) where your institute is located:</p>
+        <p style="margin-bottom: 10px">Region(s) where your institute is located:</p>
 
-        <p-multiSelect
-          [options]="cities"
-          formControlName="instituteRegions"
-          [style]="{ width: '100%' }"
-          optionLabel="name"
-          placeholder="Select Region"></p-multiSelect>
+        <div *ngFor="let city of cities" class="field-checkbox">
+          <p-checkbox
+            (onChange)="onCheckboxChange($event, city, 'instituteRegions')"
+            [label]="city.name"
+            [value]="city"
+            [disabled]="isLoading"
+            name="instituteRegions" />
+        </div>
 
-        <p *ngIf="isValidRequired('instituteRegions')" style="color: red; font-size: 14px">
+        <p *ngIf="errorInstituteRegions" style="color: red; font-size: 14px">
           Region(s) where your institute is located is required
         </p>
       </div>
     </div>
 
-    <div class="terms__form--item">
+    <div class="terms__form--input">
       <p>Intended use of data:</p>
 
-      <textarea rows="5" formControlName="intended" pInputTextarea></textarea>
+      <textarea rows="3" formControlName="intended" pInputTextarea></textarea>
 
       <p *ngIf="isValidRequired('intended')" style="color: red; font-size: 14px">
         Intended use of data is required
@@ -114,23 +119,29 @@
 
   <div class="terms__buttons">
     <div class="terms__buttons__back">
-      <button pButton type="button" (click)="goBack()" label="Back" [disabled]="isLoading"></button>
-
-      <p-button
-        *ngIf="!_servicesVariables.continue"
-        severity="secondary"
+      <button
+        pButton
         type="button"
-        (onClick)="skipSection()"
-        label="Skip"></p-button>
+        (click)="goBack()"
+        label="Go Back"
+        [disabled]="isLoading"
+        icon="pi pi-angle-left"></button>
+
+      <button
+        pButton
+        type="submit"
+        [icon]="setButtonIcon()"
+        iconPos="right"
+        (click)="nextStep()"
+        [disabled]="isLoading"
+        [label]="isLoading ? 'Loading' : 'Next'"></button>
     </div>
 
-    <button
-      pButton
-      type="submit"
-      [icon]="setButtonIcon()"
-      iconPos="right"
-      (click)="nextStep()"
-      [disabled]="isLoading"
-      [label]="isLoading ? 'Loading' : 'Continue'"></button>
+    <p-button
+      *ngIf="!_servicesVariables.continue"
+      severity="secondary"
+      type="button"
+      (onClick)="skipSection()"
+      label="Skip"></p-button>
   </div>
 </div>

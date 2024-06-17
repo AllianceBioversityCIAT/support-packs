@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [TermsConditionsComponent],
@@ -17,6 +18,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     MultiSelectModule,
     InputTextareaModule,
     ReactiveFormsModule,
+    CheckboxModule,
   ],
   exports: [TermsConditionsComponent],
 })

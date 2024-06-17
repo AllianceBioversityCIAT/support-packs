@@ -1,17 +1,15 @@
 .melsp {
-  max-width: 1220px;
+  max-width: 960px;
   margin: 0 auto;
 
   &__content {
-    padding: 30px 30px 60px 30px;
+    padding: 0 15px;
   }
 
   &__images {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
 
     &--logo {
       max-width: 100%;
