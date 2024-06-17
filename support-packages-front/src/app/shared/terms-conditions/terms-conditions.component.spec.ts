@@ -47,7 +47,7 @@ describe('TermsConditionsComponent', () => {
   it('should return correct button icon when not loading and continue is false', () => {
     component.isLoading = false;
     mockServicesTermsService.continue = false;
-    expect(component.setButtonIcon()).toBe('pi pi-arrow-right');
+    expect(component.setButtonIcon()).toBe('pi pi-angle-right');
   });
 
   it('should validate email correctly', () => {
@@ -73,6 +73,8 @@ describe('TermsConditionsComponent', () => {
       instituteRegions: [{ id: 1, name: 'Africa' }],
       intended: 'Research',
     });
+    component.formData.controls['interestRegions'].value.value = [{ id: 1, name: 'Africa' }];
+    component.formData.controls['instituteRegions'].value.value = [{ id: 1, name: 'Africa' }];
     component.email = 'test@example.com';
     component.nextStep();
     expect(component.isLoading).toBe(false);
@@ -108,6 +110,8 @@ describe('TermsConditionsComponent', () => {
       instituteRegions: [{ id: 1, name: 'Africa' }],
       intended: 'Research',
     });
+    component.formData.controls['interestRegions'].value.value = [{ id: 1, name: 'Africa' }];
+    component.formData.controls['instituteRegions'].value.value = [{ id: 1, name: 'Africa' }];
     component.email = 'test@example.com';
     component.saveEmail();
     expect(component.isLoading).toBe(false);
@@ -126,6 +130,8 @@ describe('TermsConditionsComponent', () => {
       instituteRegions: [{ id: 1, name: 'Africa' }],
       intended: 'Research',
     });
+    component.formData.controls['interestRegions'].value.value = [{ id: 1, name: 'Africa' }];
+    component.formData.controls['instituteRegions'].value.value = [{ id: 1, name: 'Africa' }];
     component.email = 'test@example.com';
     component.saveEmail();
     expect(mockServicesTermsService.postregisterdowload).toHaveBeenCalled();
@@ -144,6 +150,8 @@ describe('TermsConditionsComponent', () => {
       instituteRegions: [{ id: 1, name: 'Africa' }],
       intended: 'Research',
     });
+    component.formData.controls['interestRegions'].value.value = [{ id: 1, name: 'Africa' }];
+    component.formData.controls['instituteRegions'].value.value = [{ id: 1, name: 'Africa' }];
     component.email = 'test@example.com';
     component.saveEmail();
     expect(component.isLoading).toBe(false);
