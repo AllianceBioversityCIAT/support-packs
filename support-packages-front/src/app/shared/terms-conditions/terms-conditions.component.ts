@@ -1,13 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ServicesTermsService } from '../services/services-terms.service';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface ICity {
   id: number;

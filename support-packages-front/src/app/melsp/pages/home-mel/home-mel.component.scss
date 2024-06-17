@@ -103,12 +103,6 @@
       align-items: center;
       gap: 1rem;
       margin-top: 2rem;
-
-      @media (max-width: 425px) {
-        flex-direction: column-reverse;
-        width: 100%;
-        gap: 1rem;
-      }
     }
   }
 

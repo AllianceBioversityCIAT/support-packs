@@ -42,7 +42,7 @@
 
     &--row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
       width: 100%;
 
@@ -72,11 +72,6 @@
     align-items: center;
     gap: 1rem;
     width: 100%;
-
-    @media (max-width: 768px) {
-      flex-direction: column-reverse;
-      gap: 1rem;
-    }
 
     &__back {
       display: flex;
