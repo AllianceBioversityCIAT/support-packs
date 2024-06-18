@@ -19,7 +19,10 @@ export class TermsConditionsComponent {
   isLoading = false;
 
   email = '';
-  emailError = false;
+  emailError = {
+    error: false,
+    message: '',
+  };
   cities: ICity[] = [
     { name: 'Africa', id: 1 },
     { name: 'Asia', id: 2 },
@@ -85,7 +88,10 @@ export class TermsConditionsComponent {
 
   nextStep() {
     if (this.validEmail()) {
-      this.emailError = true;
+      this.emailError = {
+        error: true,
+        message: 'Please enter a valid email address',
+      };
       return;
     }
 
@@ -112,8 +118,37 @@ export class TermsConditionsComponent {
       this.saveEmail();
     }
 
-    this._servicesVariables.continue = true;
-    this.emailError = false;
+    if (
+      this.formData.get('first_name')?.value === '' &&
+      this.formData.get('last_name')?.value === '' &&
+      this.formData.get('institute')?.value === ''
+    ) {
+      this.isLoading = true;
+
+      this._servicesVariables.getExistingUser(this.email).subscribe({
+        next: (data) => {
+          if (data.user) {
+            this.formData.patchValue({
+              first_name: data.user.first_name,
+              last_name: data.user.last_name,
+              institute: data.user.institute,
+            });
+          }
+          this.isLoading = false;
+          this._servicesVariables.continue = true;
+        },
+        error: (error) => {
+          console.error(error);
+          this.isLoading = false;
+          this.emailError = {
+            error: true,
+            message: 'Something went wrong fetching user data, please try again later.',
+          };
+        },
+      });
+    } else {
+      this._servicesVariables.continue = true;
+    }
   }
 
   isValidRequired(field: string) {
@@ -150,6 +185,15 @@ export class TermsConditionsComponent {
     this.errorInstituteRegions = false;
     this.errorInterestRegions = false;
     this.formData.markAsUntouched();
+    this.formData.patchValue({
+      first_name: '',
+      last_name: '',
+      institute: '',
+      interestRegions: this.fb.array([]),
+      instituteRegions: this.fb.array([]),
+      intended: '',
+    });
+
     this._servicesVariables.continue = false;
     this._servicesVariables.termsConditions = true;
   }

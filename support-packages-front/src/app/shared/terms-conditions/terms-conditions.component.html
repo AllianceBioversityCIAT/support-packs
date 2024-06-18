@@ -18,11 +18,11 @@
       type="email"
       id="email"
       [(ngModel)]="email"
-      [ngStyle]="{ 'border-color': emailError ? 'red' : '' }"
+      [ngStyle]="{ 'border-color': emailError.error ? 'red' : '' }"
       [email]="true"
       [disabled]="_servicesVariables.continue" />
 
-    <p *ngIf="emailError" style="color: red">Please enter a valid email address</p>
+    <p *ngIf="emailError.error" style="color: red">{{ emailError.message }}</p>
   </div>
 
   <form class="terms__form" *ngIf="_servicesVariables.continue" [formGroup]="formData">
@@ -139,7 +139,7 @@
 
     <p-button
       *ngIf="!_servicesVariables.continue"
-      severity="secondary"
+      severity="secondary3"
       type="button"
       (onClick)="skipSection()"
       label="Skip"></p-button>

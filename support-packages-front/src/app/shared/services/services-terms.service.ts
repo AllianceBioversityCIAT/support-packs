@@ -6,7 +6,6 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ServicesTermsService {
-  urlApi = environment.api;
   constructor(private http: HttpClient) {}
 
   continue: boolean = false;
@@ -22,6 +21,10 @@ export class ServicesTermsService {
   }
 
   postregisterdowload(data: any) {
-    return this.http.post<any>(`${this.urlApi}/support/registerDowloadTool`, data).pipe();
+    return this.http.post<any>(`${environment.api}/support/registerDowloadTool`, data).pipe();
+  }
+
+  getExistingUser(email: string) {
+    return this.http.get<any>(`${environment.api}/users/sp-users/get-user?email=${email}`).pipe();
   }
 }

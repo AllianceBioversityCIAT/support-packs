@@ -92,7 +92,7 @@ export class HomeMelComponent implements OnInit, OnDestroy {
       ToolsType0: this.selectedProducts.filter((product) => product.type === '0'),
       buttonMessage:
         this.selectedProducts.filter((product) => product.type === '0').length > 1
-          ? `Download Files [${this.selectedProducts.filter((product) => product.type === '0').length}]`
+          ? `Download [${this.selectedProducts.filter((product) => product.type === '0').length}] Files`
           : 'Download File',
     };
   }

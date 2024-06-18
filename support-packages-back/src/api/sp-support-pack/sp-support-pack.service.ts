@@ -123,16 +123,25 @@ export class SpSupportPackService {
 
   async registerDowloadTool(data:any):Promise<any>{
     try {
-      const result = await this.prisma.sp_person.create({
-        data: {
+      const result = await this.prisma.sp_person.upsert({
+        where: {
+          email: data.email
+        },
+        update: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+        },
+        create: {
           first_name: data.first_name,
           last_name: data.last_name,
           email: data.email,
           password: '',
           registeredAt : new Date(),
+        },
+        select: {
+          id: true
         }
       });
-      
 
       const dowload = await this.prisma.sp_download.create({
         data: {

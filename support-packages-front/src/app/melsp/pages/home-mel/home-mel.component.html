@@ -21,7 +21,6 @@
 </div>
 
 <div class="home__filters">
-  <!-- *ngIf="!this._servicesVariables.termsConditions" -->
   <p-dropdown
     [options]="rolesData"
     [(ngModel)]="selectedRole"
@@ -102,7 +101,7 @@
 </div>
 
 <div class="home__notFilter" *ngIf="!selectedRole || !selectedWhat || !selectedWhen">
-  <h3>Please select the 3 option(s) above</h3>
+  <h3 class="home__notFilter--title">Please select the 3 option(s) above</h3>
   <div class="home__notFilter--images">
     <img
       src="../../../../assets/icon-1.png"
@@ -196,17 +195,13 @@
     this._servicesVariables.continue
   ">
   <div class="home__header">
-    <h2 class="home__header--title">Documents recomended</h2>
-
-    <p class="home__header--subtitle">
-      <span>{{ selectedProducts?.length }}</span> Documents found for a
-      <span>{{ selectedRole.name }}</span> at <span>{{ selectedWhen.name }}</span> stage
-    </p>
+    <h2 class="home__header--title" style="font-size: 30px; font-weight: lighter">Download</h2>
   </div>
 
-  <h2 class="home__header--description">{{ selectedWhat.name }}</h2>
-
-  <p-table [value]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table
+    [value]="selectedProducts"
+    dataKey="code"
+    [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
     <ng-template pTemplate="body" let-product>
       <tr>
         <td style="background-color: #f1f1f1; padding: 8px 12px !important">
@@ -233,7 +228,7 @@
     <button
       pButton
       label="New search"
-      class="p-button-secondary"
+      class="p-button-secondary3"
       (click)="initNewSearch()"></button>
   </div>
 </ng-container>
@@ -241,20 +236,19 @@
 <div class="home__line"></div>
 
 <div style="margin-bottom: 40px">
-  <p-button
+  <a
     routerLink="/melsp/overview"
-    label="View all resources"
-    severity="secondary2"
-    icon="pi pi-list"
-    [outlined]="true"
-    [style]="{ 'margin-right': '5px' }"></p-button>
-
+    class="p-button p-button-secondary2"
+    style="text-decoration: none; margin-right: 5px">
+    <i class="pi pi-list" style="margin-right: 0.5rem"></i>
+    View all resources
+  </a>
   <a
     href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform"
     target="_blank"
     rel="noopener noreferrer"
     class="p-button p-button-secondary2"
-    style="font-weight: bold; text-decoration: none">
+    style="text-decoration: none">
     <i class="pi pi-send" style="margin-right: 0.5rem"></i>
     Request to upload a resources
   </a>

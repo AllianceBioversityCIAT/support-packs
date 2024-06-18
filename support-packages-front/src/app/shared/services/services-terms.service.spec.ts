@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ServicesTermsService } from './services-terms.service';
+import { environment } from '../../../environments/environment';
 
 describe('ServicesTermsService', () => {
   let service: ServicesTermsService;
@@ -40,7 +41,7 @@ describe('ServicesTermsService', () => {
     };
     service.postregisterdowload(testData).subscribe();
 
-    const req = httpMock.expectOne(`${service.urlApi}/support/registerDowloadTool`);
+    const req = httpMock.expectOne(`${environment.api}/support/registerDowloadTool`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(testData);
 

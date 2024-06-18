@@ -6,6 +6,8 @@
     text-wrap: pretty;
     text-align: justify;
     font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
   }
 
   &__filters {
@@ -34,6 +36,13 @@
     padding: 1rem;
     background-color: #f1f1f1;
 
+    &--title {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #444;
+      font-weight: lighter;
+    }
+
     &--images {
       display: flex;
       justify-content: center;
@@ -53,6 +62,7 @@
     &--title {
       font-size: 24px;
       font-weight: 500;
+      margin-top: 10px;
     }
 
     &--subtitle {
@@ -101,7 +111,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 1rem;
+      gap: 5px;
       margin-top: 2rem;
     }
   }

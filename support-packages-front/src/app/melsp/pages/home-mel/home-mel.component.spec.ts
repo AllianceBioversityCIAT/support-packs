@@ -97,7 +97,7 @@ describe('HomeMelComponent', () => {
 
     expect(result.showPdfButton).toBe(true);
     expect(result.ToolsType0.length).toBe(2);
-    expect(result.buttonMessage).toBe('Download Files [2]');
+    expect(result.buttonMessage).toBe('Download [2] Files');
   });
 
   it('should filter products data correctly', () => {

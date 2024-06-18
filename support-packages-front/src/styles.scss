@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 * :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
-  font-family: 'Quicksand', sans-serif !important;
+  // font-family: 'Quicksand', sans-serif !important;
+
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 // Delete margin from hns,p,div
@@ -40,12 +44,14 @@ html {
 }
 
 .p-dropdown-items-wrapper {
-  max-height: 428px !important;
-  // height: fit-content;
-  // max-height: calc(100vh - 200px) !important;
+  max-height: 444px !important;
   overflow-y: auto;
 
-  @media (max-height: 840px) {
+  @media (max-height: 688px) {
+    max-height: 257px !important;
+  }
+
+  @media (max-height: 989px) {
     max-height: 200px !important;
   }
 }
@@ -60,6 +66,16 @@ html {
 
 .p-button {
   padding: 8px 10px !important;
+  border-color: #2e6da4;
+  background-color: #337ab7;
+
+  &:hover {
+    background-color: #296090 !important;
+  }
+}
+
+.p-button-label {
+  font-weight: normal;
 }
 
 .p-button-secondary2 {
@@ -67,8 +83,26 @@ html {
   color: #495057 !important;
   border-color: #ccc !important;
   font-size: 12px;
+  font-weight: 500 !important;
 
   &:hover {
     background-color: #e6e6e6 !important;
   }
+}
+
+.p-button-secondary3 {
+  background-color: #5bc0de !important;
+  color: #fff !important;
+  border-color: #46b8da !important;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #31b0d5 !important;
+  }
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+  background-color: #f2f2f2;
+  color: #495058;
+  font-weight: 600;
 }
