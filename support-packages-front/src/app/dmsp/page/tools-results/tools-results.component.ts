@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 interface IRole {
   id: number;
@@ -49,6 +50,23 @@ interface IProduct {
   selector: 'app-tools-results',
   templateUrl: './tools-results.component.html',
   styleUrls: ['./tools-results.component.scss'],
+  animations: [
+    trigger('rotate', [
+      transition(
+        'false => true',
+        animate(
+          '1s',
+          keyframes([
+            style({ transform: 'perspective(400px) rotateX(90deg)', opacity: 0 }),
+            style({ transform: 'perspective(400px) rotateX(-20deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px) rotateX(10deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px) rotateX(-5deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px)', opacity: 1 }),
+          ]),
+        ),
+      ),
+    ]),
+  ],
 })
 export class ToolsResultsComponent implements OnInit {
   productsData: IProduct[] = [];
@@ -108,15 +126,15 @@ export class ToolsResultsComponent implements OnInit {
 
       this.rolesData.forEach((data: any) => {
         data.img = `../../../../assets/roles/${data.id}.png`;
-        data.selected = true;
+        data.selected = false;
       });
 
       this.whatData.forEach((data: any) => {
-        data.selected = true;
+        data.selected = false;
       });
 
       this.whenData.forEach((data: any) => {
-        data.selected = true;
+        data.selected = false;
       });
     });
   }

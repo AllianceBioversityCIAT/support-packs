@@ -10,7 +10,11 @@
             class="filters__item--button"
             [ngClass]="{ selected: item?.selected }"
             (click)="selectedRole = item; filterInformation(); changesItemStatus(item, 'role')">
-            <img [src]="item.img" [alt]="item.name" class="filters__item--button--image" />
+            <img
+              [src]="item.img"
+              [alt]="item.name"
+              class="filters__item--button--image"
+              [@rotate]="item.selected" />
             <p>{{ item.name }}</p>
           </button>
         </ng-container>
@@ -49,7 +53,8 @@
             *ngFor="let item of this.whenData; let i = index"
             class="filters__item--stageButtons--item"
             [ngClass]="{ selected: item?.selected }"
-            (click)="selectedWhen = item; filterInformation(); changesItemStatus(item, 'when')">
+            (click)="selectedWhen = item; filterInformation(); changesItemStatus(item, 'when')"
+            [@rotate]="item.selected">
             <div class="filters__item--stageButtons--item--button">
               <div class="filters__item--stageButtons--item--button--number">
                 <p class="filters__item--stageButtons--item--button--number--text">
@@ -76,7 +81,14 @@
             optionLabel="name"
             placeholder="Select a where"
             [style]="{ width: '100%', 'background-color': '#1281aa' }"
-            (ngModelChange)="filterInformation()"></p-dropdown>
+            (ngModelChange)="filterInformation()">
+            <ng-template pTemplate="selectedItem">
+              <div class="filters__item--dropdown--content">
+                <i class="pi pi-clock" style="font-size: 15px"></i>
+                <p>{{ selectedWhen.name }}</p>
+              </div>
+            </ng-template>
+          </p-dropdown>
         </div>
       </div>
 
@@ -86,9 +98,9 @@
         <div class="secondColumn__buttons" *ngIf="!selectedRole || !selectedWhat || !selectedWhen">
           <button
             class="secondColumn__buttons--item"
+            *ngFor="let item of this.whatData; let i = index"
             [ngClass]="{ selected: item?.selected }"
-            (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')"
-            *ngFor="let item of this.whatData; let i = index">
+            (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')">
             <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
 
             <p class="secondColumn__buttons--item--content">{{ item.name }}</p>
@@ -102,7 +114,14 @@
             optionLabel="name"
             placeholder="Select a where"
             [style]="{ width: '100%', 'background-color': '#47939c' }"
-            (ngModelChange)="filterInformation()"></p-dropdown>
+            (ngModelChange)="filterInformation()">
+            <ng-template pTemplate="selectedItem">
+              <div class="filters__item--dropdown--content">
+                <i class="pi pi-question" style="font-size: 15px"></i>
+                <p>{{ selectedWhat.name }}</p>
+              </div>
+            </ng-template></p-dropdown
+          >
         </div>
       </div>
     </div>
@@ -135,16 +154,23 @@
           [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="body" let-product>
             <tr>
-              <td>
+              <td
+                style="
+                  background-color: #f1f1f1;
+                  padding-right: 0 !important;
+                  width: 20px !important;
+                ">
                 <p-tableCheckbox [value]="product"></p-tableCheckbox>
               </td>
 
-              <td>
-                <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
-                {{ product.name }}
+              <td style="background-color: #f1f1f1">
+                <i
+                  [class]="getIconByType(product.type)"
+                  style="margin-right: 5px; font-size: 16px; color: #666"></i>
+                {{ product.code }} {{ product.name }}
               </td>
 
-              <td style="background-color: #f1f1f1">
+              <td style="background-color: #f1f1f1; width: 150px !important">
                 <div class="dmsp-home__table__info">
                   <div
                     class="dmsp-home__table__info--point numOne"
@@ -162,17 +188,10 @@
         <div class="dmsp-home__table__buttons">
           <button
             pButton
-            label="New search"
-            class="p-button-secondary"
-            (click)="initNewSearch()"
-            width="100%"></button>
-
-          <button
-            pButton
-            *ngIf="selectedProducts?.length > 0"
+            [disabled]="selectedProducts?.length === 0"
             label="Download chosen documents"
-            class="p-button-outlined"
-            icon="pi pi-filter-pi-download"
+            icon="pi pi-angle-right"
+            iconPos="right"
             (click)="this._servicesVariables.termsAndConditions()"></button>
         </div>
       </ng-container>
@@ -191,41 +210,25 @@
           this._servicesVariables.continue
         ">
         <div class="dmsp-home__header">
-          <h2 class="dmsp-home__header--title">Guidelines Recommened</h2>
-
-          <p class="dmsp-home__header--subtitle">
-            Results:
-            <span>Role</span> {{ selectedRole.name }}, <span>When</span>
-            {{ selectedWhen.name }}
-          </p>
+          <h2 class="home__header--title" style="font-size: 30px; font-weight: lighter">
+            Download
+          </h2>
         </div>
-
-        <h2 class="dmsp-home__header--description">{{ selectedWhat.name }}</h2>
 
         <p-table [value]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="body" let-product>
             <tr>
-              <td>
+              <td style="background-color: #f1f1f1; padding: 8px 12px !important">
                 <a
                   [href]="product.source"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="dmsp-home__table--link">
-                  <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
-                  {{ product.name }}
+                  <i
+                    [class]="getIconByType(product.type)"
+                    style="margin-right: 5px; font-size: 16px; color: #666"></i>
+                  {{ product.code }} {{ product.name }}
                 </a>
-              </td>
-
-              <td style="background-color: #f1f1f1">
-                <div class="dmsp-home__table__info">
-                  <div
-                    class="dmsp-home__table__info--point numOne"
-                    [ngStyle]="{
-                      'background-color': getImportanceLevelColor(product.importance_level)
-                    }"></div>
-
-                  <div>{{ product.importance_level }}</div>
-                </div>
               </td>
             </tr>
           </ng-template>
@@ -241,7 +244,7 @@
           <button
             pButton
             label="New search"
-            class="p-button-secondary"
+            class="p-button-secondary3"
             (click)="initNewSearch()"></button>
         </div>
       </ng-container>
@@ -256,7 +259,8 @@
         class="secondColumn__buttons--item"
         [ngClass]="{ selected: item?.selected }"
         (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')"
-        *ngFor="let item of this.whatData; let i = index">
+        *ngFor="let item of this.whatData; let i = index"
+        [@rotate]="item.selected">
         <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
 
         <p class="secondColumn__buttons--item--content">{{ item.name }}</p>

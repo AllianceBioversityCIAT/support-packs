@@ -4,7 +4,7 @@
   height: 100%;
   gap: 20px;
 
-  @media (max-width: 1080px) {
+  @media (max-width: 768px) {
     grid-template-columns: 100%;
   }
 
@@ -14,16 +14,20 @@
     align-items: flex-start;
     gap: 0.5rem;
     width: 100%;
-    margin-bottom: 1.5rem;
-    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 
     &--title {
-      font-size: 1.5rem;
+      font-size: 30px;
+      font-weight: lighter;
+      margin-top: 10px;
+      color: #333;
     }
 
     &--subtitle {
       font-size: 1rem;
       font-style: italic;
+      color: #333;
 
       span {
         font-weight: 700;
@@ -65,14 +69,8 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 1rem;
+      gap: 5px;
       margin-top: 2rem;
-
-      @media (max-width: 425px) {
-        flex-direction: column-reverse;
-        width: 100%;
-        gap: 1rem;
-      }
     }
   }
 }
@@ -80,7 +78,7 @@
 .secondColumnWhat {
   display: none;
 
-  @media (max-width: 1080px) {
+  @media (max-width: 768px) {
     display: block;
   }
 }
@@ -95,7 +93,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 
-    @media (max-width: 1080px) {
+    @media (max-width: 768px) {
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
@@ -106,12 +104,12 @@
         align-items: center;
         background-color: #f1f1f1;
         width: 100%;
-        font-size: 1rem;
         font-weight: 400;
         padding: 0 0.7rem;
         border: none;
         opacity: 0.75;
         gap: 15px;
+        text-align: start;
 
         &.selected {
           font-weight: bold;
@@ -223,9 +221,10 @@
   align-items: flex-start;
 
   &__buttons {
-    width: 100%;
+    // width: 100%;
     background-color: #f1f1f1;
     padding: 20px;
+    width: 315px;
 
     &--item {
       display: flex;
@@ -263,7 +262,7 @@
     }
   }
 
-  @media (max-width: 1080px) {
+  @media (max-width: 768px) {
     display: none;
   }
 }
