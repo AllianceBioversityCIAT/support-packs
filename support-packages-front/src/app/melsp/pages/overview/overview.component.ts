@@ -47,7 +47,7 @@ export class OverviewComponent implements OnInit {
       case '1':
         return 'pi pi-youtube';
       case '2':
-        return 'pi pi-paperclip';
+        return '';
       default:
         return '';
     }

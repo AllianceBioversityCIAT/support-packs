@@ -7,9 +7,41 @@
   min-height: 400px;
 
   &__title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  &__importantList {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+    padding: 8px;
+    background-color: #f1f1f1;
+
+    &--item {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 5px;
+
+      p {
+        white-space: nowrap;
+      }
+    }
+
+    &--circle {
+      min-width: 10px;
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+    }
   }
 
   &__table {
@@ -26,6 +58,8 @@
         justify-content: start;
         align-items: center;
         gap: 0.5rem;
+        font-size: 12px;
+        min-width: 455px;
       }
 
       &--link {
@@ -60,6 +94,7 @@
 .useful {
   background-color: #e6b8b7;
   font-weight: bold;
+  color: white;
 }
 
 .optional {

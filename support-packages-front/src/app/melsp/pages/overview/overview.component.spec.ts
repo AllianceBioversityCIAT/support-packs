@@ -67,7 +67,7 @@ describe('OverviewComponent', () => {
   it('should return correct icon by type', () => {
     expect(component.getIconByType('0')).toBe('pi pi-file');
     expect(component.getIconByType('1')).toBe('pi pi-youtube');
-    expect(component.getIconByType('2')).toBe('pi pi-paperclip');
+    expect(component.getIconByType('2')).toBe('');
     expect(component.getIconByType('3')).toBe('');
   });
 
