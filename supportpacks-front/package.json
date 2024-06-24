@@ -32,6 +32,7 @@
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@hotjar/browser": "^1.0.9",
     "@ng-bootstrap/ng-bootstrap": "~5.2.2",
     "autosize": "^5.0.1",
     "bootstrap": "^4.5.2",
