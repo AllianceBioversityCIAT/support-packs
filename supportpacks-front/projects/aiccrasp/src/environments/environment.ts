@@ -8,8 +8,6 @@ export const environment = {
   name: 'AICCRA Tools Support Pack',
   api_name: 'http://localhost:4410/api',
   api: 'http://localhost:4410/api',
-  hotjarVersion: 6,
-  siteId: 5035514,
 };
 
 /*
