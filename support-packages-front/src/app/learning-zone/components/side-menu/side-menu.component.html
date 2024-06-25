@@ -4,21 +4,31 @@
   </div>
 
   <div class="sideMenu__buttons">
-    <button
-      pButton
-      *ngFor="let sideLink of this.sidebarLinks"
-      [label]="sideLink.name"
-      [routerLink]="[sideLink.url]"
-      routerLinkActive="selected"
-      [icon]="sideLink.icon"
-      class="sideMenu__buttons--item"></button>
+    <div class="sideMenu__buttons__general">
+      <button
+        pButton
+        *ngFor="let sideLink of this.sidebarLinks"
+        [label]="sideLink.name"
+        [routerLink]="[sideLink.url]"
+        routerLinkActive="selected"
+        [icon]="sideLink.icon"
+        class="sideMenu__buttons--item"></button>
+
+      <button
+        pButton
+        label="Overview"
+        icon="pi pi-table"
+        class="sideMenu__buttons--item"
+        (click)="showDialog()"></button>
+    </div>
 
     <button
       pButton
-      label="Overview"
-      icon="pi pi-table"
-      class="sideMenu__buttons--item"
-      (click)="showDialog()"></button>
+      label="Manage Tool"
+      routerLink="/aiccra/manage-tool"
+      routerLinkActive="selected"
+      icon="pi pi-user-edit"
+      class="sideMenu__buttons--item"></button>
   </div>
 </div>
 

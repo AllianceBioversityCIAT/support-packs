@@ -1,3 +1,7 @@
+* :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
+  font-family: 'Quicksand', sans-serif !important;
+}
+
 .learning-zone {
   max-width: 1320px;
   margin: 0 auto;
@@ -10,13 +14,37 @@
   }
 
   &__content {
-    padding: 1rem 2rem;
+    padding: 32px 48px;
     overflow-y: auto;
     max-height: 100vh;
     background: url('../../assets/svg/content_bg.svg') no-repeat center center;
+    background-color: #fff;
 
     @media (max-width: 450px) {
       padding: 1rem;
     }
+
+    ::before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 1;
+      background-color: #fff;
+      background-image: url('../../assets/svg/bg-learning.svg');
+      background-attachment: fixed;
+      background-size: cover;
+    }
   }
+}
+
+:host ::ng-deep * {
+  font-family: 'Quicksand', sans-serif !important;
+}
+:host ::ng-deep .pi {
+  font-family: 'primeicons' !important;
 }

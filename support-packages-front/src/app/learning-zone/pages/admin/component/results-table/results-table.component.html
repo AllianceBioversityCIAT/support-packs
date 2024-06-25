@@ -40,7 +40,7 @@
           *ngIf="activeItem.id === 0 || activeItem.id === 2"
           type="button"
           icon="pi pi-pencil"
-          class="p-button-rounded p-button-text"
+          class="p-button-rounded p-button-text p-button-secondary2"
           (click)="showEditDialog(tool)"></button>
 
         <button
@@ -49,7 +49,7 @@
           *ngIf="activeItem.id === 1"
           type="button"
           icon="pi pi-check-circle"
-          class="p-button-rounded p-button-text"
+          class="p-button-rounded p-button-text p-button-secondary2"
           (click)="showDialogDesactive(tool)"></button>
 
         <button
@@ -58,7 +58,7 @@
           *ngIf="activeItem.id === 0"
           type="button"
           icon="pi pi-trash"
-          class="p-button-rounded p-button-text"
+          class="p-button-rounded p-button-text p-button-secondary2"
           (click)="showDialogDesactive(tool)"></button>
 
         <button
@@ -67,7 +67,7 @@
           *ngIf="activeItem.id === 2"
           type="button"
           icon="pi pi-check-square"
-          class="p-button-rounded p-button-text"
+          class="p-button-rounded p-button-text p-button-secondary2"
           (click)="showDialogAccepted(tool)"></button>
 
         <button
@@ -615,10 +615,12 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      font-size: 16px;
     ">
     <div>
       <p>
-        Are you sure you want to {{ activeItem.id === 0 ? 'deactivate' : 'activate' }} this tool?
+        Are you sure you want to <b>{{ activeItem.id === 0 ? 'deactivate' : 'activate' }}</b> this
+        tool?
       </p>
     </div>
     <div style="margin-top: 20px">
@@ -627,13 +629,18 @@
         label="Cancel"
         (click)="desactiveModalOpen = false"
         severity="danger"
-        style="background-color: red"></button>
+        style="background-color: red; border: none; font-weight: 600"></button>
       <button
         pButton
         label="Accept"
         (click)="handleDesactive()"
         severity="success"
-        style="background-color: rgb(0, 180, 120); margin-left: 10px"></button>
+        style="
+          background-color: rgb(0, 180, 120);
+          margin-left: 10px;
+          border: none;
+          font-weight: 600;
+        "></button>
     </div>
   </div>
 </p-dialog>

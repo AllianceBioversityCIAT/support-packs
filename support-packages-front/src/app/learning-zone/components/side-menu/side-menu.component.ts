@@ -120,16 +120,16 @@ export class SideMenuComponent implements OnInit {
       url: '/aiccra/form-request',
       icon: PrimeIcons.FILE,
     },
-    {
-      name: 'FAQ',
-      url: '/aiccra/FAQ',
-      icon: PrimeIcons.QUESTION_CIRCLE,
-    },
-    {
-      name: 'Manage Tool',
-      url: '/aiccra/manage-tool',
-      icon: PrimeIcons.USER_EDIT,
-    },
+    // {
+    //   name: 'FAQ',
+    //   url: '/aiccra/FAQ',
+    //   icon: PrimeIcons.QUESTION_CIRCLE,
+    // },
+    // {
+    //   name: 'Manage Tool',
+    //   url: '/aiccra/manage-tool',
+    //   icon: PrimeIcons.USER_EDIT,
+    // },
   ];
 
   constructor(public _sharedService: SharedService) {}

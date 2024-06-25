@@ -1,3 +1,7 @@
+* :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
+  font-family: 'Open sans', sans-serif !important;
+}
+
 .melsp {
   max-width: 960px;
   margin: 0 auto;
@@ -15,4 +19,11 @@
 
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+:host ::ng-deep * {
+  font-family: 'Open sans', sans-serif !important;
+}
+:host ::ng-deep .pi {
+  font-family: 'primeicons' !important;
 }

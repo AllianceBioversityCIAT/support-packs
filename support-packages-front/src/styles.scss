@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
-* :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
-  font-family: 'Open Sans', sans-serif !important;
-}
+// * :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
+//   font-family: 'Open Sans', sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   text-rendering: optimizeLegibility;
+// }
 
 // Delete margin from hns,p,div
 h1,
@@ -64,9 +67,10 @@ html {
   padding: 8px 10px !important;
   border-color: #2e6da4;
   background-color: #337ab7;
+  color: white;
 
   &:hover {
-    background-color: #296090 !important;
+    background-color: #296090;
   }
 
   &:focus {
