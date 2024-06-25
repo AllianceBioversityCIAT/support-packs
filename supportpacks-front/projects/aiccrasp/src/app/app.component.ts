@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IBDGoogleAnalytics } from 'ibdevkit';
-import { environment } from '../environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'aiccrasp';
-
-  ngOnInit() {
-    IBDGoogleAnalytics().initialize(environment.GAIDLearningZone);
-  }
 }
