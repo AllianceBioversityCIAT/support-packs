@@ -8,6 +8,7 @@ export const environment = {
   name: 'AICCRA Tools Support Pack',
   api_name: 'http://localhost:4410/api',
   api: 'http://localhost:4410/api',
+  GAIDLearningZone: 'G-KSF6V6GE7Y',
 };
 
 /*
