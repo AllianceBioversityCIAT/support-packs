@@ -137,7 +137,10 @@
     <div style="padding: 0 2rem">
       <div
         class="homeLearn__content__notFilter"
-        *ngIf="!selectedThematicAreas || !selectedTargetUser || !selectedProjectUser">
+        *ngIf="
+          (!selectedThematicAreas || !selectedTargetUser || !selectedProjectUser) &&
+          !this._servicesVariables.searchedTools
+        ">
         <h3 class="homeLearn__content__notFilter--title">
           Please use the three filters above to identify useful tools
         </h3>
@@ -167,7 +170,12 @@
       </div>
 
       <ng-container
-        *ngIf="this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser">
+        *ngIf="
+          this.selectedThematicAreas &&
+          this.selectedTargetUser &&
+          this.selectedProjectUser &&
+          !this._servicesVariables.searchedTools
+        ">
         <div class="homeLearn__content__header">
           <div class="homeLearn__content__header--titleContainer">
             <lucide-icon
@@ -180,7 +188,7 @@
           <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
         </div>
 
-        <p-table [value]="productsData" [(selection)]="selectedProducts" dataKey="code">
+        <p-table [value]="productsData" [(selection)]="selectedProducts" dataKey="id">
           <ng-template pTemplate="body" let-product let-expanded="expanded">
             <tr>
               <td
@@ -211,10 +219,7 @@
               </td>
 
               <td style="max-width: 455px; min-width: 450px">
-                <a
-                  href="{{ product.source }}"
-                  target="_blank"
-                  class="homeLearn__content__table__link">
+                <a [href]="product.source" target="_blank" class="homeLearn__content__table__link">
                   {{ product.name }}
                 </a>
               </td>
@@ -269,10 +274,128 @@
                           align-items: center;
                           justify-content: center;
                         "></lucide-icon>
-                      <a
-                        href="{{ resource.source }}"
-                        target="_blank"
-                        class="d-flex align-items-center">
+                      <a [href]="resource.source" target="_blank" class="d-flex align-items-center">
+                        {{ resource.name }}
+                      </a>
+                    </div>
+                    <div class="resource-type">{{ resource.type }}</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="4">No tools found</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="homeLearn__content__table__buttons">
+          <button
+            pButton
+            [disabled]="selectedProducts?.length === 0"
+            label="Access to related resources"
+            icon="pi pi-angle-double-right"
+            iconPos="right"
+            class="homeLearn__content__table__buttons--item"
+            (click)="this._servicesVariables.termsAndConditions()"></button>
+        </div>
+      </ng-container>
+
+      <!-- Searched tools -->
+      <ng-container *ngIf="this._servicesVariables.searchedTools">
+        <div class="homeLearn__content__header">
+          <div class="homeLearn__content__header--titleContainer">
+            <lucide-icon
+              name="bolt"
+              class="bolt"
+              [size]="20"
+              style="display: flex; align-items: center; justify-content: center"></lucide-icon>
+            <h2 class="homeLearn__content__header--title">Search results</h2>
+          </div>
+          <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
+        </div>
+
+        <p-table
+          [value]="this._servicesVariables.selectedProducts"
+          [(selection)]="selectedProducts"
+          dataKey="id">
+          <ng-template pTemplate="body" let-product let-expanded="expanded">
+            <tr>
+              <td
+                style="
+                  padding-left: 16px !important;
+                  padding-right: 0 !important;
+                  width: 20px !important;
+                ">
+                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+              </td>
+
+              <td style="width: 24px; height: 24px">
+                <p-button
+                  type="button"
+                  pRipple
+                  [pRowToggler]="product"
+                  [text]="true"
+                  styleClass="homeLearn__content__table__button"
+                  [style]="{
+                    width: '24px',
+                    height: '24px',
+                    padding: '0',
+                    'background-color': 'transparent',
+                    border: 'none',
+                    color: '#000'
+                  }"
+                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></p-button>
+              </td>
+
+              <td style="max-width: 455px; min-width: 450px">
+                <a [href]="product.source" target="_blank" class="homeLearn__content__table__link">
+                  {{ product.name }}
+                </a>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+              <td colspan="4" style="padding: 20px !important">
+                <p class="mb-2">{{ product.description }}</p>
+                <p class="mb-2"><b>Time: </b>{{ product.estimated_time }}</p>
+                <p class="mb-2"><b>Strengths: </b>{{ product.strengths }}</p>
+                <p class="mb-2"><b>Limitations: </b>{{ product.limitations }}</p>
+                <p class="mb-2"><b>Target scale: </b>{{ product.target_scale }}</p>
+                <p class="mb-2"><b>Participants: </b>{{ product.participants }}</p>
+                <p class="mb-2"><b>Methods used: </b>{{ product.methods }}</p>
+                <p class="mb-2">
+                  <b>Types of input data/information: </b>{{ product.input_types }}
+                </p>
+                <p class="mb-2"><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+                <p class="mb-2"><b>Human resources: </b>{{ product.human_resources }}</p>
+                <p class="mb-2"><b>Key reference person: </b>{{ product.key_references }}</p>
+
+                <h2
+                  class="homeLearn__download__content--header--subtitle"
+                  style="margin-top: 1rem; margin-bottom: 0.5rem"
+                  *ngIf="product.resources.length > 0">
+                  Recommended resources
+                </h2>
+
+                <div class="resources-list" *ngIf="product.resources.length > 0">
+                  <div *ngFor="let resource of product.resources" class="resource">
+                    <div class="resource-name">
+                      <lucide-icon
+                        name="link2"
+                        class="link2"
+                        [size]="16"
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        "></lucide-icon>
+                      <a [href]="resource.source" target="_blank" class="d-flex align-items-center">
                         {{ resource.name }}
                       </a>
                     </div>

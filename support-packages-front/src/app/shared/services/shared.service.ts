@@ -16,6 +16,12 @@ export class SharedService {
     return this.http.get<any>(`${environment.api}/guidelines/sp-guidelines/all/${app_id}`).pipe();
   }
 
+  getAllToolsWithoutImportantLevels(app_id: number) {
+    return this.http
+      .get<any>(`${environment.api}/guidelines/sp-guidelines/allWithoutImportantLevels/${app_id}`)
+      .pipe();
+  }
+
   // getDownloadTool(data: any) {
   //   return this.http.post<any>(`${environment.api}/support/create`, data).pipe();
   // }

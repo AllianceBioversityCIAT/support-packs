@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
 @NgModule({
   declarations: [LearningZoneComponent, SideMenuComponent],
   imports: [
@@ -24,6 +26,7 @@ import { MenubarModule } from 'primeng/menubar';
     TableModule,
     InputTextModule,
     MenubarModule,
+    AutoCompleteModule,
   ],
 })
 export class LearningZoneModule {}

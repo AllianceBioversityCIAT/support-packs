@@ -4,6 +4,21 @@
   </div>
 
   <div class="sideMenu__buttons">
+    <div class="sideMenu__buttons__search">
+      <h1 class="sideMenu__buttons__search--text">Search by tool name</h1>
+      <p-autoComplete
+        appendTo="body"
+        [(ngModel)]="this._servicesVariables.selectedProducts"
+        [suggestions]="filteredProducts"
+        (ngModelChange)="onProductChange($event)"
+        (completeMethod)="filterProducts($event)"
+        [multiple]="true"
+        [forceSelection]="true"
+        field="name"
+        [style]="{ width: ' 250px ', 'max-height': '95px' }">
+      </p-autoComplete>
+    </div>
+
     <div class="sideMenu__buttons__general">
       <button
         pButton

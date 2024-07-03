@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { IProduct, ServicesTermsService } from '../../../shared/services/services-terms.service';
 
 import * as html2pdf from 'html-to-pdf-js';
 import { SharedService } from '../../../shared/services/shared.service';
@@ -22,44 +22,6 @@ interface IProjectPhase {
   name: string;
   app_id: number;
   description: string;
-}
-
-interface IProduct {
-  id: number;
-  name: string;
-  source: string;
-  contact: null;
-  description: string;
-  target_scale: string;
-  integrates_gender: string;
-  participants: string;
-  methods: string;
-  input_types: string;
-  expected_outputs: string;
-  human_resources: string;
-  estimated_time: string;
-  strengths: string;
-  limitations: string;
-  key_references: string;
-  importance_level: string;
-  role_name: string;
-  cate_name: string;
-  staga_name: string;
-  code: string;
-  id_cat: number;
-  id_rol: number;
-  id_stage: number;
-  resources: Resource[];
-}
-
-interface Resource {
-  id: number;
-  active: number;
-  name: string;
-  code: string;
-  source: string;
-  type: string;
-  guideline_id: number;
 }
 
 @Component({
@@ -94,6 +56,7 @@ export class HomeLearningComponent implements OnInit, OnDestroy {
   goBackToTable() {
     this._servicesVariables.termsConditions = false;
     this._servicesVariables.continue = false;
+    this.selectedProducts = [];
   }
 
   downloadPDF() {
@@ -134,6 +97,8 @@ export class HomeLearningComponent implements OnInit, OnDestroy {
   filterInformation() {
     this.productsData = this.backInfo;
     this.selectedProducts = [];
+    this._servicesVariables.searchedTools = false;
+    this._servicesVariables.selectedProducts = [];
 
     if (this.selectedThematicAreas && this.selectedTargetUser && this.selectedProjectUser) {
       this.productsData = this.productsData.filter((data) => {
@@ -166,14 +131,6 @@ export class HomeLearningComponent implements OnInit, OnDestroy {
       default:
         return 'Low';
     }
-  }
-
-  initNewSearch() {
-    this.selectedThematicAreas = undefined;
-    this.selectedTargetUser = undefined;
-    this.selectedProjectUser = undefined;
-    this.productsData = this.backInfo;
-    this.selectedProducts = [];
   }
 
   ngOnDestroy() {

@@ -2,13 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
-// * :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
-//   font-family: 'Open Sans', sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   text-rendering: optimizeLegibility;
-// }
-
-// Delete margin from hns,p,div
 h1,
 h2,
 h3,
@@ -109,4 +102,21 @@ html {
   background-color: #f2f2f2;
   color: #495058;
   font-weight: 600;
+}
+
+.p-autocomplete-panel {
+  max-width: 250px;
+}
+
+.p-autocomplete-items {
+  max-height: 250px;
+}
+
+.p-autocomplete-item span {
+  text-wrap: wrap;
+}
+
+.p-autocomplete-multiple-container {
+  width: 100%;
+  overflow-y: auto;
 }

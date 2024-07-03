@@ -25,6 +25,27 @@ export class SpGuidelinesController {
     }
   }
 
+  // getGuidelineByIdWithouImportantLevels
+  @Get('/allWithoutImportantLevels/:app_id')
+  async getAllToolsPackWithoutImportantLevels(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.getGuidelineByIdWithouImportantLevels(app_id);
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
   @Get('/overview/:app_id')
   async getAllToolsOverView(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
     try{

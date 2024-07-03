@@ -5,6 +5,41 @@ import { PrismaService } from 'src/prisma.services';
 @Injectable()
 export class SpGuidelinesService {
     constructor(private prisma: PrismaService){}
+
+    async getGuidelineByIdWithouImportantLevels(app_id):Promise<any>{
+        try{
+            const guiades = await this.prisma.$queryRaw(Prisma.sql`
+                select  sg.id, sg.name, sg.source, sg.contact, sgm.description, sgm.target_scale,
+                sgm.integrates_gender, sgm.participants, sgm.methods, sgm.input_types, sgm.expected_outputs,
+                sgm.human_resources,sgm.estimated_time,sgm.strengths,sgm.limitations, sgm.key_references
+                from sp_guidelines sg
+                join sp_guidelines_metadata sgm on sgm.guideline_id = sg.id
+                where sg.app_id = ${app_id} and sg.active > 0;
+            `) as any[];
+
+            if (guiades.length == 0) {
+                return [];
+            }
+
+            // Add property resources to each guideline
+            const guidelinesIds = guiades.map((g: any) => g.id);
+            const resources_guidelines = await this.prisma.$queryRaw(Prisma.sql`
+                SELECT * FROM sp_resources_guidelines
+                WHERE guideline_id IN (${guidelinesIds.join(', ')})
+            `) as any[];
+
+            for (const element of guiades) {
+                const guideline_id = element.id;
+                element.resources = resources_guidelines.filter(
+                    (r) => r.guideline_id == guideline_id,
+                );
+            }
+
+            return guiades;
+        }catch(error){
+            return error;
+        }
+    }
     
 
     async getAllGuidelines(app_id):Promise<any>{

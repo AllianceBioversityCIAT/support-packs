@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { SharedService } from '../../../shared/services/shared.service';
+import { ServicesTermsService } from '../../../shared/services/services-terms.service';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 interface IResource {
   id: number;
@@ -132,7 +134,13 @@ export class SideMenuComponent implements OnInit {
     // },
   ];
 
-  constructor(public _sharedService: SharedService) {}
+  filteredProducts: any[] = [];
+  productsData: any[] = [];
+
+  constructor(
+    public _sharedService: SharedService,
+    public _servicesVariables: ServicesTermsService,
+  ) {}
 
   ngOnInit(): void {
     this.getInformation();
@@ -158,6 +166,42 @@ export class SideMenuComponent implements OnInit {
         routerLink: ['/aiccra/manage-tool'],
       },
     ];
+    this.getAllTools();
+  }
+
+  getAllTools() {
+    this._sharedService.getAllToolsWithoutImportantLevels(3).subscribe((data) => {
+      this.productsData = data.result;
+    });
+  }
+
+  filterProducts(event: AutoCompleteCompleteEvent) {
+    const query = event.query.toLowerCase();
+
+    this.filteredProducts = this.productsData.filter((product) => {
+      const isProductSelected = this._servicesVariables.selectedProducts.some(
+        (selectedProduct) => selectedProduct.id === product.id,
+      );
+      const matchesQuery = product.name.toLowerCase().includes(query);
+      return matchesQuery && !isProductSelected;
+    });
+  }
+
+  onProductChange(event: any) {
+    if (typeof event === 'string') return;
+
+    this._servicesVariables.searchedTools = true;
+    this._servicesVariables.selectedProducts = event;
+    this._servicesVariables.termsConditions = false;
+    this._servicesVariables.continue = false;
+
+    if (this._servicesVariables.selectedProducts.length === 0) {
+      this._servicesVariables.searchedTools = false;
+    }
+
+    if (this.productsData.length === 0) {
+      this._servicesVariables.searchedTools = false;
+    }
   }
 
   showDialog() {
