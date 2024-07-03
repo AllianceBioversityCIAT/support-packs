@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { SideMenuComponent } from './side-menu.component';
 import { of } from 'rxjs';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 describe('SideMenuComponent', () => {
   let component: SideMenuComponent;
@@ -23,6 +24,7 @@ describe('SideMenuComponent', () => {
         TableModule,
         RouterTestingModule,
         ButtonModule,
+        AutoCompleteModule,
       ],
     }).compileComponents();
   });

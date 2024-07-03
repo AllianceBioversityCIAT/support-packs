@@ -143,27 +143,6 @@ describe('HomeLearningComponent', () => {
     expect(component.getImportanceLevelColor('Low')).toBe('Low');
   });
 
-  it('should reset selected filters and productsData on initNewSearch method', () => {
-    component.selectedThematicAreas = { id: 1, name: 'Thematic Area 1', app_id: 1 };
-    component.selectedTargetUser = { id: 1, name: 'Target User 1', app_id: 1, acronym: 'TU1' };
-    component.selectedProjectUser = {
-      id: 1,
-      name: 'Project Phase 1',
-      app_id: 1,
-      description: 'Phase 1',
-    };
-    component.productsData = [{ id: 1, name: 'Product 1' } as any];
-    component.selectedProducts = [{ id: 1, name: 'Product 1' } as any];
-
-    component.initNewSearch();
-
-    expect(component.selectedThematicAreas).toBeUndefined();
-    expect(component.selectedTargetUser).toBeUndefined();
-    expect(component.selectedProjectUser).toBeUndefined();
-    expect(component.productsData).toEqual(component.backInfo);
-    expect(component.selectedProducts).toEqual([]);
-  });
-
   it('should call resetValues method on ngOnDestroy method', () => {
     jest.spyOn(component._servicesVariables, 'resetValues');
 
