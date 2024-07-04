@@ -25,7 +25,7 @@
   }
 
   &__buttons {
-    max-height: 450px;
+    max-height: 500px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -130,4 +130,12 @@
 
 :host ::ng-deep .p-button-label {
   font-weight: 500;
+}
+
+:host ::ng-deep .searchTool .p-inputtext::after {
+  content: '\00a0 \00a0 \00a0 \00a0 \00a0 \00a0 \00a0';
+  background-image: url('../../../../assets/svg/icon-search.svg');
+
+  background-size: 19px 19px;
+  background-repeat: no-repeat;
 }
