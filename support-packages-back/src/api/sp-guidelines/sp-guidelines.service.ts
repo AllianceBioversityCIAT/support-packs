@@ -46,15 +46,15 @@ export class SpGuidelinesService {
             SELECT sg.id, sg.name, sg.source, sg.contact, sgm.description, sgm.target_scale,
             sgm.integrates_gender, sgm.participants, sgm.methods, sgm.input_types, sgm.expected_outputs,
             sgm.human_resources, sgm.estimated_time, sgm.strengths, sgm.limitations, sgm.key_references,
-            sil.importance_level, sr.name as role_name, sc.name as cate_name, ss.name as staga_name,
-            CONCAT(sg.id, sil.category_id, sil.stage_id, sil.role_id) as code, sil.category_id as id_cat, 
-            sil.role_id as id_rol, sil.stage_id as id_stage
+            sil.importance_level, sr.name AS 'role_name', sc.name AS 'cate_name', ss.name AS 'staga_name',
+            CONCAT(sg.id, sil.category_id, sil.stage_id, sil.role_id) AS 'code', sil.category_id AS 'id_cat', 
+            sil.role_id AS 'id_rol', sil.stage_id AS 'id_stage'
             FROM sp_guidelines sg 
-            LEFT JOIN sp_guidelines_metadata sgm ON sgm.guideline_id = sg.id
-            LEFT JOIN sp_importance_levels sil ON sil.guideline_id = sg.id
-            LEFT JOIN sp_roles sr ON sr.id = sil.role_id 
-            LEFT JOIN sp_categories sc ON sc.id = sil.category_id 
-            LEFT JOIN sp_stages ss ON ss.id = sil.stage_id 
+            JOIN sp_guidelines_metadata sgm ON sgm.guideline_id = sg.id
+            JOIN sp_importance_levels sil ON sil.guideline_id = sg.id
+            JOIN sp_roles sr ON sr.id = sil.role_id 
+            JOIN sp_categories sc ON sc.id = sil.category_id 
+            JOIN sp_stages ss ON ss.id = sil.stage_id 
             WHERE sg.app_id = ${app_id} AND sg.active > 0;
         `);
 
