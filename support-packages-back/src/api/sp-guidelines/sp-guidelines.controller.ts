@@ -29,7 +29,7 @@ export class SpGuidelinesController {
   @Get('/allWithoutImportantLevels/:app_id')
   async getAllToolsPackWithoutImportantLevels(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
     try{
-      const result = await this.spGuidelinesService.getGuidelineByIdWithouImportantLevels(app_id);
+      const result = await this.spGuidelinesService.getGuidelineByIdWithoutImportantLevels(app_id);
       return response.status(200).json({
         status: 'Ok!',
         message: 'Successfully fetch data!',
