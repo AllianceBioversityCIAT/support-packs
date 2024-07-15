@@ -1,7 +1,7 @@
 export const environment = {
-  production: false,
-  apiUrl: 'apiUrl',
-  token: 'our-token',
-  googleAnalyticsId: 'token-google',
-  tawkToId: 'tawkto-token',
+  production: false, //boolean
+  api: 'http://localhost:3000/api',
+  GAIDLearningZone: '###########',
+  GAIDDMSP: '###########',
+  GAIDMELSP: '###########',
 };
