@@ -6,9 +6,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [PdfGenerateComponent],
-  imports: [CommonModule, ButtonModule, ToastModule],
-  exports: [PdfGenerateComponent],
-  providers: [MessageService],
+    imports: [CommonModule, ButtonModule, ToastModule, PdfGenerateComponent],
+    exports: [PdfGenerateComponent],
+    providers: [MessageService],
 })
 export class PdfGenerateModule {}

@@ -47,7 +47,6 @@ describe('HomeMelComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [HomeMelComponent],
       imports: [DropdownModule, FormsModule],
       providers: [
         { provide: ServicesTermsService, useValue: mockServicesTermsService },

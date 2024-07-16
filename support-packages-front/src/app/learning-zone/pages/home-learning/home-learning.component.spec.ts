@@ -4,6 +4,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { HomeLearningComponent } from './home-learning.component';
 import { of } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeLearningComponent', () => {
   let component: HomeLearningComponent;
@@ -11,15 +12,11 @@ describe('HomeLearningComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeLearningComponent],
-      imports: [HttpClientTestingModule, DropdownModule, FormsModule],
+      imports: [HttpClientTestingModule, DropdownModule, FormsModule, RouterTestingModule],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HomeLearningComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

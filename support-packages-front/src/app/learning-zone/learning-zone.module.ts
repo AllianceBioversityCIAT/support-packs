@@ -15,18 +15,18 @@ import { MenubarModule } from 'primeng/menubar';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
-  declarations: [LearningZoneComponent, SideMenuComponent],
-  imports: [
-    CommonModule,
-    LearningZoneRoutingModule,
-    ButtonModule,
-    PdfGenerateModule,
-    DialogModule,
-    FormsModule,
-    TableModule,
-    InputTextModule,
-    MenubarModule,
-    AutoCompleteModule,
-  ],
+    imports: [
+        CommonModule,
+        LearningZoneRoutingModule,
+        ButtonModule,
+        PdfGenerateModule,
+        DialogModule,
+        FormsModule,
+        TableModule,
+        InputTextModule,
+        MenubarModule,
+        AutoCompleteModule,
+        LearningZoneComponent, SideMenuComponent,
+    ],
 })
 export class LearningZoneModule {}

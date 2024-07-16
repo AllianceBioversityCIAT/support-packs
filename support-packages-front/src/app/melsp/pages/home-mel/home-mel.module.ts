@@ -6,21 +6,20 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-conditions.module';
+
 import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
 import { HomeMelComponent } from './home-mel.component';
 
 @NgModule({
-  declarations: [HomeMelComponent],
-  imports: [
+    imports: [
     CommonModule,
     HomeMelRoutingModule,
     DropdownModule,
     FormsModule,
     TableModule,
     ButtonModule,
-    TermsConditionsModule,
     PdfGenerateModule,
-  ],
+    HomeMelComponent,
+],
 })
 export class HomeMelModule {}

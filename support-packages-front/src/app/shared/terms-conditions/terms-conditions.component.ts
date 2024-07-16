@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ServicesTermsService } from '../services/services-terms.service';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextModule } from 'primeng/inputtext';
+import { NgStyle } from '@angular/common';
 
 interface ICity {
   id: number;
@@ -8,9 +13,19 @@ interface ICity {
 }
 
 @Component({
-  selector: 'app-terms-conditions',
-  templateUrl: './terms-conditions.component.html',
-  styleUrls: ['./terms-conditions.component.scss'],
+    selector: 'app-terms-conditions',
+    templateUrl: './terms-conditions.component.html',
+    styleUrls: ['./terms-conditions.component.scss'],
+    standalone: true,
+    imports: [
+    FormsModule,
+    InputTextModule,
+    NgStyle,
+    ReactiveFormsModule,
+    CheckboxModule,
+    InputTextareaModule,
+    ButtonModule
+],
 })
 export class TermsConditionsComponent {
   @Input() app_id: number;

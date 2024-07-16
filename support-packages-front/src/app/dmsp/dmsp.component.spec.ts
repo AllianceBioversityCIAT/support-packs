@@ -9,7 +9,6 @@ describe('DmspComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DmspComponent],
       imports: [RouterTestingModule],
     });
     fixture = TestBed.createComponent(DmspComponent);

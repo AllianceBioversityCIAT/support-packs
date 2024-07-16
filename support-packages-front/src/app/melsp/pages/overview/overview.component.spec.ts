@@ -39,7 +39,6 @@ describe('OverviewComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TableModule],
-      declarations: [OverviewComponent],
       providers: [{ provide: SharedService, useValue: mockSharedService }],
     });
 

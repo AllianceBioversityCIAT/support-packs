@@ -1,6 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 import { SharedService } from '../../../shared/services/shared.service';
+import { PdfGenerateComponent } from '../../../shared/pdf-generate/pdf-generate.component';
+import { TermsConditionsComponent } from '../../../shared/terms-conditions/terms-conditions.component';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { NgStyle } from '@angular/common';
+import { SharedModule } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 interface IRole {
   id: number;
@@ -43,9 +51,20 @@ interface IProduct {
 }
 
 @Component({
-  selector: 'app-home-mel',
-  templateUrl: './home-mel.component.html',
-  styleUrls: ['./home-mel.component.scss'],
+    selector: 'app-home-mel',
+    templateUrl: './home-mel.component.html',
+    styleUrls: ['./home-mel.component.scss'],
+    standalone: true,
+    imports: [
+    DropdownModule,
+    FormsModule,
+    SharedModule,
+    NgStyle,
+    TableModule,
+    ButtonModule,
+    TermsConditionsComponent,
+    PdfGenerateComponent
+],
 })
 export class HomeMelComponent implements OnInit, OnDestroy {
   productsData: IProduct[];

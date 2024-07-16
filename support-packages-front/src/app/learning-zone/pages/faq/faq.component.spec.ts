@@ -9,7 +9,6 @@ describe('FaqComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FaqComponent],
       imports: [AccordionModule],
     });
     fixture = TestBed.createComponent(FaqComponent);

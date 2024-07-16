@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
 
+import { InputTextModule } from 'primeng/inputtext';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+
 interface Tool {
   category_id: number;
   id: number;
@@ -26,9 +30,15 @@ interface Importance {
 }
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
+    standalone: true,
+    imports: [
+    TableModule,
+    SharedModule,
+    InputTextModule
+],
 })
 export class OverviewComponent implements OnInit {
   overviewTools: Tool[] = [];

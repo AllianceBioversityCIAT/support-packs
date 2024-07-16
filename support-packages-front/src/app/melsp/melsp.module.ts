@@ -6,7 +6,6 @@ import { MelspComponent } from './melsp.component';
 import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
-  declarations: [MelspComponent],
-  imports: [CommonModule, MelspRoutingModule, MenubarModule],
+    imports: [CommonModule, MelspRoutingModule, MenubarModule, MelspComponent],
 })
 export class MelspModule {}

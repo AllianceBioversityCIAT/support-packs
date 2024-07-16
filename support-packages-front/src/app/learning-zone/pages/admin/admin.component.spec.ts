@@ -22,7 +22,6 @@ describe('AdminComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [AdminComponent],
       imports: [DialogModule],
       providers: [
         { provide: ServicesLearningZoneService, useValue: mockServicesLearningZoneService },

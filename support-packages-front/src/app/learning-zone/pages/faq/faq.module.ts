@@ -6,7 +6,6 @@ import { FaqComponent } from './faq.component';
 import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
-  declarations: [FaqComponent],
-  imports: [CommonModule, FaqRoutingModule, AccordionModule],
+    imports: [CommonModule, FaqRoutingModule, AccordionModule, FaqComponent],
 })
 export class FaqModule {}

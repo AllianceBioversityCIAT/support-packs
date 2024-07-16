@@ -3,6 +3,16 @@ import { IProduct, ServicesTermsService } from '../../../shared/services/service
 
 import * as html2pdf from 'html-to-pdf-js';
 import { SharedService } from '../../../shared/services/shared.service';
+import { AccordionModule } from 'primeng/accordion';
+import { TermsConditionsComponent } from '../../../shared/terms-conditions/terms-conditions.component';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { LucideAngularModule } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
+import { SharedModule } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { NgStyle } from '@angular/common';
 
 interface IThematicAreas {
   id: number;
@@ -25,9 +35,22 @@ interface IProjectPhase {
 }
 
 @Component({
-  selector: 'app-home-learning',
-  templateUrl: './home-learning.component.html',
-  styleUrls: ['./home-learning.component.scss'],
+    selector: 'app-home-learning',
+    templateUrl: './home-learning.component.html',
+    styleUrls: ['./home-learning.component.scss'],
+    standalone: true,
+    imports: [
+    DropdownModule,
+    FormsModule,
+    SharedModule,
+    NgStyle,
+    RouterLink,
+    LucideAngularModule,
+    TableModule,
+    ButtonModule,
+    TermsConditionsComponent,
+    AccordionModule
+],
 })
 export class HomeLearningComponent implements OnInit, OnDestroy {
   thematicAreasData: IThematicAreas[] = [];

@@ -15,21 +15,21 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ResultsTableComponent } from './component/results-table/results-table.component';
 @NgModule({
-  declarations: [AdminComponent, ResultsTableComponent],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    TabMenuModule,
-    TableModule,
-    ButtonModule,
-    DialogModule,
-    FormsModule,
-    DropdownModule,
-    InputTextModule,
-    ButtonModule,
-    InputTextareaModule,
-    RadioButtonModule,
-    ConfirmDialogModule,
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        TabMenuModule,
+        TableModule,
+        ButtonModule,
+        DialogModule,
+        FormsModule,
+        DropdownModule,
+        InputTextModule,
+        ButtonModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        ConfirmDialogModule,
+        AdminComponent, ResultsTableComponent,
+    ],
 })
 export class AdminModule {}

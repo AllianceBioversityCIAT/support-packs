@@ -1,11 +1,34 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ServicesLearningZoneService } from '../../../../services/services-learning-zone.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { NgStyle } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
 
 @Component({
-  selector: 'app-results-table',
-  templateUrl: './results-table.component.html',
-  styleUrls: ['./results-table.component.scss'],
+    selector: 'app-results-table',
+    templateUrl: './results-table.component.html',
+    styleUrls: ['./results-table.component.scss'],
+    standalone: true,
+    imports: [
+    TableModule,
+    SharedModule,
+    InputTextModule,
+    ButtonModule,
+    DialogModule,
+    FormsModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    DropdownModule,
+    NgStyle
+],
 })
 export class ResultsTableComponent {
   @Input() tableData: any;

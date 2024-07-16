@@ -4,12 +4,16 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { SharedService } from '../services/shared.service';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-pdf-generate',
-  templateUrl: './pdf-generate.component.html',
-  styleUrls: ['./pdf-generate.component.scss'],
+    selector: 'app-pdf-generate',
+    templateUrl: './pdf-generate.component.html',
+    styleUrls: ['./pdf-generate.component.scss'],
+    standalone: true,
+    imports: [ButtonModule, ToastModule],
 })
 export class PdfGenerateComponent {
   @Input() data: any;

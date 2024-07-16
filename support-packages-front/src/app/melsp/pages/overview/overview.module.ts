@@ -9,15 +9,13 @@ import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
-  declarations: [
-    OverviewComponent
-  ],
-  imports: [
-    CommonModule,
-    OverviewRoutingModule,
-    FormsModule,
-    TableModule,
-    InputTextModule
-  ]
+    imports: [
+        CommonModule,
+        OverviewRoutingModule,
+        FormsModule,
+        TableModule,
+        InputTextModule,
+        OverviewComponent
+    ]
 })
 export class OverviewModule { }

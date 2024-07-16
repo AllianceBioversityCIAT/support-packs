@@ -12,12 +12,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PdfGenerateModule } from 'src/app/shared/pdf-generate/pdf-generate.module';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { TermsConditionsModule } from '../../../shared/terms-conditions/terms-conditions.module';
+
 import { Bolt, Link2, LucideAngularModule } from 'lucide-angular';
 
 @NgModule({
-  declarations: [HomeLearningComponent],
-  imports: [
+    imports: [
     CommonModule,
     HomeLearningRoutingModule,
     DropdownModule,
@@ -29,8 +28,8 @@ import { Bolt, Link2, LucideAngularModule } from 'lucide-angular';
     PdfGenerateModule,
     InputTextareaModule,
     MultiSelectModule,
-    TermsConditionsModule,
     LucideAngularModule.pick({ Bolt, Link2 }),
-  ],
+    HomeLearningComponent,
+],
 })
 export class HomeLearningModule {}

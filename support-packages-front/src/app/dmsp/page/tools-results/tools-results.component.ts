@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { PdfGenerateComponent } from '../../../shared/pdf-generate/pdf-generate.component';
+import { TermsConditionsComponent } from '../../../shared/terms-conditions/terms-conditions.component';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { SharedModule } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { NgClass, NgStyle } from '@angular/common';
 
 interface IRole {
   id: number;
@@ -47,26 +55,32 @@ interface IProduct {
 }
 
 @Component({
-  selector: 'app-tools-results',
-  templateUrl: './tools-results.component.html',
-  styleUrls: ['./tools-results.component.scss'],
-  animations: [
-    trigger('rotate', [
-      transition(
-        'false => true',
-        animate(
-          '1s',
-          keyframes([
-            style({ transform: 'perspective(400px) rotateX(90deg)', opacity: 0 }),
-            style({ transform: 'perspective(400px) rotateX(-20deg)', opacity: 1 }),
-            style({ transform: 'perspective(400px) rotateX(10deg)', opacity: 1 }),
-            style({ transform: 'perspective(400px) rotateX(-5deg)', opacity: 1 }),
-            style({ transform: 'perspective(400px)', opacity: 1 }),
-          ]),
-        ),
-      ),
-    ]),
-  ],
+    selector: 'app-tools-results',
+    templateUrl: './tools-results.component.html',
+    styleUrls: ['./tools-results.component.scss'],
+    animations: [
+        trigger('rotate', [
+            transition('false => true', animate('1s', keyframes([
+                style({ transform: 'perspective(400px) rotateX(90deg)', opacity: 0 }),
+                style({ transform: 'perspective(400px) rotateX(-20deg)', opacity: 1 }),
+                style({ transform: 'perspective(400px) rotateX(10deg)', opacity: 1 }),
+                style({ transform: 'perspective(400px) rotateX(-5deg)', opacity: 1 }),
+                style({ transform: 'perspective(400px)', opacity: 1 }),
+            ]))),
+        ]),
+    ],
+    standalone: true,
+    imports: [
+    NgClass,
+    DropdownModule,
+    FormsModule,
+    SharedModule,
+    TableModule,
+    NgStyle,
+    ButtonModule,
+    TermsConditionsComponent,
+    PdfGenerateComponent
+],
 })
 export class ToolsResultsComponent implements OnInit {
   productsData: IProduct[] = [];

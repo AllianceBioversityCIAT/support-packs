@@ -11,7 +11,6 @@ describe('MelspComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MelspComponent],
       imports: [MenubarModule, RouterTestingModule, FormsModule],
     });
     fixture = TestBed.createComponent(MelspComponent);

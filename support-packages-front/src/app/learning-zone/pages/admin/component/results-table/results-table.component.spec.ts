@@ -11,7 +11,6 @@ describe('ResultsTableComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResultsTableComponent],
       imports: [HttpClientTestingModule, DialogModule, TableModule],
     });
     fixture = TestBed.createComponent(ResultsTableComponent);

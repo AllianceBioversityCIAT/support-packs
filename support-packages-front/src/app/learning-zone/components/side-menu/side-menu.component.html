@@ -21,21 +21,22 @@
     </div>
 
     <div class="sideMenu__buttons__general">
-      <button
-        pButton
-        *ngFor="let sideLink of this.sidebarLinks"
-        [label]="sideLink.name"
-        [routerLink]="[sideLink.url]"
-        routerLinkActive="selected"
-        [icon]="sideLink.icon"
+      @for (sideLink of this.sidebarLinks; track sideLink) {
+        <button
+          pButton
+          [label]="sideLink.name"
+          [routerLink]="[sideLink.url]"
+          routerLinkActive="selected"
+          [icon]="sideLink.icon"
         class="sideMenu__buttons--item"></button>
+      }
 
       <button
         pButton
         label="Overview"
         icon="pi pi-table"
         class="sideMenu__buttons--item"
-        (click)="showDialog()"></button>
+      (click)="showDialog()"></button>
     </div>
 
     <button
@@ -44,7 +45,7 @@
       routerLink="/aiccra/manage-tool"
       routerLinkActive="selected"
       icon="pi pi-user-edit"
-      class="sideMenu__buttons--item"></button>
+    class="sideMenu__buttons--item"></button>
   </div>
 </div>
 
@@ -75,80 +76,84 @@
                 type="text"
                 (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
                 placeholder="Search Tool" />
-            </span>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th colspan="2" id="empty__space"></th>
-            <th colspan="3" *ngFor="let header of overviewFirstRow" [id]="header.id">
-              {{ header.name }}
-            </th>
-          </tr>
-          <tr>
-            <th *ngFor="let header of overviewSecondRow" [id]="header.id">
-              {{ header.name }}
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-sale let-cc>
-          <tr>
-            <td>{{ sale.id }}</td>
-            <td>{{ sale.name }}</td>
-            <td class="{{ getImportants('R', 'Design', sale.resources, sale.id).styleColor }}">
-              {{ getImportants('R', 'Design', sale.resources, sale.id).important }}
-            </td>
-            <td class="{{ getImportants('TS', 'Design', sale.resources, sale.id).styleColor }}">
-              {{ getImportants('TS', 'Design', sale.resources, sale.id).important }}
-            </td>
-            <td class="{{ getImportants('A', 'Design', sale.resources, sale.id).styleColor }}">
-              {{ getImportants('A', 'Design', sale.resources, sale.id).important }}
-            </td>
-            <td
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th colspan="2" id="empty__space"></th>
+              @for (header of overviewFirstRow; track header) {
+                <th colspan="3" [id]="header.id">
+                  {{ header.name }}
+                </th>
+              }
+            </tr>
+            <tr>
+              @for (header of overviewSecondRow; track header) {
+                <th [id]="header.id">
+                  {{ header.name }}
+                </th>
+              }
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-sale let-cc>
+            <tr>
+              <td>{{ sale.id }}</td>
+              <td>{{ sale.name }}</td>
+              <td class="{{ getImportants('R', 'Design', sale.resources, sale.id).styleColor }}">
+                {{ getImportants('R', 'Design', sale.resources, sale.id).important }}
+              </td>
+              <td class="{{ getImportants('TS', 'Design', sale.resources, sale.id).styleColor }}">
+                {{ getImportants('TS', 'Design', sale.resources, sale.id).important }}
+              </td>
+              <td class="{{ getImportants('A', 'Design', sale.resources, sale.id).styleColor }}">
+                {{ getImportants('A', 'Design', sale.resources, sale.id).important }}
+              </td>
+              <td
               class="{{
                 getImportants('R', 'Implementation', sale.resources, sale.id).styleColor
               }}">
-              {{ getImportants('R', 'Implementation', sale.resources, sale.id).important }}
-            </td>
-            <td
+                {{ getImportants('R', 'Implementation', sale.resources, sale.id).important }}
+              </td>
+              <td
               class="{{
                 getImportants('TS', 'Implementation', sale.resources, sale.id).styleColor
               }}">
-              {{ getImportants('TS', 'Implementation', sale.resources, sale.id).important }}
-            </td>
-            <td
+                {{ getImportants('TS', 'Implementation', sale.resources, sale.id).important }}
+              </td>
+              <td
               class="{{
                 getImportants('A', 'Implementation', sale.resources, sale.id).styleColor
               }}">
-              {{ getImportants('A', 'Implementation', sale.resources, sale.id).important }}
-            </td>
-            <td
+                {{ getImportants('A', 'Implementation', sale.resources, sale.id).important }}
+              </td>
+              <td
               class="{{
                 getImportants('R', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
               }}">
-              {{
+                {{
                 getImportants('R', 'Monitoring and Evaluation', sale.resources, sale.id).important
-              }}
-            </td>
-            <td
+                }}
+              </td>
+              <td
               class="{{
                 getImportants('TS', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
               }}">
-              {{
+                {{
                 getImportants('TS', 'Monitoring and Evaluation', sale.resources, sale.id).important
-              }}
-            </td>
-            <td
+                }}
+              </td>
+              <td
               class="{{
                 getImportants('A', 'Monitoring and Evaluation', sale.resources, sale.id).styleColor
               }}">
-              {{
+                {{
                 getImportants('A', 'Monitoring and Evaluation', sale.resources, sale.id).important
-              }}
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+                }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
-  </div>
-</p-dialog>
+  </p-dialog>

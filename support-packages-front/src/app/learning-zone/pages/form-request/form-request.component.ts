@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedService } from '../../../shared/services/shared.service';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
 
 interface IThematicAreas {
   id: number;
@@ -9,9 +16,20 @@ interface IThematicAreas {
   app_id: number;
 }
 @Component({
-  selector: 'app-form-request',
-  templateUrl: './form-request.component.html',
-  styleUrls: ['./form-request.component.scss'],
+    selector: 'app-form-request',
+    templateUrl: './form-request.component.html',
+    styleUrls: ['./form-request.component.scss'],
+    standalone: true,
+    imports: [
+    ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    DropdownModule,
+    DialogModule
+],
 })
 export class FormRequestComponent implements OnInit {
   step1: boolean = true;

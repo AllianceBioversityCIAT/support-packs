@@ -16,7 +16,6 @@ describe('LearningZoneComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LearningZoneComponent, SideMenuComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,

@@ -45,7 +45,6 @@ describe('ToolsResultsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ToolsResultsComponent],
       imports: [BrowserAnimationsModule],
       providers: [
         { provide: SharedService, useValue: mockSharedService },

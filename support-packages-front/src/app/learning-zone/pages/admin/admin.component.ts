@@ -1,11 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
+import { DialogModule } from 'primeng/dialog';
+import { ResultsTableComponent } from './component/results-table/results-table.component';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss'],
+    standalone: true,
+    imports: [
+    FormsModule,
+    InputTextModule,
+    ButtonModule,
+    TabMenuModule,
+    ResultsTableComponent,
+    DialogModule
+],
 })
 export class AdminComponent implements OnInit {
   activeToolsData = [];

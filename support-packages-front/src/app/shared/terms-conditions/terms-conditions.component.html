@@ -1,121 +1,123 @@
 <div class="terms">
   <h2 class="terms--title">Terms and conditions</h2>
 
-  <p class="terms--description" *ngIf="!_servicesVariables.continue">
-    To continue downloading your files, please first fill in your email and then some basic
-    information. This information will be used by AICCRA solely for impact assessment and CGIAR and
-    Center level reporting purposes. Filling it in will greatly help us to track the use of the
-    portal and keep improving it. This portal provides data to a very large community of users and
-    improving its usability and efficiency is a key aspect we work on continuously. However, you may
-    click on <span class="terms--skip" (click)="skipSection()">Skip</span> to download links
-    directly.
-  </p>
+  @if (!_servicesVariables.continue) {
+    <p class="terms--description">
+      To continue downloading your files, please first fill in your email and then some basic
+      information. This information will be used by AICCRA solely for impact assessment and CGIAR
+      and Center level reporting purposes. Filling it in will greatly help us to track the use of
+      the portal and keep improving it. This portal provides data to a very large community of users
+      and improving its usability and efficiency is a key aspect we work on continuously. However,
+      you may click on <span class="terms--skip" (click)="skipSection()">Skip</span> to download
+      links directly.
+    </p>
+  }
 
-  <div class="terms__input" *ngIf="!_servicesVariables.continue">
-    <label for="email" style="font-weight: 600">Email:</label>
-    <input
-      pInputText
-      type="email"
-      id="email"
-      [(ngModel)]="email"
-      [ngStyle]="{ 'border-color': emailError.error ? 'red' : '' }"
-      [email]="true"
-      [disabled]="_servicesVariables.continue" />
-
-    <p *ngIf="emailError.error" style="color: red">{{ emailError.message }}</p>
-  </div>
-
-  <form class="terms__form" *ngIf="_servicesVariables.continue" [formGroup]="formData">
-    <div class="terms__form--row">
-      <div class="terms__form--input">
-        <p>First name:</p>
-
-        <input pInputText type="text" formControlName="first_name" placeholder="First name" />
-
-        <p *ngIf="isValidRequired('first_name')" style="color: red; font-size: 14px">
-          First name is required
-        </p>
-        <p *ngIf="isValidLength('first_name')" style="color: red; font-size: 14px">
-          First name must be at least 3 characters long
-        </p>
-      </div>
-
-      <div class="terms__form--input">
-        <p>Last name:</p>
-
-        <input pInputText type="text" formControlName="last_name" placeholder="Last name" />
-
-        <p *ngIf="isValidRequired('last_name')" style="color: red; font-size: 14px">
-          Last name is required
-        </p>
-        <p *ngIf="isValidLength('last_name')" style="color: red; font-size: 14px">
-          Last name must be at least 3 characters long
-        </p>
-      </div>
+  @if (!_servicesVariables.continue) {
+    <div class="terms__input">
+      <label for="email" style="font-weight: 600">Email:</label>
+      <input
+        pInputText
+        type="email"
+        id="email"
+        [(ngModel)]="email"
+        [ngStyle]="{ 'border-color': emailError.error ? 'red' : '' }"
+        [email]="true"
+        [disabled]="_servicesVariables.continue" />
+      @if (emailError.error) {
+        <p style="color: red">{{ emailError.message }}</p>
+      }
     </div>
+  }
 
-    <div class="terms__form--input">
-      <p>Institute name:</p>
-
-      <input pInputText type="text" formControlName="institute" placeholder="Institute name" />
-
-      <p *ngIf="isValidRequired('institute')" style="color: red; font-size: 14px">
-        Institute name is required
-      </p>
-      <p *ngIf="isValidLength('institute')" style="color: red; font-size: 14px">
-        Institute name must be at least 3 characters long
-      </p>
-    </div>
-
-    <div class="terms__form--row">
-      <div class="terms__form--item">
-        <p style="margin-bottom: 10px">Region(s) of your research interest:</p>
-
-        <div *ngFor="let city of cities" class="field-checkbox" formArrayName="interestRegions">
-          <p-checkbox
-            (onChange)="onCheckboxChange($event, city, 'interestRegions')"
-            [label]="city.name"
-            [value]="city"
-            [disabled]="isLoading"
-            name="interestRegions" />
+  @if (_servicesVariables.continue) {
+    <form class="terms__form" [formGroup]="formData">
+      <div class="terms__form--row">
+        <div class="terms__form--input">
+          <p>First name:</p>
+          <input pInputText type="text" formControlName="first_name" placeholder="First name" />
+          @if (isValidRequired('first_name')) {
+            <p style="color: red; font-size: 14px">First name is required</p>
+          }
+          @if (isValidLength('first_name')) {
+            <p style="color: red; font-size: 14px">First name must be at least 3 characters long</p>
+          }
         </div>
-
-        <p *ngIf="errorInterestRegions" style="color: red; font-size: 14px">
-          Region(s) of your research interest is required
-        </p>
-      </div>
-
-      <div class="terms__form--item">
-        <p style="margin-bottom: 10px">Region(s) where your institute is located:</p>
-
-        <div *ngFor="let city of cities" class="field-checkbox">
-          <p-checkbox
-            (onChange)="onCheckboxChange($event, city, 'instituteRegions')"
-            [label]="city.name"
-            [value]="city"
-            [disabled]="isLoading"
-            name="instituteRegions" />
+        <div class="terms__form--input">
+          <p>Last name:</p>
+          <input pInputText type="text" formControlName="last_name" placeholder="Last name" />
+          @if (isValidRequired('last_name')) {
+            <p style="color: red; font-size: 14px">Last name is required</p>
+          }
+          @if (isValidLength('last_name')) {
+            <p style="color: red; font-size: 14px">Last name must be at least 3 characters long</p>
+          }
         </div>
-
-        <p *ngIf="errorInstituteRegions" style="color: red; font-size: 14px">
-          Region(s) where your institute is located is required
-        </p>
       </div>
-    </div>
-
-    <div class="terms__form--input">
-      <p>Intended use of data:</p>
-
-      <textarea rows="3" formControlName="intended" pInputTextarea></textarea>
-
-      <p *ngIf="isValidRequired('intended')" style="color: red; font-size: 14px">
-        Intended use of data is required
-      </p>
-      <p *ngIf="isValidLength('intended')" style="color: red; font-size: 14px">
-        Intended use of data must be at least 3 characters long
-      </p>
-    </div>
-  </form>
+      <div class="terms__form--input">
+        <p>Institute name:</p>
+        <input pInputText type="text" formControlName="institute" placeholder="Institute name" />
+        @if (isValidRequired('institute')) {
+          <p style="color: red; font-size: 14px">Institute name is required</p>
+        }
+        @if (isValidLength('institute')) {
+          <p style="color: red; font-size: 14px">
+            Institute name must be at least 3 characters long
+          </p>
+        }
+      </div>
+      <div class="terms__form--row">
+        <div class="terms__form--item">
+          <p style="margin-bottom: 10px">Region(s) of your research interest:</p>
+          @for (city of cities; track city) {
+            <div class="field-checkbox" formArrayName="interestRegions">
+              <p-checkbox
+                (onChange)="onCheckboxChange($event, city, 'interestRegions')"
+                [label]="city.name"
+                [value]="city"
+                [disabled]="isLoading"
+                name="interestRegions" />
+            </div>
+          }
+          @if (errorInterestRegions) {
+            <p style="color: red; font-size: 14px">
+              Region(s) of your research interest is required
+            </p>
+          }
+        </div>
+        <div class="terms__form--item">
+          <p style="margin-bottom: 10px">Region(s) where your institute is located:</p>
+          @for (city of cities; track city) {
+            <div class="field-checkbox">
+              <p-checkbox
+                (onChange)="onCheckboxChange($event, city, 'instituteRegions')"
+                [label]="city.name"
+                [value]="city"
+                [disabled]="isLoading"
+                name="instituteRegions" />
+            </div>
+          }
+          @if (errorInstituteRegions) {
+            <p style="color: red; font-size: 14px">
+              Region(s) where your institute is located is required
+            </p>
+          }
+        </div>
+      </div>
+      <div class="terms__form--input">
+        <p>Intended use of data:</p>
+        <textarea rows="3" formControlName="intended" pInputTextarea></textarea>
+        @if (isValidRequired('intended')) {
+          <p style="color: red; font-size: 14px">Intended use of data is required</p>
+        }
+        @if (isValidLength('intended')) {
+          <p style="color: red; font-size: 14px">
+            Intended use of data must be at least 3 characters long
+          </p>
+        }
+      </div>
+    </form>
+  }
 
   <div class="terms__buttons">
     <div class="terms__buttons__back">
@@ -137,11 +139,13 @@
         [label]="isLoading ? 'Loading' : 'Next'"></button>
     </div>
 
-    <p-button
-      *ngIf="!_servicesVariables.continue"
-      severity="secondary3"
-      type="button"
-      (onClick)="skipSection()"
-      label="Skip"></p-button>
+    @if (!_servicesVariables.continue) {
+      <button
+        pButton
+        type="button"
+        class="p-button-secondary3"
+        (click)="skipSection()"
+        label="Skip"></button>
+    }
   </div>
 </div>

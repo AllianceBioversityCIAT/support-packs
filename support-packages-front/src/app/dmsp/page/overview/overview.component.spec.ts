@@ -10,7 +10,6 @@ describe('OverviewComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OverviewComponent],
       imports: [HttpClientTestingModule, TableModule],
     });
     fixture = TestBed.createComponent(OverviewComponent);

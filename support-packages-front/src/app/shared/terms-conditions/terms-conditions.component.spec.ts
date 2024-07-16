@@ -19,7 +19,6 @@ describe('TermsConditionsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [TermsConditionsComponent],
       providers: [
         { provide: ServicesTermsService, useValue: mockServicesTermsService },
         FormBuilder,

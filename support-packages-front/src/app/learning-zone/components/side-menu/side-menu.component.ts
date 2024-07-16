@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, PrimeIcons } from 'primeng/api';
+import { MenuItem, PrimeIcons, SharedModule } from 'primeng/api';
 import { SharedService } from '../../../shared/services/shared.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { MenubarModule } from 'primeng/menubar';
+import { RouterLinkActive, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+
+import { FormsModule } from '@angular/forms';
 
 interface IResource {
   id: number;
@@ -42,9 +50,22 @@ interface ITools {
 }
 
 @Component({
-  selector: 'app-side-menu',
-  templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.scss'],
+    selector: 'app-side-menu',
+    templateUrl: './side-menu.component.html',
+    styleUrls: ['./side-menu.component.scss'],
+    standalone: true,
+    imports: [
+    AutoCompleteModule,
+    FormsModule,
+    ButtonModule,
+    RouterLinkActive,
+    RouterLink,
+    MenubarModule,
+    DialogModule,
+    TableModule,
+    SharedModule,
+    InputTextModule
+],
 })
 export class SideMenuComponent implements OnInit {
   toolsData: ITools[] = [];

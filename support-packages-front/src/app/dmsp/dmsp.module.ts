@@ -6,13 +6,11 @@ import { DmspComponent } from './dmsp.component';
 import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
-  declarations: [
-    DmspComponent
-  ],
-  imports: [
-    CommonModule,
-    DmspRoutingModule,
-    MenubarModule
-  ]
+    imports: [
+        CommonModule,
+        DmspRoutingModule,
+        MenubarModule,
+        DmspComponent
+    ]
 })
 export class DmspModule { }

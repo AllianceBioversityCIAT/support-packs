@@ -28,7 +28,6 @@ describe('FormRequestComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [FormRequestComponent],
       providers: [
         { provide: ServicesLearningZoneService, useValue: mockLearningZoneService },
         { provide: SharedService, useValue: mockSharedService },
