@@ -7,12 +7,12 @@ import { AccordionModule } from 'primeng/accordion';
 import { TermsConditionsComponent } from '../../../shared/terms-conditions/terms-conditions.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { LucideAngularModule } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgStyle } from '@angular/common';
+import { LucideAngularModule } from 'lucide-angular';
 
 interface IThematicAreas {
   id: number;
@@ -35,22 +35,22 @@ interface IProjectPhase {
 }
 
 @Component({
-    selector: 'app-home-learning',
-    templateUrl: './home-learning.component.html',
-    styleUrls: ['./home-learning.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-home-learning',
+  templateUrl: './home-learning.component.html',
+  styleUrls: ['./home-learning.component.scss'],
+  standalone: true,
+  imports: [
     DropdownModule,
     FormsModule,
     SharedModule,
     NgStyle,
     RouterLink,
-    LucideAngularModule,
     TableModule,
     ButtonModule,
     TermsConditionsComponent,
-    AccordionModule
-],
+    AccordionModule,
+    LucideAngularModule,
+  ],
 })
 export class HomeLearningComponent implements OnInit, OnDestroy {
   thematicAreasData: IThematicAreas[] = [];

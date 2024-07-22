@@ -9,11 +9,12 @@ import { ButtonModule } from 'primeng/button';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-    selector: 'app-pdf-generate',
-    templateUrl: './pdf-generate.component.html',
-    styleUrls: ['./pdf-generate.component.scss'],
-    standalone: true,
-    imports: [ButtonModule, ToastModule],
+  selector: 'app-pdf-generate',
+  templateUrl: './pdf-generate.component.html',
+  styleUrls: ['./pdf-generate.component.scss'],
+  standalone: true,
+  imports: [ButtonModule, ToastModule],
+  providers: [MessageService],
 })
 export class PdfGenerateComponent {
   @Input() data: any;

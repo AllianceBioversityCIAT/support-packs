@@ -55,22 +55,28 @@ interface IProduct {
 }
 
 @Component({
-    selector: 'app-tools-results',
-    templateUrl: './tools-results.component.html',
-    styleUrls: ['./tools-results.component.scss'],
-    animations: [
-        trigger('rotate', [
-            transition('false => true', animate('1s', keyframes([
-                style({ transform: 'perspective(400px) rotateX(90deg)', opacity: 0 }),
-                style({ transform: 'perspective(400px) rotateX(-20deg)', opacity: 1 }),
-                style({ transform: 'perspective(400px) rotateX(10deg)', opacity: 1 }),
-                style({ transform: 'perspective(400px) rotateX(-5deg)', opacity: 1 }),
-                style({ transform: 'perspective(400px)', opacity: 1 }),
-            ]))),
-        ]),
-    ],
-    standalone: true,
-    imports: [
+  selector: 'app-tools-results',
+  templateUrl: './tools-results.component.html',
+  styleUrls: ['./tools-results.component.scss'],
+  animations: [
+    trigger('rotate', [
+      transition(
+        'false => true',
+        animate(
+          '1s',
+          keyframes([
+            style({ transform: 'perspective(400px) rotateX(90deg)', opacity: 0 }),
+            style({ transform: 'perspective(400px) rotateX(-20deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px) rotateX(10deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px) rotateX(-5deg)', opacity: 1 }),
+            style({ transform: 'perspective(400px)', opacity: 1 }),
+          ]),
+        ),
+      ),
+    ]),
+  ],
+  standalone: true,
+  imports: [
     NgClass,
     DropdownModule,
     FormsModule,
@@ -79,8 +85,8 @@ interface IProduct {
     NgStyle,
     ButtonModule,
     TermsConditionsComponent,
-    PdfGenerateComponent
-],
+    PdfGenerateComponent,
+  ],
 })
 export class ToolsResultsComponent implements OnInit {
   productsData: IProduct[] = [];
