@@ -50,11 +50,11 @@ interface ITools {
 }
 
 @Component({
-    selector: 'app-side-menu',
-    templateUrl: './side-menu.component.html',
-    styleUrls: ['./side-menu.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-side-menu',
+  templateUrl: './side-menu.component.html',
+  styleUrls: ['./side-menu.component.scss'],
+  standalone: true,
+  imports: [
     AutoCompleteModule,
     FormsModule,
     ButtonModule,
@@ -64,8 +64,8 @@ interface ITools {
     DialogModule,
     TableModule,
     SharedModule,
-    InputTextModule
-],
+    InputTextModule,
+  ],
 })
 export class SideMenuComponent implements OnInit {
   toolsData: ITools[] = [];
@@ -143,16 +143,6 @@ export class SideMenuComponent implements OnInit {
       url: '/aiccra/form-request',
       icon: PrimeIcons.FILE,
     },
-    // {
-    //   name: 'FAQ',
-    //   url: '/aiccra/FAQ',
-    //   icon: PrimeIcons.QUESTION_CIRCLE,
-    // },
-    // {
-    //   name: 'Manage Tool',
-    //   url: '/aiccra/manage-tool',
-    //   icon: PrimeIcons.USER_EDIT,
-    // },
   ];
 
   filteredProducts: any[] = [];

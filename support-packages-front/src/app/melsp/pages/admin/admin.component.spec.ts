@@ -1,28 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MelspComponent } from './melsp.component';
 import { MenubarModule } from 'primeng/menubar';
 import { FormsModule } from '@angular/forms';
+import { AdminComponent } from './admin.component';
 
-describe('MelspComponent', () => {
-  let component: MelspComponent;
-  let fixture: ComponentFixture<MelspComponent>;
+describe('AdminComponent', () => {
+  let component: AdminComponent;
+  let fixture: ComponentFixture<AdminComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MenubarModule, FormsModule],
     });
-    fixture = TestBed.createComponent(MelspComponent);
+    fixture = TestBed.createComponent(AdminComponent);
     component = fixture.componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call NgOnInit', () => {
-    const spy = jest.spyOn(component, 'ngOnInit');
-    component.ngOnInit();
-    expect(spy).toHaveBeenCalled();
   });
 });

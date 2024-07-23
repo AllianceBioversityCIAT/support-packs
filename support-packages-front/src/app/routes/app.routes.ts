@@ -1,14 +1,6 @@
 import { Routes } from '@angular/router';
-// import { Authenticated } from '../auth/guard/auth.guard';
 
 export const routes: Routes = [
-  // {
-  //   path: 'authentication',
-  //   loadComponent: () =>
-  //     import('@auth/authentication/authentication.component').then(
-  //       (c) => c.AuthenticationComponent,
-  //     ),
-  // },
   {
     path: '',
     loadComponent: () => import('../app.component').then((m) => m.AppComponent),
@@ -73,13 +65,6 @@ export const routes: Routes = [
             path: '',
             redirectTo: 'home',
             pathMatch: 'full',
-          },
-          {
-            path: 'overview',
-            loadComponent: () =>
-              import('../dmsp/page/overview/overview.component').then(
-                (mod) => mod.OverviewComponent,
-              ),
           },
         ],
       },

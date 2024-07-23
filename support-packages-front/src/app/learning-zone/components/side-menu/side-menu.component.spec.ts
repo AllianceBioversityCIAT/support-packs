@@ -3,12 +3,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MenubarModule } from 'primeng/menubar';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ButtonModule } from 'primeng/button';
 
 import { SideMenuComponent } from './side-menu.component';
 import { of } from 'rxjs';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SideMenuComponent', () => {
   let component: SideMenuComponent;
@@ -21,9 +21,9 @@ describe('SideMenuComponent', () => {
         MenubarModule,
         DialogModule,
         TableModule,
-        RouterTestingModule,
         ButtonModule,
         AutoCompleteModule,
+        RouterTestingModule,
       ],
     }).compileComponents();
 
@@ -33,6 +33,73 @@ describe('SideMenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call getAllTools on init', () => {
+    jest.spyOn(component, 'getAllTools');
+
+    component.ngOnInit();
+
+    expect(component.getAllTools).toHaveBeenCalled();
+  });
+
+  it('should call getAllTools', () => {
+    const getAllToolsSpy = jest
+      .spyOn(component['_sharedService'], 'getAllToolsWithoutImportantLevels')
+      .mockReturnValue(of([]));
+
+    component.getAllTools();
+
+    expect(getAllToolsSpy).toHaveBeenCalled();
+  });
+
+  it('should filter products', () => {
+    const event = { query: 'query' };
+    component.productsData = [{ name: 'name' }];
+    component['_servicesVariables'].selectedProducts = [{ id: 1 } as any];
+
+    component.filterProducts(event as any);
+
+    expect(component.filteredProducts).toEqual([]);
+  });
+
+  it('should return if event is a string', () => {
+    const event = 'string';
+
+    const result = component.onProductChange(event);
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should set searchedTools to false if productsData is empty', () => {
+    const event = [{ id: 1 }];
+    component.productsData = [];
+    component['_servicesVariables'].selectedProducts = [{ id: 1 } as any];
+
+    component.onProductChange(event);
+
+    expect(component['_servicesVariables'].searchedTools).toBeFalsy();
+  });
+
+  it('should set searchedTools to true and selectedProducts to event', () => {
+    const event = [{ id: 1 }];
+    component.productsData = [{ name: 'name' }];
+    component['_servicesVariables'].selectedProducts = [];
+
+    component.onProductChange(event);
+
+    expect(component['_servicesVariables'].searchedTools).toBeTruthy();
+    expect(component['_servicesVariables'].selectedProducts).toEqual(event);
+  });
+
+  it('should set searchedTools to false if selectedProducts is empty', () => {
+    const event = [];
+    component.productsData = [{ name: 'name' }];
+    component['_servicesVariables'].selectedProducts = [];
+
+    component.onProductChange(event);
+
+    expect(component['_servicesVariables'].searchedTools).toBeFalsy();
   });
 
   it('should set visible to true when openDialog is called', () => {
