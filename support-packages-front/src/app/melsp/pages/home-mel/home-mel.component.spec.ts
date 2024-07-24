@@ -5,6 +5,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { of } from 'rxjs';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeMelComponent', () => {
   let component: HomeMelComponent;
@@ -47,7 +48,7 @@ describe('HomeMelComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [DropdownModule, FormsModule],
+      imports: [DropdownModule, FormsModule, RouterTestingModule],
       providers: [
         { provide: ServicesTermsService, useValue: mockServicesTermsService },
         { provide: SharedService, useValue: mockSharedService },

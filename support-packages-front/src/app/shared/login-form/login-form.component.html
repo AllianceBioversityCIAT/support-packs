@@ -1,0 +1,19 @@
+<div class="login">
+  <div class="login__header">
+    <h1 class="login__header--title">Login</h1>
+    <p class="login__header--subtitle">
+      Please enter your email and password to login to the admin panel.
+    </p>
+  </div>
+  <div class="login--input">
+    <label htmlFor="email" class="bold">Email</label>
+    <input pInputText id="email" [(ngModel)]="loginForm().email" />
+  </div>
+  <div class="login--input">
+    <label htmlFor="email" class="bold">Password</label>
+    <input pInputText id="password" type="password" [(ngModel)]="loginForm().password" />
+  </div>
+  <div class="login--button">
+    <button pButton label="Login" (click)="handleLogin()" class="login--button--item"></button>
+  </div>
+</div>

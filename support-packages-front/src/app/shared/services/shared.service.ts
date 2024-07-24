@@ -1,12 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
+  isLoggedMELSP = signal({
+    status: false,
+  });
+
   constructor(private http: HttpClient) {}
+
+  login(data: any) {
+    return this.http.post<any>(`${environment.api}/auth/auth/login`, data).pipe();
+  }
 
   getSPFilters(app_id: number) {
     return this.http.get<any>(`${environment.api}/support/all/${app_id}`).pipe();
@@ -46,5 +54,22 @@ export class SharedService {
       { keys },
       { responseType: 'blob' },
     );
+  }
+
+  // Admin module
+  getToolsAdmin(app_id: number) {
+    return this.http
+      .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanel/${app_id}`)
+      .pipe();
+  }
+
+  getToolsAdminRquest(app_id: number) {
+    return this.http.get<any>(`${environment.api}/support/editRequest/${app_id}`).pipe();
+  }
+
+  getToolsAdminDesactive(app_id: number) {
+    return this.http
+      .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanelDesactive/${app_id}`)
+      .pipe();
   }
 }
