@@ -1,5 +1,13 @@
+/* eslint-disable @angular-eslint/no-output-on-prefix */
 import { CommonModule, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core';
 import { ServicesLearningZoneService } from '../../learning-zone/services/services-learning-zone.service';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/api';
@@ -10,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-admin-tools-table',
@@ -100,6 +109,8 @@ export class AdminToolsTableComponent {
     },
   ];
 
+  _sharedService = inject(SharedService);
+
   constructor(public _servicesLearningZoneService: ServicesLearningZoneService) {}
 
   getActiveTools(): void {
@@ -163,11 +174,11 @@ export class AdminToolsTableComponent {
   handleDesactive() {
     this.isSaving = true;
 
-    this._servicesLearningZoneService
-      .activeOrDesactive(this.informationEdit, this.activeItem?.id === 0 ? 0 : 1)
+    this._sharedService
+      .activeOrDesactive(this.app_id, this.informationEdit, this.activeItem?.id !== '0')
       .subscribe(() => {
-        if (this.activeItem?.id === 0) this.getActiveTools();
-        if (this.activeItem?.id === 1) this.getDesactiveTools();
+        if (this.activeItem?.id === '0') this.getActiveTools();
+        if (this.activeItem?.id === '1') this.getDesactiveTools();
 
         this.desactiveModalOpen = false;
         this.isSaving = false;

@@ -39,8 +39,9 @@
       @if (activeItem.id === '1') {
         <app-admin-tools-table
           [activeItem]="activeItem"
-          [tableData]="[]"
-          (onGetDesactiveTools)="getDesactiveTools()"
+          [tableData]="disabledToolsData"
+          (onGetDesactiveTools)="getDisabledTools()"
+          [tableDataLoading]="loading"
           app_id="2"></app-admin-tools-table>
       }
       @if (activeItem.id === '2') {

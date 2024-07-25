@@ -57,7 +57,7 @@ export class SharedService {
   }
 
   // Admin module
-  getToolsAdmin(app_id: number) {
+  getActiveAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanel/${app_id}`)
       .pipe();
@@ -67,9 +67,20 @@ export class SharedService {
     return this.http.get<any>(`${environment.api}/support/editRequest/${app_id}`).pipe();
   }
 
-  getToolsAdminDesactive(app_id: number) {
+  getDisabledAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanelDesactive/${app_id}`)
+      .pipe();
+  }
+
+  // Admin tools actions
+
+  activeOrDesactive(app_id: string, data: any, active: any) {
+    return this.http
+      .post<any>(
+        `${environment.api}/guidelines/sp-guidelines/activeOrDesactive/${app_id}/${data.id}/${active}`,
+        data,
+      )
       .pipe();
   }
 }

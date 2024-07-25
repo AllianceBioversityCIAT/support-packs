@@ -8,6 +8,10 @@
     border-bottom: 1px solid #eee;
   }
 
+  &__content {
+    margin-bottom: 2rem;
+  }
+
   &__login {
     display: flex;
     flex-direction: column;

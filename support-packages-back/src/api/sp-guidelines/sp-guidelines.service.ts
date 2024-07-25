@@ -135,7 +135,7 @@ export class SpGuidelinesService {
     }
   }
 
-  async getGuidelineByApp(app_id): Promise<any> {
+  async getActiveToolsByApp(app_id): Promise<any> {
     try {
       const roles: any = await this.prisma.$queryRaw(
         Prisma.sql`SELECT * FROM sp_roles sr WHERE sr.app_id = ${app_id};`,
@@ -243,6 +243,33 @@ export class SpGuidelinesService {
           }
         });
       }
+      return guiades;
+    } catch (error) {
+      console.log(error);
+
+      return {
+        error: 'An error occurred while fetching active guidelines.',
+        details: error,
+      };
+    }
+  }
+
+  async getDisabledToolsByApp(app_id): Promise<any> {
+    try {
+      const guiades = await this.prisma.$queryRaw(Prisma.sql`
+        SELECT DISTINCT
+          sg.id,
+          sg.name,
+          sc.name AS category_name
+        FROM
+        sp_guidelines sg
+        JOIN sp_importance_levels sil ON sil.guideline_id = sg.id
+        JOIN sp_categories sc ON sc.id = sil.category_id
+        WHERE
+        sg.app_id = ${app_id}
+        AND sg.active = 0;
+      `);
+
       return guiades;
     } catch (error) {
       console.log(error);
@@ -421,115 +448,26 @@ export class SpGuidelinesService {
     }
   }
 
-  async activeOrDesactiveTool(app_id, id, body, active): Promise<any> {
+  async enableOrDisableTool(app_id, id, body, active): Promise<any> {
     try {
-      if (app_id != null && id != null && body != null && active != null) {
-        console.log(active);
-        let activeF = false;
-        if (active == 1) {
-          activeF = true;
-        }
+      await this.prisma.sp_guidelines.update({
+        where: {
+          id: parseInt(id),
+          app_id: parseInt(app_id),
+        },
+        data: {
+          active: active === 'true',
+        },
+      });
 
-        await this.prisma.sp_guidelines.update({
-          where: {
-            id: parseInt(id),
-            app_id: parseInt(app_id),
-          },
-          data: {
-            active: activeF,
-          },
-        });
-        console.log(Boolean(active));
-      }
       return { message: 'Guideline updated successfully' };
     } catch (error) {
-      throw error;
-    }
-  }
+      console.log(error);
 
-  async getGuidelineByAppDesactive(app_id): Promise<any> {
-    try {
-      const roles: any = await this.prisma.$queryRaw(
-        Prisma.sql`SELECT * from sp_roles sr where sr.app_id = ${app_id};`,
-      );
-      const stages: any = await this.prisma.$queryRaw(
-        Prisma.sql`SELECT * from sp_stages ss WHERE ss.app_id = ${app_id};`,
-      );
-      const guiades: any = await this.prisma.$queryRaw(Prisma.sql`
-            select DISTINCT(sil.category_id), sg.id, sg.name, sgm.description, sg.source,
-				sgm.estimated_time, 
-				sgm.integrates_gender, sgm.is_tested_online,
-				sgm.target_scale, sgm.participants, sgm.methods, sgm.input_types,
-				sgm.limitations, sgm.strengths, sgm.expected_outputs, sgm.human_resources,
-				sgm.key_references,
-				sc.name as 'category_name',
-                sgm.id as 'id_metadata'
-                from sp_guidelines sg 
-                	join sp_guidelines_metadata sgm ON sgm.guideline_id = sg.id 
-	                join sp_importance_levels sil on sil.guideline_id = sg.id 
-	                join sp_categories sc on sc.id = sil.category_id 
-	                where sg.active = 0 and sg.app_id = ${app_id};
-	
-            `);
-
-      if (guiades.length > 0) {
-        const guidelinesIds = guiades.map((g: any) => g.id);
-        const resources_guidelines_all: any = await this.prisma
-          .$queryRaw(Prisma.sql`SELECT * FROM sp_resources_guidelines
-                                WHERE guideline_id IN (${guidelinesIds.join(
-                                  ', ',
-                                )})`);
-        const resources_guidelines: any = await this.prisma
-          .$queryRaw(Prisma.sql`
-                    select sr.name as 'name_role',sr.acronym,
-                    ss.name,sil.stage_id, sil.importance_level, sil.category_id, sg.id, sil.role_id,
-                    (case 
-					when sil.importance_level = 'Very important' then 4
-					when sil.importance_level = 'Important' then 3
-					when sil.importance_level = 'Useful' then 2
-					when sil.importance_level = 'Optional' then 1
-					else 0
-					end) as 'id_important_level'
-                    from sp_guidelines sg 
-                        join sp_importance_levels sil on sil.guideline_id = sg.id 
-                        join sp_categories sc on sc.id = sil.category_id 
-                        join sp_roles sr on sr.id = sil.role_id 
-                        join sp_stages ss on ss.id = sil.stage_id 
-                        where sg.active = 0 and sg.app_id = ${app_id} `);
-
-        for (let i = 0; i < guiades.length; i++) {
-          const guideline_id = guiades[i].id;
-          const category_id = guiades[i].category_id;
-
-          roles.forEach((role) => {
-            guiades[i][role.acronym] = new Object();
-            stages.forEach((stage) => {
-              const importans = resources_guidelines.filter(
-                (r) =>
-                  r.id == guideline_id &&
-                  r.category_id == category_id &&
-                  r.role_id == role.id,
-              );
-              const filterStages = importans.filter(
-                (i) => i.stage_id == stage.id,
-              );
-              if (filterStages.length > 0) {
-                const name = stage.name.replace(/\s/g, '');
-                guiades[i][role.acronym][name] = {
-                  id: parseInt(filterStages[0].id_important_level),
-                  name: filterStages[0].importance_level,
-                };
-              }
-            });
-          });
-          guiades[i].resources = resources_guidelines_all.filter(
-            (r) => r.guideline_id == guideline_id,
-          );
-        }
-      }
-      return guiades;
-    } catch (error) {
-      throw error;
+      return {
+        error: 'An error occurred while enabling or disabling a guideline.',
+        details: error,
+      };
     }
   }
 

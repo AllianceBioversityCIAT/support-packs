@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -28,11 +28,12 @@ import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admi
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   activeItem: any;
   items: MenuItem[];
 
   activeToolsData = [];
+  disabledToolsData = [];
 
   loading: boolean = false;
 
@@ -44,7 +45,7 @@ export class AdminComponent {
       { label: 'Archived Tools', icon: 'pi pi-fw pi-file', id: '1' },
       { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: '2' },
     ];
-    this.activeItem = this.items[0];
+    this.activeItem = this.items[1];
     this.getActiveTools();
 
     if (this.getlocalStorageToken() !== null) {
@@ -68,14 +69,19 @@ export class AdminComponent {
   getActiveTools() {
     this.loading = true;
 
-    this._sharedService.getToolsAdmin(2).subscribe((data) => {
+    this._sharedService.getActiveAdminTools(2).subscribe((data) => {
       this.activeToolsData = data.result;
       this.loading = false;
     });
   }
 
-  getDesactiveTools() {
-    console.log('getDesactiveTools');
+  getDisabledTools() {
+    this.loading = true;
+
+    this._sharedService.getDisabledAdminTools(2).subscribe((data) => {
+      this.disabledToolsData = data.result;
+      this.loading = false;
+    });
   }
 
   getRequestedTools() {
@@ -86,13 +92,13 @@ export class AdminComponent {
     this.activeItem = event;
 
     switch (this.activeItem.id) {
-      case 0:
+      case '0':
         this.getActiveTools();
         break;
-      case 1:
-        this.getDesactiveTools();
+      case '1':
+        this.getDisabledTools();
         break;
-      case 2:
+      case '2':
         this.getRequestedTools();
         break;
       default:
