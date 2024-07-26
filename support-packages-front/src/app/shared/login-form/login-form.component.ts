@@ -24,9 +24,13 @@ export class LoginFormComponent {
     message: '',
   });
 
+  isLoading = signal(false);
+
   _sharedService = inject(SharedService);
 
   handleLogin() {
+    this.isLoading.set(true);
+
     try {
       this._sharedService.login(this.loginForm()).subscribe((data) => {
         if (data.result === 'user not found' || data.result === 'Invalid password') {
@@ -43,6 +47,8 @@ export class LoginFormComponent {
         this._sharedService.isLoggedMELSP.set({
           status: true,
         });
+
+        this.isLoading.set(false);
       });
     } catch (error) {
       console.error(error);

@@ -44,22 +44,12 @@
             (click)="showEditDialog(tool)"></button>
         }
 
-        @if (activeItem.id === '1') {
+        @if (activeItem.id === '0' || activeItem.id === '1') {
           <button
             pButton
             pRipple
             type="button"
-            icon="pi pi-check-circle"
-            class="p-button-rounded p-button-text p-button-secondary2"
-            (click)="showDialogDesactive(tool)"></button>
-        }
-
-        @if (activeItem.id === '0') {
-          <button
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-trash"
+            [icon]="activeItem.id === '0' ? 'pi pi-trash' : 'pi pi-check-circle'"
             class="p-button-rounded p-button-text p-button-secondary2"
             (click)="showDialogDesactive(tool)"></button>
         }
@@ -816,7 +806,7 @@
 </p-dialog>
 
 <p-dialog
-  [(visible)]="desactiveModalOpen"
+  [(visible)]="enableDisabledModalOpen"
   [modal]="true"
   [style]="{ width: '40vw' }"
   [draggable]="false"
@@ -841,9 +831,10 @@
       <button
         pButton
         label="Cancel"
-        (click)="desactiveModalOpen = false"
+        (click)="enableDisabledModalOpen = false"
         severity="danger"
         style="background-color: red; border: none; font-weight: 600"></button>
+
       <button
         pButton
         label="Accept"

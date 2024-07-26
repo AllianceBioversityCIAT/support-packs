@@ -47,7 +47,8 @@
       @if (activeItem.id === '2') {
         <app-admin-tools-table
           [activeItem]="activeItem"
-          [tableData]="[]"
+          [tableData]="requestedToolsData"
+          [tableDataLoading]="loading"
           (onGetRequestedTools)="getRequestedTools()"
           app_id="2"></app-admin-tools-table>
       }

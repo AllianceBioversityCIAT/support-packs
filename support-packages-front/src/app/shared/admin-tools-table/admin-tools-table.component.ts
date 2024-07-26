@@ -61,7 +61,7 @@ export class AdminToolsTableComponent {
 
   isSaving: boolean = false;
 
-  desactiveModalOpen: boolean = false;
+  enableDisabledModalOpen: boolean = false;
   acceptedModalOpen: boolean = false;
   denyModalOpen: boolean = false;
 
@@ -167,7 +167,7 @@ export class AdminToolsTableComponent {
   }
 
   showDialogDesactive(customer: any) {
-    this.desactiveModalOpen = true;
+    this.enableDisabledModalOpen = true;
     this.informationEdit = customer;
   }
 
@@ -180,7 +180,7 @@ export class AdminToolsTableComponent {
         if (this.activeItem?.id === '0') this.getActiveTools();
         if (this.activeItem?.id === '1') this.getDesactiveTools();
 
-        this.desactiveModalOpen = false;
+        this.enableDisabledModalOpen = false;
         this.isSaving = false;
       });
   }

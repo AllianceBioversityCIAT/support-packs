@@ -63,8 +63,10 @@ export class SharedService {
       .pipe();
   }
 
-  getToolsAdminRquest(app_id: number) {
-    return this.http.get<any>(`${environment.api}/support/editRequest/${app_id}`).pipe();
+  getRequestedAdminTools(app_id: number) {
+    return this.http
+      .get<any>(`${environment.api}/guidelines/sp-guidelines/adminPanel/requested/${app_id}`)
+      .pipe();
   }
 
   getDisabledAdminTools(app_id: number) {

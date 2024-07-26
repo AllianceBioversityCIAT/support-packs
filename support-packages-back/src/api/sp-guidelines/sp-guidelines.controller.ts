@@ -110,6 +110,28 @@ export class SpGuidelinesController {
     }
   }
 
+  @Get('/adminPanel/requested/:app_id')
+  async getAllToolsRequested(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.getRequestedToolsByApp(app_id);
+      
+      
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
   @Post('/updateTool/:app_id/:id')
   async updateTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id) : Promise<any>{
     try{

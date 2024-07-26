@@ -277,6 +277,122 @@ export class SpGuidelinesService {
     }
   }
 
+  async getRequestedToolsByApp(app_id): Promise<any> {
+    try {
+      const roles: any = await this.prisma.$queryRaw(
+        Prisma.sql`SELECT * FROM sp_roles sr WHERE sr.app_id = ${app_id};`,
+      );
+      const stages: any = await this.prisma.$queryRaw(
+        Prisma.sql`SELECT * FROM sp_stages ss WHERE ss.app_id = ${app_id};`,
+      );
+
+      let query;
+
+      if (app_id === '3') {
+        query = Prisma.sql`
+          SELECT DISTINCT
+            sil.category_id, sg.id, sg.name, sgm.description,
+            sg.source, sgm.estimated_time, sgm.integrates_gender, sgm.is_tested_online,
+            sgm.target_scale, sgm.participants, sgm.methods, sgm.input_types, sgm.limitations,
+            sgm.strengths, sgm.expected_outputs, sgm.human_resources, sgm.key_references,
+            sc.name AS category_name, sgm.id AS id_metadata
+          FROM sp_guidelines_request sg
+          JOIN sp_guidelines_metadata_request sgm ON sgm.guideline_id = sg.id
+          JOIN sp_importance_levels_request sil ON sil.guideline_id = sg.id
+          JOIN sp_categories sc ON sc.id = sil.category_id
+          WHERE sg.app_id = ${app_id} AND sg.active = 1;
+        `;
+      } else {
+        query = Prisma.sql`
+          SELECT DISTINCT
+            sil.category_id, sg.id, sg.name, sg.source, sc.name AS category_name
+          FROM sp_guidelines_request sg
+          JOIN sp_importance_levels_request sil ON sil.guideline_id = sg.id
+          JOIN sp_categories sc ON sc.id = sil.category_id
+          WHERE sg.app_id = ${app_id} AND sg.active = 1;
+        `;
+      }
+
+      const guiades: any = await this.prisma.$queryRaw(query);
+
+      if (guiades.length > 0) {
+        const guidelinesIds = guiades.map((g: any) => g.id);
+        let resources_guidelines_all = [];
+        let resources_guidelines = [];
+
+        if (app_id === '3') {
+          resources_guidelines_all = await this.prisma.$queryRaw(
+            Prisma.sql`
+            SELECT * FROM sp_resources_guidelines 
+            WHERE guideline_id IN (${Prisma.join(guidelinesIds)})`,
+          );
+        }
+
+        resources_guidelines = await this.prisma.$queryRaw(
+          Prisma.sql`
+          SELECT 
+            sr.name AS name_role,
+            sr.acronym,
+            ss.name AS stage_name,
+            sil.stage_id,
+            sil.importance_level,
+            sil.category_id,
+            sg.id AS guideline_id,
+            sil.role_id,
+            CASE
+              WHEN sil.importance_level = 'Very important' THEN 4
+              WHEN sil.importance_level = 'Important' THEN 3
+              WHEN sil.importance_level = 'Useful' THEN 2
+              WHEN sil.importance_level = 'Optional' THEN 1
+              ELSE 0
+            END AS id_important_level
+          FROM sp_guidelines_request sg
+          JOIN sp_importance_levels_request sil ON sil.guideline_id = sg.id
+          JOIN sp_categories sc ON sc.id = sil.category_id
+          JOIN sp_roles sr ON sr.id = sil.role_id
+          JOIN sp_stages ss ON ss.id = sil.stage_id
+          WHERE sg.active > 0 AND sg.app_id = ${app_id}`,
+        );
+
+        guiades.forEach((guide: any) => {
+          const { id: guideline_id, category_id } = guide;
+
+          roles.forEach((role) => {
+            guide[role.acronym] = {};
+            stages.forEach((stage) => {
+              const importances = resources_guidelines.filter(
+                (r) =>
+                  r.guideline_id === guideline_id &&
+                  r.category_id === category_id &&
+                  r.role_id === role.id &&
+                  r.stage_id === stage.id,
+              );
+
+              if (importances.length > 0) {
+                const stageName = stage.name.replace(/\s/g, '');
+                guide[role.acronym][stageName] = {
+                  id: parseInt(importances[0].id_important_level, 10),
+                  name: importances[0].importance_level,
+                };
+              }
+            });
+          });
+
+          if (app_id === '3') {
+            guide.resources = resources_guidelines_all.filter(
+              (r) => r.guideline_id === guideline_id,
+            );
+          }
+        });
+      }
+
+      return guiades;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
   async putGuideline(app_id, id, body): Promise<any> {
     try {
       if (app_id != null && id != null && body != null) {

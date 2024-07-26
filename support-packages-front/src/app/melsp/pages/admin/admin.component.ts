@@ -34,6 +34,7 @@ export class AdminComponent implements OnInit {
 
   activeToolsData = [];
   disabledToolsData = [];
+  requestedToolsData = [];
 
   loading: boolean = false;
 
@@ -45,7 +46,7 @@ export class AdminComponent implements OnInit {
       { label: 'Archived Tools', icon: 'pi pi-fw pi-file', id: '1' },
       { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: '2' },
     ];
-    this.activeItem = this.items[1];
+    this.activeItem = this.items[0];
     this.getActiveTools();
 
     if (this.getlocalStorageToken() !== null) {
@@ -85,7 +86,12 @@ export class AdminComponent implements OnInit {
   }
 
   getRequestedTools() {
-    console.log('getRequestedTools');
+    this.loading = true;
+
+    this._sharedService.getRequestedAdminTools(2).subscribe((data) => {
+      this.requestedToolsData = data.result;
+      this.loading = false;
+    });
   }
 
   onActiveItemChange(event: MenuItem) {
