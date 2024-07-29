@@ -5,6 +5,8 @@ import {
   UploadedFile,
   Body,
   Res,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { FileManagementService } from './file-management.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -20,6 +22,11 @@ export class FileManagementController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     return await this.fileManagementService.uploadFile(file);
+  }
+
+  @Delete('delete/:key')
+  async deleteFile(@Param('key') key) {
+    return await this.fileManagementService.removeFile(key);
   }
 
   @Post('download-zip')

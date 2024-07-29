@@ -92,6 +92,13 @@ export const routes: Routes = [
               ),
           },
           {
+            path: 'form-request',
+            loadComponent: () =>
+              import('../melsp/pages/form-request/form-request.component').then(
+                (mod) => mod.FormRequestComponent,
+              ),
+          },
+          {
             path: 'manage-tool',
             title: 'MELSP - Admin module',
             loadComponent: () =>

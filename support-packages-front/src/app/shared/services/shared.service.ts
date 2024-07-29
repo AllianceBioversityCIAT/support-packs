@@ -48,6 +48,17 @@ export class SharedService {
       .pipe();
   }
 
+  uploadFile(file: any) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post<any>(`${environment.api}/file-management/upload`, formData).pipe();
+  }
+
+  removeFile(key: string) {
+    return this.http.delete<any>(`${environment.api}/file-management/delete/${key}`).pipe();
+  }
+
   downloadFiles(keys: string[]) {
     return this.http.post(
       `${environment.api}/file-management/download-zip`,
@@ -56,13 +67,22 @@ export class SharedService {
     );
   }
 
+  // Submission Form
+  createRequestNewTool(app_id: string, data: any) {
+    return this.http
+      .post<any>(`${environment.api}/support/createToolNewRequest/${app_id}`, data)
+      .pipe();
+  }
+
   // Admin module
+  // Change url
   getActiveAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanel/${app_id}`)
       .pipe();
   }
 
+  // Change url
   getRequestedAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/adminPanel/requested/${app_id}`)
@@ -76,7 +96,6 @@ export class SharedService {
   }
 
   // Admin tools actions
-
   activeOrDesactive(app_id: string, data: any, active: any) {
     return this.http
       .post<any>(

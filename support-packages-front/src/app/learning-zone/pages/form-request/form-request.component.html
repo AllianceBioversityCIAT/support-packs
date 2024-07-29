@@ -33,7 +33,7 @@
           <p-button
             type="button"
             label="Access to related resources"
-          (onClick)="dialogConfirmation = true"></p-button>
+            (onClick)="dialogConfirmation = true"></p-button>
         </div>
       </div>
     </div>
@@ -54,407 +54,411 @@
               pInputText
               id="full_name"
               aria-describedby="username-help"
-              formControlName="name" />
-            </div>
-            <div class="formRequest__mainForm__content--input">
-              <b>Email</b>
-              <input
-                pInputText
-                id="email"
-                autocomplete="off"
-                aria-describedby="username-help"
-                formControlName="email" />
+              formControlName="full_name" />
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Email</b>
+            <input
+              pInputText
+              id="email"
+              autocomplete="off"
+              aria-describedby="username-help"
+              formControlName="email" />
+          </div>
+        </div>
+      </div>
+      <h3 class="formRequest__mainForm--title">Basic Information</h3>
+      <div class="formRequest__mainForm__content" style="flex-direction: column">
+        <div class="formRequest__mainForm__content--input">
+          <b>Tool name</b>
+          <input
+            pInputText
+            id="tool_name"
+            aria-describedby="username-help"
+            formControlName="name" />
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <b>Description</b>
+          <textarea
+            style="resize: none"
+            id="description"
+            rows="5"
+            pInputTextarea
+            formControlName="description"></textarea>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Link</b>
+            <input pInputText id="link" aria-describedby="username-help" formControlName="source" />
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Estimated time to implement (excl. training)</b>
+            <input
+              pInputText
+              id="eti"
+              aria-describedby="username-help"
+              formControlName="estimated_time" />
+          </div>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Does the tool integrate gender?</b>
+            <div class="formRequest__mainForm__content--radioContainer">
+              <div class="formRequest__mainForm__content--radio">
+                <p-radioButton
+                  value="Yes"
+                  formControlName="integrates_gender"
+                  inputId="integratedGenderYes"></p-radioButton>
+                <label for="integratedGenderYes">Yes</label>
+              </div>
+              <div class="formRequest__mainForm__content--radio">
+                <p-radioButton
+                  value="No"
+                  formControlName="integrates_gender"
+                  inputId="integratedGenderNo"></p-radioButton>
+                <label for="integratedGenderNo">No</label>
               </div>
             </div>
           </div>
-          <h3 class="formRequest__mainForm--title">Basic Information</h3>
-          <div class="formRequest__mainForm__content" style="flex-direction: column">
-            <div class="formRequest__mainForm__content--input">
-              <b>Tool name</b>
-              <input pInputText id="tool_name" aria-describedby="username-help" formControlName="name" />
+          <div class="formRequest__mainForm__content--input">
+            <b>Can this tool be tested online?</b>
+            <div class="formRequest__mainForm__content--radioContainer">
+              <div class="formRequest__mainForm__content--radio">
+                <p-radioButton
+                  value="Yes"
+                  formControlName="is_tested_online"
+                  inputId="integratedTestedOnlineYes"></p-radioButton>
+                <label for="integratedTestedOnlineYes">Yes</label>
+              </div>
+              <div class="formRequest__mainForm__content--radio">
+                <p-radioButton
+                  value="No"
+                  formControlName="is_tested_online"
+                  inputId="integratedTestedOnlineNo"></p-radioButton>
+                <label for="integratedTestedOnlineNo">No</label>
+              </div>
             </div>
+          </div>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Target Scale</b>
+            <textarea
+              style="resize: none"
+              id="target_scale"
+              rows="5"
+              pInputTextarea
+              formControlName="target_scale"></textarea>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Who participates?</b>
+            <textarea
+              style="resize: none"
+              id="who_participates"
+              rows="5"
+              pInputTextarea
+              formControlName="participants"></textarea>
+          </div>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Methods used</b>
+            <textarea
+              style="resize: none"
+              id="methods"
+              rows="5"
+              pInputTextarea
+              formControlName="methods"></textarea>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Types of input data/information</b>
+            <textarea
+              style="resize: none"
+              id="input_types"
+              rows="5"
+              pInputTextarea
+              formControlName="input_types"></textarea>
+          </div>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <b>Limitations</b>
+          <textarea
+            style="resize: none"
+            id="limitations"
+            rows="5"
+            pInputTextarea
+            formControlName="limitations"></textarea>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <b>Strengths</b>
+          <textarea
+            style="resize: none"
+            id="strengths"
+            rows="5"
+            pInputTextarea
+            formControlName="strengths"></textarea>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Expected output(s)</b>
+            <textarea
+              style="resize: none"
+              id="expected_outputs"
+              rows="5"
+              cols="30"
+              pInputTextarea
+              formControlName="expected_outputs"></textarea>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Required human resources</b>
+            <textarea
+              id="required_human_resources"
+              style="resize: none"
+              rows="5"
+              cols="30"
+              pInputTextarea
+              formControlName="human_resources"></textarea>
+          </div>
+        </div>
+        <div class="formRequest__mainForm__content--twoColumns">
+          <div class="formRequest__mainForm__content--input">
+            <b>Key reference person(s)</b>
+            <textarea
+              id="key_references"
+              style="resize: none"
+              rows="5"
+              cols="30"
+              pInputTextarea
+              formControlName="key_references"></textarea>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <b>Thematic area</b>
+            <p-dropdown
+              [options]="thematicAreasData"
+              formControlName="category_id"
+              [style]="{ width: '100%' }"
+              [virtualScroll]="true"
+              [virtualScrollItemSize]="38"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Select a Thematic area">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+      <h3 class="formRequest__mainForm--title">User Profile and Project Phase relevance</h3>
+      <div
+        class="formRequest__mainForm__content"
+        style="flex-direction: column; align-items: flex-start">
+        <div class="title-user-con">
+          <h4>Researcher</h4>
+        </div>
+        <div
+          formGroupName="R"
+          class="formRequest__mainForm__content--threeColumns"
+          style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
+          <div class="formRequest__mainForm__content--input">
+            <h4>Design</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="design"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Implementation</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="implementation"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Monitoring and evaluations</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="monitoring"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formRequest__mainForm__content"
+        style="flex-direction: column; align-items: flex-start">
+        <div class="title-user-con">
+          <h4>Technical staff</h4>
+        </div>
+        <div
+          formGroupName="TS"
+          class="formRequest__mainForm__content--threeColumns"
+          style="background-color: none; border: none; padding: 0">
+          <div class="formRequest__mainForm__content--input">
+            <h4>Design</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="design"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Implementation</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="implementation"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Monitoring and evaluations</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="monitoring"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formRequest__mainForm__content"
+        style="flex-direction: column; align-items: flex-start">
+        <div class="title-user-con">
+          <h4>Academia</h4>
+        </div>
+        <div
+          formGroupName="A"
+          class="formRequest__mainForm__content--threeColumns"
+          style="background-color: none; border: none; padding: 0">
+          <div class="formRequest__mainForm__content--input">
+            <h4>Design</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="design"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Implementation</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="implementation"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+          <div class="formRequest__mainForm__content--input">
+            <h4>Monitoring and evaluations</h4>
+            <p-dropdown
+              [options]="optionsImportance"
+              formControlName="monitoring"
+              optionLabel="name"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              placeholder="Select a Thematic area"></p-dropdown>
+          </div>
+        </div>
+      </div>
+      <div
+        formArrayName="resource"
+        class="formRequest__mainForm__content"
+        style="
+          flex-direction: column;
+          align-items: flex-start;
+          background: none;
+          border: none;
+          padding: 0;
+        ">
+        <div class="title-sub">
+          <h3>Resources</h3>
+        </div>
+        @for (item of resources.controls; track item; let i = $index) {
+          <div
+            [formGroupName]="i"
+            class="formRequest__mainForm__content"
+            style="flex-direction: column; position: relative">
+            @if (resources.length > 1) {
+              <p-button
+                type="button"
+                icon="pi pi-trash"
+                [style]="{
+                  position: 'absolute',
+                  right: '-1px',
+                  top: '-1px'
+                }"
+                (onClick)="deleteResource(i)"
+                severity="danger"></p-button>
+            }
             <div class="formRequest__mainForm__content--input">
-              <b>Description</b>
-              <textarea
-                style="resize: none"
-                id="description"
-                rows="5"
+              <b>Resource title</b>
+              <input
                 pInputTextarea
-              formControlName="description"></textarea>
+                formControlName="name"
+                autocomplete="off"
+                aria-describedby="username-help" />
             </div>
-            <div class="formRequest__mainForm__content--twoColumns">
+            <div class="formRequest__mainForm__content--twoColumns" style="margin-top: 1rem">
               <div class="formRequest__mainForm__content--input">
                 <b>Link</b>
-                <input pInputText id="link" aria-describedby="username-help" formControlName="source" />
+                <input pInputText aria-describedby="username-help" formControlName="source" />
               </div>
               <div class="formRequest__mainForm__content--input">
-                <b>Estimated time to implement (excl. training)</b>
-                <input
-                  pInputText
-                  id="eti"
-                  aria-describedby="username-help"
-                  formControlName="estimated_time" />
-                </div>
-              </div>
-              <div class="formRequest__mainForm__content--twoColumns">
-                <div class="formRequest__mainForm__content--input">
-                  <b>Does the tool integrate gender?</b>
-                  <div class="formRequest__mainForm__content--radioContainer">
-                    <div class="formRequest__mainForm__content--radio">
-                      <p-radioButton
-                        value="Yes"
-                        formControlName="integrates_gender"
-                      inputId="integratedGenderYes"></p-radioButton>
-                      <label for="integratedGenderYes">Yes</label>
-                    </div>
-                    <div class="formRequest__mainForm__content--radio">
-                      <p-radioButton
-                        value="No"
-                        formControlName="integrates_gender"
-                      inputId="integratedGenderNo"></p-radioButton>
-                      <label for="integratedGenderNo">No</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <b>Can this tool be tested online?</b>
-                  <div class="formRequest__mainForm__content--radioContainer">
-                    <div class="formRequest__mainForm__content--radio">
-                      <p-radioButton
-                        value="Yes"
-                        formControlName="is_tested_online"
-                      inputId="integratedTestedOnlineYes"></p-radioButton>
-                      <label for="integratedTestedOnlineYes">Yes</label>
-                    </div>
-                    <div class="formRequest__mainForm__content--radio">
-                      <p-radioButton
-                        value="No"
-                        formControlName="is_tested_online"
-                      inputId="integratedTestedOnlineNo"></p-radioButton>
-                      <label for="integratedTestedOnlineNo">No</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="formRequest__mainForm__content--twoColumns">
-                <div class="formRequest__mainForm__content--input">
-                  <b>Target Scale</b>
-                  <textarea
-                    style="resize: none"
-                    id="target_scale"
-                    rows="5"
-                    pInputTextarea
-                  formControlName="target_scale"></textarea>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <b>Who participates?</b>
-                  <textarea
-                    style="resize: none"
-                    id="who_participates"
-                    rows="5"
-                    pInputTextarea
-                  formControlName="participants"></textarea>
-                </div>
-              </div>
-              <div class="formRequest__mainForm__content--twoColumns">
-                <div class="formRequest__mainForm__content--input">
-                  <b>Methods used</b>
-                  <textarea
-                    style="resize: none"
-                    id="methods"
-                    rows="5"
-                    pInputTextarea
-                  formControlName="methods"></textarea>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <b>Types of input data/information</b>
-                  <textarea
-                    style="resize: none"
-                    id="input_types"
-                    rows="5"
-                    pInputTextarea
-                  formControlName="input_types"></textarea>
-                </div>
-              </div>
-              <div class="formRequest__mainForm__content--input">
-                <b>Limitations</b>
-                <textarea
-                  style="resize: none"
-                  id="limitations"
-                  rows="5"
-                  pInputTextarea
-                formControlName="limitations"></textarea>
-              </div>
-              <div class="formRequest__mainForm__content--input">
-                <b>Strengths</b>
-                <textarea
-                  style="resize: none"
-                  id="strengths"
-                  rows="5"
-                  pInputTextarea
-                formControlName="strengths"></textarea>
-              </div>
-              <div class="formRequest__mainForm__content--twoColumns">
-                <div class="formRequest__mainForm__content--input">
-                  <b>Expected output(s)</b>
-                  <textarea
-                    style="resize: none"
-                    id="expected_outputs"
-                    rows="5"
-                    cols="30"
-                    pInputTextarea
-                  formControlName="expected_outputs"></textarea>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <b>Required human resources</b>
-                  <textarea
-                    id="required_human_resources"
-                    style="resize: none"
-                    rows="5"
-                    cols="30"
-                    pInputTextarea
-                  formControlName="human_resources"></textarea>
-                </div>
-              </div>
-              <div class="formRequest__mainForm__content--twoColumns">
-                <div class="formRequest__mainForm__content--input">
-                  <b>Key reference person(s)</b>
-                  <textarea
-                    id="key_references"
-                    style="resize: none"
-                    rows="5"
-                    cols="30"
-                    pInputTextarea
-                  formControlName="key_references"></textarea>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <b>Thematic area</b>
-                  <p-dropdown
-                    [options]="thematicAreasData"
-                    formControlName="category_id"
-                    [style]="{ width: '100%' }"
-                    [virtualScroll]="true"
-                    [virtualScrollItemSize]="38"
-                    optionLabel="name"
-                    optionValue="id"
-                    placeholder="Select a Thematic area">
-                  </p-dropdown>
-                </div>
+                <h4>Category</h4>
+                <p-dropdown
+                  formControlName="type"
+                  [options]="categories"
+                  [style]="{ width: '100%' }"
+                  optionValue="name"
+                  optionLabel="name"
+                  placeholder="Select a Thematic area">
+                </p-dropdown>
               </div>
             </div>
-            <h3 class="formRequest__mainForm--title">User Profile and Project Phase relevance</h3>
-            <div
-              class="formRequest__mainForm__content"
-              style="flex-direction: column; align-items: flex-start">
-              <div class="title-user-con">
-                <h4>Researcher</h4>
-              </div>
-              <div
-                formGroupName="R"
-                class="formRequest__mainForm__content--threeColumns"
-                style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Design</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="design"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Implementation</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="implementation"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Monitoring and evaluations</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="monitoring"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-              </div>
-            </div>
-            <div
-              class="formRequest__mainForm__content"
-              style="flex-direction: column; align-items: flex-start">
-              <div class="title-user-con">
-                <h4>Technical staff</h4>
-              </div>
-              <div
-                formGroupName="TS"
-                class="formRequest__mainForm__content--threeColumns"
-                style="background-color: none; border: none; padding: 0">
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Design</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="design"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Implementation</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="implementation"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Monitoring and evaluations</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="monitoring"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-              </div>
-            </div>
-            <div
-              class="formRequest__mainForm__content"
-              style="flex-direction: column; align-items: flex-start">
-              <div class="title-user-con">
-                <h4>Academia</h4>
-              </div>
-              <div
-                formGroupName="A"
-                class="formRequest__mainForm__content--threeColumns"
-                style="background-color: none; border: none; padding: 0">
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Design</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="design"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Implementation</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="implementation"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-                <div class="formRequest__mainForm__content--input">
-                  <h4>Monitoring and evaluations</h4>
-                  <p-dropdown
-                    [options]="optionsImportance"
-                    formControlName="monitoring"
-                    optionLabel="name"
-                    [showClear]="true"
-                    [style]="{ width: '100%' }"
-                  placeholder="Select a Thematic area"></p-dropdown>
-                </div>
-              </div>
-            </div>
-            <div
-              formArrayName="resource"
-              class="formRequest__mainForm__content"
-      style="
-        flex-direction: column;
-        align-items: flex-start;
-        background: none;
-        border: none;
-        padding: 0;
-      ">
-              <div class="title-sub">
-                <h3>Resources</h3>
-              </div>
-              @for (item of resources.controls; track item; let i = $index) {
-                <div
-                  [formGroupName]="i"
-                  class="formRequest__mainForm__content"
-                  style="flex-direction: column; position: relative">
-                  @if (resources.length > 1) {
-                    <p-button
-                      type="button"
-                      icon="pi pi-trash"
-          [style]="{
-            position: 'absolute',
-            right: '-1px',
-            top: '-1px'
-          }"
-                      (onClick)="deleteResource(i)"
-                    severity="danger"></p-button>
-                  }
-                  <div class="formRequest__mainForm__content--input">
-                    <b>Resource title</b>
-                    <input
-                      pInputTextarea
-                      formControlName="name"
-                      autocomplete="off"
-                      aria-describedby="username-help" />
-                    </div>
-                    <div class="formRequest__mainForm__content--twoColumns" style="margin-top: 1rem">
-                      <div class="formRequest__mainForm__content--input">
-                        <b>Link</b>
-                        <input pInputText aria-describedby="username-help" formControlName="source" />
-                      </div>
-                      <div class="formRequest__mainForm__content--input">
-                        <h4>Category</h4>
-                        <p-dropdown
-                          formControlName="type"
-                          [options]="categories"
-                          [style]="{ width: '100%' }"
-                          optionValue="name"
-                          optionLabel="name"
-                          placeholder="Select a Thematic area">
-                        </p-dropdown>
-                      </div>
-                    </div>
-                  </div>
-                }
-                <button
-                  pButton
-                  type="button"
-                  label="Other Resource"
-                  (click)="aditionalResource()"
-                class="formRequest__mainForm__content--resourceButton"></button>
-              </div>
-              @if (dialogConfirmation) {
-                <div class="formRequest__mainForm__steps">
-                  <button
-                    pButton
-                    type="submit"
-                    [disabled]="requestToolNewForm.invalid"
-                    label="Submit tool"
-                  class="formRequest__mainForm__steps--button"></button>
-                </div>
-              }
-            </form>
-          }
-        </div>
-
-        <p-dialog
-          [(visible)]="loadingSave"
-          [modal]="true"
-          [style]="{ width: '10vw' }"
-          [draggable]="false"
-          [closable]="false"
-          [resizable]="false">
-          <div style="width: 100%; display: flex; align-items: center; justify-content: center">
-            <img src="../../../../assets/loading.gif" alt="" style="width: 50px; height: 50px" />
           </div>
-        </p-dialog>
+        }
+        <button
+          pButton
+          type="button"
+          label="Other Resource"
+          (click)="aditionalResource()"
+          class="formRequest__mainForm__content--resourceButton"></button>
+      </div>
+      @if (dialogConfirmation) {
+        <div class="formRequest__mainForm__steps">
+          <button
+            pButton
+            type="submit"
+            [disabled]="requestToolNewForm.invalid"
+            label="Submit tool"
+            class="formRequest__mainForm__steps--button"></button>
+        </div>
+      }
+    </form>
+  }
+</div>
+
+<p-dialog
+  [(visible)]="loadingSave"
+  [modal]="true"
+  [style]="{ width: '10vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <div style="width: 100%; display: flex; align-items: center; justify-content: center">
+    <img src="../../../../assets/loading.gif" alt="" style="width: 50px; height: 50px" />
+  </div>
+</p-dialog>

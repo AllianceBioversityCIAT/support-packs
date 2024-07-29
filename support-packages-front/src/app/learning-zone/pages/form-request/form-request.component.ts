@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { FormArray, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { SharedService } from '../../../shared/services/shared.service';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -9,18 +15,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
-
 interface IThematicAreas {
   id: number;
   name: string;
   app_id: number;
 }
 @Component({
-    selector: 'app-form-request',
-    templateUrl: './form-request.component.html',
-    styleUrls: ['./form-request.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-form-request',
+  templateUrl: './form-request.component.html',
+  styleUrls: ['./form-request.component.scss'],
+  standalone: true,
+  imports: [
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -28,8 +33,8 @@ interface IThematicAreas {
     InputTextareaModule,
     RadioButtonModule,
     DropdownModule,
-    DialogModule
-],
+    DialogModule,
+  ],
 })
 export class FormRequestComponent implements OnInit {
   step1: boolean = true;
@@ -44,6 +49,7 @@ export class FormRequestComponent implements OnInit {
 
   requestToolNewForm = this.fb.group({
     name: ['', [Validators.required]],
+    full_name: ['', [Validators.required]],
     email: ['', [Validators.required]],
     source: ['', [Validators.required]],
     description: ['', [Validators.required]],
