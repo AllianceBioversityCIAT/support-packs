@@ -583,18 +583,21 @@ export class SpSupportPackService {
   }
 
   async deleteGuidelineRequest(app_id, id): Promise<any> {
+    if (!app_id || !id) {
+      throw new Error('Invalid input: app_id and data are required.');
+    }
+
     try {
-      if (app_id != null && id != null) {
-        await this.prisma.sp_guidelines_request.update({
-          where: {
-            id: parseInt(id),
-            app_id: parseInt(app_id),
-          },
-          data: {
-            active: false,
-          },
-        });
-      }
+      await this.prisma.sp_guidelines_request.update({
+        where: {
+          id: parseInt(id),
+          app_id: parseInt(app_id),
+        },
+        data: {
+          active: false,
+        },
+      });
+
       return { message: 'Guideline updated successfully' };
     } catch (error) {
       throw error;

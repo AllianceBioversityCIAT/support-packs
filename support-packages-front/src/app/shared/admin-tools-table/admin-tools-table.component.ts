@@ -192,7 +192,7 @@ export class AdminToolsTableComponent {
 
   acceptRequest() {
     this.isSaving = true;
-    this._servicesLearningZoneService.aceptedRequest(this.informationEdit).subscribe((data) => {
+    this._sharedService.aceptedRequest(this.app_id, this.informationEdit).subscribe((data) => {
       this.getRequestedTools();
       this.acceptedModalOpen = false;
       this.isSaving = false;
@@ -206,7 +206,7 @@ export class AdminToolsTableComponent {
 
   denyRequest() {
     this.isSaving = true;
-    this._servicesLearningZoneService.denyToolRequest(this.informationEdit).subscribe((data) => {
+    this._sharedService.denyToolRequest(this.app_id, this.informationEdit).subscribe((data) => {
       this.getRequestedTools();
       this.denyModalOpen = false;
       this.isSaving = false;

@@ -74,6 +74,18 @@ export class SharedService {
       .pipe();
   }
 
+  aceptedRequest(app_id: string, data: any) {
+    return this.http
+      .post<any>(`${environment.api}/guidelines/sp-guidelines/createToolNew/${app_id}`, data)
+      .pipe();
+  }
+
+  denyToolRequest(app_id: string, data: any) {
+    return this.http
+      .post<any>(`${environment.api}/support/denyToolRequest/${app_id}/${data.id}`, data)
+      .pipe();
+  }
+
   // Admin module
   // Change url
   getActiveAdminTools(app_id: number) {

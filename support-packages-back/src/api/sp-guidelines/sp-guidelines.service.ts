@@ -305,7 +305,8 @@ export class SpGuidelinesService {
       } else {
         query = Prisma.sql`
           SELECT DISTINCT
-            sil.category_id, sg.id, sg.name, sg.source, sc.name AS category_name
+            sil.category_id, sg.id, sg.name, sg.source, sc.name AS category_name,
+            sg.code, sg.type, sg.registered_by, sg.contact 
           FROM sp_guidelines_request sg
           JOIN sp_importance_levels_request sil ON sil.guideline_id = sg.id
           JOIN sp_categories sc ON sc.id = sil.category_id
@@ -588,18 +589,24 @@ export class SpGuidelinesService {
   }
 
   async createToolNew(app_id, data: any): Promise<any> {
-    try {
-      if (app_id != null && data != null) {
-        const requestNew = await this.prisma.sp_guidelines.create({
-          data: {
-            name: data.name,
-            contact: '',
-            source: data.source,
-            app_id: parseInt(app_id),
-            active: true,
-          },
-        });
+    if (!app_id || !data) {
+      throw new Error('Invalid input: app_id and data are required.');
+    }
 
+    try {
+      const requestNew = await this.prisma.sp_guidelines.create({
+        data: {
+          name: data.name,
+          registered_by: data.registered_by,
+          contact: data.contact,
+          source: data.source,
+          type: data.type,
+          app_id: parseInt(app_id),
+          active: true,
+        },
+      });
+
+      if (app_id === '3') {
         await this.prisma.sp_guidelines_metadata.create({
           data: {
             guideline_id: requestNew.id,
@@ -619,107 +626,101 @@ export class SpGuidelinesService {
           },
         });
 
+        const importanceLevelData = [];
+
         for (const item in data.A) {
-          if (item == 'Design') {
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
+          const categories = {
+            design: 9,
+            implementation: 10,
+            monitoring: 11,
+          };
+
+          if (categories[item]) {
+            const stage_id = categories[item];
+            importanceLevelData.push(
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
                 role_id: 9,
-                stage_id: 9,
-                importance_level: data?.A[item].name,
+                stage_id,
+                importance_level: data.A[item].name,
               },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
                 role_id: 7,
-                stage_id: 9,
-                importance_level: data?.R[item].name,
+                stage_id,
+                importance_level: data.R[item].name,
               },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
                 role_id: 8,
-                stage_id: 9,
-                importance_level: data?.TS[item].name,
+                stage_id,
+                importance_level: data.TS[item].name,
               },
-            });
-          }
-          if (item == 'Implementation') {
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 9,
-                stage_id: 10,
-                importance_level: data?.A[item].name,
-              },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 7,
-                stage_id: 10,
-                importance_level: data?.R[item].name,
-              },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 8,
-                stage_id: 10,
-                importance_level: data?.TS[item].name,
-              },
-            });
-          }
-          if (item == 'MonitoringandEvaluation') {
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 9,
-                stage_id: 11,
-                importance_level: data?.A[item].name,
-              },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 7,
-                stage_id: 11,
-                importance_level: data?.R[item].name,
-              },
-            });
-            await this.prisma.sp_importance_levels.create({
-              data: {
-                guideline_id: requestNew?.id,
-                category_id: parseInt(data?.category_id),
-                role_id: 8,
-                stage_id: 11,
-                importance_level: data?.TS[item].name,
-              },
-            });
+            );
           }
         }
 
-        data?.resources.forEach(async (element) => {
-          await this.prisma.sp_resources_guidelines.create({
-            data: {
-              guideline_id: requestNew.id,
-              name: element.name,
-              code: '',
-              source: element.source,
-              type: element.type,
-              active: true,
-            },
-          });
+        await this.prisma.sp_importance_levels.createMany({
+          data: importanceLevelData,
+        });
+
+        const resourceData = data.resource.map((element) => ({
+          guideline_id: requestNew.id,
+          name: element.name,
+          code: '',
+          source: element.source,
+          type: element.type,
+          active: true,
+        }));
+
+        await this.prisma.sp_resources_guidelines_request.createMany({
+          data: resourceData,
+        });
+      }
+
+      if (app_id === '2') {
+        const importanceLevelData = [];
+
+        for (const item in data.PM) {
+          const categories = {
+            Designing: 6,
+            Implementation: 7,
+            'Closure&Beyond': 8,
+          };
+
+          if (categories[item]) {
+            const stage_id = categories[item];
+            importanceLevelData.push(
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
+                role_id: 4,
+                stage_id,
+                importance_level: data.PM[item].name,
+              },
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
+                role_id: 5,
+                stage_id,
+                importance_level: data.PJM[item].name,
+              },
+              {
+                guideline_id: requestNew.id,
+                category_id: parseInt(data.category_id),
+                role_id: 6,
+                stage_id,
+                importance_level: data['M&EO'][item].name,
+              },
+            );
+          }
+        }
+
+        await this.prisma.sp_importance_levels.createMany({
+          data: importanceLevelData,
         });
       }
 
