@@ -195,6 +195,7 @@ export class SpSupportPackService {
           registered_by: data.full_name,
           contact: data.email,
           source: data.source,
+          type: data.type,
           app_id: parseInt(app_id),
           active: true,
         },

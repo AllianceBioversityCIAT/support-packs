@@ -267,15 +267,39 @@
     <div class="formRequest__mainForm__steps">
       <button
         pButton
+        [disabled]="loadingSave"
         type="button"
         label="Cancel"
         class="formRequest__mainForm__steps--button"></button>
       <button
         pButton
-        [disabled]="requestToolNewForm.invalid"
+        [disabled]="requestToolNewForm.invalid || loadingSave"
         type="submit"
         label="Submit tool"
         class="formRequest__mainForm__steps--button"></button>
     </div>
   </form>
 </div>
+
+<p-dialog
+  [(visible)]="loadingSave"
+  [modal]="true"
+  [style]="{ width: '10vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <ng-template pTemplate="headless">
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        padding: 2rem 4rem;
+        border-radius: 1rem;
+      ">
+      <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+    </div>
+  </ng-template>
+</p-dialog>

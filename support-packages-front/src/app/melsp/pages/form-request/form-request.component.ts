@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SharedService } from '../../../shared/services/shared.service';
+import { DialogModule } from 'primeng/dialog';
 
 interface IWhat {
   id: number;
@@ -29,6 +30,7 @@ interface IWhat {
     DropdownModule,
     RadioButtonModule,
     FileUploadModule,
+    DialogModule,
   ],
   templateUrl: './form-request.component.html',
   styleUrl: './form-request.component.scss',
@@ -42,6 +44,7 @@ export class FormRequestComponent implements OnInit {
 
   uploadedFile = null;
   whatData: IWhat[] = [];
+  sourceType = null;
 
   loadingSave = false;
 
@@ -128,6 +131,24 @@ export class FormRequestComponent implements OnInit {
     });
   }
 
+  validateSourceType(source: string) {
+    if (!source || source === '') {
+      return;
+    }
+
+    if (source.includes('s3.amazonaws.com')) {
+      this.sourceType = '0';
+      return;
+    }
+
+    if (source.includes('youtube.com')) {
+      this.sourceType = '1';
+      return;
+    }
+
+    this.sourceType = '2';
+  }
+
   handleRequestTool() {
     if (this.requestToolNewForm.invalid) {
       return;
@@ -135,16 +156,26 @@ export class FormRequestComponent implements OnInit {
 
     this.loadingSave = true;
 
-    this._sharedService.createRequestNewTool('2', this.requestToolNewForm.getRawValue()).subscribe({
-      next: (data) => {
-        console.error(data);
-        this.requestToolNewForm.reset();
-        this.loadingSave = false;
-      },
-      error: (error) => {
-        console.error(error);
-        this.loadingSave = false;
-      },
-    });
+    this.validateSourceType(this.requestToolNewForm.get('source').value);
+
+    this._sharedService
+      .createRequestNewTool('2', {
+        ...this.requestToolNewForm.getRawValue(),
+        type: this.sourceType,
+      })
+      .subscribe({
+        next: (data) => {
+          console.error(data);
+          this.requestToolNewForm.reset({
+            isLink: false,
+          });
+          this.sourceType = null;
+          this.loadingSave = false;
+        },
+        error: (error) => {
+          console.error(error);
+          this.loadingSave = false;
+        },
+      });
   }
 }
