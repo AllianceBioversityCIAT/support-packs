@@ -18,6 +18,17 @@ model sp_users {
   email String @unique @db.VarChar(255)
   password String @db.VarChar(255)
   is_cgiar Boolean @db.TinyInt()
+  permissions sp_apps_permissions[]
+
+}
+
+model sp_apps_permissions {
+  id Int @id @default(autoincrement())
+  app_id Int @db.Int()
+  user_id Int @db.Int()
+
+  user sp_users? @relation(fields: [user_id], references: [id])
+  app sp_apps? @relation(fields: [app_id], references: [id])
 }
 
 model sp_apps {
@@ -26,6 +37,7 @@ model sp_apps {
   roles sp_roles[]
   stages sp_stages[]
   categories sp_categories[]
+  permissions sp_apps_permissions[]
 }
 
 model sp_categories {
@@ -137,7 +149,7 @@ enum requests_status {
 model sp_importance_levels {
   id Int @id @default(autoincrement())
   category_id Int @db.Int()
-  guideline_id Int @db.Int() @unique
+  guideline_id Int @db.Int() 
   stage_id Int @db.Int()
   role_id Int @db.Int()
   importance_level String @db.VarChar(255)
@@ -146,7 +158,7 @@ model sp_importance_levels {
 model sp_importance_levels_request {
   id Int @id @default(autoincrement())
   category_id Int @db.Int()
-  guideline_id Int @db.Int() @unique
+  guideline_id Int @db.Int() 
   stage_id Int @db.Int()
   role_id Int @db.Int()
   importance_level String @db.VarChar(255)

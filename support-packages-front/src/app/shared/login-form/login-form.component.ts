@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,6 +14,7 @@ import { SharedService } from '../services/shared.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
+  @Input() app_id: string;
   loginForm = signal({
     email: '',
     password: '',
@@ -32,12 +33,24 @@ export class LoginFormComponent {
     this.isLoading.set(true);
 
     try {
-      this._sharedService.login(this.loginForm()).subscribe((data) => {
+      this._sharedService.login({ ...this.loginForm(), app_id: this.app_id }).subscribe((data) => {
+        console.log(data);
         if (data.result === 'user not found' || data.result === 'Invalid password') {
           this.error.set({
             status: true,
             message: 'Invalid email or password',
           });
+          this.isLoading.set(false);
+
+          return;
+        }
+
+        if (data.result === 'notPermission') {
+          this.error.set({
+            status: true,
+            message: 'User does not have permission to access this app',
+          });
+          this.isLoading.set(false);
 
           return;
         }
@@ -52,6 +65,7 @@ export class LoginFormComponent {
       });
     } catch (error) {
       console.error(error);
+      this.isLoading.set(false);
       this.error.set({
         status: true,
         message: 'Internal Server Error',
