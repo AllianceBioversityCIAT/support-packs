@@ -29,7 +29,7 @@ import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admi
   styleUrl: './admin.component.scss',
 })
 export class AdminComponent implements OnInit {
-  activeItem: any;
+  activeItem: MenuItem;
   items: MenuItem[];
 
   activeToolsData = [];

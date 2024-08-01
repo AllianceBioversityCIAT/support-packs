@@ -64,6 +64,13 @@ export class LoginFormComponent {
             });
             break;
           }
+          case '3': {
+            localStorage.setItem('tokenLearningZone', data.result.token);
+            this._sharedService.isLoggedLearningZone.set({
+              status: true,
+            });
+            break;
+          }
           default:
             break;
         }

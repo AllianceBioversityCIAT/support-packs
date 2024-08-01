@@ -10,6 +10,10 @@ export class SharedService {
     status: false,
   });
 
+  isLoggedLearningZone = signal({
+    status: false,
+  });
+
   constructor(private http: HttpClient) {}
 
   login(data: any) {

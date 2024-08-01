@@ -324,7 +324,7 @@ export class SpGuidelinesService {
         if (app_id === '3') {
           resources_guidelines_all = await this.prisma.$queryRaw(
             Prisma.sql`
-            SELECT * FROM sp_resources_guidelines 
+            SELECT * FROM sp_resources_guidelines_request
             WHERE guideline_id IN (${Prisma.join(guidelinesIds)})`,
           );
         }
