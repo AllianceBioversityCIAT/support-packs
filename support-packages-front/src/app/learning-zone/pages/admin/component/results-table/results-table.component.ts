@@ -13,11 +13,11 @@ import { SharedModule } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'app-results-table',
-    templateUrl: './results-table.component.html',
-    styleUrls: ['./results-table.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-results-table',
+  templateUrl: './results-table.component.html',
+  styleUrls: ['./results-table.component.scss'],
+  standalone: true,
+  imports: [
     TableModule,
     SharedModule,
     InputTextModule,
@@ -27,8 +27,8 @@ import { TableModule } from 'primeng/table';
     InputTextareaModule,
     RadioButtonModule,
     DropdownModule,
-    NgStyle
-],
+    NgStyle,
+  ],
 })
 export class ResultsTableComponent {
   @Input() tableData: any;
@@ -88,10 +88,6 @@ export class ResultsTableComponent {
     {
       id: 1,
       name: 'Optional',
-    },
-    {
-      id: 0,
-      name: 'N/A',
     },
   ];
 

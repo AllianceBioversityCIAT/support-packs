@@ -21,19 +21,19 @@
 
   <ng-template pTemplate="header">
     <tr>
-      <th id="id">ID</th>
-      <th id="name">Name</th>
-      <th id="category">Category</th>
-      <th id="actions">Actions</th>
+      <th id="id" style="width: 5%">ID</th>
+      <th id="name" style="width: 45%">Name</th>
+      <th id="category" style="width: 30%">Category</th>
+      <th id="actions" style="width: 18%">Actions</th>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="body" let-tool>
-    <tr style="height: 51px">
+    <tr style="height: 70px">
       <td>{{ tool.id }}</td>
       <td>{{ tool.name }}</td>
       <td>{{ tool.category_name }}</td>
-      <td style="display: flex; flex-direction: row; align-items: center; gap: 5px">
+      <td style="display: flex; flex-direction: row; align-items: center; gap: 5px; height: 70px">
         @if (activeItem.id === '0' || activeItem.id === '2') {
           <button
             pButton
@@ -562,7 +562,7 @@
     </div>
   }
 
-  @if ((app_id === '1' || app_id === '2') && EditModalOpen) {
+  @if (app_id === '2' && EditModalOpen) {
     <div class="formRequest__mainForm">
       <h3 class="formRequest__mainForm--title">Basic Information</h3>
       <div class="formRequest__mainForm__content" style="flex-direction: column">
@@ -790,6 +790,16 @@
         </div>
       </div>
     </div>
+
+    <div class="formRequest__mainForm__steps" style="justify-content: flex-end; margin-right: 14px">
+      <button
+        pButton
+        type="button"
+        label="Edit tool"
+        class="formRequest__mainForm__steps--button"
+        style="color: white"
+        (click)="editTool()"></button>
+    </div>
   }
 </p-dialog>
 
@@ -800,9 +810,20 @@
   [draggable]="false"
   [closable]="false"
   [resizable]="false">
-  <div style="width: 100%; display: flex; align-items: center; justify-content: center">
-    <img src="../../../../assets/loading.gif" alt="loading" style="width: 50px; height: 50px" />
-  </div>
+  <ng-template pTemplate="headless">
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        padding: 2rem 4rem;
+        border-radius: 1rem;
+      ">
+      <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+    </div>
+  </ng-template>
 </p-dialog>
 
 <p-dialog

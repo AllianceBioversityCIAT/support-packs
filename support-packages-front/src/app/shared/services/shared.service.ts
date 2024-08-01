@@ -86,15 +86,28 @@ export class SharedService {
       .pipe();
   }
 
+  putTool(app_id: string, data: any) {
+    return this.http
+      .post<any>(
+        `${environment.api}/guidelines/sp-guidelines/updateTool/${app_id}/${data.id}`,
+        data,
+      )
+      .pipe();
+  }
+
+  putToolRequest(app_id: string, data: any) {
+    return this.http
+      .post<any>(`${environment.api}/support/updateToolRequest/${app_id}/${data.id}`, data)
+      .pipe();
+  }
+
   // Admin module
-  // Change url
   getActiveAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/editPanel/${app_id}`)
       .pipe();
   }
 
-  // Change url
   getRequestedAdminTools(app_id: number) {
     return this.http
       .get<any>(`${environment.api}/guidelines/sp-guidelines/adminPanel/requested/${app_id}`)

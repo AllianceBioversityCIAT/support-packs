@@ -1,7 +1,6 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
 import { CommonModule, NgStyle } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { ServicesLearningZoneService } from '../../learning-zone/services/services-learning-zone.service';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
@@ -95,15 +94,9 @@ export class AdminToolsTableComponent {
       id: 1,
       name: 'Optional',
     },
-    {
-      id: 0,
-      name: 'N/A',
-    },
   ];
 
   _sharedService = inject(SharedService);
-
-  constructor(public _servicesLearningZoneService: ServicesLearningZoneService) {}
 
   getActiveTools(): void {
     this.onGetActiveTools.emit();
@@ -141,16 +134,16 @@ export class AdminToolsTableComponent {
   editTool() {
     this.isSaving = true;
 
-    if (this.activeItem?.id === 0) {
-      this._servicesLearningZoneService.putTool(this.informationEdit).subscribe((data) => {
+    if (this.activeItem?.id === '0') {
+      this._sharedService.putTool(this.app_id, this.informationEdit).subscribe((data) => {
         this.getActiveTools();
         this.isSaving = false;
         this.EditModalOpen = false;
       });
     }
 
-    if (this.activeItem?.id === 2) {
-      this._servicesLearningZoneService.putToolRequest(this.informationEdit).subscribe((data) => {
+    if (this.activeItem?.id === '2') {
+      this._sharedService.putToolRequest(this.app_id, this.informationEdit).subscribe((data) => {
         this.getRequestedTools();
         this.isSaving = false;
         this.EditModalOpen = false;
