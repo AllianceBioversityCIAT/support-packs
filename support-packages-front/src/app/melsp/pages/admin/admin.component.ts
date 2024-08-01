@@ -8,7 +8,6 @@ import { LoginFormComponent } from '../../../shared/login-form/login-form.compon
 import { SharedService } from '../../../shared/services/shared.service';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
-import { ResultsTableComponent } from '../../../learning-zone/pages/admin/component/results-table/results-table.component';
 import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admin-tools-table.component';
 
 @Component({
@@ -22,7 +21,6 @@ import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admi
     InputTextModule,
     LoginFormComponent,
     TabMenuModule,
-    ResultsTableComponent,
     AdminToolsTableComponent,
   ],
   templateUrl: './admin.component.html',

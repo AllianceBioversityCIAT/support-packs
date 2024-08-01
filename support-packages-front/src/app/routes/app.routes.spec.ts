@@ -3,7 +3,7 @@ import { AppComponent } from '../app.component';
 import { LearningZoneComponent } from '../learning-zone/learning-zone.component';
 import { FaqComponent } from '../learning-zone/pages/faq/faq.component';
 import { AdminComponent as AdminComponentLearning } from '../learning-zone/pages/admin/admin.component';
-import { FormRequestComponent } from '../learning-zone/pages/form-request/form-request.component';
+import { FormRequestComponent as FormRequestLearningZoneComponent } from '../learning-zone/pages/form-request/form-request.component';
 import { DmspComponent } from '../dmsp/dmsp.component';
 import { ToolsResultsComponent } from '../dmsp/page/tools-results/tools-results.component';
 import { MelspComponent } from '../melsp/melsp.component';
@@ -11,6 +11,7 @@ import { HomeMelComponent } from '../melsp/pages/home-mel/home-mel.component';
 import { OverviewComponent } from '../melsp/pages/overview/overview.component';
 import { AdminComponent as AdminComponentMELSP } from '../melsp/pages/admin/admin.component';
 import { HomeLearningComponent } from '../learning-zone/pages/home-learning/home-learning.component';
+import { FormRequestComponent as FormRequestMELSPComponent } from '../melsp/pages/form-request/form-request.component';
 
 describe('App Routes', () => {
   it('should contain the base route with an empty path', () => {
@@ -57,7 +58,7 @@ describe('App Routes', () => {
 
   it('should load the FormRequestComponent for aiccra/form-request path', async () => {
     const component = await routes[0].children[1].children[4].loadComponent();
-    expect(component).toBe(FormRequestComponent);
+    expect(component).toBe(FormRequestLearningZoneComponent);
   });
 
   it('should load the DmspComponent for dmsp path', async () => {
@@ -100,5 +101,10 @@ describe('App Routes', () => {
   it('should load the AdminComponent for melsp/manage-tool path', async () => {
     const component = await routes[0].children[3].children[3].loadComponent();
     expect(component).toBe(AdminComponentMELSP);
+  });
+
+  it('should load the FormRequestComponent for melsp/form-request path', async () => {
+    const component = await routes[0].children[3].children[4].loadComponent();
+    expect(component).toBe(FormRequestMELSPComponent);
   });
 });

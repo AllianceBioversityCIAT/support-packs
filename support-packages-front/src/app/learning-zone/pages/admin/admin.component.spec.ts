@@ -1,31 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminComponent } from './admin.component';
-import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
 import { of } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
+import { SharedService } from '../../../shared/services/shared.service';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
-  let mockServicesLearningZoneService;
+  let mockSharedService;
 
   beforeEach(() => {
-    mockServicesLearningZoneService = {
-      getToolsAdmin: jest.fn().mockReturnValue(of({ result: [{ id: 1, name: 'Active Tool' }] })),
-      getToolsAdminRquest: jest
+    mockSharedService = {
+      getActiveAdminTools: jest
+        .fn()
+        .mockReturnValue(of({ result: [{ id: 1, name: 'Active Tool' }] })),
+      getRequestedAdminTools: jest
         .fn()
         .mockReturnValue(of({ result: [{ id: 2, name: 'Requested Tool' }] })),
-      getToolsAdminDesactive: jest
+      getDisabledAdminTools: jest
         .fn()
         .mockReturnValue(of({ result: [{ id: 3, name: 'Desactive Tool' }] })),
       login: jest.fn().mockReturnValue(of({ result: { token: 'fake-token' } })),
+      isLoggedLearningZone: { set: jest.fn() },
     };
 
     TestBed.configureTestingModule({
       imports: [DialogModule],
-      providers: [
-        { provide: ServicesLearningZoneService, useValue: mockServicesLearningZoneService },
-      ],
+      providers: [{ provide: SharedService, useValue: mockSharedService }],
     });
 
     fixture = TestBed.createComponent(AdminComponent);
@@ -42,33 +43,33 @@ describe('AdminComponent', () => {
     expect(component.activeItem).toBe(component.items[0]);
   });
 
+  it('should set isLoggedLearningZone to true if token is present', () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-token');
+    component.ngOnInit();
+    expect(mockSharedService.isLoggedLearningZone.set).toHaveBeenCalledWith({ status: true });
+  });
+
   it('should call getActiveTools on init', () => {
     const getActiveToolsSpy = jest.spyOn(component, 'getActiveTools');
     component.ngOnInit();
     expect(getActiveToolsSpy).toHaveBeenCalled();
   });
 
-  it('should hide login dialog if token is found in local storage', () => {
-    jest.spyOn(component, 'getlocalStorageToken').mockReturnValue('fake-token');
-    component.ngOnInit();
-    expect(component.dialogLogin).toBe(false);
-  });
-
   it('should handle active item change correctly', () => {
     const getActiveToolsSpy = jest.spyOn(component, 'getActiveTools');
-    const getDesactiveToolsSpy = jest.spyOn(component, 'getDesactiveTools');
+    const getDisabledToolsSpy = jest.spyOn(component, 'getDisabledTools');
     const getRequestedToolsSpy = jest.spyOn(component, 'getRequestedTools');
 
-    component.onActiveItemChange({ id: 0 } as any);
+    component.onActiveItemChange({ id: '0' } as any);
     expect(getActiveToolsSpy).toHaveBeenCalled();
 
-    component.onActiveItemChange({ id: 1 } as any);
-    expect(getDesactiveToolsSpy).toHaveBeenCalled();
+    component.onActiveItemChange({ id: '1' } as any);
+    expect(getDisabledToolsSpy).toHaveBeenCalled();
 
-    component.onActiveItemChange({ id: 2 } as any);
+    component.onActiveItemChange({ id: '2' } as any);
     expect(getRequestedToolsSpy).toHaveBeenCalled();
 
-    component.onActiveItemChange({ id: 3 } as any);
+    component.onActiveItemChange({ id: '3' } as any);
   });
 
   it('should fetch active tools data and set loading to false', () => {
@@ -86,48 +87,21 @@ describe('AdminComponent', () => {
   });
 
   it('should fetch desactive tools data and set loading to false', () => {
-    component.getDesactiveTools();
+    component.getDisabledTools();
     expect(component.loading).toBe(false);
-    expect(component.desactiveToolsData.length).toBe(1);
-    expect(component.desactiveToolsData[0].name).toBe('Desactive Tool');
-  });
-
-  it('should handle login correctly', () => {
-    const localStorageTokenSpy = jest.spyOn(component, 'localStorageToken');
-    component.loginForm.email = 'test@example.com';
-    component.loginForm.password = 'password';
-    component.handleLogin();
-    expect(localStorageTokenSpy).toHaveBeenCalledWith('fake-token');
-    expect(component.dialogLogin).toBe(false);
-  });
-
-  it('should handle login errors correctly', () => {
-    jest
-      .spyOn(mockServicesLearningZoneService, 'login')
-      .mockReturnValue(of({ result: 'user not found' }));
-    component.handleLogin();
-    expect(component.error.status).toBe(true);
-    expect(component.error.message).toBe('User not found or invalid password');
-  });
-
-  it('should store token in local storage', () => {
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
-    component.localStorageToken('fake-token');
-    expect(setItemSpy).toHaveBeenCalledWith('token', 'fake-token');
+    expect(component.disabledToolsData.length).toBe(1);
+    expect(component.disabledToolsData[0].name).toBe('Desactive Tool');
   });
 
   it('should get token from local storage', () => {
     const getItemSpy = jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-token');
     expect(component.getlocalStorageToken()).toBe('fake-token');
-    expect(getItemSpy).toHaveBeenCalledWith('token');
+    expect(getItemSpy).toHaveBeenCalledWith('tokenLearningZone');
   });
 
   it('should remove token from local storage and reset login form', () => {
     const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem');
-    component.setlocalStorageToken();
-    expect(removeItemSpy).toHaveBeenCalledWith('token');
-    expect(component.dialogLogin).toBe(true);
-    expect(component.loginForm.email).toBe('');
-    expect(component.loginForm.password).toBe('');
+    component.handleLogout();
+    expect(removeItemSpy).toHaveBeenCalledWith('tokenLearningZone');
   });
 });
