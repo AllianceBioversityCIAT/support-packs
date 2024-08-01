@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SharedService } from '../services/shared.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   @Input() app_id: string;
@@ -20,55 +22,61 @@ export class LoginFormComponent {
     password: '',
   });
 
-  error = signal({
-    status: false,
-    message: '',
-  });
-
   isLoading = signal(false);
 
-  _sharedService = inject(SharedService);
+  public _sharedService = inject(SharedService);
+  private messageService = inject(MessageService);
 
   handleLogin() {
     this.isLoading.set(true);
 
     try {
       this._sharedService.login({ ...this.loginForm(), app_id: this.app_id }).subscribe((data) => {
-        console.log(data);
-        if (data.result === 'user not found' || data.result === 'Invalid password') {
-          this.error.set({
-            status: true,
-            message: 'Invalid email or password',
-          });
+        if (data.result === 'userNotFound' || data.result === 'invalidPassword') {
           this.isLoading.set(false);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Invalid email or password',
+          });
 
           return;
         }
 
         if (data.result === 'notPermission') {
-          this.error.set({
-            status: true,
-            message: 'User does not have permission to access this app',
-          });
           this.isLoading.set(false);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'User does not have permission to access this app',
+          });
 
           return;
         }
 
-        localStorage.setItem('tokenMELSP', data.result.token);
-
-        this._sharedService.isLoggedMELSP.set({
-          status: true,
-        });
+        switch (this.app_id) {
+          case '1':
+            break;
+          case '2': {
+            localStorage.setItem('tokenMELSP', data.result.token);
+            this._sharedService.isLoggedMELSP.set({
+              status: true,
+            });
+            break;
+          }
+          default:
+            break;
+        }
 
         this.isLoading.set(false);
       });
     } catch (error) {
       console.error(error);
       this.isLoading.set(false);
-      this.error.set({
-        status: true,
-        message: 'Internal Server Error',
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Internal Server Error',
       });
     }
   }

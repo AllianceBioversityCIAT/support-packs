@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -34,7 +34,6 @@ interface IWhat {
   ],
   templateUrl: './form-request.component.html',
   styleUrl: './form-request.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormRequestComponent implements OnInit {
   fb = inject(FormBuilder);

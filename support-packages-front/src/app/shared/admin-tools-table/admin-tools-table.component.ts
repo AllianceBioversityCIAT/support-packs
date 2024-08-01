@@ -1,13 +1,6 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
 import { CommonModule, NgStyle } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ServicesLearningZoneService } from '../../learning-zone/services/services-learning-zone.service';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/api';
@@ -38,7 +31,6 @@ import { SharedService } from '../services/shared.service';
   ],
   templateUrl: './admin-tools-table.component.html',
   styleUrls: ['./admin-tools-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminToolsTableComponent {
   @Input() tableData: any;

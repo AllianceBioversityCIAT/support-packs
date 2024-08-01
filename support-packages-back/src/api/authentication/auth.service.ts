@@ -28,7 +28,7 @@ export class AuthService {
     });
 
     if (!users) {
-      return 'user not found';
+      return 'userNotFound';
     }
 
     if (users.permissions.length === 0) {
@@ -38,7 +38,7 @@ export class AuthService {
     const validatePassword = await bcrypt.compare(password, users.password);
 
     if (!validatePassword) {
-      return 'Invalid password';
+      return 'invalidPassword';
     }
 
     return {
