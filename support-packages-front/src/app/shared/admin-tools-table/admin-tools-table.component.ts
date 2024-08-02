@@ -1,16 +1,13 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
-import { CommonModule, NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { SharedModule } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { FormsModule } from '@angular/forms';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { DropdownModule } from 'primeng/dropdown';
 import { SharedService } from '../services/shared.service';
+import { EditModalMelspComponent } from './components/edit-modal-melsp/edit-modal-melsp.component';
+import { EditModalLearningZoneComponent } from './components/edit-modal-learning-zone/edit-modal-learning-zone.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-admin-tools-table',
@@ -18,15 +15,11 @@ import { SharedService } from '../services/shared.service';
   imports: [
     CommonModule,
     TableModule,
-    SharedModule,
-    InputTextModule,
     ButtonModule,
+    InputTextModule,
     DialogModule,
-    FormsModule,
-    InputTextareaModule,
-    RadioButtonModule,
-    DropdownModule,
-    NgStyle,
+    EditModalMelspComponent,
+    EditModalLearningZoneComponent,
   ],
   templateUrl: './admin-tools-table.component.html',
   styleUrls: ['./admin-tools-table.component.scss'],
@@ -43,9 +36,6 @@ export class AdminToolsTableComponent {
 
   informationEdit = null;
 
-  thematicAreas = [];
-  categoryMELSP = [];
-
   EditModalOpen: boolean = false;
   step1: boolean = true;
   step2: boolean = false;
@@ -55,46 +45,6 @@ export class AdminToolsTableComponent {
   enableDisabledModalOpen: boolean = false;
   acceptedModalOpen: boolean = false;
   denyModalOpen: boolean = false;
-
-  categories = [
-    {
-      name: 'Articles and books',
-    },
-    {
-      name: 'Training materials',
-    },
-    {
-      name: 'Reports and other publications',
-    },
-    {
-      name: 'Data, models and tools',
-    },
-    {
-      name: 'Governanace administation and management',
-    },
-    {
-      name: 'Outreach products',
-    },
-  ];
-
-  optionsImportance = [
-    {
-      id: 4,
-      name: 'Very important',
-    },
-    {
-      id: 3,
-      name: 'Important',
-    },
-    {
-      id: 2,
-      name: 'Useful',
-    },
-    {
-      id: 1,
-      name: 'Optional',
-    },
-  ];
 
   _sharedService = inject(SharedService);
 
