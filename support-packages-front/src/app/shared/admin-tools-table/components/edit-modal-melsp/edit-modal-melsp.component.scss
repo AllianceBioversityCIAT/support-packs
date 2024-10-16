@@ -60,6 +60,17 @@
         gap: 0.5rem;
       }
 
+      &__file {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid #adadad;
+        padding: 4px 10px;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+
       &--input {
         display: flex;
         flex-direction: column;

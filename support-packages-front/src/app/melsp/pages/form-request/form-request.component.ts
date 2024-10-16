@@ -102,6 +102,8 @@ export class FormRequestComponent implements OnInit {
       next: (res) => {
         this.requestToolNewForm.get('source').setValue(res.fileUrl);
         this.uploadedFile = {
+          name: res.fileName,
+          url: res.fileUrl,
           key: res.key,
         };
       },

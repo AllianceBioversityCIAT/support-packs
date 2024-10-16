@@ -11,12 +11,79 @@
     </div>
 
     <div class="formRequest__mainForm__content--input">
-      <b>Link</b>
-      <input
-        pInputText
-        id="link"
-        aria-describedby="username-help"
-        [(ngModel)]="informationEdit.source" />
+      <b> What type of source is this tool? </b>
+
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="false"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink"
+            (onClick)="removeFile(uploadedFile)" />
+          <label for="isLink" style="margin-left: 8px"> Link </label>
+        </div>
+
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="true"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink" />
+          <label for="isLink" style="margin-left: 8px"> Upload file </label>
+        </div>
+      </div>
+
+      @if (informationEdit.isLink === true) {
+        <div class="formRequest__mainForm__content--input">
+          @if (!uploadedFile) {
+            <p-fileUpload
+              mode="advanced"
+              name="MELSPFiles[]"
+              chooseIcon="pi pi-upload"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              accept="
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+              application/vnd.openxmlformats-officedocument.presentationml.presentation,
+              application/vnd.ms-powerpoint,
+              application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+              application/vnd.ms-excel"
+              maxFileSize="1000000"
+              (onUpload)="onBasicUploadAuto($event)"
+              [auto]="true"
+              chooseLabel="Browse file">
+              <ng-template pTemplate="empty">
+                <p>Drag and drop files to here to upload.</p>
+              </ng-template>
+            </p-fileUpload>
+          }
+
+          @if (uploadedFile) {
+            <div class="formRequest__mainForm__content__file">
+              <p>
+                You are going to upload the file: <b>{{ uploadedFile?.name }}</b>
+              </p>
+
+              <button
+                pButton
+                icon="pi pi-trash"
+                [text]="true"
+                (click)="removeFile(uploadedFile)"
+                severity="danger"></button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="formRequest__mainForm__content--input">
+          <b> Source URL </b>
+          <input
+            pInputText
+            id="tool_name"
+            aria-describedby="username-help"
+            [(ngModel)]="informationEdit.source"
+            type="url" />
+        </div>
+      }
     </div>
 
     <div class="formRequest__mainForm__content--input">
@@ -44,7 +111,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PM.Designing"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -62,7 +128,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PM.Implementation"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -80,7 +145,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PM['Closure&Beyond']"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -109,7 +173,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PJM.Designing"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -127,7 +190,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PJM.Implementation"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -145,7 +207,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit.PJM['Closure&Beyond']"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -174,7 +235,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit['M&EO'].Designing"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -192,7 +252,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit['M&EO'].Implementation"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -210,7 +269,6 @@
           [options]="optionsImportance"
           [(ngModel)]="informationEdit['M&EO']['Closure&Beyond']"
           optionLabel="name"
-          [showClear]="true"
           [style]="{ width: '100%' }"
           placeholder="Select a Thematic area">
           <ng-template pTemplate="selectedItem">
@@ -233,5 +291,6 @@
     label="Edit tool"
     class="formRequest__mainForm__steps--button"
     style="color: white"
+    [disabled]="!informationEdit.name || !informationEdit.source"
     (click)="editTool()"></button>
 </div>
