@@ -14,7 +14,11 @@ export class SharedService {
     status: false,
   });
 
-  constructor(private http: HttpClient) {}
+  isLoggedDMSP = signal({
+    status: false,
+  });
+
+  constructor(private readonly http: HttpClient) {}
 
   login(data: any) {
     return this.http.post<any>(`${environment.api}/auth/auth/login`, data).pipe();

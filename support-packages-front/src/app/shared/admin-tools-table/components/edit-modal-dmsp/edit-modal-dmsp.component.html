@@ -1,0 +1,410 @@
+<div class="formRequest__mainForm">
+  <h3 class="formRequest__mainForm--title">Basic Information</h3>
+  <div class="formRequest__mainForm__content" style="flex-direction: column">
+    <div class="formRequest__mainForm__content--input">
+      <b>Tool name</b>
+      <input
+        pInputText
+        id="tool_name"
+        aria-describedby="username-help"
+        [(ngModel)]="informationEdit.name" />
+    </div>
+
+    <div class="formRequest__mainForm__content--input">
+      <b> What type of source is this tool? </b>
+
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="false"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink"
+            (onClick)="removeFile(uploadedFile)" />
+          <label for="isLink" style="margin-left: 8px"> Link </label>
+        </div>
+
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="true"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink" />
+          <label for="isLink" style="margin-left: 8px"> Upload file </label>
+        </div>
+      </div>
+
+      @if (informationEdit.isLink === true) {
+        <div class="formRequest__mainForm__content--input">
+          @if (!uploadedFile) {
+            <p-fileUpload
+              mode="advanced"
+              name="MELSPFiles[]"
+              chooseIcon="pi pi-upload"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              accept="
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+              application/vnd.openxmlformats-officedocument.presentationml.presentation,
+              application/vnd.ms-powerpoint,
+              application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+              application/vnd.ms-excel"
+              maxFileSize="1000000"
+              (onUpload)="onBasicUploadAuto($event)"
+              [auto]="true"
+              chooseLabel="Browse file">
+              <ng-template pTemplate="empty">
+                <p>Drag and drop files to here to upload.</p>
+              </ng-template>
+            </p-fileUpload>
+          }
+
+          @if (uploadedFile) {
+            <div class="formRequest__mainForm__content__file">
+              <p>
+                You are going to upload the file: <b>{{ uploadedFile?.name }}</b>
+              </p>
+
+              <button
+                pButton
+                icon="pi pi-trash"
+                [text]="true"
+                (click)="removeFile(uploadedFile)"
+                severity="danger"></button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="formRequest__mainForm__content--input">
+          <b> Source URL </b>
+          <input
+            pInputText
+            id="tool_name"
+            aria-describedby="username-help"
+            [(ngModel)]="informationEdit.source"
+            type="url" />
+        </div>
+      }
+    </div>
+
+    <div class="formRequest__mainForm__content--input">
+      <h4>Category</h4>
+      <input
+        pInputText
+        id="category_name"
+        [disabled]="true"
+        [(ngModel)]="informationEdit.category_name" />
+    </div>
+  </div>
+
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>Principal Investigator</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Stage</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PI.ProposalStage"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PI.ProposalStage) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PI.ProposalStage.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Opening</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PI.GrantOpening"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PI.GrantOpening) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PI.GrantOpening.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Research</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PI.ProjectResearch"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PI.ProjectResearch) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PI.ProjectResearch.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Publishing</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PI.Publishing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PI.Publishing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PI.Publishing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Close Out</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PI.GrantCloseout"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PI.GrantCloseout) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PI.GrantCloseout.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>Researcher</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Stage</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.R.ProposalStage"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.R.ProposalStage) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.R.ProposalStage.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Opening</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.R.GrantOpening"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.R.GrantOpening) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.R.GrantOpening.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Research</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.R.ProjectResearch"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.R.ProjectResearch) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.R.ProjectResearch.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Publishing</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.R.Publishing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.R.Publishing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.R.Publishing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Close Out</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.R.GrantCloseout"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.R.GrantCloseout) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.R.GrantCloseout.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>Data Manager</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Stage</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.DM.ProposalStage"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.DM.ProposalStage) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.DM.ProposalStage.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Opening</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.DM.GrantOpening"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.DM.GrantOpening) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.DM.GrantOpening.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Project Research</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.DM.ProjectResearch"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.DM.ProjectResearch) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.DM.ProjectResearch.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Publishing</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.DM.Publishing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.DM.Publishing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.DM.Publishing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <h4>Grant Close Out</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.DM.GrantCloseout"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.DM.GrantCloseout) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.DM.GrantCloseout.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="formRequest__mainForm__steps" style="justify-content: flex-end; margin-right: 14px">
+  <button
+    pButton
+    type="button"
+    label="Edit tool"
+    class="formRequest__mainForm__steps--button"
+    style="color: white"
+    [disabled]="!informationEdit.name || !informationEdit.source"
+    (click)="editTool()"></button>
+</div>

@@ -424,6 +424,82 @@ export class SpGuidelinesService {
     });
   }
 
+  private async updateDMSPGuideline(app_id, id, body): Promise<any> {
+    await this.prisma.sp_guidelines.update({
+      where: {
+        id: parseInt(id),
+        app_id: parseInt(app_id),
+      },
+      data: {
+        name: body?.name,
+        source: body?.source,
+        type: body?.type,
+      },
+    });
+
+    const guideline_id = parseInt(body.id);
+    const category_id = parseInt(body.category_id);
+
+    const importanceLevels = await this.fetchImportanceLevels(
+      guideline_id,
+      category_id,
+      [1, 2, 3],
+      [1, 2, 3, 4, 5],
+    );
+
+    const importanceMap = new Map<string, any>();
+    importanceLevels.forEach((level) => {
+      const key = `${level.role_id}-${level.stage_id}`;
+      importanceMap.set(key, level);
+    });
+
+    const updates = [];
+    const stages = {
+      ProposalStage: 1,
+      GrantOpening: 2,
+      ProjectResearch: 3,
+      Publishing: 4,
+      GrantCloseout: 5,
+    };
+
+    for (const [key, stage_id] of Object.entries(stages)) {
+      if (body.PI[key]) {
+        const piKey = `1-${stage_id}`;
+        const rKey = `2-${stage_id}`;
+        const dmKey = `3-${stage_id}`;
+
+        if (importanceMap.has(piKey)) {
+          updates.push(
+            this.updateImportanceLevel(
+              importanceMap.get(piKey).id,
+              body.PI[key].name,
+            ),
+          );
+        }
+
+        if (importanceMap.has(rKey)) {
+          updates.push(
+            this.updateImportanceLevel(
+              importanceMap.get(rKey).id,
+              body.R[key].name,
+            ),
+          );
+        }
+
+        if (importanceMap.has(dmKey)) {
+          updates.push(
+            this.updateImportanceLevel(
+              importanceMap.get(dmKey).id,
+              body.DM[key].name,
+            ),
+          );
+        }
+      }
+    }
+
+    await Promise.all(updates);
+  }
+
   private async updateMELSPGuideline(app_id, id, body): Promise<any> {
     await this.prisma.sp_guidelines.update({
       where: {
@@ -616,6 +692,10 @@ export class SpGuidelinesService {
     }
 
     try {
+      if (app_id === '1') {
+        await this.updateDMSPGuideline(app_id, id, body);
+      }
+
       if (app_id === '2') {
         await this.updateMELSPGuideline(app_id, id, body);
       }

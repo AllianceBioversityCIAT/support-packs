@@ -90,20 +90,28 @@
   [breakpoints]="{ '2400px': '900px', '1400px': '75vw', '575px': '90vw' }"
   [resizable]="false"
   (onHide)="onCloseEditModal()">
-  @if (app_id === '3' && EditModalOpen) {
-    <app-edit-modal-learning-zone
-      [informationEdit]="informationEdit"
-      [step1]="step1"
-      [step2]="step2"
-      (onEditTool)="editTool()"
-      (onButton1Validations)="button1Validations()"
-      (onButton2Validations)="button2Validations()"></app-edit-modal-learning-zone>
-  }
+  @if (EditModalOpen) {
+    @if (app_id === '3') {
+      <app-edit-modal-learning-zone
+        [informationEdit]="informationEdit"
+        [step1]="step1"
+        [step2]="step2"
+        (onEditTool)="editTool()"
+        (onButton1Validations)="button1Validations()"
+        (onButton2Validations)="button2Validations()"></app-edit-modal-learning-zone>
+    }
 
-  @if (app_id === '2' && EditModalOpen) {
-    <app-edit-modal-melsp
-      [informationEdit]="informationEdit"
-      (onEditTool)="editTool()"></app-edit-modal-melsp>
+    @if (app_id === '2') {
+      <app-edit-modal-melsp
+        [informationEdit]="informationEdit"
+        (onEditTool)="editTool()"></app-edit-modal-melsp>
+    }
+
+    @if (app_id === '1') {
+      <app-edit-modal-dmsp
+        [informationEdit]="informationEdit"
+        (onEditTool)="editTool()"></app-edit-modal-dmsp>
+    }
   }
 </p-dialog>
 

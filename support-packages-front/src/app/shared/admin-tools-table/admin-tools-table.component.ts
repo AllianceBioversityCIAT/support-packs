@@ -8,6 +8,7 @@ import { SharedService } from '../services/shared.service';
 import { EditModalMelspComponent } from './components/edit-modal-melsp/edit-modal-melsp.component';
 import { EditModalLearningZoneComponent } from './components/edit-modal-learning-zone/edit-modal-learning-zone.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { EditModalDmspComponent } from './components/edit-modal-dmsp/edit-modal-dmsp.component';
 
 @Component({
   selector: 'app-admin-tools-table',
@@ -20,6 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
     DialogModule,
     EditModalMelspComponent,
     EditModalLearningZoneComponent,
+    EditModalDmspComponent,
   ],
   templateUrl: './admin-tools-table.component.html',
   styleUrls: ['./admin-tools-table.component.scss'],

@@ -1,0 +1,304 @@
+<div class="dmsp-home">
+  <div class="firstColumn">
+    <div class="filters">
+      <div class="filters__item">
+        <h2 class="filters__item--title">Who are you?</h2>
+
+        @if (!selectedRole || !selectedWhat || !selectedWhen) {
+          @for (item of this.rolesData; track item) {
+            <button
+              class="filters__item--button"
+              [ngClass]="{ selected: item?.selected }"
+              (click)="selectedRole = item; filterInformation(); changesItemStatus(item, 'role')">
+              <img
+                [src]="item.img"
+                [alt]="item.name"
+                class="filters__item--button--image"
+                [@rotate]="item.selected" />
+              <p>{{ item.name }}</p>
+            </button>
+          }
+        }
+
+        @if (selectedRole && selectedWhat && selectedWhen) {
+          <p-dropdown
+            [options]="rolesData"
+            [(ngModel)]="selectedRole"
+            optionLabel="name"
+            placeholder="Select a role"
+            [style]="{ width: '100%', 'background-color': '#e3d34f', color: 'white' }"
+            (ngModelChange)="filterInformation()">
+            <ng-template pTemplate="selectedItem">
+              <div class="filters__item--dropdown--content">
+                <img [src]="selectedRole.img" [alt]="selectedRole.name" style="width: 15px" />
+                <p>{{ selectedRole.name }}</p>
+              </div>
+            </ng-template>
+            <ng-template let-roles pTemplate="item">
+              <div class="filters__item--dropdown--content">
+                <img [src]="roles.img" [alt]="roles.name" style="width: 50px" />
+                <p>{{ roles.name }}</p>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        }
+      </div>
+
+      <div class="filters__item">
+        <h2 class="filters__item--title">Where are you?</h2>
+
+        @if (!selectedRole || !selectedWhat || !selectedWhen) {
+          <div class="filters__item--stageButtons">
+            @for (item of this.whenData; track item; let i = $index) {
+              <button
+                class="filters__item--stageButtons--item"
+                [ngClass]="{ selected: item?.selected }"
+                (click)="selectedWhen = item; filterInformation(); changesItemStatus(item, 'when')"
+                [@rotate]="item.selected">
+                <div class="filters__item--stageButtons--item--button">
+                  <div class="filters__item--stageButtons--item--button--number">
+                    <p class="filters__item--stageButtons--item--button--number--text">
+                      {{ i + 1 }}
+                    </p>
+                  </div>
+                  <div class="filters__item--stageButtons--item--button--content">
+                    <p class="filters__item--stageButtons--item--button--content--title">
+                      {{ item.name }}
+                    </p>
+                    <p class="filters__item--stageButtons--item--button--content--desc">
+                      {{ item.description }}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            }
+          </div>
+        }
+
+        @if (selectedRole && selectedWhat && selectedWhen) {
+          <div class="where-are">
+            <p-dropdown
+              [options]="whenData"
+              [(ngModel)]="selectedWhen"
+              optionLabel="name"
+              placeholder="Select a where"
+              [style]="{ width: '100%', 'background-color': '#1281aa' }"
+              (ngModelChange)="filterInformation()">
+              <ng-template pTemplate="selectedItem">
+                <div class="filters__item--dropdown--content">
+                  <i class="pi pi-clock" style="font-size: 15px"></i>
+                  <p>{{ selectedWhen.name }}</p>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        }
+      </div>
+
+      <div class="filters__item secondColumnWhat">
+        <h2 class="filters__item--title">What</h2>
+
+        @if (!selectedRole || !selectedWhat || !selectedWhen) {
+          <div class="secondColumn__buttons">
+            @for (item of this.whatData; track item; let i = $index) {
+              <button
+                class="secondColumn__buttons--item"
+                [ngClass]="{ selected: item?.selected }"
+                (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')">
+                <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
+                <p class="secondColumn__buttons--item--content">{{ item.name }}</p>
+              </button>
+            }
+          </div>
+        }
+
+        @if (selectedRole && selectedWhat && selectedWhen) {
+          <div class="what">
+            <p-dropdown
+              [options]="whatData"
+              [(ngModel)]="selectedWhat"
+              optionLabel="name"
+              placeholder="Select a where"
+              [style]="{ width: '100%', 'background-color': '#47939c' }"
+              (ngModelChange)="filterInformation()">
+              <ng-template pTemplate="selectedItem">
+                <div class="filters__item--dropdown--content">
+                  <i class="pi pi-question" style="font-size: 15px"></i>
+                  <p>{{ selectedWhat.name }}</p>
+                </div>
+              </ng-template></p-dropdown
+            >
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (selectedRole && selectedWhat && selectedWhen) {
+      <div class="results">
+        @if (
+          this.selectedRole &&
+          this.selectedWhen &&
+          this.selectedWhat &&
+          !this._servicesVariables.termsConditions &&
+          !this._servicesVariables.continue
+        ) {
+          <div class="dmsp-home__header">
+            <h2 class="dmsp-home__header--title">Guidelines Recommened</h2>
+            <p class="dmsp-home__header--subtitle">
+              Results:
+              <span>Role</span> {{ selectedRole.name }}, <span>When</span>
+              {{ selectedWhen.name }}
+            </p>
+          </div>
+          <h2 class="dmsp-home__header--description">{{ selectedWhat.name }}</h2>
+          <p-table
+            [value]="productsData"
+            [(selection)]="selectedProducts"
+            dataKey="code"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="body" let-product>
+              <tr>
+                <td
+                  style="
+                    background-color: #f1f1f1;
+                    padding-right: 0 !important;
+                    width: 20px !important;
+                  ">
+                  <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                </td>
+                <td style="background-color: #f1f1f1">
+                  <i
+                    [class]="getIconByType(product.type)"
+                    style="margin-right: 5px; font-size: 16px; color: #666"></i>
+                  {{ product.code }} {{ product.name }}
+                </td>
+                <td style="background-color: #f1f1f1; width: 150px !important">
+                  <div class="dmsp-home__table__info">
+                    <div
+                      class="dmsp-home__table__info--point numOne"
+                      [ngStyle]="{
+                        'background-color': getImportanceLevelColor(product.importance_level)
+                      }"></div>
+                    <div>{{ product.importance_level }}</div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <div class="dmsp-home__table__buttons">
+            <button
+              pButton
+              [disabled]="selectedProducts?.length === 0"
+              label="Download chosen documents"
+              icon="pi pi-angle-right"
+              iconPos="right"
+              (click)="this._servicesVariables.termsAndConditions()"></button>
+          </div>
+        }
+        @if (this._servicesVariables.termsConditions) {
+          <app-terms-conditions [app_id]="1" [tools]="selectedProducts"></app-terms-conditions>
+        }
+        @if (
+          this.selectedRole &&
+          this.selectedWhen &&
+          this.selectedWhat &&
+          !this._servicesVariables.termsConditions &&
+          this._servicesVariables.continue
+        ) {
+          <div class="dmsp-home__header">
+            <h2 class="home__header--title" style="font-size: 30px; font-weight: lighter">
+              Download
+            </h2>
+          </div>
+          <p-table
+            [value]="selectedProducts"
+            dataKey="code"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="body" let-product>
+              <tr>
+                <td style="background-color: #f1f1f1; padding: 8px 12px !important">
+                  <a
+                    [href]="product.source"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="dmsp-home__table--link">
+                    <i
+                      [class]="getIconByType(product.type)"
+                      style="margin-right: 5px; font-size: 16px; color: #666"></i>
+                    {{ product.code }} {{ product.name }}
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <div class="dmsp-home__table__buttons">
+            @if (validateShowPdfButton().showPdfButton) {
+              <app-pdf-generate
+                [data]="validateShowPdfButton().ToolsType0"
+                [app]="1"
+                [buttonText]="validateShowPdfButton().buttonMessage"></app-pdf-generate>
+            }
+            <button
+              pButton
+              label="New search"
+              class="p-button-secondary3"
+              (click)="initNewSearch()"></button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="secondColumn">
+    <h2 class="filters__item--title">What</h2>
+
+    <div class="secondColumn__buttons">
+      @for (item of this.whatData; track item; let i = $index) {
+        <button
+          class="secondColumn__buttons--item"
+          [ngClass]="{ selected: item?.selected }"
+          (click)="selectedWhat = item; filterInformation(); changesItemStatus(item, 'what')"
+          [@rotate]="item.selected">
+          <p class="secondColumn__buttons--item--number">{{ i + 1 }}.</p>
+          <p class="secondColumn__buttons--item--content">{{ item.name }}</p>
+        </button>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="dmsp-home__footer">
+  <!-- <a
+    href="/melsp/overview"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-list" style="margin-right: 0.5rem"></i>
+    View all resources
+  </a> -->
+  <!-- <a
+    href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-send" style="margin-right: 0.5rem"></i>
+    Request to upload a resources
+  </a> -->
+  <!-- <a
+    routerLink="/melsp/form-request"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-send" style="margin-right: 0.5rem"></i>
+    Request to upload a resources
+  </a> -->
+  <a
+    routerLink="/dmsp/manage-tool"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none"
+    (click)="initNewSearch()">
+    <i class="pi pi-user-edit" style="margin-right: 0.5rem"></i>
+    Manage tool
+  </a>
+</div>

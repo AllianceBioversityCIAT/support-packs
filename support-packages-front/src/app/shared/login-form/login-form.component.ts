@@ -25,7 +25,7 @@ export class LoginFormComponent {
   isLoading = signal(false);
 
   public _sharedService = inject(SharedService);
-  private messageService = inject(MessageService);
+  private readonly messageService = inject(MessageService);
 
   handleLogin() {
     this.isLoading.set(true);
@@ -56,6 +56,10 @@ export class LoginFormComponent {
 
         switch (this.app_id) {
           case '1':
+            localStorage.setItem('tokenDMSP', data.result.token);
+            this._sharedService.isLoggedDMSP.set({
+              status: true,
+            });
             break;
           case '2': {
             localStorage.setItem('tokenMELSP', data.result.token);

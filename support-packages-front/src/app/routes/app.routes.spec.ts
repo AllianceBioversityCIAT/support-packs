@@ -5,7 +5,7 @@ import { FaqComponent } from '../learning-zone/pages/faq/faq.component';
 import { AdminComponent as AdminComponentLearning } from '../learning-zone/pages/admin/admin.component';
 import { FormRequestComponent as FormRequestLearningZoneComponent } from '../learning-zone/pages/form-request/form-request.component';
 import { DmspComponent } from '../dmsp/dmsp.component';
-import { ToolsResultsComponent } from '../dmsp/page/tools-results/tools-results.component';
+import { ToolsResultsComponent } from '../dmsp/pages/tools-results/tools-results.component';
 import { MelspComponent } from '../melsp/melsp.component';
 import { HomeMelComponent } from '../melsp/pages/home-mel/home-mel.component';
 import { OverviewComponent } from '../melsp/pages/overview/overview.component';
