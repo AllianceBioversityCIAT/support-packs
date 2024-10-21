@@ -99,7 +99,8 @@ describe('LoginFormComponent', () => {
 
     component.handleLogin();
 
-    expect(component.isLoading()).toBe(false);
+    expect(component.isLoading()).toBe(true);
+    expect(localStorage.getItem('tokenDMSP')).toBe('mockToken');
   });
 
   it('should handle login for app_id 2', () => {

@@ -4,6 +4,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { ServicesTermsService } from '../../../shared/services/services-terms.service';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ToolsResultsComponent', () => {
   let component: ToolsResultsComponent;
@@ -45,7 +46,7 @@ describe('ToolsResultsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
+      imports: [BrowserAnimationsModule, RouterTestingModule],
       providers: [
         { provide: SharedService, useValue: mockSharedService },
         { provide: ServicesTermsService, useValue: mockServicesTermsService },
