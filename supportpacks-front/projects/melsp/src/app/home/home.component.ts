@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SppServices } from '../services/spp-services.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
@@ -7,6 +7,8 @@ import { faList, faPaperPlane, faUserCircle, faSignOutAlt } from '@fortawesome/f
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
+import { DataListComponent } from 'projects/libs/sp-datalist/src/public-api';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -74,6 +76,9 @@ export class HomeComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
   currentUser: User;
 
+  @Output() rData = new EventEmitter<any>();
+  isvisible: boolean;
+
   constructor(
     public sppServices: SppServices,
     private router: Router,
@@ -119,7 +124,7 @@ export class HomeComponent implements OnInit {
     this.filterDataId[type] = data.id;
     this.filterDataId = Object.assign({}, this.filterDataId);
     this.filterData = Object.assign({}, this.filterData);
-    // console.log(this.filterData)
+    // console.log(this.filterData);
   }
 
   validateFilterData() {
@@ -176,5 +181,23 @@ export class HomeComponent implements OnInit {
    */
   onrData(data: any) {
     this.filterData = data;
+    console.log(this.rData);
+  }
+  resetRole() {
+    this.filterData.role = null;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
+  }
+  resetStage() {
+    this.filterData.stage = null;
+    this.isvisible = false;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
+  }
+  resetCategory() {
+    this.filterData.category = null;
+    this.isvisible = false;
+    this.filterDataId = Object.assign({}, this.filterDataId);
+    this.filterData = Object.assign({}, this.filterData);
   }
 }

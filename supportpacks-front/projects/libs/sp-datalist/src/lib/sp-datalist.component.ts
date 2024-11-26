@@ -66,6 +66,7 @@ export class DataListComponent implements OnInit, OnChanges {
   form: FormGroup;
   isVisible = true;
   tcText = tcText;
+  reduce_opacity = 'reduce_opacity';
 
   constructor(
     private listServices: DataListService,

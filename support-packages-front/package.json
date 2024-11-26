@@ -1,0 +1,88 @@
+{
+  "name": "support-packages-front",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "ng lint"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.3.11",
+    "@angular/common": "^17.3.11",
+    "@angular/compiler": "^17.3.11",
+    "@angular/core": "^17.3.11",
+    "@angular/forms": "^17.3.11",
+    "@angular/platform-browser": "^17.3.11",
+    "@angular/platform-browser-dynamic": "^17.3.11",
+    "@angular/router": "^17.3.11",
+    "@types/jest": "^29.5.12",
+    "html-to-pdf-js": "^0.9.3",
+    "ibdevkit": "^0.2.1",
+    "jest": "^29.7.0",
+    "jest-preset-angular": "^14.1.0",
+    "jquery": "^3.7.1",
+    "lucide-angular": "^0.378.0",
+    "pdfmake": "^0.2.8",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.4",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.7"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.8",
+    "@angular-eslint/builder": "^17.5.2",
+    "@angular-eslint/eslint-plugin": "^17.5.2",
+    "@angular-eslint/eslint-plugin-template": "^17.5.2",
+    "@angular-eslint/schematics": "^17.5.2",
+    "@angular-eslint/template-parser": "^17.5.2",
+    "@angular/cli": "~17.3.8",
+    "@angular/compiler-cli": "^17.3.11",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.51.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "typescript": "~5.4.5"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup-jest.ts"
+    ],
+    "coverageReporters": [
+      "text",
+      "cobertura",
+      "lcov"
+    ],
+    "globalSetup": "jest-preset-angular/global-setup",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/app/**/*.ts",
+      "./src/app/**/*.html",
+      "!./src/app/**/*routing.ts",
+      "!./src/app/**/*module.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
+}

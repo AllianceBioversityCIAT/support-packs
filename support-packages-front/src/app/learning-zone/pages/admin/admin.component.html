@@ -1,0 +1,48 @@
+@if (!_sharedService.isLoggedLearningZone().status) {
+  <app-login-form app_id="3"></app-login-form>
+} @else {
+  <div class="admin__content">
+    <div class="admin__content__logOut">
+      <h1 class="admin__content__logOut--title">Manage Tool</h1>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-sign-out"
+        label="Sign out"
+        class="p-button-rounded p-button-text admin__content__logOut--button p-button"
+        (click)="handleLogout()"></button>
+    </div>
+    <div style="width: 100%">
+      <p-tabMenu
+        [model]="items"
+        [activeItem]="activeItem"
+        (activeItemChange)="onActiveItemChange($event)"
+        [style]="{ 'margin-bottom': '20px' }"></p-tabMenu>
+      @if (activeItem.id === '0') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="activeToolsData"
+          [tableDataLoading]="loading"
+          (onGetActiveTools)="getActiveTools()"
+          app_id="3"></app-admin-tools-table>
+      }
+      @if (activeItem.id === '1') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="disabledToolsData"
+          (onGetDesactiveTools)="getDisabledTools()"
+          [tableDataLoading]="loading"
+          app_id="3"></app-admin-tools-table>
+      }
+      @if (activeItem.id === '2') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="requestedToolsData"
+          [tableDataLoading]="loading"
+          (onGetRequestedTools)="getRequestedTools()"
+          app_id="3"></app-admin-tools-table>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,305 @@
+<nav class="formRequest__nav">
+  <a
+    routerLink="/melsp/home"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none; margin-right: 5px">
+    <i class="pi pi-angle-left" style="margin-right: 0.5rem"></i>
+    Go back to home
+  </a>
+</nav>
+
+<div class="formRequest__content">
+  <header class="formRequest__content__header">
+    <h1 class="formRequest__content__header--title">M&E Resource</h1>
+    <p class="formRequest__content__header--desc">
+      Please suggest a new M&E Resource for the MEL Support pack!
+    </p>
+  </header>
+
+  <form
+    [formGroup]="requestToolNewForm"
+    (ngSubmit)="handleRequestTool()"
+    class="formRequest__mainForm"
+    autocomplete="off">
+    <h3 class="formRequest__mainForm--title">Requester Information</h3>
+    <div class="formRequest__mainForm__content">
+      <div class="formRequest__mainForm__content--twoColumns">
+        <div class="formRequest__mainForm__content--input">
+          <b>Full Name</b>
+          <input
+            pInputText
+            id="full_name"
+            aria-describedby="username-help"
+            formControlName="full_name" />
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <b>Email</b>
+          <input
+            pInputText
+            id="email"
+            autocomplete="off"
+            aria-describedby="username-help"
+            formControlName="email" />
+        </div>
+      </div>
+    </div>
+
+    <h3 class="formRequest__mainForm--title">Basic Information</h3>
+    <div class="formRequest__mainForm__content" style="flex-direction: column">
+      <div class="formRequest__mainForm__content--input">
+        <b>Tool name</b>
+        <input pInputText id="tool_name" aria-describedby="username-help" formControlName="name" />
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <b> Category </b>
+        <p-dropdown
+          [options]="whatData"
+          formControlName="category_id"
+          optionLabel="name"
+          optionValue="id"
+          [showClear]="true"
+          [style]="{ width: '100%' }"
+          placeholder="Select an option"></p-dropdown>
+      </div>
+
+      <div class="formRequest__mainForm__content--input">
+        <b> What type of source is this tool? </b>
+
+        <div style="display: flex; align-items: center; gap: 1rem">
+          <div style="display: flex; align-items: center">
+            <p-radioButton
+              name="isLink"
+              [value]="false"
+              formControlName="isLink"
+              inputId="isLink"
+              (onClick)="removeFile(uploadedFile)" />
+            <label for="isLink" style="margin-left: 8px"> Link </label>
+          </div>
+
+          <div style="display: flex; align-items: center">
+            <p-radioButton name="isLink" [value]="true" formControlName="isLink" inputId="isLink" />
+            <label for="isLink" style="margin-left: 8px"> Upload file </label>
+          </div>
+        </div>
+      </div>
+
+      @if (requestToolNewForm.get('isLink').value === true) {
+        <div class="formRequest__mainForm__content--input">
+          @if (!uploadedFile) {
+            <p-fileUpload
+              mode="advanced"
+              name="MELSPFiles[]"
+              chooseIcon="pi pi-upload"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              accept="
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+              application/vnd.openxmlformats-officedocument.presentationml.presentation,
+              application/vnd.ms-powerpoint,
+              application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+              application/vnd.ms-excel"
+              maxFileSize="1000000"
+              (onUpload)="onBasicUploadAuto($event)"
+              [auto]="true"
+              chooseLabel="Browse file">
+              <ng-template pTemplate="empty">
+                <p>Drag and drop files to here to upload.</p>
+              </ng-template>
+            </p-fileUpload>
+          }
+
+          @if (uploadedFile) {
+            <div class="formRequest__mainForm__content__file">
+              <p>
+                You are going to upload the file: <b>{{ uploadedFile.name }}</b>
+              </p>
+
+              <button
+                pButton
+                icon="pi pi-trash"
+                [text]="true"
+                (click)="removeFile(uploadedFile)"
+                severity="danger"></button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="formRequest__mainForm__content--input">
+          <b> Source URL </b>
+          <input
+            pInputText
+            id="tool_name"
+            aria-describedby="username-help"
+            formControlName="source"
+            type="url" />
+        </div>
+      }
+    </div>
+
+    <h3 class="formRequest__mainForm--title">User Profile and Project Phase relevance</h3>
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>Program Manager</h4>
+      </div>
+      <div
+        formGroupName="PM"
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Designing</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Designing"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Closure & Beyond</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Closure&Beyond"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>Project Manager</h4>
+      </div>
+      <div
+        formGroupName="PJM"
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Designing</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Designing"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Closure & Beyond</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Closure&Beyond"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formRequest__mainForm__content"
+      style="flex-direction: column; align-items: flex-start">
+      <div class="title-user-con">
+        <h4>M&E Officer</h4>
+      </div>
+      <div
+        formGroupName="M&EO"
+        class="formRequest__mainForm__content--threeColumns"
+        style="background-color: none; border: none; padding: 0">
+        <div class="formRequest__mainForm__content--input">
+          <h4>Designing</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Designing"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Implementation</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Implementation"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+        <div class="formRequest__mainForm__content--input">
+          <h4>Closure & Beyond</h4>
+          <p-dropdown
+            [options]="optionsImportance"
+            formControlName="Closure&Beyond"
+            optionLabel="name"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select an option"></p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="formRequest__mainForm__steps">
+      <button
+        pButton
+        [disabled]="loadingSave"
+        type="button"
+        label="Cancel"
+        class="formRequest__mainForm__steps--button"></button>
+      <button
+        pButton
+        [disabled]="requestToolNewForm.invalid || loadingSave"
+        type="submit"
+        label="Submit tool"
+        class="formRequest__mainForm__steps--button"></button>
+    </div>
+  </form>
+</div>
+
+<p-dialog
+  [(visible)]="loadingSave"
+  [modal]="true"
+  [style]="{ width: '10vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <ng-template pTemplate="headless">
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        padding: 2rem 4rem;
+        border-radius: 1rem;
+      ">
+      <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+    </div>
+  </ng-template>
+</p-dialog>

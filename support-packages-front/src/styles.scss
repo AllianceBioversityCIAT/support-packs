@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+body {
+  margin: 0;
+}
+
+html {
+  font-size: 14px;
+}
+
+.p-dropdown-item.p-ripple {
+  white-space: normal;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 6px 8px !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  margin-bottom: 4px !important;
+}
+
+.p-checkbox .p-checkbox-box {
+  width: 18px;
+  height: 18px;
+}
+
+.p-dropdown-items-wrapper {
+  max-height: 444px !important;
+  overflow-y: auto;
+
+  @media (max-height: 688px) {
+    max-height: 257px !important;
+  }
+
+  @media (max-height: 989px) {
+    max-height: 200px !important;
+  }
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.p-dropdown-panel .p-dropdown-items {
+  padding: 0;
+}
+
+.p-button {
+  padding: 8px 10px !important;
+  border-color: #2e6da4;
+  background-color: #337ab7;
+  color: white;
+
+  &:hover {
+    background-color: #296090;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.p-button-label {
+  font-weight: normal;
+}
+
+.p-button-secondary2 {
+  background-color: #fff !important;
+  color: #495057 !important;
+  border-color: #ccc !important;
+  font-size: 12px;
+  font-weight: 500 !important;
+
+  &:hover {
+    background-color: #e6e6e6 !important;
+  }
+}
+
+.p-button-secondary3 {
+  background-color: #5bc0de !important;
+  color: #fff !important;
+  border-color: #46b8da !important;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #31b0d5 !important;
+  }
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+  background-color: #f2f2f2;
+  color: #495058;
+  font-weight: 600;
+}
+
+.p-autocomplete-panel {
+  max-width: 250px;
+}
+
+.p-autocomplete-items {
+  max-height: 250px;
+}
+
+.p-autocomplete-item span {
+  text-wrap: wrap;
+}
+
+.p-autocomplete-multiple-container {
+  width: 100%;
+  overflow-y: auto;
+}

@@ -1,0 +1,103 @@
+.overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: auto;
+  min-height: 400px;
+
+  &__title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  &__importantList {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+    padding: 8px;
+    background-color: #f1f1f1;
+
+    &--item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+
+      p {
+        white-space: nowrap;
+      }
+    }
+
+    &--circle {
+      min-width: 10px;
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+    }
+  }
+
+  &__table {
+    width: 100% !important;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+
+      &--name {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 12px;
+        min-width: 455px;
+      }
+
+      &--link {
+        color: #3379b7;
+        cursor: pointer;
+        padding: 4px 0.5rem;
+
+        &:hover {
+          text-decoration: underline;
+          color: #23527c;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+}
+
+.veryImportant {
+  background-color: #c0504d;
+  font-weight: bold;
+  color: white;
+}
+
+.important {
+  background-color: #da9694;
+  font-weight: bold;
+  color: white;
+}
+.useful {
+  background-color: #e6b8b7;
+  font-weight: bold;
+  color: white;
+}
+
+.optional {
+  background-color: #d6d6d6;
+  font-weight: bold;
+}

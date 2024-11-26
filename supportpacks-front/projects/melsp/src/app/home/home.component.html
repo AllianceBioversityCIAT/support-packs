@@ -34,8 +34,6 @@
     class="d-inline-block col-sm-4 text-center"
     style="padding-bottom: 5px; padding-top: 5px"
     #roleDrop="ngbDropdown"
-    (mouseenter)="$event.stopPropagation(); roleDrop.open()"
-    (mouseleave)="$event.stopPropagation(); roleDrop.close()"
   >
     <button
       class="btn btn-danger align-self-center col justify-content-between d-flex"
@@ -64,8 +62,6 @@
     class="d-inline-block col-sm-4 text-center"
     style="padding-bottom: 5px; padding-top: 5px"
     #stageDrop="ngbDropdown"
-    (mouseenter)="$event.stopPropagation(); stageDrop.open()"
-    (mouseleave)="$event.stopPropagation(); stageDrop.close()"
   >
     <button
       class="btn btn-danger align-self-center col justify-content-between d-flex"
@@ -94,8 +90,6 @@
     class="d-inline-block col-sm-4 text-center"
     style="padding-bottom: 5px; padding-top: 5px"
     #categoryDrop="ngbDropdown"
-    (mouseenter)="$event.stopPropagation(); categoryDrop.open()"
-    (mouseleave)="$event.stopPropagation(); categoryDrop.close()"
   >
     <button
       class="btn btn-danger align-self-center col justify-content-between d-flex"
@@ -123,25 +117,13 @@
 <!-- Profile selection for search -->
 <div class="resultsBlock form-group">
   <div class="col removeFilters">
-    <button
-      *ngIf="filterData.role"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="selectFilter('role', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.role" class="btn btn-outline-danger col-sm-2" (click)="resetRole()">
       {{ filterData.role.name }} <span aria-hidden="true">&times;</span>
     </button>
-    <button
-      *ngIf="filterData.stage"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="selectFilter('stage', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.stage" class="btn btn-outline-danger col-sm-2" (click)="resetStage()">
       {{ filterData.stage.name }} <span aria-hidden="true">&times;</span>
     </button>
-    <button
-      *ngIf="filterData.category"
-      class="btn btn-outline-danger col-sm-2"
-      (click)="selectFilter('category', { name: null, id: null })"
-    >
+    <button *ngIf="filterData.category" class="btn btn-outline-danger col-sm-2" (click)="resetCategory()">
       {{ filterData.category.name }} <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -150,21 +132,21 @@
     <div class="text-center">
       <img
         class="checkIcon check-role"
-        (click)="selectFilter('role', { name: null, id: null })"
+        (click)="resetRole()"
         [style.opacity]="filterData.role !== null ? 1 : 0.4"
         src="./assets/images/icon-1.png"
         alt=""
       />
       <img
         class="checkIcon check-stage"
-        (click)="selectFilter('stage', { name: null, id: null })"
+        (click)="resetStage()"
         [style.opacity]="filterData.stage !== null ? 1 : 0.4"
         src="./assets/images/icon-2.png"
         alt=""
       />
       <img
         class="checkIcon check-category"
-        (click)="selectFilter('category', { name: null, id: null })"
+        (click)="resetCategory()"
         [style.opacity]="filterData.category !== null ? 1 : 0.4"
         src="./assets/images/icon-3.png"
         alt=""
@@ -196,14 +178,19 @@
       <fa-icon [icon]="faList" class="fa-icon"></fa-icon>
       View all resources
     </a>
-    <a class="btn btn-outline-secondary local-btn" routerLink="products" routerLinkActive="active" role="button">
+    <a
+      class="btn btn-outline-secondary local-btn"
+      href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform?pli=1"
+      routerLinkActive="active"
+      role="button"
+    >
       <fa-icon [icon]="faPaperPlane" class="fa-icon"></fa-icon>
       Request to upload a resource
     </a>
 
-    <a class="btn ml-auto" style="margin-right: 10px" *ngIf="!currentUser" (click)="open(content)">
+    <!-- <a class="btn ml-auto" style="margin-right: 10px" *ngIf="!currentUser" (click)="open(content)">
       <fa-icon [icon]="faUserCircle" class="fa-icon"></fa-icon>
-    </a>
+    </a> -->
     <a class="btn ml-auto" style="margin-right: 10px" *ngIf="currentUser" (click)="logOut()">
       <fa-icon [icon]="faSignOutAlt" class="far fa-icon"></fa-icon>
     </a>

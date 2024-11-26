@@ -1,0 +1,597 @@
+<div class="homeLearn">
+  <h1 class="homeLearn__title">The AICCRA Learning Zone</h1>
+
+  <div class="homeLearn__description">
+    <p style="font-weight: bold; font-style: italic">
+      Resources that help put climate-smart agriculture into practice in Africa
+    </p>
+    <p>
+      The <b>AICCRA Learning Zone is a convenient one-stop shop for</b> analytical resources - case
+      studies, training guides, articles and videos - that empower farmers, policymakers and
+      communities to make informed decisions in agriculture that work for people, nature and planet.
+    </p>
+    <p>
+      These open-access resources are compiled to promote the broader and deeper adoption of climate
+      information services and climate-smart technologies and practices across Africa. It is a
+      curated database inspired by the approach used successfully by the CGIAR Research Program on
+      Climate Change, Agriculture and Food Security (CCAFS). Visit the
+      <a
+        class="homeLearn__link"
+        href="https://ccafs.cgiar.org/data-management-support-pack"
+        target="_blank"
+        rel="noopener noreferrer">
+        CCAFS Data Management Support Pack.
+      </a>
+    </p>
+    <p>
+      The learning zone aims to help select the resource that is most appropriate to your needs
+      using a step-by-step filter in an easily accessible, single location for your convenience.
+    </p>
+    <p>
+      Collaboration across AICCRA teams means the tailored selection of readily available resources
+      is gathered to meet the needs of AICCRA partners in all the six AICCRA focus countries and
+      across the two regions where we work.
+    </p>
+  </div>
+
+  @if (!this._servicesVariables.termsConditions && !this._servicesVariables.continue) {
+    <div
+      class="homeLearn__content"
+      >
+      <div class="homeLearn__content__search">
+        <div class="homeLearn__content__search--filters">
+          <div class="homeLearn__content__search--filters--item">
+            <h4>Thematic area</h4>
+            <p-dropdown
+              [disabled]="disableButton()"
+              [options]="thematicAreasData"
+              [(ngModel)]="selectedThematicAreas"
+              optionLabel="name"
+            [style]="{
+              width: '100%',
+              cursor: disableButton() ? 'not-allowed' : 'pointer',
+              'box-shadow': 'none',
+              'border-color': '#ced4da'
+            }"
+              placeholder="Select a Thematic area"
+              styleClass="thematicDropdown"
+              (ngModelChange)="filterInformation()">
+              <ng-template pTemplate="selectedItem">
+                @if (selectedThematicAreas) {
+                  <div
+                    style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
+                    >
+                    <img
+                      src="../../../../assets/svg/icon-bookmark-2.svg"
+                      alt="Person icon"
+                      style="width: 19px; height: 19px" />
+                      <div>{{ selectedThematicAreas.name }}</div>
+                    </div>
+                  }
+                </ng-template>
+              </p-dropdown>
+            </div>
+            <div class="homeLearn__content__search--filters--item">
+              <h4>Target user</h4>
+              <p-dropdown
+                [disabled]="disableButton()"
+                [options]="targetUserData"
+                [(ngModel)]="selectedTargetUser"
+                optionLabel="name"
+            [style]="{
+              width: '100%',
+              cursor: disableButton() ? 'not-allowed' : 'pointer',
+              'box-shadow': 'none',
+              'border-color': '#ced4da'
+            }"
+                (ngModelChange)="filterInformation()"
+                styleClass="targetDropdown"
+                placeholder="Select a Target user">
+                <ng-template pTemplate="selectedItem">
+                  @if (selectedTargetUser) {
+                    <div
+                      style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
+                      >
+                      <img
+                        src="../../../../assets/svg/icon-person-2.svg"
+                        alt="Person icon"
+                        style="width: 19px; height: 19px" />
+                        <div>{{ selectedTargetUser.name }}</div>
+                      </div>
+                    }
+                  </ng-template>
+                </p-dropdown>
+              </div>
+              <div class="homeLearn__content__search--filters--item">
+                <h4>Project phase</h4>
+                <p-dropdown
+                  [disabled]="disableButton()"
+                  [options]="projectPhaseData"
+                  [(ngModel)]="selectedProjectUser"
+            [style]="{
+              width: '100%',
+              cursor: disableButton() ? 'not-allowed' : 'pointer',
+              'box-shadow': 'none',
+              'border-color': '#ced4da'
+            }"
+                  optionLabel="name"
+                  styleClass="projectDropdown"
+                  (ngModelChange)="filterInformation()"
+                  placeholder="Select a Project phase">
+                  <ng-template pTemplate="selectedItem">
+                    @if (selectedProjectUser) {
+                      <div
+                        style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
+                        >
+                        <img
+                          src="../../../../assets/svg/icon-clock-2.svg"
+                          alt="Person icon"
+                          style="width: 19px; height: 19px" />
+                          <div>{{ selectedProjectUser.name }}</div>
+                        </div>
+                      }
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+            <div style="padding: 0 2rem">
+              @if (
+                (!selectedThematicAreas || !selectedTargetUser || !selectedProjectUser) &&
+                !this._servicesVariables.searchedTools
+                ) {
+                <div
+                  class="homeLearn__content__notFilter"
+                  >
+                  <h3 class="homeLearn__content__notFilter--title">
+                    Please use the three filters above to identify useful tools
+                  </h3>
+                  <div class="homeLearn__content__notFilter--images">
+                    <img
+                      src="../../../../assets/svg/icon-bookmark-2.svg"
+                      alt="Interrogation symbol icon"
+                      class="checkIcon"
+                      [ngStyle]="{ opacity: selectedThematicAreas ? '1' : '0.6' }" />
+                      <img
+                        src="../../../../assets/svg/icon-person-2.svg"
+                        alt="Person icon"
+                        [ngStyle]="{ opacity: selectedTargetUser ? '1' : '0.6' }" />
+                        <img
+                          src="../../../../assets/svg/icon-clock-2.svg"
+                          alt="Clock icon"
+                          class="checkIcon"
+                          [ngStyle]="{ opacity: selectedProjectUser ? '1' : '0.6' }" />
+                        </div>
+                        <p class="homeLearn__content__notFilter--note">
+                          <b> NOTE: </b>
+                          We welcome the submission of AICCRA tools to be included in this Tools Support Pack.
+                          <a routerLink="/aiccra/form-request" class="homeLearn__content__notFilter--note--link">
+                            Go to submission form.
+                          </a>
+                        </p>
+                      </div>
+                    }
+                    @if (
+                      this.selectedThematicAreas &&
+                      this.selectedTargetUser &&
+                      this.selectedProjectUser &&
+                      !this._servicesVariables.searchedTools
+                      ) {
+                      <div class="homeLearn__content__header">
+                        <div class="homeLearn__content__header--titleContainer">
+                          <lucide-icon
+                            name="bolt"
+                            class="bolt"
+                            [size]="20"
+                          style="display: flex; align-items: center; justify-content: center"></lucide-icon>
+                          <h2 class="homeLearn__content__header--title">Recommended tools</h2>
+                        </div>
+                        <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
+                      </div>
+                      <p-table [value]="productsData" [(selection)]="selectedProducts" dataKey="id">
+                        <ng-template pTemplate="body" let-product let-expanded="expanded">
+                          <tr>
+                            <td
+                style="
+                  padding-left: 16px !important;
+                  padding-right: 0 !important;
+                  width: 20px !important;
+                ">
+                              <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                            </td>
+                            <td style="width: 24px; height: 24px">
+                              <p-button
+                                type="button"
+                                pRipple
+                                [pRowToggler]="product"
+                                [text]="true"
+                                styleClass="homeLearn__content__table__button"
+                  [style]="{
+                    width: '24px',
+                    height: '24px',
+                    padding: '0',
+                    'background-color': 'transparent',
+                    border: 'none',
+                    color: '#000'
+                  }"
+                              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></p-button>
+                            </td>
+                            <td style="">
+                              <a [href]="product.source" target="_blank" class="homeLearn__content__table__link">
+                                {{ product.name }}
+                              </a>
+                            </td>
+                            <td style="background-color: #f1f1f1; max-width: 150px !important">
+                              <div class="homeLearn__content__table__info">
+                                <div style="width: 100%">{{ product.importance_level }}</div>
+                                <div
+                                  class="homeLearn__content__table__info--point numOne"
+                    [ngStyle]="{
+                      'background-color': getImportanceLevelColor(product.importance_level)
+                    }"></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-product>
+                          <tr>
+                            <td colspan="4" style="padding: 20px !important">
+                              <p class="mb-2">{{ product.description }}</p>
+                              <p class="mb-2"><b>Time: </b>{{ product.estimated_time }}</p>
+                              <p class="mb-2"><b>Strengths: </b>{{ product.strengths }}</p>
+                              <p class="mb-2"><b>Limitations: </b>{{ product.limitations }}</p>
+                              <p class="mb-2"><b>Target scale: </b>{{ product.target_scale }}</p>
+                              <p class="mb-2"><b>Participants: </b>{{ product.participants }}</p>
+                              <p class="mb-2"><b>Methods used: </b>{{ product.methods }}</p>
+                              <p class="mb-2">
+                                <b>Types of input data/information: </b>{{ product.input_types }}
+                              </p>
+                              <p class="mb-2"><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+                              <p class="mb-2"><b>Human resources: </b>{{ product.human_resources }}</p>
+                              <p class="mb-2"><b>Key reference person: </b>{{ product.key_references }}</p>
+                              @if (product.resources.length > 0) {
+                                <h2
+                                  class="homeLearn__download__content--header--subtitle"
+                                  style="margin-top: 1rem; margin-bottom: 0.5rem"
+                                  >
+                                  Recommended resources
+                                </h2>
+                              }
+                              @if (product.resources.length > 0) {
+                                <div class="resources-list">
+                                  @for (resource of product.resources; track resource) {
+                                    <div class="resource">
+                                      <div class="resource-name">
+                                        <lucide-icon
+                                          name="link2"
+                                          class="link2"
+                                          [size]="16"
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        "></lucide-icon>
+                                        <a [href]="resource.source" target="_blank" class="d-flex align-items-center">
+                                          {{ resource.name }}
+                                        </a>
+                                      </div>
+                                      <div class="resource-type">{{ resource.type }}</div>
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </td>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                          <tr>
+                            <td colspan="4">No tools found</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                      <div class="homeLearn__content__table__buttons">
+                        <button
+                          pButton
+                          [disabled]="selectedProducts?.length === 0"
+                          label="Access to related resources"
+                          icon="pi pi-angle-double-right"
+                          iconPos="right"
+                          class="homeLearn__content__table__buttons--item"
+                        (click)="this._servicesVariables.termsAndConditions()"></button>
+                      </div>
+                    }
+                    <!-- Searched tools -->
+                    @if (this._servicesVariables.searchedTools) {
+                      <div class="homeLearn__content__header">
+                        <div class="homeLearn__content__header--titleContainer">
+                          <lucide-icon
+                            name="bolt"
+                            class="bolt"
+                            [size]="20"
+                          style="display: flex; align-items: center; justify-content: center"></lucide-icon>
+                          <h2 class="homeLearn__content__header--title">Search results</h2>
+                        </div>
+                        <p class="homeLearn__content__header--subtitle">Expand the tool to see its details.</p>
+                      </div>
+                      <p-table
+                        [value]="this._servicesVariables.selectedProducts"
+                        [(selection)]="selectedProducts"
+                        dataKey="id">
+                        <ng-template pTemplate="body" let-product let-expanded="expanded">
+                          <tr>
+                            <td
+                style="
+                  padding-left: 16px !important;
+                  padding-right: 0 !important;
+                  width: 20px !important;
+                ">
+                              <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                            </td>
+                            <td style="width: 24px; height: 24px">
+                              <p-button
+                                type="button"
+                                pRipple
+                                [pRowToggler]="product"
+                                [text]="true"
+                                styleClass="homeLearn__content__table__button"
+                  [style]="{
+                    width: '24px',
+                    height: '24px',
+                    padding: '0',
+                    'background-color': 'transparent',
+                    border: 'none',
+                    color: '#000'
+                  }"
+                              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></p-button>
+                            </td>
+                            <td style="max-width: 455px; min-width: 450px">
+                              <a [href]="product.source" target="_blank" class="homeLearn__content__table__link">
+                                {{ product.name }}
+                              </a>
+                            </td>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-product>
+                          <tr>
+                            <td colspan="4" style="padding: 20px !important">
+                              <p class="mb-2">{{ product.description }}</p>
+                              <p class="mb-2"><b>Time: </b>{{ product.estimated_time }}</p>
+                              <p class="mb-2"><b>Strengths: </b>{{ product.strengths }}</p>
+                              <p class="mb-2"><b>Limitations: </b>{{ product.limitations }}</p>
+                              <p class="mb-2"><b>Target scale: </b>{{ product.target_scale }}</p>
+                              <p class="mb-2"><b>Participants: </b>{{ product.participants }}</p>
+                              <p class="mb-2"><b>Methods used: </b>{{ product.methods }}</p>
+                              <p class="mb-2">
+                                <b>Types of input data/information: </b>{{ product.input_types }}
+                              </p>
+                              <p class="mb-2"><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+                              <p class="mb-2"><b>Human resources: </b>{{ product.human_resources }}</p>
+                              <p class="mb-2"><b>Key reference person: </b>{{ product.key_references }}</p>
+                              @if (product.resources.length > 0) {
+                                <h2
+                                  class="homeLearn__download__content--header--subtitle"
+                                  style="margin-top: 1rem; margin-bottom: 0.5rem"
+                                  >
+                                  Recommended resources
+                                </h2>
+                              }
+                              @if (product.resources.length > 0) {
+                                <div class="resources-list">
+                                  @for (resource of product.resources; track resource) {
+                                    <div class="resource">
+                                      <div class="resource-name">
+                                        <lucide-icon
+                                          name="link2"
+                                          class="link2"
+                                          [size]="16"
+                        style="
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        "></lucide-icon>
+                                        <a [href]="resource.source" target="_blank" class="d-flex align-items-center">
+                                          {{ resource.name }}
+                                        </a>
+                                      </div>
+                                      <div class="resource-type">{{ resource.type }}</div>
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </td>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                          <tr>
+                            <td colspan="4">No tools found</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                      <div class="homeLearn__content__table__buttons">
+                        <button
+                          pButton
+                          [disabled]="selectedProducts?.length === 0"
+                          label="Access to related resources"
+                          icon="pi pi-angle-double-right"
+                          iconPos="right"
+                          class="homeLearn__content__table__buttons--item"
+                        (click)="this._servicesVariables.termsAndConditions()"></button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
+              @if (this._servicesVariables.termsConditions) {
+                <app-terms-conditions
+                  [app_id]="3"
+                [tools]="selectedProducts"></app-terms-conditions>
+              }
+
+              @if (!this._servicesVariables.termsConditions && this._servicesVariables.continue) {
+                <div
+                  class="homeLearn__download">
+                  <div class="homeLearn__download__buttons">
+                    <button
+                      pButton
+                      type="button"
+                      (click)="goBackToTable()"
+                      label="Back"
+                      icon="pi pi-angle-double-left"
+                      class="homeLearn__download__buttons--item"
+        [style]="{
+          'font-size': '0.875rem',
+          padding: '0.65625rem 1.09375rem'
+        }"></button>
+                    @if (this._servicesVariables.continue) {
+                      <button
+                        pButton
+                        label="Download"
+                        (click)="downloadPDF()"
+                        icon="pi pi-download"
+                        iconPos="right"
+                        class="homeLearn__download__buttons--download"
+        [style]="{
+          'font-size': '0.875rem',
+          padding: '0.65625rem 1.09375rem'
+        }"></button>
+                    }
+                  </div>
+                  <div class="homeLearn__download__content" #pdfSection id="pdfSection">
+                    <h2 style="margin-bottom: 0.5rem">Tools selected & related resources</h2>
+                    @for (product of selectedProducts; track product) {
+                      <div class="homeLearn__download__content--item">
+                        <div class="homeLearn__download__content--header">
+                          <lucide-icon
+                            name="bolt"
+                            class="bolt"
+                            [size]="20"
+                          style="display: flex; align-items: center; justify-content: center"></lucide-icon>
+                          <a
+                            [href]="product.source"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="homeLearn__download__content--header--title">
+                            {{ product.name }}
+                          </a>
+                        </div>
+                        <p>{{ product.description }}</p>
+                        <p><b>Time: </b>{{ product.estimated_time }}</p>
+                        <p><b>Strengths: </b>{{ product.strengths }}</p>
+                        <p><b>Limitations: </b>{{ product.limitations }}</p>
+                        <p><b>Does the tool integrate gender?: </b>{{ product.integrates_gender }}</p>
+                        <p><b>Target scale: </b>{{ product.target_scale }}</p>
+                        <p><b>Participants: </b>{{ product.participants }}</p>
+                        <p><b>Methods used: </b>{{ product.methods }}</p>
+                        <p><b>Types of input data/information: </b>{{ product.input_types }}</p>
+                        <p><b>Expected outputs: </b>{{ product.expected_outputs }}</p>
+                        <p><b>Human resources: </b>{{ product.human_resources }}</p>
+                        <p><b>Key reference person: </b>{{ product.key_references }}</p>
+                        @if (product.resources.length > 0) {
+                          <h2
+                            class="homeLearn__download__content--header--subtitle"
+                            style="margin-top: 0.5rem"
+                            >
+                            Recommended resources
+                          </h2>
+                        }
+                        @if (product.resources.length > 0) {
+                          <div class="resources-list">
+                            @for (resource of product.resources; track resource) {
+                              <div class="resource">
+                                <div class="resource-name">
+                                  <lucide-icon
+                                    name="link2"
+                                    class="link2"
+                                    [size]="16"
+                                  style="display: flex; align-items: center; justify-content: center"></lucide-icon>
+                                  <a [href]="resource.source" target="_blank" rel="noopener noreferrer">
+                                    {{ resource.name }}
+                                  </a>
+                                </div>
+                                <div class="resource-type">{{ resource.type }}</div>
+                              </div>
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="faq">
+              <h1 class="faq--title">Frequently Asked Questions (FAQ)</h1>
+
+              <div class="faq__content">
+                <div class="faq__content__questions">
+                  <p-accordion>
+                    <p-accordionTab header="How does the tools support pack integrate gender?">
+                      <p>
+                        The AICCRA Gender and Social Inclusion (GSI) team provide gender-responsive CSA tools,
+                        which are incorporated in the learning zone.
+                      </p>
+                      <br />
+                      <p>
+                        Furthermore, it is indicated in learning zone metadata if a resource integrates gender.
+                      </p>
+                    </p-accordionTab>
+
+                    <p-accordionTab header="What will I find in the tools support pack?">
+                      <ul>
+                        <li>A concise description of the resource and online access to it.</li>
+                        <li>
+                          The scale to which the resource is relevant e.g. policy, farm, individual or program.
+                        </li>
+                        <li>
+                          Key participants in the application of the resource e.g. farmer, decision maker and
+                          social or climate change researcher.
+                        </li>
+                        <li>
+                          The type of method described in the resource e.g. field assessment, focus group
+                          discussion, participatory analysis or a cost-benefit assessment.
+                        </li>
+                        <li>
+                          The types of input data or information needed to use the resource e.g. biophysical,
+                          crop yields, greenhouse gas (GHG) emission data, meteorological or spatial.
+                        </li>
+                        <li>
+                          The expected outputs e.g. characterization of farm households, gender empowerment
+                          index or GHG emission inventory.
+                        </li>
+                        <li>
+                          The human resources needed to implement the resource e.g. a stakeholder engagement
+                          specialist or technical staff trained in climate modelling and data interpretation.
+                        </li>
+                        <li>An estimate of the implementation time, excluding time needed for training.</li>
+                        <li>The strengths and limitations of the resources.</li>
+                        <li>An indication of whether the tool can be tested online.</li>
+                        <li>Contact details for the appropriate AICCRA team member.</li>
+                        <li>
+                          Links to relevant case studies, with brief descriptions of how the resources were
+                          applied in practice.
+                        </li>
+                        <li>
+                          Links to training materials such as guides and manuals, as well as supporting
+                          materials like blogs, videos, project websites and reports.
+                        </li>
+                      </ul>
+                    </p-accordionTab>
+
+                    <p-accordionTab header="Can I add resources to the learning zone?">
+                      <p>
+                        The learning zone is a living database that allows users to upload content themselves,
+                        so that AICCRA colleagues can further add to the rich library of supporting materials
+                        for our partners and beneficiaries.
+                      </p>
+                      <br />
+                      <p>
+                        Uploaded content is reviewed by the AICCRA team to ensure proposed materials are
+                        relevant and meet the highest standards of quality.
+                      </p>
+                    </p-accordionTab>
+                  </p-accordion>
+                </div>
+              </div>
+            </div>

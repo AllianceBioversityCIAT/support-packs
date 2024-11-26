@@ -1,0 +1,296 @@
+<div class="formRequest__mainForm">
+  <h3 class="formRequest__mainForm--title">Basic Information</h3>
+  <div class="formRequest__mainForm__content" style="flex-direction: column">
+    <div class="formRequest__mainForm__content--input">
+      <b>Tool name</b>
+      <input
+        pInputText
+        id="tool_name"
+        aria-describedby="username-help"
+        [(ngModel)]="informationEdit.name" />
+    </div>
+
+    <div class="formRequest__mainForm__content--input">
+      <b> What type of source is this tool? </b>
+
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="false"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink"
+            (onClick)="removeFile(uploadedFile)" />
+          <label for="isLink" style="margin-left: 8px"> Link </label>
+        </div>
+
+        <div style="display: flex; align-items: center">
+          <p-radioButton
+            name="isLink"
+            [value]="true"
+            [(ngModel)]="informationEdit.isLink"
+            inputId="isLink" />
+          <label for="isLink" style="margin-left: 8px"> Upload file </label>
+        </div>
+      </div>
+
+      @if (informationEdit.isLink === true) {
+        <div class="formRequest__mainForm__content--input">
+          @if (!uploadedFile) {
+            <p-fileUpload
+              mode="advanced"
+              name="MELSPFiles[]"
+              chooseIcon="pi pi-upload"
+              url="https://www.primefaces.org/cdn/api/upload.php"
+              accept="
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+              application/vnd.openxmlformats-officedocument.presentationml.presentation,
+              application/vnd.ms-powerpoint,
+              application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+              application/vnd.ms-excel"
+              maxFileSize="1000000"
+              (onUpload)="onBasicUploadAuto($event)"
+              [auto]="true"
+              chooseLabel="Browse file">
+              <ng-template pTemplate="empty">
+                <p>Drag and drop files to here to upload.</p>
+              </ng-template>
+            </p-fileUpload>
+          }
+
+          @if (uploadedFile) {
+            <div class="formRequest__mainForm__content__file">
+              <p>
+                You are going to upload the file: <b>{{ uploadedFile?.name }}</b>
+              </p>
+
+              <button
+                pButton
+                icon="pi pi-trash"
+                [text]="true"
+                (click)="removeFile(uploadedFile)"
+                severity="danger"></button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="formRequest__mainForm__content--input">
+          <b> Source URL </b>
+          <input
+            pInputText
+            id="tool_name"
+            aria-describedby="username-help"
+            [(ngModel)]="informationEdit.source"
+            type="url" />
+        </div>
+      }
+    </div>
+
+    <div class="formRequest__mainForm__content--input">
+      <h4>Category</h4>
+      <input
+        pInputText
+        id="category_name"
+        [disabled]="true"
+        [(ngModel)]="informationEdit.category_name" />
+    </div>
+  </div>
+
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>Program Manager</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0; flex-wrap: wrap">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Design</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PM.Designing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PM.Designing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PM.Designing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Implementation</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PM.Implementation"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PM.Implementation) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PM.Implementation.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Closure and Beyond</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PM['Closure&Beyond']"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PM['Closure&Beyond']) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PM['Closure&Beyond'].name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>Project Manager</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Design</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PJM.Designing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PJM.Designing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PJM.Designing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Implementation</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PJM.Implementation"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PJM.Implementation) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PJM.Implementation.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Monitoring and evaluations</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit.PJM['Closure&Beyond']"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit.PJM['Closure&Beyond']) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit.PJM['Closure&Beyond'].name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+  <div
+    class="formRequest__mainForm__content"
+    style="flex-direction: column; align-items: flex-start">
+    <div class="title-user-con">
+      <h4>M&amp;E Officer</h4>
+    </div>
+    <div
+      class="formRequest__mainForm__content--threeColumns"
+      style="background-color: none; border: none; padding: 0">
+      <div class="formRequest__mainForm__content--input">
+        <h4>Design</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit['M&EO'].Designing"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit['M&EO'].Designing) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit['M&EO'].Designing.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Implementation</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit['M&EO'].Implementation"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit['M&EO'].Implementation) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit['M&EO'].Implementation.name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="formRequest__mainForm__content--input">
+        <h4>Closure and Beyond</h4>
+        <p-dropdown
+          [options]="optionsImportance"
+          [(ngModel)]="informationEdit['M&EO']['Closure&Beyond']"
+          optionLabel="name"
+          [style]="{ width: '100%' }"
+          placeholder="Select a Thematic area">
+          <ng-template pTemplate="selectedItem">
+            @if (informationEdit['M&EO']['Closure&Beyond']) {
+              <div class="flex align-items-center gap-2">
+                <div>{{ informationEdit['M&EO']['Closure&Beyond'].name }}</div>
+              </div>
+            }
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="formRequest__mainForm__steps" style="justify-content: flex-end; margin-right: 14px">
+  <button
+    pButton
+    type="button"
+    label="Edit tool"
+    class="formRequest__mainForm__steps--button"
+    style="color: white"
+    [disabled]="!informationEdit.name || !informationEdit.source"
+    (click)="editTool()"></button>
+</div>

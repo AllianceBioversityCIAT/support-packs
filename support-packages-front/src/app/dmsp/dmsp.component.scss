@@ -1,0 +1,19 @@
+* :not(.pi, .material-symbols-outlined, .material-symbols-rounded) {
+  font-family: 'Open sans', sans-serif !important;
+}
+
+.dmsp {
+  max-width: 1220px;
+  margin: 0 auto;
+
+  &__content {
+    padding: 30px 30px 60px 30px;
+  }
+}
+
+:host ::ng-deep * {
+  font-family: 'Open sans', sans-serif !important;
+}
+:host ::ng-deep .pi {
+  font-family: 'primeicons' !important;
+}

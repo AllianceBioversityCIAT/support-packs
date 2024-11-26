@@ -65,7 +65,6 @@ export class SPTermsconditionsComponent implements OnInit, OnChanges {
   filePath = null;
 
   constructor(
-    private sanitizer: DomSanitizer,
     private tcService: SPTermsconditionsService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
@@ -84,6 +83,20 @@ export class SPTermsconditionsComponent implements OnInit, OnChanges {
     // console.log(url);
     this.total = url.filter((x) => x.valueOf() === '0').length;
     // console.log(this.total);
+  }
+
+  joinRoute(filePath) {
+    const googleView = 'https://docs.google.com/gview?url=';
+    const domain = 'https://supportpacks-test.ciat.cgiar.org/';
+    const paramEbember = '&embedded=true';
+    console.log(googleView + domain + filePath + paramEbember);
+
+    return this.safeURL(googleView + domain + filePath + paramEbember);
+  }
+
+  joinRouteNgx(filePath) {
+    const domain = 'https://supportpacks-test.ciat.cgiar.org/';
+    console.log(domain + filePath);
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {

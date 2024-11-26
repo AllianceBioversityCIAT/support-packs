@@ -1,0 +1,57 @@
+<nav class="admin__nav">
+  <a
+    routerLink="/dmsp/home"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none; margin-right: 5px">
+    <i class="pi pi-angle-left" style="margin-right: 0.5rem"></i>
+    Go back to home
+  </a>
+
+  @if (_sharedService.isLoggedDMSP().status) {
+    <button
+      pButton
+      label="Log out"
+      class="p-button-secondary2"
+      (click)="handleLogout()"
+      icon="pi pi-sign-out"
+      iconPos="right"></button>
+  }
+</nav>
+
+@if (!_sharedService.isLoggedDMSP().status) {
+  <app-login-form app_id="1"></app-login-form>
+} @else {
+  <div class="admin__content">
+    <div style="width: 100%">
+      <p-tabMenu
+        [model]="items"
+        [activeItem]="activeItem"
+        (activeItemChange)="onActiveItemChange($event)"
+        [style]="{ 'margin-bottom': '20px' }"></p-tabMenu>
+      @if (activeItem.id === '0') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="activeToolsData"
+          [tableDataLoading]="loading"
+          (onGetActiveTools)="getActiveTools()"
+          app_id="1"></app-admin-tools-table>
+      }
+      @if (activeItem.id === '1') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="disabledToolsData"
+          (onGetDesactiveTools)="getDisabledTools()"
+          [tableDataLoading]="loading"
+          app_id="1"></app-admin-tools-table>
+      }
+      @if (activeItem.id === '2') {
+        <app-admin-tools-table
+          [activeItem]="activeItem"
+          [tableData]="requestedToolsData"
+          [tableDataLoading]="loading"
+          (onGetRequestedTools)="getRequestedTools()"
+          app_id="1"></app-admin-tools-table>
+      }
+    </div>
+  </div>
+}

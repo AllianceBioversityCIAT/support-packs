@@ -11,8 +11,6 @@
             class="d-inline-block col text-center selectionBlock"
             style="padding-bottom: 5px; padding-top: 5px"
             #roleDrop="ngbDropdown"
-            (mouseenter)="$event.stopPropagation(); roleDrop.open()"
-            (mouseleave)="$event.stopPropagation(); roleDrop.close()"
           >
             <button
               class="btn btn-roles align-self-center col justify-content-between d-flex"
@@ -69,8 +67,6 @@
             style="padding-bottom: 5px; padding-top: 5px"
             class="d-inline-block col text-center selectionBlock"
             #stageDrop="ngbDropdown"
-            (mouseenter)="$event.stopPropagation(); stageDrop.open()"
-            (mouseleave)="$event.stopPropagation(); stageDrop.close()"
           >
             <button
               class="btn btn-stages align-self-center col justify-content-between d-flex"
@@ -122,7 +118,13 @@
     </div>
 
     <!-- data list -->
-    <dl-lib class="row" [data]="filterData" [ids]="filterDataIds" (rData)="onrData($event)"></dl-lib>
+    <dl-lib
+      class="row"
+      [app_id]="this.dmspServices.getAppId()"
+      [data]="filterData"
+      [ids]="filterDataIds"
+      (rData)="onrData($event)"
+    ></dl-lib>
   </div>
 
   <div class="col col-4">

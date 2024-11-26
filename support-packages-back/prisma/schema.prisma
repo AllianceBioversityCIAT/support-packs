@@ -1,0 +1,260 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model sp_users {
+  id Int @id @default(autoincrement())
+  first_name String @db.VarChar(255)
+  last_name String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  is_cgiar Boolean @db.TinyInt()
+  permissions sp_apps_permissions[]
+
+}
+
+model sp_apps_permissions {
+  id Int @id @default(autoincrement())
+  app_id Int @db.Int()
+  user_id Int @db.Int()
+
+  user sp_users? @relation(fields: [user_id], references: [id])
+  app sp_apps? @relation(fields: [app_id], references: [id])
+}
+
+model sp_apps {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  roles sp_roles[]
+  stages sp_stages[]
+  categories sp_categories[]
+  permissions sp_apps_permissions[]
+}
+
+model sp_categories {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  app_id Int @db.Int()
+  apps sp_apps? @relation(fields: [app_id], references: [id])
+}
+
+model sp_download {
+  id Int @id @default(autoincrement())
+  user_id Int @db.Int()
+  institute String @db.VarChar(255)
+  intended_use String @db.VarChar(255)
+  date DateTime @db.DateTime()
+  filter_type Boolean @db.TinyInt()
+  app_id Int @db.Int()
+}
+
+model sp_download_guidelines {
+  id Int @id @default(autoincrement())
+  download_id Int @db.Int()
+  guideline_id Int @db.Int()
+}
+
+model sp_download_regions {
+  id Int @id @default(autoincrement())
+  download_id Int @db.Int()
+  region_id Int @db.Int()
+  region_scope String @db.VarChar(255)
+}
+
+model sp_guidelines {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  app_id Int @db.Int()
+  active Boolean? @db.TinyInt()
+  code String? @db.VarChar(255)
+  source String @db.Text()
+  type String? @db.VarChar(255)
+  registered_by  String? @db.VarChar(255)
+  contact String? @db.VarChar(255)
+  createdAt DateTime? @db.DateTime()
+  updatedAt DateTime? @db.DateTime()
+  metadata sp_guidelines_metadata[]
+  resources sp_resources_guidelines[]
+}
+
+model sp_guidelines_request {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  app_id Int @db.Int()
+  active Boolean? @db.TinyInt()
+  code String? @db.VarChar(255)
+  source String @db.Text()
+  type String? @db.VarChar(255)
+  registered_by  String? @db.VarChar(255)
+  contact String? @db.VarChar(255)
+  createdAt DateTime? @db.DateTime()
+  updatedAt DateTime? @db.DateTime()
+}
+
+model sp_guidelines_metadata_request {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int() @unique
+  description String @db.Text()
+  target_scale String @db.Text()
+  integrates_gender String @db.Text()
+  participants String @db.Text()
+  methods String @db.Text()
+  input_types String @db.Text()
+  expected_outputs String @db.Text()
+  human_resources String @db.Text()
+  estimated_time String @db.Text()
+  strengths String @db.Text()
+  limitations String @db.Text()
+  is_tested_online String @db.Text()
+  key_references String @db.Text()
+}
+
+model sp_guidelines_metadata {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int() @unique
+  description String @db.Text()
+  target_scale String @db.Text()
+  integrates_gender String @db.Text()
+  participants String @db.Text()
+  methods String @db.Text()
+  input_types String @db.Text()
+  expected_outputs String @db.Text()
+  human_resources String @db.Text()
+  estimated_time String @db.Text()
+  strengths String @db.Text()
+  limitations String @db.Text()
+  is_tested_online String @db.Text()
+  key_references String @db.Text()
+  guideline sp_guidelines? @relation(fields: [guideline_id], references: [id])
+}
+
+enum requests_status {
+  very_important          @map("Very important")
+  important               @map("Important")
+  useful                  @map("Useful")
+  optional                @map("Optional")
+  na                      @map("N/A")
+  null                    @map("")        
+}
+
+model sp_importance_levels {
+  id Int @id @default(autoincrement())
+  category_id Int @db.Int()
+  guideline_id Int @db.Int() 
+  stage_id Int @db.Int()
+  role_id Int @db.Int()
+  importance_level String @db.VarChar(255)
+  }
+
+model sp_importance_levels_request {
+  id Int @id @default(autoincrement())
+  category_id Int @db.Int()
+  guideline_id Int @db.Int() 
+  stage_id Int @db.Int()
+  role_id Int @db.Int()
+  importance_level String @db.VarChar(255)
+  }
+
+model sp_regions{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  code String @db.VarChar(255)
+}
+
+model sp_resources_guidelines {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int()
+  active Boolean @db.TinyInt()
+  name String @db.VarChar(255)
+  code String @db.VarChar(255)
+  source String @db.VarChar(255)
+  type String @db.VarChar(255)
+  guideline sp_guidelines? @relation(fields: [guideline_id], references: [id])
+}
+
+model sp_resources_guidelines_request {
+  id Int @id @default(autoincrement())
+  guideline_id Int @db.Int()
+  active Boolean @db.TinyInt()
+  name String @db.VarChar(255)
+  code String @db.VarChar(255)
+  source String @db.VarChar(255)
+  type String @db.VarChar(255)
+}
+
+model sp_roles{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  acronym String @db.VarChar(255)
+  apps sp_apps? @relation(fields: [app_id], references: [id])
+  app_id Int @db.Int()
+}
+
+model sp_stages {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  apps sp_apps? @relation(fields: [app_id], references: [id])
+  app_id Int @db.Int()
+  description String @db.VarChar(255)
+}
+
+
+model sp_guide_download{
+  id Int @id @default(autoincrement())
+  guiade_id  Int @db.Int()
+  email String @db.Text()
+}
+
+
+model sp_request_tool{
+  id Int @id @default(autoincrement())
+  name_request String @db.Text()
+  email_request String @db.Text()
+  tool_name String @db.Text()
+  description_tool String @db.Text()
+  link String @db.Text()
+  estimated_time String @db.Text()
+  gender String @db.Text()
+  testing String @db.Text()
+  target_scale String @db.Text()
+  participates String @db.Text()
+  method_used String @db.Text()
+  type_data String @db.Text()
+  limitations String @db.Text()
+  Strengths String @db.Text()
+  Expected String @db.Text()
+  Required String @db.Text()
+  Key_reference String @db.Text()
+  Thematic_area Int @db.Int()
+  researcher_desing String @db.Text()
+  researcher_implementation   String @db.Text()
+  researcher_monitoring String @db.Text()
+  technical_desing  String @db.Text()
+  technical_implementation  String @db.Text()
+  technical_monitoring  String @db.Text()
+  academia_desing  String @db.Text()
+  academia_implementation  String @db.Text()
+  academia_monitoring  String @db.Text()
+  resouce_title  String @db.Text()
+  resouce_link  String @db.Text()
+  resouce_category  String @db.Text()
+  active Boolean @db.TinyInt()
+}
+
+model sp_person{
+  id Int @id @default(autoincrement())
+  first_name String @db.VarChar(255)
+  last_name String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  registeredAt DateTime @db.DateTime()
+}

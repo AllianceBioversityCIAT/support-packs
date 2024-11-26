@@ -1,0 +1,99 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
+import { LoginFormComponent } from '../../../shared/login-form/login-form.component';
+import { SharedService } from '../../../shared/services/shared.service';
+import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admin-tools-table.component';
+
+@Component({
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss'],
+  standalone: true,
+  imports: [ButtonModule, TabMenuModule, LoginFormComponent, AdminToolsTableComponent],
+})
+export class AdminComponent implements OnInit {
+  activeItem: MenuItem;
+  items: MenuItem[];
+
+  activeToolsData = [];
+  requestedToolsData = [];
+  disabledToolsData = [];
+
+  loading: boolean = false;
+
+  _sharedService = inject(SharedService);
+
+  ngOnInit() {
+    this.items = [
+      { label: 'Active Tools', icon: 'pi pi-fw pi-file-edit', id: '0' },
+      { label: 'Archived Tools', icon: 'pi pi-fw pi-file', id: '1' },
+      { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: '2' },
+    ];
+    this.activeItem = this.items[0];
+    this.getActiveTools();
+
+    if (this.getlocalStorageToken() !== null) {
+      this._sharedService.isLoggedLearningZone.set({
+        status: true,
+      });
+    }
+  }
+
+  getlocalStorageToken() {
+    return localStorage.getItem('tokenLearningZone');
+  }
+
+  handleLogout() {
+    localStorage.removeItem('tokenLearningZone');
+    this._sharedService.isLoggedLearningZone.set({
+      status: false,
+    });
+  }
+
+  getActiveTools() {
+    this.loading = true;
+
+    this._sharedService.getActiveAdminTools(3).subscribe((data) => {
+      this.activeToolsData = data.result;
+      this.loading = false;
+    });
+  }
+
+  getDisabledTools() {
+    this.loading = true;
+
+    this._sharedService.getDisabledAdminTools(3).subscribe((data) => {
+      this.disabledToolsData = data.result;
+      this.loading = false;
+    });
+  }
+
+  getRequestedTools() {
+    this.loading = true;
+
+    this._sharedService.getRequestedAdminTools(3).subscribe((data) => {
+      this.requestedToolsData = data.result;
+      this.loading = false;
+    });
+  }
+
+  onActiveItemChange(event: MenuItem) {
+    this.activeItem = event;
+
+    switch (this.activeItem.id) {
+      case '0':
+        this.getActiveTools();
+        break;
+      case '1':
+        this.getDisabledTools();
+        break;
+      case '2':
+        this.getRequestedTools();
+        break;
+      default:
+        break;
+    }
+  }
+}

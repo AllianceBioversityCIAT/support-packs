@@ -1,0 +1,7 @@
+export const environment = {
+  production: false, //boolean
+  api: 'http://localhost:3000/api',
+  GAIDLearningZone: '###########',
+  GAIDDMSP: '###########',
+  GAIDMELSP: '###########',
+};
