@@ -1,140 +1,99 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ServicesLearningZoneService } from '../../services/services-learning-zone.service';
-import { DialogModule } from 'primeng/dialog';
-import { ResultsTableComponent } from './component/results-table/results-table.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-
+import { LoginFormComponent } from '../../../shared/login-form/login-form.component';
+import { SharedService } from '../../../shared/services/shared.service';
+import { AdminToolsTableComponent } from '../../../shared/admin-tools-table/admin-tools-table.component';
 
 @Component({
-    selector: 'app-admin',
-    templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.scss'],
-    standalone: true,
-    imports: [
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-    TabMenuModule,
-    ResultsTableComponent,
-    DialogModule
-],
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss'],
+  standalone: true,
+  imports: [ButtonModule, TabMenuModule, LoginFormComponent, AdminToolsTableComponent],
 })
 export class AdminComponent implements OnInit {
+  activeItem: MenuItem;
+  items: MenuItem[];
+
   activeToolsData = [];
   requestedToolsData = [];
-  desactiveToolsData = [];
-  items = [];
-  activeItem: any;
+  disabledToolsData = [];
+
   loading: boolean = false;
-  dialogLogin: boolean = true;
 
-  loginForm = {
-    email: '',
-    password: '',
-  };
-
-  error = {
-    status: false,
-    message: '',
-  };
-
-  constructor(private _servicesLearningZoneService: ServicesLearningZoneService) {}
+  _sharedService = inject(SharedService);
 
   ngOnInit() {
     this.items = [
-      { label: 'Active Tools', icon: 'pi pi-fw pi-file-edit', id: 0 },
-      { label: 'Archived Tools', icon: 'pi pi-fw pi-file', id: 1 },
-      { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: 2 },
+      { label: 'Active Tools', icon: 'pi pi-fw pi-file-edit', id: '0' },
+      { label: 'Archived Tools', icon: 'pi pi-fw pi-file', id: '1' },
+      { label: 'Request', icon: 'pi pi-fw pi-share-alt', id: '2' },
     ];
     this.activeItem = this.items[0];
     this.getActiveTools();
 
     if (this.getlocalStorageToken() !== null) {
-      this.dialogLogin = false;
+      this._sharedService.isLoggedLearningZone.set({
+        status: true,
+      });
     }
   }
 
-  onActiveItemChange(event: MenuItem) {
-    this.activeItem = event;
+  getlocalStorageToken() {
+    return localStorage.getItem('tokenLearningZone');
+  }
 
-    switch (this.activeItem.id) {
-      case 0:
-        this.getActiveTools();
-        break;
-      case 1:
-        this.getDesactiveTools();
-        break;
-      case 2:
-        this.getRequestedTools();
-        break;
-      default:
-        break;
-    }
+  handleLogout() {
+    localStorage.removeItem('tokenLearningZone');
+    this._sharedService.isLoggedLearningZone.set({
+      status: false,
+    });
   }
 
   getActiveTools() {
     this.loading = true;
-    this._servicesLearningZoneService.getToolsAdmin().subscribe((data) => {
+
+    this._sharedService.getActiveAdminTools(3).subscribe((data) => {
       this.activeToolsData = data.result;
+      this.loading = false;
+    });
+  }
+
+  getDisabledTools() {
+    this.loading = true;
+
+    this._sharedService.getDisabledAdminTools(3).subscribe((data) => {
+      this.disabledToolsData = data.result;
       this.loading = false;
     });
   }
 
   getRequestedTools() {
     this.loading = true;
-    this._servicesLearningZoneService.getToolsAdminRquest().subscribe((data) => {
+
+    this._sharedService.getRequestedAdminTools(3).subscribe((data) => {
       this.requestedToolsData = data.result;
       this.loading = false;
     });
   }
 
-  getDesactiveTools() {
-    this.loading = true;
-    this._servicesLearningZoneService.getToolsAdminDesactive().subscribe((data) => {
-      this.desactiveToolsData = data.result;
-      this.loading = false;
-    });
-  }
+  onActiveItemChange(event: MenuItem) {
+    this.activeItem = event;
 
-  handleLogin() {
-    try {
-      this._servicesLearningZoneService.login(this.loginForm).subscribe((data) => {
-        if (data.result === 'user not found' || data.result === 'Invalid password') {
-          this.error = {
-            status: true,
-            message: 'User not found or invalid password',
-          };
-          return;
-        }
-
-        this.localStorageToken(data.result.token);
-        this.dialogLogin = false;
-      });
-    } catch (error) {
-      console.error(error);
-      this.error = {
-        status: true,
-        message: 'Server error, try again later',
-      };
+    switch (this.activeItem.id) {
+      case '0':
+        this.getActiveTools();
+        break;
+      case '1':
+        this.getDisabledTools();
+        break;
+      case '2':
+        this.getRequestedTools();
+        break;
+      default:
+        break;
     }
-  }
-
-  localStorageToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getlocalStorageToken() {
-    return localStorage.getItem('token');
-  }
-
-  setlocalStorageToken() {
-    localStorage.removeItem('token');
-    this.dialogLogin = true;
-    this.loginForm.email = '';
-    this.loginForm.password = '';
   }
 }

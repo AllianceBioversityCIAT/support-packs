@@ -14,6 +14,5 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
 export class LearningZoneComponent implements OnInit {
   ngOnInit() {
     IBDGoogleAnalytics().initialize(environment.GAIDLearningZone);
-    localStorage.removeItem('token');
   }
 }

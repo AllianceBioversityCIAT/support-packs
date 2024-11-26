@@ -132,6 +132,15 @@
     width: 100%;
     height: 1px;
   }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
 }
 
 :host ::ng-deep .roleDropdown .p-placeholder::before {

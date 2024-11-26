@@ -48,19 +48,19 @@ export class AdminComponent implements OnInit {
     this.getActiveTools();
 
     if (this.getlocalStorageToken() !== null) {
-      this._sharedService.isLoggedMELSP.set({
+      this._sharedService.isLoggedDMSP.set({
         status: true,
       });
     }
   }
 
   getlocalStorageToken() {
-    return localStorage.getItem('tokenMELSP');
+    return localStorage.getItem('tokenDMSP');
   }
 
   handleLogout() {
-    localStorage.removeItem('tokenMELSP');
-    this._sharedService.isLoggedMELSP.set({
+    localStorage.removeItem('tokenDMSP');
+    this._sharedService.isLoggedDMSP.set({
       status: false,
     });
   }
@@ -68,7 +68,7 @@ export class AdminComponent implements OnInit {
   getActiveTools() {
     this.loading = true;
 
-    this._sharedService.getActiveAdminTools(2).subscribe((data) => {
+    this._sharedService.getActiveAdminTools(1).subscribe((data) => {
       this.activeToolsData = data.result;
       this.loading = false;
     });
@@ -77,7 +77,7 @@ export class AdminComponent implements OnInit {
   getDisabledTools() {
     this.loading = true;
 
-    this._sharedService.getDisabledAdminTools(2).subscribe((data) => {
+    this._sharedService.getDisabledAdminTools(1).subscribe((data) => {
       this.disabledToolsData = data.result;
       this.loading = false;
     });
@@ -86,7 +86,7 @@ export class AdminComponent implements OnInit {
   getRequestedTools() {
     this.loading = true;
 
-    this._sharedService.getRequestedAdminTools(2).subscribe((data) => {
+    this._sharedService.getRequestedAdminTools(1).subscribe((data) => {
       this.requestedToolsData = data.result;
       this.loading = false;
     });

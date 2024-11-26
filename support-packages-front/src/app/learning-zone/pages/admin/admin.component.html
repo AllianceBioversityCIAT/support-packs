@@ -1,30 +1,6 @@
-@if (dialogLogin) {
-  <div class="admin__login">
-    <div class="admin__login__header">
-      <h1 class="admin__login__header--title">Login</h1>
-      <p class="admin__login__header--subtitle">
-        Please enter your email and password to login to the admin panel.
-      </p>
-    </div>
-    <div class="admin__login--input">
-      <label htmlFor="email" class="bold">Email</label>
-      <input pInputText id="email" [(ngModel)]="loginForm.email" />
-    </div>
-    <div class="admin__login--input">
-      <label htmlFor="email" class="bold">Password</label>
-      <input pInputText id="password" type="password" [(ngModel)]="loginForm.password" />
-    </div>
-    <div class="admin__login--button">
-      <button
-        pButton
-        label="Login"
-        (click)="handleLogin()"
-      class="admin__login--button--item"></button>
-    </div>
-  </div>
-}
-
-@if (!dialogLogin) {
+@if (!_sharedService.isLoggedLearningZone().status) {
+  <app-login-form app_id="3"></app-login-form>
+} @else {
   <div class="admin__content">
     <div class="admin__content__logOut">
       <h1 class="admin__content__logOut--title">Manage Tool</h1>
@@ -35,47 +11,38 @@
         icon="pi pi-sign-out"
         label="Sign out"
         class="p-button-rounded p-button-text admin__content__logOut--button p-button"
-      (click)="setlocalStorageToken()"></button>
+        (click)="handleLogout()"></button>
     </div>
     <div style="width: 100%">
       <p-tabMenu
         [model]="items"
         [activeItem]="activeItem"
         (activeItemChange)="onActiveItemChange($event)"
-      [style]="{ 'margin-bottom': '20px' }"></p-tabMenu>
-      @if (activeItem.id === 0) {
-        <app-results-table
+        [style]="{ 'margin-bottom': '20px' }"></p-tabMenu>
+      @if (activeItem.id === '0') {
+        <app-admin-tools-table
           [activeItem]="activeItem"
           [tableData]="activeToolsData"
           [tableDataLoading]="loading"
-        (onGetActiveTools)="getActiveTools()"></app-results-table>
+          (onGetActiveTools)="getActiveTools()"
+          app_id="3"></app-admin-tools-table>
       }
-      @if (activeItem.id === 1) {
-        <app-results-table
+      @if (activeItem.id === '1') {
+        <app-admin-tools-table
           [activeItem]="activeItem"
-          [tableData]="desactiveToolsData"
+          [tableData]="disabledToolsData"
+          (onGetDesactiveTools)="getDisabledTools()"
           [tableDataLoading]="loading"
-        (onGetDesactiveTools)="getDesactiveTools()"></app-results-table>
+          app_id="3"></app-admin-tools-table>
       }
-      @if (activeItem.id === 2) {
-        <app-results-table
+      @if (activeItem.id === '2') {
+        <app-admin-tools-table
           [activeItem]="activeItem"
           [tableData]="requestedToolsData"
           [tableDataLoading]="loading"
-        (onGetRequestedTools)="getRequestedTools()"></app-results-table>
+          (onGetRequestedTools)="getRequestedTools()"
+          app_id="3"></app-admin-tools-table>
       }
     </div>
   </div>
 }
-
-<p-dialog
-  [(visible)]="error.status"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  (onHide)="error.status = false">
-  <div class="errorDialog">
-    <i class="pi pi-times-circle" style="font-size: 2.5rem; color: red"></i>
-    <h3>{{ error.message }}</h3>
-  </div>
-</p-dialog>

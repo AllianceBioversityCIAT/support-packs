@@ -10,6 +10,7 @@ import { SharedModule } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgClass, NgStyle } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface IRole {
   id: number;
@@ -86,6 +87,7 @@ interface IProduct {
     ButtonModule,
     TermsConditionsComponent,
     PdfGenerateComponent,
+    RouterModule,
   ],
 })
 export class ToolsResultsComponent implements OnInit {

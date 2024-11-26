@@ -1,13 +1,13 @@
 <nav class="admin__nav">
   <a
-    routerLink="/melsp/home"
+    routerLink="/dmsp/home"
     class="p-button p-button-secondary2"
     style="text-decoration: none; margin-right: 5px">
     <i class="pi pi-angle-left" style="margin-right: 0.5rem"></i>
     Go back to home
   </a>
 
-  @if (_sharedService.isLoggedMELSP().status) {
+  @if (_sharedService.isLoggedDMSP().status) {
     <button
       pButton
       label="Log out"
@@ -18,8 +18,8 @@
   }
 </nav>
 
-@if (!_sharedService.isLoggedMELSP().status) {
-  <app-login-form app_id="2"></app-login-form>
+@if (!_sharedService.isLoggedDMSP().status) {
+  <app-login-form app_id="1"></app-login-form>
 } @else {
   <div class="admin__content">
     <div style="width: 100%">
@@ -34,7 +34,7 @@
           [tableData]="activeToolsData"
           [tableDataLoading]="loading"
           (onGetActiveTools)="getActiveTools()"
-          app_id="2"></app-admin-tools-table>
+          app_id="1"></app-admin-tools-table>
       }
       @if (activeItem.id === '1') {
         <app-admin-tools-table
@@ -42,7 +42,7 @@
           [tableData]="disabledToolsData"
           (onGetDesactiveTools)="getDisabledTools()"
           [tableDataLoading]="loading"
-          app_id="2"></app-admin-tools-table>
+          app_id="1"></app-admin-tools-table>
       }
       @if (activeItem.id === '2') {
         <app-admin-tools-table
@@ -50,7 +50,7 @@
           [tableData]="requestedToolsData"
           [tableDataLoading]="loading"
           (onGetRequestedTools)="getRequestedTools()"
-          app_id="2"></app-admin-tools-table>
+          app_id="1"></app-admin-tools-table>
       }
     </div>
   </div>

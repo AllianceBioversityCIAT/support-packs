@@ -57,7 +57,7 @@ export const routes: Routes = [
           {
             path: 'home',
             loadComponent: () =>
-              import('../dmsp/page/tools-results/tools-results.component').then(
+              import('../dmsp/pages/tools-results/tools-results.component').then(
                 (mod) => mod.ToolsResultsComponent,
               ),
           },
@@ -65,6 +65,12 @@ export const routes: Routes = [
             path: '',
             redirectTo: 'home',
             pathMatch: 'full',
+          },
+          {
+            path: 'manage-tool',
+            title: 'DMSP - Admin module',
+            loadComponent: () =>
+              import('../dmsp/pages/admin/admin.component').then((mod) => mod.AdminComponent),
           },
         ],
       },
@@ -96,6 +102,13 @@ export const routes: Routes = [
             title: 'MELSP - Admin module',
             loadComponent: () =>
               import('../melsp/pages/admin/admin.component').then((mod) => mod.AdminComponent),
+          },
+          {
+            path: 'form-request',
+            loadComponent: () =>
+              import('../melsp/pages/form-request/form-request.component').then(
+                (mod) => mod.FormRequestComponent,
+              ),
           },
         ],
       },

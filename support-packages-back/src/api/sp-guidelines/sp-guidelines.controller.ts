@@ -69,7 +69,7 @@ export class SpGuidelinesController {
   @Get('/editPanel/:app_id')
   async getAllToolsEditPanel(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
     try{
-      const result = await this.spGuidelinesService.getGuidelineByApp(app_id);
+      const result = await this.spGuidelinesService.getActiveToolsByApp(app_id);
       
       
       return response.status(200).json({
@@ -88,6 +88,49 @@ export class SpGuidelinesController {
     }
   }
 
+  @Get('/editPanelDesactive/:app_id')
+  async getAllToolsEditPanelDesactive(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.getDisabledToolsByApp(app_id);
+      
+      
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
+
+  @Get('/adminPanel/requested/:app_id')
+  async getAllToolsRequested(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
+    try{
+      const result = await this.spGuidelinesService.getRequestedToolsByApp(app_id);
+      
+      
+      return response.status(200).json({
+        status: 'Ok!',
+        message: 'Successfully fetch data!',
+        result: result
+   })
+    }catch(err){
+      console.log(err);
+      
+      return response.status(500).json({
+        error: err,
+       status: 'Ok!',
+       message : 'Internal Server Error!'
+  })
+    }
+  }
 
   @Post('/updateTool/:app_id/:id')
   async updateTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id) : Promise<any>{
@@ -112,7 +155,7 @@ export class SpGuidelinesController {
   @Post('/activeOrDesactive/:app_id/:id/:active')
   async activeOrDesativeTool(@Req() request: Request, @Res() response: Response, @Body() body:any, @Param('app_id') app_id, @Param('id') id, @Param('active') active) : Promise<any>{
     try{
-      const result = await this.spGuidelinesService.activeOrDesactiveTool(app_id,id,body, active);
+      const result = await this.spGuidelinesService.enableOrDisableTool(app_id,id,body, active);
       return response.status(200).json({
         status: 'Ok!',
         message: 'Successfully fetch data!',
@@ -120,28 +163,6 @@ export class SpGuidelinesController {
    })
     }catch(err){
       console.log(err);
-      return response.status(500).json({
-        error: err,
-       status: 'Ok!',
-       message : 'Internal Server Error!'
-  })
-    }
-  }
-
-  @Get('/editPanelDesactive/:app_id')
-  async getAllToolsEditPanelDesactive(@Req() request: Request, @Res() response: Response,@Param('app_id') app_id) : Promise<any>{
-    try{
-      const result = await this.spGuidelinesService.getGuidelineByAppDesactive(app_id);
-      
-      
-      return response.status(200).json({
-        status: 'Ok!',
-        message: 'Successfully fetch data!',
-        result: result
-   })
-    }catch(err){
-      console.log(err);
-      
       return response.status(500).json({
         error: err,
        status: 'Ok!',

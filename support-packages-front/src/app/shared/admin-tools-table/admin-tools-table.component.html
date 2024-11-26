@@ -1,0 +1,254 @@
+<p-table
+  #dt2
+  [value]="tableData"
+  [paginator]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [tableStyle]="{ 'min-width': '40rem' }"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [loading]="tableDataLoading"
+  [globalFilterFields]="['id', 'name', 'category_name']">
+  <ng-template pTemplate="caption">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        pInputText
+        type="text"
+        (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+        placeholder="Search Tool" />
+    </span>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th id="id" style="width: 5%">ID</th>
+      <th id="name" style="width: 45%">Name</th>
+      <th id="category" style="width: 30%">Category</th>
+      <th id="actions" style="width: 18%">Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-tool>
+    <tr style="height: 70px">
+      <td>{{ tool.id }}</td>
+      <td>{{ tool.name }}</td>
+      <td>{{ tool.category_name }}</td>
+      <td style="display: flex; flex-direction: row; align-items: center; gap: 5px; height: 70px">
+        @if (activeItem.id === '0' || activeItem.id === '2') {
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-secondary2"
+            (click)="showEditDialog(tool)"></button>
+        }
+
+        @if (activeItem.id === '0' || activeItem.id === '1') {
+          <button
+            pButton
+            pRipple
+            type="button"
+            [icon]="activeItem.id === '0' ? 'pi pi-trash' : 'pi pi-check-circle'"
+            class="p-button-rounded p-button-text p-button-secondary2"
+            (click)="showDialogDesactive(tool)"></button>
+        }
+
+        @if (activeItem.id === '2') {
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-check-square"
+            class="p-button-rounded p-button-text p-button-secondary2"
+            (click)="showDialogAccepted(tool)"></button>
+
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="showDenyRequest(tool)"></button>
+        }
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">No tools found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  header="Edit Tool"
+  [(visible)]="EditModalOpen"
+  [modal]="true"
+  [draggable]="false"
+  [breakpoints]="{ '2400px': '900px', '1400px': '75vw', '575px': '90vw' }"
+  [resizable]="false"
+  (onHide)="onCloseEditModal()">
+  @if (EditModalOpen) {
+    @if (app_id === '3') {
+      <app-edit-modal-learning-zone
+        [informationEdit]="informationEdit"
+        [step1]="step1"
+        [step2]="step2"
+        (onEditTool)="editTool()"
+        (onButton1Validations)="button1Validations()"
+        (onButton2Validations)="button2Validations()"></app-edit-modal-learning-zone>
+    }
+
+    @if (app_id === '2') {
+      <app-edit-modal-melsp
+        [informationEdit]="informationEdit"
+        (onEditTool)="editTool()"></app-edit-modal-melsp>
+    }
+
+    @if (app_id === '1') {
+      <app-edit-modal-dmsp
+        [informationEdit]="informationEdit"
+        (onEditTool)="editTool()"></app-edit-modal-dmsp>
+    }
+  }
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isSaving"
+  [modal]="true"
+  [style]="{ width: '10vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <ng-template pTemplate="headless">
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        padding: 2rem 4rem;
+        border-radius: 1rem;
+      ">
+      <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="enableDisabledModalOpen"
+  [modal]="true"
+  [style]="{ width: '40vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 16px;
+    ">
+    <div>
+      <p>
+        Are you sure you want to <b>{{ activeItem.id === '0' ? 'deactivate' : 'activate' }}</b> this
+        tool?
+      </p>
+    </div>
+    <div style="margin-top: 20px">
+      <button
+        pButton
+        label="Cancel"
+        (click)="enableDisabledModalOpen = false"
+        severity="danger"
+        style="background-color: red; border: none; font-weight: 600"></button>
+
+      <button
+        pButton
+        label="Accept"
+        (click)="handleDesactive()"
+        severity="success"
+        style="
+          background-color: rgb(0, 180, 120);
+          margin-left: 10px;
+          border: none;
+          font-weight: 600;
+        "></button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="acceptedModalOpen"
+  [modal]="true"
+  [style]="{ width: '40vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    ">
+    <div>
+      <p>Are you sure you want to accepted this tool?</p>
+    </div>
+    <div style="margin-top: 20px">
+      <button
+        pButton
+        label="Cancel"
+        (click)="acceptedModalOpen = false"
+        severity="danger"
+        style="background-color: red"></button>
+      <button
+        pButton
+        label="Accept"
+        (click)="acceptRequest()"
+        severity="success"
+        style="background-color: rgb(0, 180, 120); margin-left: 10px"></button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="denyModalOpen"
+  [modal]="true"
+  [style]="{ width: '40vw' }"
+  [draggable]="false"
+  [closable]="false"
+  [resizable]="false">
+  <div
+    style="
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    ">
+    <div>
+      <p>Are you sure you want to refuse this tool?</p>
+    </div>
+    <div style="margin-top: 20px">
+      <button
+        pButton
+        label="Cancel"
+        (click)="denyModalOpen = false"
+        severity="danger"
+        style="background-color: red"></button>
+      <button
+        pButton
+        label="Accept"
+        (click)="denyRequest()"
+        severity="success"
+        style="background-color: rgb(0, 180, 120); margin-left: 10px"></button>
+    </div>
+  </div>
+</p-dialog>

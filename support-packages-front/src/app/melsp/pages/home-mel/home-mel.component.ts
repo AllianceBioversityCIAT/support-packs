@@ -9,6 +9,7 @@ import { NgStyle } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { RouterLink } from '@angular/router';
 
 interface IRole {
   id: number;
@@ -51,11 +52,11 @@ interface IProduct {
 }
 
 @Component({
-    selector: 'app-home-mel',
-    templateUrl: './home-mel.component.html',
-    styleUrls: ['./home-mel.component.scss'],
-    standalone: true,
-    imports: [
+  selector: 'app-home-mel',
+  templateUrl: './home-mel.component.html',
+  styleUrls: ['./home-mel.component.scss'],
+  standalone: true,
+  imports: [
     DropdownModule,
     FormsModule,
     SharedModule,
@@ -63,8 +64,9 @@ interface IProduct {
     TableModule,
     ButtonModule,
     TermsConditionsComponent,
-    PdfGenerateComponent
-],
+    PdfGenerateComponent,
+    RouterLink,
+  ],
 })
 export class HomeMelComponent implements OnInit, OnDestroy {
   productsData: IProduct[];

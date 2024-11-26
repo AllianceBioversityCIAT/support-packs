@@ -73,6 +73,15 @@
       margin-top: 2rem;
     }
   }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+  }
 }
 
 .secondColumnWhat {

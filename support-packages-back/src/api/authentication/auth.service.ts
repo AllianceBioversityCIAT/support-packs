@@ -16,20 +16,29 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto): Promise<any> {
-    const { email, password } = loginDto;
+    const { email, password, app_id } = loginDto;
 
     const users = await this.prismaService.sp_users.findUnique({
       where: { email },
+      include: {
+        permissions: {
+          where: { app_id: parseInt(app_id) },
+        },
+      },
     });
 
     if (!users) {
-      return 'user not found';
+      return 'userNotFound';
+    }
+
+    if (users.permissions.length === 0) {
+      return 'notPermission';
     }
 
     const validatePassword = await bcrypt.compare(password, users.password);
 
     if (!validatePassword) {
-      return 'Invalid password';
+      return 'invalidPassword';
     }
 
     return {

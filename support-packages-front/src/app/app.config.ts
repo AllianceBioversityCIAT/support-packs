@@ -8,7 +8,12 @@ import { Bolt, Link2, LucideAngularModule } from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(
+      routes,
+      withViewTransitions({
+        skipInitialTransition: true,
+      }),
+    ),
     importProvidersFrom(
       HttpClientModule,
       BrowserAnimationsModule,

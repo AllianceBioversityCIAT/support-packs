@@ -40,221 +40,235 @@
     }">
     <ng-template pTemplate="selectedItem">
       @if (selectedRole) {
-        <div
-          style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
-          >
+        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem">
           <img
             src="../../../../assets/icon-1.png"
             alt="Person icon"
             style="width: 18px; height: 18px" />
-            <div style="color: white">{{ selectedRole.name }}</div>
-          </div>
-        }
+          <div style="color: white">{{ selectedRole.name }}</div>
+        </div>
+      }
+    </ng-template>
+  </p-dropdown>
+
+  <p-dropdown
+    [options]="whenData"
+    [(ngModel)]="selectedWhen"
+    (ngModelChange)="filterInformation()"
+    optionLabel="name"
+    placeholder="Choose a when"
+    styleClass="whenDropdown"
+    [style]="{
+      width: '100%',
+      'background-color': '#d47979',
+      color: 'white',
+      'box-shadow': 'none'
+    }">
+    <ng-template pTemplate="selectedItem">
+      @if (selectedWhen) {
+        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem">
+          <img
+            src="../../../../assets/icon-2.png"
+            alt="Clock icon"
+            style="width: 18px; height: 18px" />
+          <div style="color: white">{{ selectedWhen.name }}</div>
+        </div>
+      }
+    </ng-template>
+  </p-dropdown>
+
+  <p-dropdown
+    [options]="whatData"
+    [(ngModel)]="selectedWhat"
+    (ngModelChange)="filterInformation()"
+    optionLabel="name"
+    placeholder="Choose a what"
+    styleClass="whatDropdown"
+    [style]="{
+      width: '100%',
+      'background-color': '#d47979',
+      color: 'white',
+      'box-shadow': 'none'
+    }">
+    <ng-template pTemplate="selectedItem">
+      @if (selectedWhat) {
+        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem">
+          <img
+            src="../../../../assets/icon-3.png"
+            alt="Interrogation symbol icon"
+            style="width: 18px; height: 18px" />
+          <div style="color: white">{{ selectedWhat.name }}</div>
+        </div>
+      }
+    </ng-template>
+  </p-dropdown>
+</div>
+
+@if (!selectedRole || !selectedWhat || !selectedWhen) {
+  <div class="home__notFilter">
+    <h3 class="home__notFilter--title">Please select the 3 option(s) above</h3>
+    <div class="home__notFilter--images">
+      <img
+        src="../../../../assets/icon-1.png"
+        alt="Person icon"
+        [ngStyle]="{ opacity: selectedRole ? '1' : '0.5' }" />
+      <img
+        src="../../../../assets/icon-2.png"
+        alt="Clock icon"
+        class="checkIcon"
+        [ngStyle]="{ opacity: selectedWhen ? '1' : '0.5' }" />
+      <img
+        src="../../../../assets/icon-3.png"
+        alt="Interrogation symbol icon"
+        class="checkIcon"
+        [ngStyle]="{ opacity: selectedWhat ? '1' : '0.5' }" />
+    </div>
+  </div>
+}
+
+@if (
+  this.selectedRole &&
+  this.selectedWhen &&
+  this.selectedWhat &&
+  !this._servicesVariables.termsConditions &&
+  !this._servicesVariables.continue
+) {
+  <div>
+    <div class="home__header">
+      <h2 class="home__header--title">Documents recomended</h2>
+      <p class="home__header--subtitle">
+        <span>{{ productsData?.length }}</span> Documents found for a
+        <span>{{ selectedRole.name }}</span> at <span>{{ selectedWhen.name }}</span> stage
+      </p>
+    </div>
+    <h2 class="home__header--description">{{ selectedWhat.name }}</h2>
+    <p-table
+      [value]="productsData"
+      [(selection)]="selectedProducts"
+      dataKey="code"
+      styleClass="home__table"
+      [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td
+            style="background-color: #f1f1f1; padding-right: 0 !important; width: 20px !important">
+            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+          </td>
+          <td style="background-color: #f1f1f1">
+            <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
+            {{ product.name }}
+          </td>
+          <td style="background-color: #f1f1f1; width: 150px !important">
+            <div class="home__table__info">
+              <div
+                class="home__table__info--point numOne"
+                [ngStyle]="{
+                  'background-color': getImportanceLevelColor(product.importance_level)
+                }"></div>
+              <div>{{ product.importance_level }}</div>
+            </div>
+          </td>
+        </tr>
       </ng-template>
-    </p-dropdown>
+    </p-table>
+    <div class="home__table__buttons">
+      <button
+        pButton
+        [disabled]="selectedProducts?.length === 0"
+        label="Download chosen documents"
+        icon="pi pi-angle-right"
+        iconPos="right"
+        (click)="this._servicesVariables.termsAndConditions()"></button>
+    </div>
+  </div>
+}
 
-    <p-dropdown
-      [options]="whenData"
-      [(ngModel)]="selectedWhen"
-      (ngModelChange)="filterInformation()"
-      optionLabel="name"
-      placeholder="Choose a when"
-      styleClass="whenDropdown"
-    [style]="{
-      width: '100%',
-      'background-color': '#d47979',
-      color: 'white',
-      'box-shadow': 'none'
-    }">
-      <ng-template pTemplate="selectedItem">
-        @if (selectedWhen) {
-          <div
-            style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
-            >
-            <img
-              src="../../../../assets/icon-2.png"
-              alt="Clock icon"
-              style="width: 18px; height: 18px" />
-              <div style="color: white">{{ selectedWhen.name }}</div>
-            </div>
-          }
-        </ng-template>
-      </p-dropdown>
+@if (this._servicesVariables.termsConditions) {
+  <div>
+    <app-terms-conditions [app_id]="2" [tools]="selectedProducts"></app-terms-conditions>
+  </div>
+}
 
-      <p-dropdown
-        [options]="whatData"
-        [(ngModel)]="selectedWhat"
-        (ngModelChange)="filterInformation()"
-        optionLabel="name"
-        placeholder="Choose a what"
-        styleClass="whatDropdown"
-    [style]="{
-      width: '100%',
-      'background-color': '#d47979',
-      color: 'white',
-      'box-shadow': 'none'
-    }">
-        <ng-template pTemplate="selectedItem">
-          @if (selectedWhat) {
-            <div
-              style="display: flex; align-items: center; justify-content: flex-start; gap: 0.5rem"
-              >
-              <img
-                src="../../../../assets/icon-3.png"
-                alt="Interrogation symbol icon"
-                style="width: 18px; height: 18px" />
-                <div style="color: white">{{ selectedWhat.name }}</div>
-              </div>
-            }
-          </ng-template>
-        </p-dropdown>
-      </div>
+@if (
+  this.selectedRole &&
+  this.selectedWhen &&
+  this.selectedWhat &&
+  !this._servicesVariables.termsConditions &&
+  this._servicesVariables.continue
+) {
+  <div>
+    <div class="home__header">
+      <h2 class="home__header--title" style="font-size: 30px; font-weight: lighter">Download</h2>
+    </div>
+    <p-table
+      [value]="selectedProducts"
+      dataKey="code"
+      [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td style="background-color: #f1f1f1; padding: 8px 12px !important">
+            <a
+              [href]="product.source"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="home__table--link">
+              <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
+              {{ product.code }} {{ product.name }}
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="home__table__buttons">
+      @if (validateShowPdfButton().showPdfButton) {
+        <app-pdf-generate
+          [data]="validateShowPdfButton().ToolsType0"
+          [app]="1"
+          [buttonText]="validateShowPdfButton().buttonMessage"></app-pdf-generate>
+      }
+      <button
+        pButton
+        label="New search"
+        class="p-button-secondary3"
+        (click)="initNewSearch()"></button>
+    </div>
+  </div>
+}
 
-      @if (!selectedRole || !selectedWhat || !selectedWhen) {
-        <div class="home__notFilter">
-          <h3 class="home__notFilter--title">Please select the 3 option(s) above</h3>
-          <div class="home__notFilter--images">
-            <img
-              src="../../../../assets/icon-1.png"
-              alt="Person icon"
-              [ngStyle]="{ opacity: selectedRole ? '1' : '0.5' }" />
-              <img
-                src="../../../../assets/icon-2.png"
-                alt="Clock icon"
-                class="checkIcon"
-                [ngStyle]="{ opacity: selectedWhen ? '1' : '0.5' }" />
-                <img
-                  src="../../../../assets/icon-3.png"
-                  alt="Interrogation symbol icon"
-                  class="checkIcon"
-                  [ngStyle]="{ opacity: selectedWhat ? '1' : '0.5' }" />
-                </div>
-              </div>
-            }
+<div class="home__line"></div>
 
-            @if (
-              this.selectedRole &&
-              this.selectedWhen &&
-              this.selectedWhat &&
-              !this._servicesVariables.termsConditions &&
-              !this._servicesVariables.continue
-              ) {
-              <div class="home__header">
-                <h2 class="home__header--title">Documents recomended</h2>
-                <p class="home__header--subtitle">
-                  <span>{{ productsData?.length }}</span> Documents found for a
-                  <span>{{ selectedRole.name }}</span> at <span>{{ selectedWhen.name }}</span> stage
-                </p>
-              </div>
-              <h2 class="home__header--description">{{ selectedWhat.name }}</h2>
-              <p-table
-                [value]="productsData"
-                [(selection)]="selectedProducts"
-                dataKey="code"
-                styleClass="home__table"
-                [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
-                <ng-template pTemplate="body" let-product>
-                  <tr>
-                    <td style="background-color: #f1f1f1; padding-right: 0 !important; width: 20px !important">
-                      <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                    </td>
-                    <td style="background-color: #f1f1f1">
-                      <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
-                      {{ product.name }}
-                    </td>
-                    <td style="background-color: #f1f1f1; width: 150px !important">
-                      <div class="home__table__info">
-                        <div
-                          class="home__table__info--point numOne"
-              [ngStyle]="{
-                'background-color': getImportanceLevelColor(product.importance_level)
-              }"></div>
-                        <div>{{ product.importance_level }}</div>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-              <div class="home__table__buttons">
-                <button
-                  pButton
-                  [disabled]="selectedProducts?.length === 0"
-                  label="Download chosen documents"
-                  icon="pi pi-angle-right"
-                  iconPos="right"
-                (click)="this._servicesVariables.termsAndConditions()"></button>
-              </div>
-            }
-
-            @if (this._servicesVariables.termsConditions) {
-              <div>
-                <app-terms-conditions [app_id]="2" [tools]="selectedProducts"></app-terms-conditions>
-              </div>
-            }
-
-            @if (
-              this.selectedRole &&
-              this.selectedWhen &&
-              this.selectedWhat &&
-              !this._servicesVariables.termsConditions &&
-              this._servicesVariables.continue
-              ) {
-              <div class="home__header">
-                <h2 class="home__header--title" style="font-size: 30px; font-weight: lighter">Download</h2>
-              </div>
-              <p-table
-                [value]="selectedProducts"
-                dataKey="code"
-                [tableStyle]="{ 'min-width': '50rem', padding: '0 15px' }">
-                <ng-template pTemplate="body" let-product>
-                  <tr>
-                    <td style="background-color: #f1f1f1; padding: 8px 12px !important">
-                      <a
-                        [href]="product.source"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="home__table--link">
-                        <i [class]="getIconByType(product.type)" style="margin-right: 5px"></i>
-                        {{ product.code }} {{ product.name }}
-                      </a>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-              <div class="home__table__buttons">
-                @if (validateShowPdfButton().showPdfButton) {
-                  <app-pdf-generate
-                    [data]="validateShowPdfButton().ToolsType0"
-                    [app]="1"
-                  [buttonText]="validateShowPdfButton().buttonMessage"></app-pdf-generate>
-                }
-                <button
-                  pButton
-                  label="New search"
-                  class="p-button-secondary3"
-                (click)="initNewSearch()"></button>
-              </div>
-            }
-
-            <div class="home__line"></div>
-
-            <div style="margin-bottom: 40px">
-              <a
-                href="/melsp/overview"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="p-button p-button-secondary2"
-                style="text-decoration: none; margin-right: 5px">
-                <i class="pi pi-list" style="margin-right: 0.5rem"></i>
-                View all resources
-              </a>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="p-button p-button-secondary2"
-                style="text-decoration: none">
-                <i class="pi pi-send" style="margin-right: 0.5rem"></i>
-                Request to upload a resources
-              </a>
-            </div>
+<div class="home__footer">
+  <a
+    href="/melsp/overview"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-list" style="margin-right: 0.5rem"></i>
+    View all resources
+  </a>
+  <!-- <a
+    href="https://docs.google.com/forms/d/e/1FAIpQLScc1mMjjOyzQs8Co8tpg_RsorG7KKLlvLfU3ax54G_z2b-poA/viewform"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-send" style="margin-right: 0.5rem"></i>
+    Request to upload a resources
+  </a> -->
+  <a
+    routerLink="/melsp/form-request"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none">
+    <i class="pi pi-send" style="margin-right: 0.5rem"></i>
+    Request to upload a resources
+  </a>
+  <a
+    routerLink="/melsp/manage-tool"
+    class="p-button p-button-secondary2"
+    style="text-decoration: none"
+    (click)="initNewSearch()">
+    <i class="pi pi-user-edit" style="margin-right: 0.5rem"></i>
+    Manage tool
+  </a>
+</div>

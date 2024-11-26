@@ -22,7 +22,7 @@ describe('AdminComponent', () => {
         .fn()
         .mockReturnValue(of({ result: [{ id: 3, name: 'Desactive Tool' }] })),
       login: jest.fn().mockReturnValue(of({ result: { token: 'fake-token' } })),
-      isLoggedMELSP: { set: jest.fn() },
+      isLoggedDMSP: { set: jest.fn() },
     };
 
     TestBed.configureTestingModule({
@@ -44,10 +44,10 @@ describe('AdminComponent', () => {
     expect(component.activeItem).toBe(component.items[0]);
   });
 
-  it('should set isLoggedMELSP to true if token is present', () => {
+  it('should set isLoggedDMSP to true if token is present', () => {
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-token');
     component.ngOnInit();
-    expect(mockSharedService.isLoggedMELSP.set).toHaveBeenCalledWith({ status: true });
+    expect(mockSharedService.isLoggedDMSP.set).toHaveBeenCalledWith({ status: true });
   });
 
   it('should call getActiveTools on init', () => {
@@ -97,12 +97,12 @@ describe('AdminComponent', () => {
   it('should get token from local storage', () => {
     const getItemSpy = jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('fake-token');
     expect(component.getlocalStorageToken()).toBe('fake-token');
-    expect(getItemSpy).toHaveBeenCalledWith('tokenMELSP');
+    expect(getItemSpy).toHaveBeenCalledWith('tokenDMSP');
   });
 
   it('should remove token from local storage and reset login form', () => {
     const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem');
     component.handleLogout();
-    expect(removeItemSpy).toHaveBeenCalledWith('tokenMELSP');
+    expect(removeItemSpy).toHaveBeenCalledWith('tokenDMSP');
   });
 });
