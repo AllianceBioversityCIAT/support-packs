@@ -223,6 +223,39 @@ export class TermsConditionsComponent {
   skipSection() {
     this._servicesVariables.continue = true;
     this._servicesVariables.termsConditions = false;
+    this.saveAnonymousDownload();
+  }
+
+  saveAnonymousDownload() {
+    this.formData.patchValue({
+      first_name: 'Anonymous',
+      last_name: 'Anonymous',
+      institute: 'Anonymous download',
+      interestRegions: this.fb.array([]),
+      instituteRegions: this.fb.array([]),
+      intended: 'Anonymous download',
+    });
+
+    this._servicesVariables
+      .postregisterdowload({
+        ...this.formData.value,
+        region: [],
+        email: 'anonymous download',
+        guiades: this.tools,
+        app_id: this.app_id,
+        interestRegions: [],
+        instituteRegions: [],
+      })
+      .subscribe({
+        next: (data) => {
+          this._servicesVariables.termsConditions = false;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error(error);
+          this.isLoading = false;
+        },
+      });
   }
 
   saveEmail() {
