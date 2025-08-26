@@ -55,10 +55,81 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+
+            "dmsp": {
+              "outputPath": "dist/dmsp",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dmsp.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kb",
+                  "maximumError": "2mb"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true
+            },
+            "learning": {
+              "outputPath": "dist/learning",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.learning.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kb",
+                  "maximumError": "2mb"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true
+            },
+            "melsp": {
+              "outputPath": "dist/melsp",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.melsp.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kb",
+                  "maximumError": "2mb"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true
             }
           },
           "defaultConfiguration": "production"
         },
+
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
@@ -67,10 +138,21 @@
             },
             "development": {
               "buildTarget": "support-packages-front:build:development"
+            },
+
+            "dmsp": {
+              "buildTarget": "support-packages-front:build:dmsp"
+            },
+            "learning": {
+              "buildTarget": "support-packages-front:build:learning"
+            },
+            "melsp": {
+              "buildTarget": "support-packages-front:build:melsp"
             }
           },
           "defaultConfiguration": "development"
         },
+
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
