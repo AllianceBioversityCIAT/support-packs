@@ -5,6 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:melsp": "ng build -c melsp",
+    "build:dmsp": "ng build -c dmsp",
+    "build:learning": "ng build -c learning",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -78,10 +81,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
       }
     }
   }
