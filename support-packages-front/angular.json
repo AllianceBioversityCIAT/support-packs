@@ -59,12 +59,14 @@
 
             "dmsp": {
               "outputPath": "dist/dmsp",
+              "index": { "input": "src/index.dmsp.html", "output": "index.html" },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.dmsp.ts"
                 }
               ],
+              "assets": ["src/assets", { "glob": "favicon.ico", "input": "src/assets/dmsp", "output": "/" }],
               "budgets": [
                 {
                   "type": "initial",
@@ -82,12 +84,14 @@
             },
             "learning": {
               "outputPath": "dist/learning",
+              "index": { "input": "src/index.learning.html", "output": "index.html" },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.learning.ts"
                 }
               ],
+              "assets": ["src/assets", { "glob": "favicon.ico", "input": "src/assets/learning", "output": "/" }],
               "budgets": [
                 {
                   "type": "initial",
@@ -105,12 +109,14 @@
             },
             "melsp": {
               "outputPath": "dist/melsp",
+              "index": { "input": "src/index.melsp.html", "output": "index.html" },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.melsp.ts"
                 }
               ],
+              "assets": ["src/assets", { "glob": "favicon.ico", "input": "src/assets/melsp", "output": "/" }],
               "budgets": [
                 {
                   "type": "initial",
